@@ -7,6 +7,6 @@ public class Player {
 	public Player () {
 		blobs = new ArrayList<PlayerBlob>();
 
-		blobs.add(new Blob());
+		blobs.add(new PlayerBlob());
 	}
 }
