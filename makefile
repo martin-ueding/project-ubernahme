@@ -9,4 +9,4 @@ javadoc:
 
 .PHONY: clean
 clean:
-	rm -rf *.class *.jar
+	rm -rf *.class *.jar javadoc
