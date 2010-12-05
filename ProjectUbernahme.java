@@ -10,4 +10,7 @@
  */
 
 public class ProjectUbernahme {
+	public static void main (String[] args) {
+		System.out.println("Hello, this is Project Ubernahme!");
+	}
 }
