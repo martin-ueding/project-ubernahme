@@ -3,3 +3,7 @@ pu.jar: ProjectUbernahme.class
 
 ProjectUbernahme.class: ProjectUbernahme.java
 	javac ProjectUbernahme.java
+
+.PHONY: clean
+clean:
+	rm -rf *.class *.jar
