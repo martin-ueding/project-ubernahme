@@ -19,10 +19,13 @@ public class ProjectUbernahme {
 	static ArrayList<PlayerBlob> globalBlobs;
 
 	public static void main (String[] args) {
+		globalBlobs = new ArrayList<PlayerBlob>();
+
 		System.out.println(Localizer.get("Welcome to Project Ubername"));
 
 		player = new Player();
 
-		System.out.println(Localizer.get("You are a blob of something. Somewhere, you do not really know where you are actually."));
+
+		player.play();
 	}
 }
