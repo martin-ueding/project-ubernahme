@@ -5,7 +5,7 @@ ProjectUbernahme.class: ProjectUbernahme.java
 	javac ProjectUbernahme.java
 
 javadoc:
-	javadoc *.java -d javadoc
+	javadoc *.java -d javadoc -private
 
 .PHONY: clean
 clean:
