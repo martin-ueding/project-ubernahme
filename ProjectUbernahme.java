@@ -8,9 +8,15 @@
  * 
  * You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+import java.util.ArrayList;
 
+/** the main game class */
 public class ProjectUbernahme {
+	/** main player */
 	static Player player;
+
+	/** list of all blobs in the whole game which are not controlled by the player */
+	static ArrayList<PlayerBlob> globalBlobs;
 
 	public static void main (String[] args) {
 		System.out.println(Localizer.get("Welcome to Project Ubername"));
