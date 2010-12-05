@@ -4,4 +4,6 @@ javac ProjectUbernahme.java
 echo.
 echo packing everything into a jar
 jar -cfm pu.jar manifest.txt *.class gfx sfx
+echo keeping window open
+pause
 
