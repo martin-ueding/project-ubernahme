@@ -16,10 +16,10 @@ public class ProjectUbernahme {
 	static Player player;
 
 	/** list of all blobs in the whole game which are not controlled by the player */
-	static ArrayList<PlayerBlob> globalBlobs;
+	static ArrayList<Lifeform> npcLifeforms;
 
 	public static void main (String[] args) {
-		globalBlobs = new ArrayList<PlayerBlob>();
+		npcLifeforms = new ArrayList<Lifeform>();
 
 		System.out.println(Localizer.get("Welcome to Project Ubername"));
 

@@ -1,7 +1,7 @@
-pu.jar: ProjectUbernahme.class
+pu.jar: ProjectUbernahme.class *.java
 	jar -cfm pu.jar manifest.txt *.class gfx sfx
 
-ProjectUbernahme.class: ProjectUbernahme.java
+ProjectUbernahme.class: *.java
 	javac ProjectUbernahme.java
 
 javadoc:
