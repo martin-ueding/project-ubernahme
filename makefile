@@ -12,4 +12,4 @@ javadoc:
 
 .PHONY: clean
 clean:
-	rm -rf *.class *.jar javadoc
+	rm -rf *.class *.jar javadoc Revno.java
