@@ -26,7 +26,7 @@ public class ProjectUbernahme {
 			npcLifeforms.add(new LifeformHuman());
 		}
 
-		System.out.println(Localizer.get("Welcome to Project Ubernahme"));
+		System.out.println(Localizer.get("Welcome to Project Ubernahme Revision ")+Revno.revno());
 		System.out.println(Localizer.get("You can quit the game any time by entering either “q” or “quit”"));
 
 		player = new Player();
