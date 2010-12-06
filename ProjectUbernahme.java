@@ -15,13 +15,18 @@ public class ProjectUbernahme {
 	/** main player */
 	static Player player;
 
-	/** list of all blobs in the whole game which are not controlled by the player */
+	/** list of all lifeforms in the whole game which are not controlled by the player */
 	static ArrayList<Lifeform> npcLifeforms;
 
 	public static void main (String[] args) {
 		npcLifeforms = new ArrayList<Lifeform>();
 
-		System.out.println(Localizer.get("Welcome to Project Ubername"));
+		/* add some NPCs to the game */
+		for (int i = 0; i < 5; i++) {
+			npcLifeforms.add(new LifeformHuman());
+		}
+
+		System.out.println(Localizer.get("Welcome to Project Ubernahme"));
 
 		player = new Player();
 

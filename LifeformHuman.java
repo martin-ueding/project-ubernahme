@@ -1,12 +1,11 @@
-/** lifeform, a simple fly which can look around and fly a little */
-public class LifeformFly extends Lifeform {
+public class LifeformHuman extends Lifeform {
 
-	public LifeformFly () {
+	public LifeformHuman () {
 		name = new String();
-		canFly = true;
+		canFly = false;
 		canSee = true;
 		canMove = true;
-		biomass = 0.001/17;
+		biomass = 60.0 + Math.random()*60;
 	}
 
 	public boolean canSee (Lifeform l) {
