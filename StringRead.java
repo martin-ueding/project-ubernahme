@@ -13,6 +13,10 @@ public class StringRead {
          System.out.println("IO error trying to read input");
          System.exit(1);
       }
+	  if (input.equals("q") || input.equals("quit")) {
+		  System.out.println("Goodbye!");
+		  System.exit(0);
+	  }
 	  return input;
    }
 }
