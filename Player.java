@@ -64,7 +64,7 @@ public class Player {
 			}
 		}
 
-		System.out.println(Localizer.get(Localizer.get("Game Over")));
+		System.out.println(Localizer.get("Game Over"));
 	}
 
 	public void takeControlOver (Lifeform l) {

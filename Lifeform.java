@@ -72,7 +72,7 @@ public abstract class Lifeform {
 			}
 		}
 		else {
-			System.out.println("This lifeform cannot see any other lifeforms");
+			System.out.println(Localizer.get("This lifeform cannot see any other lifeforms"));
 		}
 	}
 
@@ -86,7 +86,7 @@ public abstract class Lifeform {
 
 	/** polls for a new name and applies it */
 	public void rename () {
-		System.out.print("New Name: ");
+		System.out.print(Localizer.get("New Name: "));
 		name = StringRead.read();
 	}
 }
