@@ -6,9 +6,7 @@ public class Player {
 
 	/** initializes the list of controlledLifeforms, add a starting one */
 	public Player () {
-		System.out.println(Localizer.get("You are a blob of something. Somewhere, you do not really know where you are actually."));
 		controlledLifeforms = new ArrayList<Lifeform>();
-
 		controlledLifeforms.add(new LifeformFly());
 	}
 
@@ -19,14 +17,14 @@ public class Player {
 		/* the game continues as long as there are lifeforms the player is in control of */
 		while (controlledLifeforms.size() > 0) {
 			/* select which unit to use */
-			System.out.println("You are in control of the following lifeforms:");
+			System.out.println(Localizer.get("You are in control of the following lifeforms:"));
 			int i = 0;
 			for (Lifeform form : controlledLifeforms) {
 				if (form == lifeformSelection)
 					lifeformSelectionNumber = i;
 				System.out.println(i+++"\t"+form.toString());
 			}
-			System.out.print("which unit do you want to use? ");
+			System.out.print(Localizer.get("which unit do you want to use? "));
 			if (lifeformSelection != null)
 			   System.out.print("["+lifeformSelectionNumber+"] ");	
 
@@ -38,24 +36,24 @@ public class Player {
 			}
 
 			/* use the selected unit */
-			System.out.println("You have selected the unit “"+lifeformSelection.toString()+"”");
-			System.out.println("What do you want to do now with that unit? You have the following options:");
+			System.out.println(Localizer.get("You have selected the unit ")+"“"+lifeformSelection.toString()+"”");
+			System.out.println(Localizer.get("What do you want to do now with that unit? You have the following options:"));
 
-			System.out.println("re\trename unit");
+			System.out.println(Localizer.get("re\trename unit"));
 
 			if (lifeformSelection.canSee) {
-				System.out.println("lo\tlook around");
+				System.out.println(Localizer.get("lo\tlook around"));
 			}
 			if (lifeformSelection.canFly) {
-				System.out.println("fl\tfly around");
+				System.out.println(Localizer.get("fl\tfly around"));
 			}
 
-			System.out.print("what do you want to do with this unit? ");
+			System.out.print(Localizer.get("what do you want to do with this unit? "));
 			String choice = StringRead.read();
-			if (choice.equals("re")) {
+			if (choice.equals(Localizer.get("re"))) {
 				lifeformSelection.rename();
 			}
-			if (choice.equals("lo")) {
+			if (choice.equals(Localizer.get("lo"))) {
 				lifeformSelection.lookAround(this);
 			}
 
@@ -66,7 +64,7 @@ public class Player {
 			}
 		}
 
-		System.out.println(Localizer.get("Game Over"));
+		System.out.println(Localizer.get(Localizer.get("Game Over")));
 	}
 
 	public void takeControlOver (Lifeform l) {

@@ -6,7 +6,7 @@ public abstract class Lifeform {
 	double vx, vy, vz;
 
 	/** given name of the object */
-	String name = "please overwrite String name";
+	String name = new String();
 
 	boolean alive = true;
 
