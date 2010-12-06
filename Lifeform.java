@@ -47,25 +47,25 @@ public abstract class Lifeform {
 			}
 		}
 		if (inProximity.size() > 0) {
-			System.out.println("This lifeform can see the following other lifeforms:");
+			System.out.println(Localizer.get("This lifeform can see the following other lifeforms:"));
 			int i = 0;
 			for (Lifeform npc : inProximity) {
 				System.out.println(i+++"\t"+npc.toString());
 			}
-			System.out.println("choose a lifeform to interact with (-1 for no interaction) ");
+			System.out.println(Localizer.get("choose a lifeform to interact with (-1 for no interaction) "));
 			int choice = Integer.parseInt(StringRead.read());
 			if (choice > -1) {
 				Lifeform selected = inProximity.get(choice);
-				System.out.println("choose an interaction");
-				System.out.println("ta\ttake over control");
-				System.out.println("in\tingest biomass");
+				System.out.println(Localizer.get("choose an interaction"));
+				System.out.println(Localizer.get("ta\ttake over control"));
+				System.out.println(Localizer.get("in\tingest biomass"));
 				String action = StringRead.read();
 
-				if (action.equals("ta")) {
+				if (action.equals(Localizer.get("ta"))) {
 					player.takeControlOver(selected);
 					ProjectUbernahme.npcLifeforms.remove(selected);
 				}
-				else if (action.equals("in")) {
+				else if (action.equals(Localizer.get("in"))) {
 					ProjectUbernahme.npcLifeforms.remove(selected);
 					this.biomass += selected.biomass;
 				}
