@@ -9,7 +9,7 @@ import projectubernahme.lifeforms.Lifeform;
 public class VisibleLifeformsTableModel extends AbstractTableModel {
 
 	Player player;
-	String[] columnNames = {"ID", "Name", "Type", "Biomass"};
+	String[] columnNames = {"ID", "Name", "Type", "Biomass", "controlled"};
 	
 	public VisibleLifeformsTableModel (Player player) {
 		this.player = player;
@@ -20,7 +20,7 @@ public class VisibleLifeformsTableModel extends AbstractTableModel {
     }
 
 	public int getColumnCount() {
-		return 4;
+		return 5;
 	}
 
 	public int getRowCount() {
@@ -42,6 +42,7 @@ public class VisibleLifeformsTableModel extends AbstractTableModel {
 		case 1: return player.getSelectedLifeform().getNeighbors().get(rowIndex).getName();
 		case 2: return player.getSelectedLifeform().getNeighbors().get(rowIndex).getClass().getSimpleName();
 		case 3: return player.getSelectedLifeform().getNeighbors().get(rowIndex).getBiomass();
+		case 4: return player.getSelectedLifeform().getNeighbors().get(rowIndex).isControlled();
 		default: return "";
 		}
 	}

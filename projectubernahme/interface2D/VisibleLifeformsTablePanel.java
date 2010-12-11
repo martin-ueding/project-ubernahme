@@ -15,6 +15,7 @@ public class VisibleLifeformsTablePanel extends JPanel {
 	
 	Player player;
 	private VisibleLifeformsTableModel tablemodel;
+	private JTable table;
 
 	public VisibleLifeformsTablePanel (Player player) {
 		super();
@@ -25,18 +26,26 @@ public class VisibleLifeformsTablePanel extends JPanel {
 		
 		JScrollPane scrollpane = new JScrollPane();
 		tablemodel = new VisibleLifeformsTableModel(player);
-		JTable table = new JTable(tablemodel);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		setTable(new JTable(tablemodel));
+		getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		scrollpane.add(table);
+		scrollpane.add(getTable());
 		
 		//this.add(scrollpane);
-		table.setShowGrid(true);
-		this.add(table);
+		getTable().setShowGrid(true);
+		this.add(getTable());
 	}
 
 	public void refresh() {
 		repaint();
 		tablemodel.refresh();
+	}
+
+	public void setTable(JTable table) {
+		this.table = table;
+	}
+
+	public JTable getTable() {
+		return table;
 	}
 }

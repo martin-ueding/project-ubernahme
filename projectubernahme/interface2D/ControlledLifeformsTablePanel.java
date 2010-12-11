@@ -24,20 +24,28 @@ public class ControlledLifeformsTablePanel extends JPanel {
 		setMinimumSize(new Dimension(200, 300));
 		
 		JScrollPane scrollpane = new JScrollPane();
-		table = new JTable(new ControlledLifeformsTableModel(player));
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		setTable(new JTable(new ControlledLifeformsTableModel(player)));
+		getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		scrollpane.add(table);
+		scrollpane.add(getTable());
 		
 		//this.add(scrollpane);
-		table.setShowGrid(true);
-		this.add(table);
+		getTable().setShowGrid(true);
+		this.add(getTable());
 	}
 
 	public void refresh() {
-		if (table.getSelectedRow() >= 0) {
-			player.setSelectedLifeform(player.getControlledLifeforms().get(table.getSelectedRow()));
+		if (getTable().getSelectedRow() >= 0) {
+			player.setSelectedLifeform(player.getControlledLifeforms().get(getTable().getSelectedRow()));
 		}
+	}
+
+	public void setTable(JTable table) {
+		this.table = table;
+	}
+
+	public JTable getTable() {
+		return table;
 	}
 
 }

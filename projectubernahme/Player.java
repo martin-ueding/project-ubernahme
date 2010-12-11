@@ -114,4 +114,10 @@ public class Player {
 			selectedLifeform = controlledLifeforms.get(0);
 		return selectedLifeform;
 	}
+
+	public void takeover(int who, int whom) {
+		controlledLifeforms.get(who).getNeighbors().get(whom).setControlled(true);
+		controlledLifeforms.add(controlledLifeforms.get(who).getNeighbors().get(whom));
+		
+	}
 }
