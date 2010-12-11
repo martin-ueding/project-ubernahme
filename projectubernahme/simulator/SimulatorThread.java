@@ -19,7 +19,7 @@ public class SimulatorThread extends Thread {
 			/* let the other blobs interact */
 			for (Lifeform l : sim.getLifeforms()) {
 				l.move(sleepTime);
-
+				l.act(sleepTime);
 			}
 
 			try {

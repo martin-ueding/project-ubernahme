@@ -165,8 +165,9 @@ abstract public class Lifeform {
 		}
 	}
 	
-	/** this lets the lifeform act, this can be just sitting around or calling for support or attacking another lifeform */
-	abstract public void act();
+	/** this lets the lifeform act, this can be just sitting around or calling for support or attacking another lifeform 
+	 * @param sleepTime */
+	abstract public void act(int sleepTime);
 
 	public void setBiomass(double biomass) {
 		this.biomass = biomass;

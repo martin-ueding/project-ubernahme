@@ -21,7 +21,7 @@ public class Fly extends Lifeform {
 	}
 
 	@Override
-	public void act() {
+	public void act(int sleepTime) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import projectubernahme.Player;
 import projectubernahme.environments.Cube;
 import projectubernahme.environments.Environment;
-import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.lifeforms.Fly;
 import projectubernahme.lifeforms.Human;
+import projectubernahme.lifeforms.Lifeform;
+import projectubernahme.lifeforms.Tree;
 
 /** simulates all the lifeforms and the map, has a thread that moves everything around */
 public class MainSimulator {
@@ -26,6 +27,7 @@ public class MainSimulator {
 		/* add some NPCs to the game */
 		for (int i = 0; i < 5; i++) {
 			getLifeforms().add(new Human(this));
+			getLifeforms().add(new Tree(this));
 		}
 		
 		/* start thread */
