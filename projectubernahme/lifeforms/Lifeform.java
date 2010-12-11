@@ -139,6 +139,7 @@ abstract public class Lifeform {
 	abstract public void act(int sleepTime);
 
 	public void handleKeyPressed (KeyEvent e) {
+		System.out.println("KeyEvent");
 	}
 
 	public void handleKeyReleased (KeyEvent e) {

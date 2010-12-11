@@ -15,6 +15,7 @@ public class LifeformControlKeyListener implements KeyListener {
 
 	public void keyPressed(KeyEvent e) {
 		/* do something with the key */
+		System.out.println("KeyEvent in Listener");
 		
 		/* pass it on to the player */
 		player.handleKeyPressed(e);
