@@ -1,8 +1,8 @@
 @echo off
 echo compile the java files ...
-javac ProjectUbernahme.java
+javac projectubernahme/ProjectUbernahme.java
 echo.
 echo packing everything into a jar ...
-jar -cfm pu.jar manifest.txt *.class gfx sfx
+jar -cfm pu.jar manifest.txt projectubernahme
 pause
 
