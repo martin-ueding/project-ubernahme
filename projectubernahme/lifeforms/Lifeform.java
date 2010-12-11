@@ -152,9 +152,17 @@ abstract public class Lifeform {
 	/** lets the physics work on the lifeform and moves it by its velocities */
 	public void move(int sleepTime) {
 		double t = sleepTime/1000.0;
-		x += vx*t;
-		y += vy*t;
-		z += vz*t;
+		
+		double a = x + vx*t;
+		double b = y + vy*t;
+		double c = z + vz*t;
+		
+		/* try to move, check for wall */
+		if (sim.getEnv().isFreeBetween(x, y, z, a, b, c)) {
+			x = a;
+			y = b;
+			z = c;
+		}
 	}
 	
 	/** this lets the lifeform act, this can be just sitting around or calling for support or attacking another lifeform */

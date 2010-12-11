@@ -3,6 +3,8 @@ package projectubernahme.simulator;
 import java.util.ArrayList;
 
 import projectubernahme.Player;
+import projectubernahme.environments.Cube;
+import projectubernahme.environments.Environment;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.lifeforms.LifeformFly;
 import projectubernahme.lifeforms.LifeformHuman;
@@ -10,17 +12,20 @@ import projectubernahme.lifeforms.LifeformHuman;
 /** simulates all the lifeforms and the map, has a thread that moves everything around */
 public class MainSimulator {
 
-	/** list of all lifeforms in the whole game which are not controlled by the player */
-	public ArrayList<Lifeform> lifeforms;
-	public ArrayList<Player> players;
+	/** list of all lifeforms in the whole game */
+	private ArrayList<Lifeform> lifeforms;
+	ArrayList<Player> players;
+	
+	/** the environment **/
+	private Environment env = new Cube();
 	
 	public MainSimulator () {
-		lifeforms = new ArrayList<Lifeform>();
+		setLifeforms(new ArrayList<Lifeform>());
 		players = new ArrayList<Player>();
 
 		/* add some NPCs to the game */
 		for (int i = 0; i < 5; i++) {
-			lifeforms.add(new LifeformHuman(this));
+			getLifeforms().add(new LifeformHuman(this));
 		}
 		
 		/* start thread */
@@ -30,13 +35,13 @@ public class MainSimulator {
 	}
 
 	public ArrayList<Lifeform> getNpcLifeforms() {
-		return lifeforms;
+		return getLifeforms();
 	}
 
 	/** generates a lifeform and return is. The player then can add it to its list of controlled lifeforms */
 	public Lifeform giveLifeform() {
 		Lifeform l = new LifeformFly(this);
-		lifeforms.add(l);
+		getLifeforms().add(l);
 		l.setControlled(true);
 		return l;
 	}
@@ -56,6 +61,22 @@ public class MainSimulator {
 			}
 		}
 		return isUp;
+	}
+
+	public void setLifeforms(ArrayList<Lifeform> lifeforms) {
+		this.lifeforms = lifeforms;
+	}
+
+	public ArrayList<Lifeform> getLifeforms() {
+		return lifeforms;
+	}
+
+	public void setEnv(Environment env) {
+		this.env = env;
+	}
+
+	public Environment getEnv() {
+		return env;
 	}
 }
 
