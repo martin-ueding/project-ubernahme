@@ -8,6 +8,7 @@ import javax.swing.JTable;
 
 import projectubernahme.Player;
 
+@SuppressWarnings("serial")
 public class ButtonTakeOver extends JButton implements ActionListener {
 	
 	Player player;
@@ -31,8 +32,6 @@ public class ButtonTakeOver extends JButton implements ActionListener {
 			System.out.println("Take over "+who+" "+whom);
 			player.takeover(who, whom);
 		}
-		
-		whoTable.invalidate();
 	}
 	
 

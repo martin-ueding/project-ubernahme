@@ -43,10 +43,10 @@ abstract public class Lifeform {
 	private boolean canFly = false;
 	
 	/** whether this lifeform is controlled by some player, meaning that it does not need to be controlled by the computer */
-	private boolean isControlled;
+	private boolean isControlled = false;
 
 	/** the mass of biological stuff the lifeform ingested so far */
-	private double biomass;
+	private double biomass = 0.0;
 	
 	MainSimulator sim;
 	

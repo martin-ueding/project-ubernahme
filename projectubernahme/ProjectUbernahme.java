@@ -36,6 +36,6 @@ public class ProjectUbernahme {
 		Interface2D interface2d = new Interface2D(sim, player);
 
 
-		player.play();
+		//player.play();
 	}
 }

@@ -5,6 +5,7 @@ import javax.swing.JTable;
 
 import projectubernahme.Player;
 
+@SuppressWarnings("serial")
 public class ActionsPanel extends JPanel {
 	
 	JTable whoTable, whomTable;

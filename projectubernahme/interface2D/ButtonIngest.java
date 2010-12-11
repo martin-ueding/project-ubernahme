@@ -8,6 +8,7 @@ import javax.swing.JTable;
 
 import projectubernahme.Player;
 
+@SuppressWarnings("serial")
 public class ButtonIngest extends JButton implements ActionListener {
 	
 	Player player;

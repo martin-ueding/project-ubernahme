@@ -3,7 +3,6 @@ package projectubernahme.interface2D;
 import javax.swing.table.AbstractTableModel;
 
 import projectubernahme.Player;
-import projectubernahme.lifeforms.Lifeform;
 
 @SuppressWarnings("serial")
 public class VisibleLifeformsTableModel extends AbstractTableModel {
