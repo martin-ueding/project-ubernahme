@@ -3,9 +3,9 @@ package projectubernahme.lifeforms;
 import projectubernahme.simulator.MainSimulator;
 
 /** lifeform, a simple fly which can look around and fly a little */
-public class LifeformFly extends Lifeform {
+public class Fly extends Lifeform {
 
-	public LifeformFly (MainSimulator sim) {
+	public Fly (MainSimulator sim) {
 		super(sim);
 		setCanFly(true);
 		setCanSee(true);

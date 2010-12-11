@@ -2,9 +2,9 @@ package projectubernahme.lifeforms;
 
 import projectubernahme.simulator.MainSimulator;
 
-public class LifeformHuman extends Lifeform {
+public class Human extends Lifeform {
 
-	public LifeformHuman (MainSimulator sim) {
+	public Human (MainSimulator sim) {
 		super(sim);
 		setCanFly(false);
 		setCanSee(true);

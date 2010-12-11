@@ -6,8 +6,8 @@ import projectubernahme.Player;
 import projectubernahme.environments.Cube;
 import projectubernahme.environments.Environment;
 import projectubernahme.lifeforms.Lifeform;
-import projectubernahme.lifeforms.LifeformFly;
-import projectubernahme.lifeforms.LifeformHuman;
+import projectubernahme.lifeforms.Fly;
+import projectubernahme.lifeforms.Human;
 
 /** simulates all the lifeforms and the map, has a thread that moves everything around */
 public class MainSimulator {
@@ -25,7 +25,7 @@ public class MainSimulator {
 
 		/* add some NPCs to the game */
 		for (int i = 0; i < 5; i++) {
-			getLifeforms().add(new LifeformHuman(this));
+			getLifeforms().add(new Human(this));
 		}
 		
 		/* start thread */
@@ -40,7 +40,7 @@ public class MainSimulator {
 
 	/** generates a lifeform and return is. The player then can add it to its list of controlled lifeforms */
 	public Lifeform giveLifeform() {
-		Lifeform l = new LifeformFly(this);
+		Lifeform l = new Fly(this);
 		getLifeforms().add(l);
 		l.setControlled(true);
 		return l;
