@@ -1,4 +1,12 @@
+package projectubernahme.lifeforms;
+
 import java.util.ArrayList;
+
+import projectubernahme.Localizer;
+import projectubernahme.Player;
+import projectubernahme.ProjectUbernahme;
+import projectubernahme.StringRead;
+
 
 /** something with its own mind in the game, can interact with other lifeforms and the world */
 public abstract class Lifeform {
@@ -11,7 +19,7 @@ public abstract class Lifeform {
 	boolean alive = true;
 
 	/* senses */
-	boolean canSee = false;
+	private boolean canSee = false;
 	boolean canSeeIR = false;
 	boolean canSeeXRay = false;
 	boolean canHear = false;
@@ -21,7 +29,7 @@ public abstract class Lifeform {
 
 	/* actions */
 	boolean canMove = false;
-	boolean canFly = false;
+	private boolean canFly = false;
 
 	/** the mass of biological stuff the lifeform ingested so far */
 	double biomass;
@@ -39,8 +47,8 @@ public abstract class Lifeform {
 	/** lets the lifeform look around and interact with its proximity */
 	public void lookAround (Player player) {
 		ArrayList<Lifeform> inProximity = new ArrayList<Lifeform>();
-		if (ProjectUbernahme.npcLifeforms.size() > 0) {
-			for (Lifeform npc : ProjectUbernahme.npcLifeforms) {
+		if (ProjectUbernahme.getNpcLifeforms().size() > 0) {
+			for (Lifeform npc : ProjectUbernahme.getNpcLifeforms()) {
 				if (this.canSee(npc)) {
 					inProximity.add(npc);
 				}
@@ -63,10 +71,10 @@ public abstract class Lifeform {
 
 				if (action.equals(Localizer.get("ta"))) {
 					player.takeControlOver(selected);
-					ProjectUbernahme.npcLifeforms.remove(selected);
+					ProjectUbernahme.getNpcLifeforms().remove(selected);
 				}
 				else if (action.equals(Localizer.get("in"))) {
-					ProjectUbernahme.npcLifeforms.remove(selected);
+					ProjectUbernahme.getNpcLifeforms().remove(selected);
 					this.biomass += selected.biomass;
 				}
 			}
@@ -88,5 +96,21 @@ public abstract class Lifeform {
 	public void rename () {
 		System.out.print(Localizer.get("New Name: "));
 		name = StringRead.read();
+	}
+
+	public void setCanFly(boolean canFly) {
+		this.canFly = canFly;
+	}
+
+	public boolean isCanFly() {
+		return canFly;
+	}
+
+	public void setCanSee(boolean canSee) {
+		this.canSee = canSee;
+	}
+
+	public boolean isCanSee() {
+		return canSee;
 	}
 }

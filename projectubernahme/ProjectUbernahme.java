@@ -1,3 +1,4 @@
+package projectubernahme;
 /*
  * Copyright 2010 Project Ubernahme Team
  * Copyright 2010 Martin Ueding <dev@martin-ueding.de>
@@ -10,20 +11,24 @@
  */
 import java.util.ArrayList;
 
+import projectubernahme.lifeforms.Lifeform;
+import projectubernahme.lifeforms.LifeformHuman;
+
+
 /** the main game class */
 public class ProjectUbernahme {
 	/** main player */
 	static Player player;
 
 	/** list of all lifeforms in the whole game which are not controlled by the player */
-	static ArrayList<Lifeform> npcLifeforms;
+	private static ArrayList<Lifeform> npcLifeforms;
 
 	public static void main (String[] args) {
-		npcLifeforms = new ArrayList<Lifeform>();
+		setNpcLifeforms(new ArrayList<Lifeform>());
 
 		/* add some NPCs to the game */
 		for (int i = 0; i < 5; i++) {
-			npcLifeforms.add(new LifeformHuman());
+			getNpcLifeforms().add(new LifeformHuman());
 		}
 
 		System.out.println(Localizer.get("Welcome to Project Ubernahme"));
@@ -33,5 +38,13 @@ public class ProjectUbernahme {
 
 
 		player.play();
+	}
+
+	public static void setNpcLifeforms(ArrayList<Lifeform> npcLifeforms) {
+		ProjectUbernahme.npcLifeforms = npcLifeforms;
+	}
+
+	public static ArrayList<Lifeform> getNpcLifeforms() {
+		return npcLifeforms;
 	}
 }

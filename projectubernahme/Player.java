@@ -1,4 +1,9 @@
+package projectubernahme;
 import java.util.ArrayList;
+
+import projectubernahme.lifeforms.Lifeform;
+import projectubernahme.lifeforms.LifeformFly;
+
 
 /** a physical player of the game, controlling a heap of different lifeforms */
 public class Player {
@@ -41,10 +46,10 @@ public class Player {
 
 			System.out.println(Localizer.get("re\trename unit"));
 
-			if (lifeformSelection.canSee) {
+			if (lifeformSelection.isCanSee()) {
 				System.out.println(Localizer.get("lo\tlook around"));
 			}
-			if (lifeformSelection.canFly) {
+			if (lifeformSelection.isCanFly()) {
 				System.out.println(Localizer.get("fl\tfly around"));
 			}
 
@@ -59,7 +64,7 @@ public class Player {
 
 
 			/* let the other blobs interact with you */
-			for (Lifeform blob : ProjectUbernahme.npcLifeforms) {
+			for (Lifeform blob : ProjectUbernahme.getNpcLifeforms()) {
 				
 			}
 		}

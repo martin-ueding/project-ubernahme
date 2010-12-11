@@ -1,3 +1,4 @@
+package projectubernahme;
 import java.io.*;
 
 public class StringRead {
