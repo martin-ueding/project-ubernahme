@@ -1,4 +1,8 @@
 package projectubernahme;
+
+import projectubernahme.interface2D.Interface2D;
+import projectubernahme.simulator.MainSimulator;
+
 /*
  * Copyright 2010 Project Ubernahme Team
  * Copyright 2010 Martin Ueding <dev@martin-ueding.de>
@@ -9,42 +13,28 @@ package projectubernahme;
  * 
  * You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-import java.util.ArrayList;
-
-import projectubernahme.lifeforms.Lifeform;
-import projectubernahme.lifeforms.LifeformHuman;
 
 
 /** the main game class */
 public class ProjectUbernahme {
 	/** main player */
 	static Player player;
-
-	/** list of all lifeforms in the whole game which are not controlled by the player */
-	private static ArrayList<Lifeform> npcLifeforms;
+	static MainSimulator sim;
+	
 
 	public static void main (String[] args) {
-		setNpcLifeforms(new ArrayList<Lifeform>());
-
-		/* add some NPCs to the game */
-		for (int i = 0; i < 5; i++) {
-			getNpcLifeforms().add(new LifeformHuman());
-		}
+		sim = new MainSimulator();
 
 		System.out.println(Localizer.get("Welcome to Project Ubernahme"));
-		System.out.println(Localizer.get("You can quit the game any time by entering either “q” or “quit”"));
+		System.out.println(Localizer.get("You can quit the game any time by entering either 'q' or 'quit'"));
 
-		player = new Player();
+		player = new Player(sim);
+		
+		sim.addPlayer(player);
+		
+		Interface2D interface2d = new Interface2D(sim, player);
 
 
 		player.play();
-	}
-
-	public static void setNpcLifeforms(ArrayList<Lifeform> npcLifeforms) {
-		ProjectUbernahme.npcLifeforms = npcLifeforms;
-	}
-
-	public static ArrayList<Lifeform> getNpcLifeforms() {
-		return npcLifeforms;
 	}
 }

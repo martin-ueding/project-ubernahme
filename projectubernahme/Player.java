@@ -2,17 +2,21 @@ package projectubernahme;
 import java.util.ArrayList;
 
 import projectubernahme.lifeforms.Lifeform;
-import projectubernahme.lifeforms.LifeformFly;
+import projectubernahme.simulator.MainSimulator;
 
 
 /** a physical player of the game, controlling a heap of different lifeforms */
 public class Player {
 	ArrayList<Lifeform> controlledLifeforms;
 
+	MainSimulator sim;
+	
+	
 	/** initializes the list of controlledLifeforms, add a starting one */
-	public Player () {
+	public Player (MainSimulator sim) {
+		this.sim = sim;
 		controlledLifeforms = new ArrayList<Lifeform>();
-		controlledLifeforms.add(new LifeformFly());
+		controlledLifeforms.add(sim.giveLifeform());
 	}
 
 	public void play () {
@@ -41,7 +45,7 @@ public class Player {
 			}
 
 			/* use the selected unit */
-			System.out.println(Localizer.get("You have selected the unit ")+"“"+lifeformSelection.toString()+"”");
+			System.out.println(Localizer.get("You have selected the unit ")+"'"+lifeformSelection.toString()+"'");
 			System.out.println(Localizer.get("What do you want to do now with that unit? You have the following options:"));
 
 			System.out.println(Localizer.get("re\trename unit"));
@@ -63,10 +67,7 @@ public class Player {
 			}
 
 
-			/* let the other blobs interact with you */
-			for (Lifeform blob : ProjectUbernahme.getNpcLifeforms()) {
-				
-			}
+			
 		}
 
 		System.out.println(Localizer.get("Game Over"));
@@ -74,5 +75,10 @@ public class Player {
 
 	public void takeControlOver (Lifeform l) {
 		controlledLifeforms.add(l);
+		l.setControlled(true);
+	}
+
+	public boolean hasSomeControl() {
+		return controlledLifeforms.size() > 0;
 	}
 }

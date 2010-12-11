@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 import projectubernahme.Localizer;
 import projectubernahme.Player;
-import projectubernahme.ProjectUbernahme;
 import projectubernahme.StringRead;
+import projectubernahme.simulator.MainSimulator;
 
 
 /** something with its own mind in the game, can interact with other lifeforms and the world */
 public abstract class Lifeform {
 	double x, y, z;
+	
+	/** velocities in the three coordinate axes, [m/s] */
 	double vx, vy, vz;
 
 	/** given name of the object */
@@ -30,25 +32,35 @@ public abstract class Lifeform {
 	/* actions */
 	boolean canMove = false;
 	private boolean canFly = false;
+	
+	/** whether this lifeform is controlled by some player, meaning that it does not need to be controlled by the computer */
+	private boolean isControlled;
 
 	/** the mass of biological stuff the lifeform ingested so far */
 	double biomass;
+	
+	MainSimulator sim;
+	
+	public Lifeform (MainSimulator sim) {
+		this.sim = sim;
+		name = new String();
+	}
 
 	/** gives a generic description string of the object */
 	public String toString () {
 		if (name.equals("")) {
-			return getClass().getName()+"\t"+biomass+" kg";
+			return getClass().getSimpleName()+"\t"+biomass+" kg";
 		}
 		else {
-			return name+"\t("+getClass().getName()+")\t"+biomass+" kg";
+			return name+"\t("+getClass().getSimpleName()+")\t"+biomass+" kg";
 		}
 	}
 
 	/** lets the lifeform look around and interact with its proximity */
 	public void lookAround (Player player) {
 		ArrayList<Lifeform> inProximity = new ArrayList<Lifeform>();
-		if (ProjectUbernahme.getNpcLifeforms().size() > 0) {
-			for (Lifeform npc : ProjectUbernahme.getNpcLifeforms()) {
+		if (sim.getNpcLifeforms().size() > 0) {
+			for (Lifeform npc : sim.getNpcLifeforms()) {
 				if (this.canSee(npc)) {
 					inProximity.add(npc);
 				}
@@ -71,10 +83,9 @@ public abstract class Lifeform {
 
 				if (action.equals(Localizer.get("ta"))) {
 					player.takeControlOver(selected);
-					ProjectUbernahme.getNpcLifeforms().remove(selected);
 				}
 				else if (action.equals(Localizer.get("in"))) {
-					ProjectUbernahme.getNpcLifeforms().remove(selected);
+					sim.getNpcLifeforms().remove(selected);
 					this.biomass += selected.biomass;
 				}
 			}
@@ -89,7 +100,7 @@ public abstract class Lifeform {
 
 	/** returns the distance to the other lifeform l, currently just the geometric mean of the axes, later it might include some path trough the world */
 	public double distance (Lifeform l) {
-		return Math.sqrt(Math.pow(x-l.x, 2) + Math.pow(y-l.y, 2) + Math.pow(z-l.z, 2));
+		return Math.sqrt(Math.pow(getX()-l.getX(), 2) + Math.pow(getY()-l.getY(), 2) + Math.pow(z-l.z, 2));
 	}
 
 	/** polls for a new name and applies it */
@@ -113,4 +124,39 @@ public abstract class Lifeform {
 	public boolean isCanSee() {
 		return canSee;
 	}
+
+	public void setControlled(boolean isControlled) {
+		this.isControlled = isControlled;
+	}
+
+	public boolean isControlled() {
+		return isControlled;
+	}
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public double getX() {
+		return x;
+	}
+
+	public void setY(double y) {
+		this.y = y;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	/** lets the physics work on the lifeform and moves it by its velocities */
+	public void move(int sleepTime) {
+		double t = sleepTime/1000.0;
+		x += vx*t;
+		y += vy*t;
+		z += vz*t;
+	}
+	
+	/** this lets the lifeform act, this can be just sitting around or calling for support or attacking another lifeform */
+	abstract public void act();
 }
