@@ -60,8 +60,8 @@ public class Player {
 	}
 
 	public void takeover(int who, int whom) {
-		controlledLifeforms.get(who).getNeighbors().get(whom).setControlled(true);
-		controlledLifeforms.add(controlledLifeforms.get(who).getNeighbors().get(whom));
+		if (controlledLifeforms.get(who).takeover(controlledLifeforms.get(who).getNeighbors().get(whom)))
+			controlledLifeforms.add(controlledLifeforms.get(who).getNeighbors().get(whom));
 	}
 
 	public void ingest(int who, int whom) {

@@ -105,6 +105,17 @@ abstract public class Lifeform {
 		}
 	}
 
+	public boolean takeover(Lifeform lifeform) {
+		if (canMove) {
+			x = lifeform.getX();
+			y = lifeform.getY();
+			z = lifeform.getZ();
+			lifeform.setControlled(true);
+			return true;
+		}
+		return false;
+	}
+
 	/** decides whether this lifeform can see some other lifeform l */
 	public abstract boolean canSee (Lifeform l);
 
@@ -159,6 +170,10 @@ abstract public class Lifeform {
 
 	public void setY(double y) {
 		this.y = y;
+	}
+
+	public double getZ() {
+		return z;
 	}
 
 	public String getName() {
