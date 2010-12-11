@@ -10,10 +10,10 @@ public class LifeformFly extends Lifeform {
 		setCanFly(true);
 		setCanSee(true);
 		canMove = true;
-		biomass = 0.001/17;
+		setBiomass(0.001/17);
 		
-		vx = Math.random()-0.5;
-		vy = Math.random()-0.5;
+		x = Math.random()-0.5;
+		y = Math.random()-0.5;
 	}
 
 	public boolean canSee (Lifeform l) {

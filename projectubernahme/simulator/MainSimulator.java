@@ -11,16 +11,16 @@ import projectubernahme.lifeforms.LifeformHuman;
 public class MainSimulator {
 
 	/** list of all lifeforms in the whole game which are not controlled by the player */
-	public ArrayList<Lifeform> npcLifeforms;
+	public ArrayList<Lifeform> lifeforms;
 	public ArrayList<Player> players;
 	
 	public MainSimulator () {
-		npcLifeforms = new ArrayList<Lifeform>();
+		lifeforms = new ArrayList<Lifeform>();
 		players = new ArrayList<Player>();
 
 		/* add some NPCs to the game */
 		for (int i = 0; i < 5; i++) {
-			npcLifeforms.add(new LifeformHuman(this));
+			lifeforms.add(new LifeformHuman(this));
 		}
 		
 		/* start thread */
@@ -30,12 +30,13 @@ public class MainSimulator {
 	}
 
 	public ArrayList<Lifeform> getNpcLifeforms() {
-		return npcLifeforms;
+		return lifeforms;
 	}
 
 	/** generates a lifeform and return is. The player then can add it to its list of controlled lifeforms */
 	public Lifeform giveLifeform() {
 		Lifeform l = new LifeformFly(this);
+		lifeforms.add(l);
 		l.setControlled(true);
 		return l;
 	}

@@ -17,7 +17,7 @@ public class SimulatorThread extends Thread {
 	public void run() {
 		while (sim.isGameUp() || cycle < 1000) {
 			/* let the other blobs interact */
-			for (Lifeform l : sim.npcLifeforms) {
+			for (Lifeform l : sim.lifeforms) {
 				l.move(sleepTime);
 
 			}

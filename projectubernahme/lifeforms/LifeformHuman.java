@@ -9,11 +9,11 @@ public class LifeformHuman extends Lifeform {
 		setCanFly(false);
 		setCanSee(true);
 		canMove = true;
-		biomass = 60.0 + Math.random()*60;
+		setBiomass(60.0 + Math.random()*60);
 		
 
-		vx = Math.random()-0.5;
-		vy = Math.random()-0.5;
+		x = Math.random()-0.5;
+		y = Math.random()-0.5;
 	}
 
 	public boolean canSee (Lifeform l) {

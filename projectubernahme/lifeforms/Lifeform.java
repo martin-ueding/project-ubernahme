@@ -9,7 +9,7 @@ import projectubernahme.simulator.MainSimulator;
 
 
 /** something with its own mind in the game, can interact with other lifeforms and the world */
-public abstract class Lifeform {
+abstract public class Lifeform {
 	double x, y, z;
 	
 	/** velocities in the three coordinate axes, [m/s] */
@@ -37,7 +37,7 @@ public abstract class Lifeform {
 	private boolean isControlled;
 
 	/** the mass of biological stuff the lifeform ingested so far */
-	double biomass;
+	private double biomass;
 	
 	MainSimulator sim;
 	
@@ -49,10 +49,10 @@ public abstract class Lifeform {
 	/** gives a generic description string of the object */
 	public String toString () {
 		if (name.equals("")) {
-			return getClass().getSimpleName()+"\t"+biomass+" kg";
+			return getClass().getSimpleName()+"\t"+getBiomass()+" kg";
 		}
 		else {
-			return name+"\t("+getClass().getSimpleName()+")\t"+biomass+" kg";
+			return name+"\t("+getClass().getSimpleName()+")\t"+getBiomass()+" kg";
 		}
 	}
 
@@ -86,7 +86,7 @@ public abstract class Lifeform {
 				}
 				else if (action.equals(Localizer.get("in"))) {
 					sim.getNpcLifeforms().remove(selected);
-					this.biomass += selected.biomass;
+					this.setBiomass(this.getBiomass() + selected.getBiomass());
 				}
 			}
 		}
@@ -159,4 +159,12 @@ public abstract class Lifeform {
 	
 	/** this lets the lifeform act, this can be just sitting around or calling for support or attacking another lifeform */
 	abstract public void act();
+
+	public void setBiomass(double biomass) {
+		this.biomass = biomass;
+	}
+
+	public double getBiomass() {
+		return biomass;
+	}
 }

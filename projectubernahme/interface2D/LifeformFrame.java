@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 import projectubernahme.simulator.MainSimulator;
 
+@SuppressWarnings("serial")
 public class LifeformFrame extends JFrame {
 	
 	public LifeformFrame (MainSimulator sim) {

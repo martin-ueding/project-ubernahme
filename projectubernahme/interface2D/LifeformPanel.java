@@ -10,12 +10,12 @@ import javax.swing.JPanel;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.simulator.MainSimulator;
 
+@SuppressWarnings("serial")
 public class LifeformPanel extends JPanel {
 	
 	MainSimulator sim;
-	
-	private static final int CIRCLE_RADIUS = 3;
-	private static final int SCALING = 20;
+
+	private static final int SCALING = 100;
 	private static final int OFFSET = 200;
 	
 	public LifeformPanel (MainSimulator sim) {
@@ -29,7 +29,7 @@ public class LifeformPanel extends JPanel {
 		/* clear screen */
 		g.clearRect(0, 0, getWidth(), getHeight());
 		
-		for (Lifeform l : sim.npcLifeforms) {
+		for (Lifeform l : sim.lifeforms) {
 			if (l.isControlled()) {
 				g.setColor(Color.GREEN);
 			}
@@ -37,7 +37,8 @@ public class LifeformPanel extends JPanel {
 				g.setColor(Color.BLUE);
 			}
 			
-			g.drawOval((int)Math.round(l.getX()*SCALING+OFFSET) - CIRCLE_RADIUS/2, (int)Math.round(l.getY()*SCALING+OFFSET) - CIRCLE_RADIUS/2, CIRCLE_RADIUS, CIRCLE_RADIUS);
+			int diameter = (int) Math.max(Math.sqrt(l.getBiomass()), 1.0);
+			g.drawOval((int)Math.round(l.getX()*SCALING+OFFSET) - diameter/2, (int)Math.round(l.getY()*SCALING+OFFSET) - diameter/2, diameter, diameter);
 		}
 	
 	}
