@@ -5,18 +5,18 @@ import javax.swing.table.AbstractTableModel;
 import projectubernahme.Player;
 
 @SuppressWarnings("serial")
-public class LifeformTableModel extends AbstractTableModel {
+public class ControlledLifeformsTableModel extends AbstractTableModel {
 
 	Player player;
 	String[] columnNames = {"ID", "Name", "Type", "Biomass"};
 	
+	public ControlledLifeformsTableModel (Player player) {
+		this.player = player;
+	}
+
 	public String getColumnName(int col) {
         return columnNames[col].toString();
     }
-
-	public LifeformTableModel (Player player) {
-		this.player = player;
-	}
 
 	public int getColumnCount() {
 		return 4;
@@ -28,7 +28,7 @@ public class LifeformTableModel extends AbstractTableModel {
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		switch (columnIndex) {
-		case 0: return player.getControlledLifeforms().get(rowIndex).getID();
+		case 0: return rowIndex;
 		case 1: return player.getControlledLifeforms().get(rowIndex).getName();
 		case 2: return player.getControlledLifeforms().get(rowIndex).getClass().getSimpleName();
 		case 3: return player.getControlledLifeforms().get(rowIndex).getBiomass();
@@ -36,6 +36,7 @@ public class LifeformTableModel extends AbstractTableModel {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public Class getColumnClass(int c) {
 		return getValueAt(0, c).getClass();
 	}

@@ -17,7 +17,7 @@ public class Fly extends Lifeform {
 	}
 
 	public boolean canSee (Lifeform l) {
-		return (isCanSee() && distance(l) < 10);
+		return (isCanSee() && distance(l) < 0.5);
 	}
 
 	@Override

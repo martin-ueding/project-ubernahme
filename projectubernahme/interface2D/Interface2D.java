@@ -11,6 +11,7 @@ public class Interface2D {
 	Player player;
 	
 	public Interface2D (MainSimulator sim, Player p) {
+		@SuppressWarnings("unused")
 		JFrame lifeformFrame = new LifeformFrame(sim, p);
 	}
 

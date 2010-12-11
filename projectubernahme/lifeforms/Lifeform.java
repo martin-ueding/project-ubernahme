@@ -26,9 +26,11 @@ abstract public class Lifeform {
 	String name = new String();
 
 	boolean alive = true;
+	
+	ArrayList<Lifeform> neighbors = new ArrayList<Lifeform>();
 
 	/* senses */
-	private boolean canSee = false;
+	boolean canSee = false;
 	boolean canSeeIR = false;
 	boolean canSeeXRay = false;
 	boolean canHear = false;
@@ -133,8 +135,7 @@ abstract public class Lifeform {
 		}
 	}
 	
-	/** this lets the lifeform act, this can be just sitting around or calling for support or attacking another lifeform 
-	 * @param sleepTime */
+	/** this lets the lifeform act, this can be just sitting around or calling for support or attacking another lifeform */
 	abstract public void act(int sleepTime);
 
 	public void handleKeyPressed (KeyEvent e) {
@@ -202,5 +203,26 @@ abstract public class Lifeform {
 	public void setName(String value) {
 		name = value;
 		
+	}
+
+	public ArrayList<Lifeform> getNeighbors() {
+		if (neighbors == null) {
+			neighbors = new ArrayList<Lifeform>();
+		}
+		if (neighbors.size() == 0) {
+			generateNeighborsList();
+		}
+		return neighbors;
+	}
+	
+	/** generates a list with all the lifeforms this one can see */
+	public void generateNeighborsList() {
+		neighbors.clear();
+		
+		for (Lifeform l : sim.getLifeforms()) {
+			if (canSee(l)) {
+				neighbors.add(l);
+			}
+		}
 	}
 }

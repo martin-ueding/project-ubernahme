@@ -12,7 +12,7 @@ public class Player {
 
 	MainSimulator sim;
 	
-	Lifeform selectedLifeform;
+	private Lifeform selectedLifeform;
 	
 	
 	/** initializes the list of controlledLifeforms, add a starting one */
@@ -88,13 +88,13 @@ public class Player {
 
 	
 	public void handleKeyPressed(KeyEvent e) {
-		if (selectedLifeform != null)
-			selectedLifeform.handleKeyReleased(e);
+		if (getSelectedLifeform() != null)
+			getSelectedLifeform().handleKeyReleased(e);
 	}
 
 	public void handleKeyReleased(KeyEvent e) {
-		if (selectedLifeform != null)
-			selectedLifeform.handleKeyReleased(e);
+		if (getSelectedLifeform() != null)
+			getSelectedLifeform().handleKeyReleased(e);
 	}
 
 	public void setControlledLifeforms(ArrayList<Lifeform> controlledLifeforms) {
@@ -103,5 +103,15 @@ public class Player {
 
 	public ArrayList<Lifeform> getControlledLifeforms() {
 		return controlledLifeforms;
+	}
+
+	public void setSelectedLifeform(Lifeform selectedLifeform) {
+		this.selectedLifeform = selectedLifeform;
+	}
+
+	public Lifeform getSelectedLifeform() {
+		if (selectedLifeform == null)
+			selectedLifeform = controlledLifeforms.get(0);
+		return selectedLifeform;
 	}
 }

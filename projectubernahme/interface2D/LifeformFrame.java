@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 
 import projectubernahme.Player;
 import projectubernahme.simulator.MainSimulator;
@@ -11,13 +12,22 @@ import projectubernahme.simulator.MainSimulator;
 @SuppressWarnings("serial")
 public class LifeformFrame extends JFrame {
 	
+	ControlledLifeformsTablePanel controlledPanel;
+	VisibleLifeformsTablePanel visiblePanel;
+	
 	public LifeformFrame (MainSimulator sim, Player player) {
 		super("Lifeform Frame");
-		
 		JPanel layoutPanel = new JPanel(new BorderLayout());
 		
 		layoutPanel.add(new LifeformPanel(sim), BorderLayout.CENTER);
-		layoutPanel.add(new LifeformTablePanel(player), BorderLayout.EAST);
+
+
+		controlledPanel = new ControlledLifeformsTablePanel(player);
+		visiblePanel = new VisibleLifeformsTablePanel(player);
+		
+		JSplitPane splitpane1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, controlledPanel, visiblePanel);
+
+		layoutPanel.add(splitpane1, BorderLayout.WEST);
 		
 		add(layoutPanel);
 		
@@ -30,6 +40,12 @@ public class LifeformFrame extends JFrame {
 
 		Thread refreshWindow = new RefreshWindowThread(this);
 		refreshWindow.start();
+	}
+
+	public void refresh() {
+		repaint();
+		controlledPanel.refresh();
+		visiblePanel.refresh();
 	}
 
 }

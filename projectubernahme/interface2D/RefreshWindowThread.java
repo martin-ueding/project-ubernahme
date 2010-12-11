@@ -1,18 +1,17 @@
 package projectubernahme.interface2D;
 
-import javax.swing.JFrame;
 
 public class RefreshWindowThread extends Thread {
 	
-	private JFrame frame;
+	private LifeformFrame frame;
 
-	public RefreshWindowThread (JFrame lifeformFrame) {
+	public RefreshWindowThread (LifeformFrame lifeformFrame) {
 		frame = lifeformFrame;
 	}
 	
 	public void run () {
 		while (true) {
-			frame.repaint();
+			frame.refresh();
 			
 			try {
 				Thread.sleep(50);
