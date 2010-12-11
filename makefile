@@ -1,12 +1,12 @@
-pu.jar: ProjectUbernahme.class *.java
-	jar -cfm pu.jar manifest.txt *.class gfx sfx
+pu.jar: projectubernahme/ProjectUbernahme.class projectubernahme/*.java
+	jar -cfm pu.jar manifest.txt projectubernahme
 
-ProjectUbernahme.class: *.java
-	javac ProjectUbernahme.java
+projectubernahme/ProjectUbernahme.class: projectubernahme/*.java
+	javac projectubernahme/ProjectUbernahme.java
 
 javadoc:
-	javadoc *.java -d documentation/javadoc -private
+	javadoc projectubernahme/*.java -d documentation/javadoc -private
 
 .PHONY: clean
 clean:
-	rm -rf *.class *.jar javadoc
+	rm -rf projectubernahme/*.class projectubernahme/*/*.class *.jar documentation/javadoc
