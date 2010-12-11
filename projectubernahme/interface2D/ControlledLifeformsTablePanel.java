@@ -20,8 +20,9 @@ public class ControlledLifeformsTablePanel extends JPanel {
 		super();
 		this.player = player;
 		add(new JLabel("Controlled Lifeforms"));
-		
-		setMinimumSize(new Dimension(200, 300));
+
+		setMinimumSize(new Dimension(100, 300));
+		setMaximumSize(new Dimension(150, 100));
 		
 		JScrollPane scrollpane = new JScrollPane();
 		setTable(new JTable(new ControlledLifeformsTableModel(player)));

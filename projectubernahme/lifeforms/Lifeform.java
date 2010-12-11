@@ -220,7 +220,7 @@ abstract public class Lifeform {
 		neighbors.clear();
 		
 		for (Lifeform l : sim.getLifeforms()) {
-			if (canSee(l)) {
+			if (canSee(l) && l != this) {
 				neighbors.add(l);
 			}
 		}

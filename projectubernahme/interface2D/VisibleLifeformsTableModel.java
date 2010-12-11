@@ -37,14 +37,16 @@ public class VisibleLifeformsTableModel extends AbstractTableModel {
 	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		switch (columnIndex) {
-		case 0: return rowIndex;
-		case 1: return player.getSelectedLifeform().getNeighbors().get(rowIndex).getName();
-		case 2: return player.getSelectedLifeform().getNeighbors().get(rowIndex).getClass().getSimpleName();
-		case 3: return player.getSelectedLifeform().getNeighbors().get(rowIndex).getBiomass();
-		case 4: return player.getSelectedLifeform().getNeighbors().get(rowIndex).isControlled();
-		default: return "";
+		if (player.getSelectedLifeform().getNeighbors().size() > 0) {
+			switch (columnIndex) {
+			case 0: return rowIndex;
+			case 1: return player.getSelectedLifeform().getNeighbors().get(rowIndex).getName();
+			case 2: return player.getSelectedLifeform().getNeighbors().get(rowIndex).getClass().getSimpleName();
+			case 3: return player.getSelectedLifeform().getNeighbors().get(rowIndex).getBiomass();
+			case 4: return player.getSelectedLifeform().getNeighbors().get(rowIndex).isControlled();
+			}
 		}
+		return "";
 	}
 
 	@SuppressWarnings("unchecked")

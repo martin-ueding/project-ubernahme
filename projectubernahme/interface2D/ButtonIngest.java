@@ -8,13 +8,13 @@ import javax.swing.JTable;
 
 import projectubernahme.Player;
 
-public class ButtonTakeOver extends JButton implements ActionListener {
+public class ButtonIngest extends JButton implements ActionListener {
 	
 	Player player;
 	JTable whoTable, whomTable;
 	
-	public ButtonTakeOver (Player player, JTable whoTable, JTable whomTable) {
-		super("Take Over");
+	public ButtonIngest (Player player, JTable whoTable, JTable whomTable) {
+		super("Ingest");
 		
 		this.player = player;
 		this.whoTable = whoTable;
@@ -29,7 +29,7 @@ public class ButtonTakeOver extends JButton implements ActionListener {
 		
 		if (who >= 0 && whom >= 0) {
 			System.out.println("Take over "+who+" "+whom);
-			player.takeover(who, whom);
+			player.ingest(who, whom);
 		}
 		
 		whoTable.invalidate();

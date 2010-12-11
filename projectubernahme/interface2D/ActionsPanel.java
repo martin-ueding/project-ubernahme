@@ -18,6 +18,7 @@ public class ActionsPanel extends JPanel {
 		this.whomTable = whomTable;
 		
 		add(new ButtonTakeOver(player, whoTable, whomTable));
+		add(new ButtonIngest(player, whoTable, whomTable));
 	}
 	
 	

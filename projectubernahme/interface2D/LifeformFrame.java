@@ -38,7 +38,7 @@ public class LifeformFrame extends JFrame {
 		/* add key listener */
 		addKeyListener(new LifeformControlKeyListener(player));
 		
-		setSize(800, 500);
+		setSize(1000, 500);
 		setVisible(true);
 		
 

@@ -118,6 +118,10 @@ public class Player {
 	public void takeover(int who, int whom) {
 		controlledLifeforms.get(who).getNeighbors().get(whom).setControlled(true);
 		controlledLifeforms.add(controlledLifeforms.get(who).getNeighbors().get(whom));
-		
+	}
+
+	public void ingest(int who, int whom) {
+		sim.getNpcLifeforms().remove(controlledLifeforms.get(who).getNeighbors().get(whom));
+		controlledLifeforms.get(who).setBiomass(controlledLifeforms.get(who).getBiomass() + controlledLifeforms.get(who).getNeighbors().get(whom).getBiomass());
 	}
 }

@@ -22,7 +22,8 @@ public class VisibleLifeformsTablePanel extends JPanel {
 		this.player = player;
 		add(new JLabel("Visible Lifeforms"));
 		
-		setMinimumSize(new Dimension(200, 300));
+		setMinimumSize(new Dimension(100, 300));
+		setMaximumSize(new Dimension(150, 300));
 		
 		JScrollPane scrollpane = new JScrollPane();
 		tablemodel = new VisibleLifeformsTableModel(player);
