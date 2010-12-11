@@ -3,7 +3,7 @@ package projectubernahme.environments;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
-public class Cube extends Environment {
+public class Cube implements Environment {
 
 	private ArrayList<Line2D> lines2d;
 	
@@ -16,7 +16,6 @@ public class Cube extends Environment {
 		lines2d.add(new Line2D.Double(1, 1, 1, -1));
 	}
 
-	@Override
 	public boolean isFreeBetween(double x1, double y1, double z1, double x2, double y2, double z2) {
 		boolean isFree = true;
 		for (Line2D line : lines2d) {
@@ -27,7 +26,6 @@ public class Cube extends Environment {
 		return isFree;
 	}
 
-	@Override
 	public ArrayList<Line2D> get2DWalls() {
 		return lines2d;
 	}
