@@ -11,10 +11,9 @@ public class Interface2D {
 	Player player;
 	
 	public Interface2D (MainSimulator sim, Player p) {
-		JFrame lifeformFrame = new LifeformFrame(sim);
+		JFrame lifeformFrame = new LifeformFrame(sim, p);
 		
-		Thread refreshWindow = new RefreshWindowThread(lifeformFrame);
-		refreshWindow.start();
+		
 	}
 
 }

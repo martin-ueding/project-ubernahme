@@ -1,5 +1,6 @@
 package projectubernahme.lifeforms;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import projectubernahme.Localizer;
@@ -175,5 +176,11 @@ abstract public class Lifeform {
 
 	public double getBiomass() {
 		return biomass;
+	}
+
+	public void handleKeyPressed (KeyEvent e) {
+	}
+
+	public void handleKeyReleased (KeyEvent e) {
 	}
 }

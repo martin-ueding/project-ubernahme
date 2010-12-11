@@ -1,4 +1,5 @@
 package projectubernahme;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import projectubernahme.lifeforms.Lifeform;
@@ -10,6 +11,8 @@ public class Player {
 	ArrayList<Lifeform> controlledLifeforms;
 
 	MainSimulator sim;
+	
+	Lifeform selectedLifeform;
 	
 	
 	/** initializes the list of controlledLifeforms, add a starting one */
@@ -80,5 +83,17 @@ public class Player {
 
 	public boolean hasSomeControl() {
 		return controlledLifeforms.size() > 0;
+	}
+	
+
+	
+	public void handleKeyPressed(KeyEvent e) {
+		if (selectedLifeform != null)
+			selectedLifeform.handleKeyReleased(e);
+	}
+
+	public void handleKeyReleased(KeyEvent e) {
+		if (selectedLifeform != null)
+			selectedLifeform.handleKeyReleased(e);
 	}
 }
