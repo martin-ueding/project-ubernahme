@@ -35,9 +35,11 @@ public class LifeformPanel extends JPanel {
 		g.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 		
 		/* clear screen */
-		g.clearRect(0, 0, getWidth(), getHeight());
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, getWidth(), getHeight());
 		
 		/* draw the map */
+		g.setColor(Color.BLACK);
 		for (Line2D line : sim.getEnv().get2DWalls()) {
 			g.draw(transform.createTransformedShape(line));
 		}

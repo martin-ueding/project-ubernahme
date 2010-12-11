@@ -17,13 +17,14 @@ public class LifeformFrame extends JFrame {
 		JPanel layoutPanel = new JPanel(new BorderLayout());
 		
 		layoutPanel.add(new LifeformPanel(sim), BorderLayout.CENTER);
+		layoutPanel.add(new LifeformTablePanel(player), BorderLayout.EAST);
 		
 		add(layoutPanel);
 		
 		/* add key listener */
 		addKeyListener(new LifeformControlKeyListener(player));
 		
-		setSize(400, 400);
+		setSize(800, 500);
 		setVisible(true);
 		
 

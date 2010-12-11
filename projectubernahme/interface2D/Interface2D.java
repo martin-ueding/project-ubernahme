@@ -12,8 +12,6 @@ public class Interface2D {
 	
 	public Interface2D (MainSimulator sim, Player p) {
 		JFrame lifeformFrame = new LifeformFrame(sim, p);
-		
-		
 	}
 
 }

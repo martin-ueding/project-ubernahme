@@ -8,7 +8,7 @@ import projectubernahme.simulator.MainSimulator;
 
 /** a physical player of the game, controlling a heap of different lifeforms */
 public class Player {
-	ArrayList<Lifeform> controlledLifeforms;
+	private ArrayList<Lifeform> controlledLifeforms;
 
 	MainSimulator sim;
 	
@@ -18,8 +18,8 @@ public class Player {
 	/** initializes the list of controlledLifeforms, add a starting one */
 	public Player (MainSimulator sim) {
 		this.sim = sim;
-		controlledLifeforms = new ArrayList<Lifeform>();
-		controlledLifeforms.add(sim.giveLifeform());
+		setControlledLifeforms(new ArrayList<Lifeform>());
+		getControlledLifeforms().add(sim.giveLifeform());
 	}
 
 	public void play () {
@@ -27,11 +27,11 @@ public class Player {
 		int lifeformSelectionNumber = 0;
 
 		/* the game continues as long as there are lifeforms the player is in control of */
-		while (controlledLifeforms.size() > 0) {
+		while (getControlledLifeforms().size() > 0) {
 			/* select which unit to use */
 			System.out.println(Localizer.get("You are in control of the following lifeforms:"));
 			int i = 0;
-			for (Lifeform form : controlledLifeforms) {
+			for (Lifeform form : getControlledLifeforms()) {
 				if (form == lifeformSelection)
 					lifeformSelectionNumber = i;
 				System.out.println(i+++"\t"+form.toString());
@@ -44,7 +44,7 @@ public class Player {
 			String input = StringRead.read();
 			if (!input.equals("")) {
 				lifeformSelectionNumber = Integer.parseInt(input);
-				lifeformSelection = controlledLifeforms.get(lifeformSelectionNumber);
+				lifeformSelection = getControlledLifeforms().get(lifeformSelectionNumber);
 			}
 
 			/* use the selected unit */
@@ -77,12 +77,12 @@ public class Player {
 	}
 
 	public void takeControlOver (Lifeform l) {
-		controlledLifeforms.add(l);
+		getControlledLifeforms().add(l);
 		l.setControlled(true);
 	}
 
 	public boolean hasSomeControl() {
-		return controlledLifeforms.size() > 0;
+		return getControlledLifeforms().size() > 0;
 	}
 	
 
@@ -95,5 +95,13 @@ public class Player {
 	public void handleKeyReleased(KeyEvent e) {
 		if (selectedLifeform != null)
 			selectedLifeform.handleKeyReleased(e);
+	}
+
+	public void setControlledLifeforms(ArrayList<Lifeform> controlledLifeforms) {
+		this.controlledLifeforms = controlledLifeforms;
+	}
+
+	public ArrayList<Lifeform> getControlledLifeforms() {
+		return controlledLifeforms;
 	}
 }

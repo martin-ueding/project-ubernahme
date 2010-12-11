@@ -11,6 +11,12 @@ import projectubernahme.simulator.MainSimulator;
 
 /** something with its own mind in the game, can interact with other lifeforms and the world */
 abstract public class Lifeform {
+	/** unique id */
+	int id;
+	
+	static int next_id = 0;
+	
+	/** coordinates */
 	double x, y, z;
 	
 	/** velocities in the three coordinate axes, [m/s] */
@@ -45,16 +51,7 @@ abstract public class Lifeform {
 	public Lifeform (MainSimulator sim) {
 		this.sim = sim;
 		name = new String();
-	}
-
-	/** gives a generic description string of the object */
-	public String toString () {
-		if (name.equals("")) {
-			return getClass().getSimpleName()+"\t"+getBiomass()+" kg";
-		}
-		else {
-			return name+"\t("+getClass().getSimpleName()+")\t"+getBiomass()+" kg";
-		}
+		id = next_id++;
 	}
 
 	/** lets the lifeform look around and interact with its proximity */
@@ -81,7 +78,7 @@ abstract public class Lifeform {
 				System.out.println(Localizer.get("ta\ttake over control"));
 				System.out.println(Localizer.get("in\tingest biomass"));
 				String action = StringRead.read();
-
+	
 				if (action.equals(Localizer.get("ta"))) {
 					player.takeControlOver(selected);
 				}
@@ -93,6 +90,16 @@ abstract public class Lifeform {
 		}
 		else {
 			System.out.println(Localizer.get("This lifeform cannot see any other lifeforms"));
+		}
+	}
+
+	/** gives a generic description string of the object */
+	public String toString () {
+		if (name.equals("")) {
+			return getClass().getSimpleName()+"\t"+getBiomass()+" kg";
+		}
+		else {
+			return name+"\t("+getClass().getSimpleName()+")\t"+getBiomass()+" kg";
 		}
 	}
 
@@ -108,46 +115,6 @@ abstract public class Lifeform {
 	public void rename () {
 		System.out.print(Localizer.get("New Name: "));
 		name = StringRead.read();
-	}
-
-	public void setCanFly(boolean canFly) {
-		this.canFly = canFly;
-	}
-
-	public boolean isCanFly() {
-		return canFly;
-	}
-
-	public void setCanSee(boolean canSee) {
-		this.canSee = canSee;
-	}
-
-	public boolean isCanSee() {
-		return canSee;
-	}
-
-	public void setControlled(boolean isControlled) {
-		this.isControlled = isControlled;
-	}
-
-	public boolean isControlled() {
-		return isControlled;
-	}
-
-	public void setX(double x) {
-		this.x = x;
-	}
-
-	public double getX() {
-		return x;
-	}
-
-	public void setY(double y) {
-		this.y = y;
-	}
-
-	public double getY() {
-		return y;
 	}
 
 	/** lets the physics work on the lifeform and moves it by its velocities */
@@ -170,17 +137,70 @@ abstract public class Lifeform {
 	 * @param sleepTime */
 	abstract public void act(int sleepTime);
 
-	public void setBiomass(double biomass) {
-		this.biomass = biomass;
+	public void handleKeyPressed (KeyEvent e) {
+	}
+
+	public void handleKeyReleased (KeyEvent e) {
+	}
+
+	public double getX() {
+		return x;
+	}
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public void setY(double y) {
+		this.y = y;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public double getBiomass() {
 		return biomass;
 	}
 
-	public void handleKeyPressed (KeyEvent e) {
+	public void setBiomass(double biomass) {
+		this.biomass = biomass;
 	}
 
-	public void handleKeyReleased (KeyEvent e) {
+	public boolean isCanSee() {
+		return canSee;
+	}
+
+	public boolean isCanFly() {
+		return canFly;
+	}
+
+	public void setCanSee(boolean canSee) {
+		this.canSee = canSee;
+	}
+
+	public void setCanFly(boolean canFly) {
+		this.canFly = canFly;
+	}
+
+	public boolean isControlled() {
+		return isControlled;
+	}
+
+	public void setControlled(boolean isControlled) {
+		this.isControlled = isControlled;
+	}
+
+	public int getID() {
+		return id;
+	}
+
+	public void setName(String value) {
+		name = value;
+		
 	}
 }
