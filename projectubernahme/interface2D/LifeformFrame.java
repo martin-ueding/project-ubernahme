@@ -19,8 +19,6 @@ public class LifeformFrame extends JFrame {
 	public LifeformFrame (MainSimulator sim, Player player) {
 		super("Lifeform Frame");
 		JPanel layoutPanel = new JPanel(new BorderLayout());
-		
-		layoutPanel.add(new View2D(sim, player), BorderLayout.CENTER);
 
 
 		controlledPanel = new ControlledLifeformsTablePanel(player);
@@ -28,7 +26,7 @@ public class LifeformFrame extends JFrame {
 		
 		JSplitPane splitpane1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, controlledPanel, visiblePanel);
 
-		layoutPanel.add(splitpane1, BorderLayout.WEST);
+		layoutPanel.add(splitpane1, BorderLayout.CENTER);
 		
 		actionspanel = new ActionsPanel(player, controlledPanel.getTable(), visiblePanel.getTable());
 		layoutPanel.add(actionspanel, BorderLayout.SOUTH);
