@@ -34,7 +34,7 @@ public class Player {
 	
 	public void handleKeyPressed(KeyEvent e) {
 		if (getSelectedLifeform() != null)
-			getSelectedLifeform().handleKeyReleased(e);
+			getSelectedLifeform().handleKeyPressed(e);
 	}
 
 	public void handleKeyReleased(KeyEvent e) {

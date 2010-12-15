@@ -22,7 +22,6 @@ public class Fly extends Lifeform {
 
 	@Override
 	public void act(int sleepTime) {
-		viewAngle += 0.03;
 		
 	}
 

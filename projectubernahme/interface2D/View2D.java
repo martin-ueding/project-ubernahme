@@ -113,7 +113,10 @@ public class View2D extends JPanel {
 				g.drawLine((int)p.getX(), (int)p.getY(), (int)nose.getX(), (int)nose.getY());
 			}
 			
-			// TODO show names
+			if (!l.getName().equals("")) {
+				g.setColor(new Color(100, 100, 100, 200));
+				g.drawString(l.getName(), (int)(p.getX()+diameterView/2), (int)(p.getY()+diameterView/2));
+			}
 			
 		}
 		

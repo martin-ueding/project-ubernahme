@@ -19,25 +19,28 @@ import projectubernahme.simulator.MainSimulator;
 abstract public class Lifeform {
 	/** unique id */
 	int id;
-	
+
 	static int next_id = 0;
-	
+
 	/** coordinates */
 	double x, y, z;
-	
+
 	/** angle of view */
 	double viewAngle;
-	
+
 	/** velocities in the three coordinate axes, [m/s] */
-	double vx, vy, vz;
+	double v, vx, vy, vz;
 
 	/** given name of the object */
 	String name = new String();
 
 	boolean alive = true;
-	
+
+	/** whether character is turning */
+	double dViewAngle;
+
 	public BufferedImage image;
-	
+
 	ArrayList<Lifeform> neighbors = new ArrayList<Lifeform>();
 
 	/* senses */
@@ -52,20 +55,20 @@ abstract public class Lifeform {
 	/* actions */
 	boolean canMove = false;
 	private boolean canFly = false;
-	
+
 	/** whether this lifeform is controlled by some player, meaning that it does not need to be controlled by the computer */
 	private boolean isControlled = false;
 
 	/** the mass of biological stuff the lifeform ingested so far */
 	private double biomass = 0.0;
-	
+
 	MainSimulator sim;
-	
+
 	public Lifeform (MainSimulator sim) {
 		this.sim = sim;
 		name = new String();
 		id = next_id++;
-		
+
 		tryLoadImage();
 	}
 
@@ -74,7 +77,7 @@ abstract public class Lifeform {
 		try {
 			InputStream is = ClassLoader.getSystemResourceAsStream("projectubernahme/gfx/"+this.getClass().getSimpleName()+".png");
 			if (is != null)
-			image = ImageIO.read(is);
+				image = ImageIO.read(is);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -105,7 +108,7 @@ abstract public class Lifeform {
 				System.out.println(Localizer.get("ta\ttake over control"));
 				System.out.println(Localizer.get("in\tingest biomass"));
 				String action = StringRead.read();
-	
+
 				if (action.equals(Localizer.get("ta"))) {
 					player.takeControlOver(selected);
 				}
@@ -157,28 +160,53 @@ abstract public class Lifeform {
 
 	/** lets the physics work on the lifeform and moves it by its velocities */
 	public void move(int sleepTime) {
-		double t = sleepTime/1000.0;
-		
-		double a = x + vx*t;
-		double b = y + vy*t;
-		double c = z + vz*t;
-		
-		/* try to move, check for wall */
-		if (sim.getEnv().isFreeBetween(x, y, z, a, b, c)) {
-			x = a;
-			y = b;
-			z = c;
+		if (canMove) {
+			double t = sleepTime/1000.0;
+
+			double a = x + vx*t;
+			double b = y + vy*t;
+			double c = z + vz*t;
+
+			/* try to move, check for wall */
+			if (sim.getEnv().isFreeBetween(x, y, z, a, b, c)) {
+				x = a;
+				y = b;
+				z = c;
+			}
+
+			viewAngle += dViewAngle*t;
 		}
 	}
-	
+
 	/** this lets the lifeform act, this can be just sitting around or calling for support or attacking another lifeform */
 	abstract public void act(int sleepTime);
 
 	public void handleKeyPressed (KeyEvent e) {
-		System.out.println("KeyEvent");
+		switch (e.getKeyChar()) {
+		case 'w': v += .3; break;
+		case 's': v += -.3; break;
+		case 'a': dViewAngle = -3.0; break;
+		case 'd': dViewAngle = 3.0; break;
+		}
+
+		v = Math.min(1, v);
+
+		vx = v*Math.cos(viewAngle);
+		vy = v*Math.sin(viewAngle);
 	}
 
 	public void handleKeyReleased (KeyEvent e) {
+		switch (e.getKeyChar()) {
+		case 'w':
+		case 's': v -= 3.0; break;
+		case 'a':
+		case 'd': dViewAngle = 0.0; break;
+		}
+
+		v = Math.max(0, v);
+
+		vx = v*Math.cos(viewAngle);
+		vy = v*Math.sin(viewAngle);
 	}
 
 	public double getX() {
@@ -243,7 +271,7 @@ abstract public class Lifeform {
 
 	public void setName(String value) {
 		name = value;
-		
+
 	}
 
 	public ArrayList<Lifeform> getNeighbors() {
@@ -255,18 +283,18 @@ abstract public class Lifeform {
 		}
 		return neighbors;
 	}
-	
+
 	/** generates a list with all the lifeforms this one can see */
 	public void generateNeighborsList() {
 		neighbors.clear();
-		
+
 		for (Lifeform l : sim.getLifeforms()) {
 			if (canSee(l) && l != this) {
 				neighbors.add(l);
 			}
 		}
 	}
-	
+
 	public Point2D getPoint2D () {
 		return new Point2D.Double(x, y);
 	}
