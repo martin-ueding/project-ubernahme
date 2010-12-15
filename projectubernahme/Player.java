@@ -27,6 +27,7 @@ public class Player {
 		l.setControlled(true);
 	}
 
+	/** checks whether the player is in control of at least one lifeform */
 	public boolean hasSomeControl() {
 		return getControlledLifeforms().size() > 0;
 	}

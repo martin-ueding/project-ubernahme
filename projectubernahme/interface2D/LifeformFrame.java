@@ -20,7 +20,7 @@ public class LifeformFrame extends JFrame {
 		super("Lifeform Frame");
 		JPanel layoutPanel = new JPanel(new BorderLayout());
 		
-		layoutPanel.add(new LifeformPanel(sim), BorderLayout.CENTER);
+		layoutPanel.add(new View2D(sim), BorderLayout.CENTER);
 
 
 		controlledPanel = new ControlledLifeformsTablePanel(player);

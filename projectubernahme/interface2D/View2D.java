@@ -13,7 +13,7 @@ import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.simulator.MainSimulator;
 
 @SuppressWarnings("serial")
-public class LifeformPanel extends JPanel {
+public class View2D extends JPanel {
 	
 	AffineTransform transform;
 	
@@ -22,7 +22,7 @@ public class LifeformPanel extends JPanel {
 	private static final int SCALING = 100;
 	private static final int OFFSET = 200;
 	
-	public LifeformPanel (MainSimulator sim) {
+	public View2D (MainSimulator sim) {
 		this.sim = sim;
 		transform = new AffineTransform();
 		transform.setToIdentity();
