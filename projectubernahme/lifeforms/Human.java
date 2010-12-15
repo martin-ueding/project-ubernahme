@@ -23,9 +23,7 @@ public class Human extends Lifeform {
 	}
 
 	@Override
-	public void act(int sleepTime) {
-		// TODO Auto-generated method stub
-		
+	public void act(int sleepTime) {		
 	}
 
 	

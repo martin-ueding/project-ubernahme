@@ -79,7 +79,6 @@ abstract public class Lifeform {
 			if (is != null)
 				image = ImageIO.read(is);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

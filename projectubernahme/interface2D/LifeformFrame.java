@@ -9,6 +9,7 @@ import javax.swing.JSplitPane;
 import projectubernahme.Player;
 import projectubernahme.simulator.MainSimulator;
 
+
 @SuppressWarnings("serial")
 public class LifeformFrame extends JFrame {
 	
