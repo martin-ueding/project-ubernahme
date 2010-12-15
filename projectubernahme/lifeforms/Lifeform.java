@@ -1,6 +1,7 @@
 package projectubernahme.lifeforms;
 
 import java.awt.event.KeyEvent;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import projectubernahme.Localizer;
@@ -240,5 +241,9 @@ abstract public class Lifeform {
 				neighbors.add(l);
 			}
 		}
+	}
+	
+	public Point2D getPoint2D () {
+		return new Point2D.Double(x, y);
 	}
 }
