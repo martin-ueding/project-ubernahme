@@ -33,7 +33,7 @@ public class LifeformFrame extends JFrame {
 		
 		add(layoutPanel);
 		
-		setSize(1000, 500);
+		setSize(300, 500);
 		setVisible(true);
 		
 
