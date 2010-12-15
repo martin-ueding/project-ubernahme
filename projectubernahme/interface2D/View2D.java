@@ -68,13 +68,34 @@ public class View2D extends JPanel {
 			
 			double diameter = Math.max(Math.sqrt(l.getBiomass())/100, .1);
 			double diameterView = diameter * Math.sqrt(transform.getDeterminant());			
+
 			Point2D p = transform.transform(l.getPoint2D(), null);
-			g.drawOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
+			/* draw image if available */
+			if (l.image != null) {
+				if (l.isControlled()) {
+					g.setColor(new Color(100, 200, 100, 100));
+					g.fillOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
+				}
+				
+				AffineTransform picTransform = new AffineTransform();
+				picTransform.setToIdentity();
+				picTransform.preConcatenate(transform);
+				picTransform.translate(l.getX()-diameter/2, l.getY()-diameter/2);
+				picTransform.rotate(l.getViewAngle(), diameter/2, diameter/2);
+				picTransform.scale(diameter/l.image.getWidth(), diameter/l.image.getWidth());
+				g.drawImage(l.image, picTransform, null);
+			}
 			
-			Point2D nose = new Point2D.Double(l.getX() + diameter*Math.cos(l.getViewAngle())/2, l.getY() + diameter*Math.sin(l.getViewAngle())/2);
-			transform.transform(nose, nose);
+			/* draw a circle */
+			else {
+
+				g.drawOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
+				Point2D nose = new Point2D.Double(l.getX() + diameter*Math.cos(l.getViewAngle())/2, l.getY() + diameter*Math.sin(l.getViewAngle())/2);
+				transform.transform(nose, nose);
+				
+				g.drawLine((int)p.getX(), (int)p.getY(), (int)nose.getX(), (int)nose.getY());
+			}
 			
-			g.drawLine((int)p.getX(), (int)p.getY(), (int)nose.getX(), (int)nose.getY());
 		}
 		
 	

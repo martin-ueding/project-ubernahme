@@ -15,6 +15,8 @@ public class Tree extends Lifeform {
 		
 		x = Math.random()-0.5;
 		y = Math.random()-0.5;
+		
+		viewAngle = 2*Math.PI*Math.random();
 	}
 
 	@Override

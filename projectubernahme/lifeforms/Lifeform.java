@@ -2,7 +2,12 @@ package projectubernahme.lifeforms;
 
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import projectubernahme.Localizer;
 import projectubernahme.Player;
@@ -31,6 +36,8 @@ abstract public class Lifeform {
 
 	boolean alive = true;
 	
+	public BufferedImage image;
+	
 	ArrayList<Lifeform> neighbors = new ArrayList<Lifeform>();
 
 	/* senses */
@@ -58,6 +65,20 @@ abstract public class Lifeform {
 		this.sim = sim;
 		name = new String();
 		id = next_id++;
+		
+		tryLoadImage();
+	}
+
+	/** tries to load an image from the gfx folder */
+	private void tryLoadImage() {
+		try {
+			InputStream is = ClassLoader.getSystemResourceAsStream("projectubernahme/gfx/"+this.getClass().getSimpleName()+".png");
+			if (is != null)
+			image = ImageIO.read(is);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/** lets the lifeform look around and interact with its proximity */
