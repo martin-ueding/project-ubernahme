@@ -8,7 +8,7 @@ import projectubernahme.Player;
 public class ControlledLifeformsTableModel extends AbstractTableModel {
 
 	Player player;
-	String[] columnNames = {"ID", "Name", "Type", "Biomass"};
+	String[] columnNames = {"Name", "Type", "Biomass"};
 	
 	public ControlledLifeformsTableModel (Player player) {
 		this.player = player;
@@ -19,7 +19,7 @@ public class ControlledLifeformsTableModel extends AbstractTableModel {
     }
 
 	public int getColumnCount() {
-		return 4;
+		return 3;
 	}
 
 	public int getRowCount() {
@@ -28,10 +28,9 @@ public class ControlledLifeformsTableModel extends AbstractTableModel {
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		switch (columnIndex) {
-		case 0: return rowIndex;
-		case 1: return player.getControlledLifeforms().get(rowIndex).getName();
-		case 2: return player.getControlledLifeforms().get(rowIndex).getClass().getSimpleName();
-		case 3: return player.getControlledLifeforms().get(rowIndex).getBiomass();
+		case 0: return player.getControlledLifeforms().get(rowIndex).getName();
+		case 1: return player.getControlledLifeforms().get(rowIndex).getClass().getSimpleName();
+		case 2: return player.getControlledLifeforms().get(rowIndex).getBiomass();
 		default: return "";
 		}
 	}
@@ -42,7 +41,7 @@ public class ControlledLifeformsTableModel extends AbstractTableModel {
 	}
 
 	public boolean isCellEditable(int row, int col) {
-		return col == 1;
+		return col == 0;
 	}
 
 	public void setValueAt(Object value, int row, int col) {

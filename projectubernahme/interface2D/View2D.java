@@ -24,10 +24,14 @@ public class View2D extends JPanel {
 	int viewScaling = 100;
 	int viewOffsetX = 200, viewOffsetY = 200;
 	
+	Player player;
+	
 	public View2D (MainSimulator sim, Player player) {
 		this.sim = sim;
 		transform = new AffineTransform();
 
+		this.player = player;
+		
 		transform.setToIdentity();
 		transform.translate(viewOffsetX, viewOffsetY);
 		transform.scale(viewScaling, viewScaling);
@@ -70,12 +74,25 @@ public class View2D extends JPanel {
 			double diameterView = diameter * Math.sqrt(transform.getDeterminant());			
 
 			Point2D p = transform.transform(l.getPoint2D(), null);
+			
+
+			
+			
+			
+			/* draw shadow if selected */
+			
+			if (player.getSelectedLifeform() == l) {
+				g.setColor(new Color(200, 50, 50, 150));
+				g.fillOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
+			}
+			else if (l.isControlled()) {
+				g.setColor(new Color(100, 200, 100, 100));
+				g.fillOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
+			}
+			
+			
 			/* draw image if available */
 			if (l.image != null) {
-				if (l.isControlled()) {
-					g.setColor(new Color(100, 200, 100, 100));
-					g.fillOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
-				}
 				
 				AffineTransform picTransform = new AffineTransform();
 				picTransform.setToIdentity();
@@ -95,6 +112,8 @@ public class View2D extends JPanel {
 				
 				g.drawLine((int)p.getX(), (int)p.getY(), (int)nose.getX(), (int)nose.getY());
 			}
+			
+			// TODO show names
 			
 		}
 		

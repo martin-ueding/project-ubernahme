@@ -61,11 +61,16 @@ public class Player {
 	}
 
 	public void takeover(int who, int whom) {
-		if (controlledLifeforms.get(who).takeover(controlledLifeforms.get(who).getNeighbors().get(whom)))
-			controlledLifeforms.add(controlledLifeforms.get(who).getNeighbors().get(whom));
+		if (!controlledLifeforms.contains(whom)) {
+			if (controlledLifeforms.get(who).takeover(controlledLifeforms.get(who).getNeighbors().get(whom)))
+				controlledLifeforms.add(controlledLifeforms.get(who).getNeighbors().get(whom));
+		}
 	}
 
 	public void ingest(int who, int whom) {
+		if (controlledLifeforms.contains(whom)) {
+			controlledLifeforms.remove(whom);
+		}
 		if (controlledLifeforms.get(who).getNeighbors().size() > whom) {
 			sim.getNpcLifeforms().remove(controlledLifeforms.get(who).getNeighbors().get(whom));
 			controlledLifeforms.get(who).setBiomass(controlledLifeforms.get(who).getBiomass() + controlledLifeforms.get(who).getNeighbors().get(whom).getBiomass());

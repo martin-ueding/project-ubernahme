@@ -29,7 +29,6 @@ public class ButtonTakeOver extends JButton implements ActionListener {
 		int whom = whomTable.getSelectedRow();
 		
 		if (who >= 0 && whom >= 0) {
-			System.out.println("Take over "+who+" "+whom);
 			player.takeover(who, whom);
 		}
 	}

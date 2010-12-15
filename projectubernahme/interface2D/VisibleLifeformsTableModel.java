@@ -8,7 +8,7 @@ import projectubernahme.Player;
 public class VisibleLifeformsTableModel extends AbstractTableModel {
 
 	Player player;
-	String[] columnNames = {"ID", "Name", "Type", "Biomass", "controlled"};
+	String[] columnNames = {"Name", "Type", "Biomass", "controlled"};
 	
 	public VisibleLifeformsTableModel (Player player) {
 		this.player = player;
@@ -19,7 +19,7 @@ public class VisibleLifeformsTableModel extends AbstractTableModel {
     }
 
 	public int getColumnCount() {
-		return 5;
+		return 4;
 	}
 
 	public int getRowCount() {
@@ -38,11 +38,10 @@ public class VisibleLifeformsTableModel extends AbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (player.getSelectedLifeform().getNeighbors().size() > 0) {
 			switch (columnIndex) {
-			case 0: return rowIndex;
-			case 1: return player.getSelectedLifeform().getNeighbors().get(rowIndex).getName();
-			case 2: return player.getSelectedLifeform().getNeighbors().get(rowIndex).getClass().getSimpleName();
-			case 3: return player.getSelectedLifeform().getNeighbors().get(rowIndex).getBiomass();
-			case 4: return player.getSelectedLifeform().getNeighbors().get(rowIndex).isControlled();
+			case 0: return player.getSelectedLifeform().getNeighbors().get(rowIndex).getName();
+			case 1: return player.getSelectedLifeform().getNeighbors().get(rowIndex).getClass().getSimpleName();
+			case 2: return player.getSelectedLifeform().getNeighbors().get(rowIndex).getBiomass();
+			case 3: return player.getSelectedLifeform().getNeighbors().get(rowIndex).isControlled();
 			}
 		}
 		return "";
