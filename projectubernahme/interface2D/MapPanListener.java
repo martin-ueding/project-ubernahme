@@ -32,7 +32,7 @@ public class MapPanListener implements MouseWheelListener, MouseMotionListener {
 
 			view.transform.scale(1.0/view.viewScaling, 1.0/view.viewScaling);
 
-			wheel += e.getWheelRotation();
+			wheel -= e.getWheelRotation();
 			view.viewScaling = (int)(Math.exp(wheel/15.0)*100);
 
 			view.transform.scale(view.viewScaling, view.viewScaling);

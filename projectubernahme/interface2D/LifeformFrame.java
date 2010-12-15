@@ -20,7 +20,7 @@ public class LifeformFrame extends JFrame {
 		super("Lifeform Frame");
 		JPanel layoutPanel = new JPanel(new BorderLayout());
 		
-		layoutPanel.add(new View2D(sim), BorderLayout.CENTER);
+		layoutPanel.add(new View2D(sim, player), BorderLayout.CENTER);
 
 
 		controlledPanel = new ControlledLifeformsTablePanel(player);
@@ -34,9 +34,6 @@ public class LifeformFrame extends JFrame {
 		layoutPanel.add(actionspanel, BorderLayout.SOUTH);
 		
 		add(layoutPanel);
-		
-		/* add key listener */
-		addKeyListener(new LifeformControlKeyListener(player));
 		
 		setSize(1000, 500);
 		setVisible(true);

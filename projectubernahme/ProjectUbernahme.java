@@ -25,9 +25,6 @@ public class ProjectUbernahme {
 	public static void main (String[] args) {
 		sim = new MainSimulator();
 
-		System.out.println(Localizer.get("Welcome to Project Ubernahme"));
-		System.out.println(Localizer.get("You can quit the game any time by entering either 'q' or 'quit'"));
-
 		player = new Player(sim);
 		
 		sim.addPlayer(player);

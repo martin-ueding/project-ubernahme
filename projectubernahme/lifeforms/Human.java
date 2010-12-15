@@ -14,6 +14,8 @@ public class Human extends Lifeform {
 
 		vx = Math.random()-0.5;
 		vy = Math.random()-0.5;
+		
+		viewAngle = Math.atan(vy/vx);
 	}
 
 	public boolean canSee (Lifeform l) {

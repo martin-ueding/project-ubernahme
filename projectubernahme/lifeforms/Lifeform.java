@@ -20,6 +20,9 @@ abstract public class Lifeform {
 	/** coordinates */
 	double x, y, z;
 	
+	/** angle of view */
+	double viewAngle;
+	
 	/** velocities in the three coordinate axes, [m/s] */
 	double vx, vy, vz;
 
@@ -245,5 +248,13 @@ abstract public class Lifeform {
 	
 	public Point2D getPoint2D () {
 		return new Point2D.Double(x, y);
+	}
+
+	public void setViewAngle(double viewAngle) {
+		this.viewAngle = viewAngle;
+	}
+
+	public double getViewAngle() {
+		return viewAngle;
 	}
 }

@@ -10,6 +10,7 @@ import java.awt.geom.Point2D;
 
 import javax.swing.JPanel;
 
+import projectubernahme.Player;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.simulator.MainSimulator;
 
@@ -23,18 +24,21 @@ public class View2D extends JPanel {
 	int viewScaling = 100;
 	int viewOffsetX = 200, viewOffsetY = 200;
 	
-	public View2D (MainSimulator sim) {
+	public View2D (MainSimulator sim, Player player) {
 		this.sim = sim;
 		transform = new AffineTransform();
-		
-		MapPanListener mpl = new MapPanListener(this);
-		addMouseMotionListener(mpl);
-		addMouseWheelListener(mpl);
-		
 
 		transform.setToIdentity();
 		transform.translate(viewOffsetX, viewOffsetY);
 		transform.scale(viewScaling, viewScaling);
+		
+		MapPanListener mpl = new MapPanListener(this);
+		addMouseMotionListener(mpl);
+		addMouseWheelListener(mpl);
+
+		
+		/* add key listener */
+		addKeyListener(new LifeformControlKeyListener(player));
 	}
 	
 	protected void paintComponent (Graphics h) {
@@ -63,9 +67,14 @@ public class View2D extends JPanel {
 			}
 			
 			double diameter = Math.max(Math.sqrt(l.getBiomass())/100, .1);
-			diameter *= Math.sqrt(transform.getDeterminant());			
+			double diameterView = diameter * Math.sqrt(transform.getDeterminant());			
 			Point2D p = transform.transform(l.getPoint2D(), null);
-			g.drawOval((int)Math.round(p.getX() - diameter/2), (int)Math.round(p.getY() - diameter/2), (int)diameter, (int)diameter);
+			g.drawOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
+			
+			Point2D nose = new Point2D.Double(l.getX() + diameter*Math.cos(l.getViewAngle())/2, l.getY() + diameter*Math.sin(l.getViewAngle())/2);
+			transform.transform(nose, nose);
+			
+			g.drawLine((int)p.getX(), (int)p.getY(), (int)nose.getX(), (int)nose.getY());
 		}
 		
 	
