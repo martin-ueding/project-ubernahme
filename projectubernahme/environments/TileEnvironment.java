@@ -2,6 +2,7 @@ package projectubernahme.environments;
 
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +18,8 @@ public class TileEnvironment implements Environment {
 
 	private int tileWidth = 100;
 	private double tileWidthInReal = 0.25;
+	
+	private Point2D origin = new Point2D.Double(0.0, 0.0);
 
 	private AffineTransform previousTransform;
 
@@ -34,25 +37,25 @@ public class TileEnvironment implements Environment {
 
 			fis.read(text);
 
-			int spalten = 0, zeilen = 0;
+			int columns = 0, rows = 0;
 			boolean erste = true;
 
 			for (int i = 0; i < text.length; i++) {
 				if (erste)
 					if (text[i] != '\n' && text[i] != '\r')
-						spalten++;
+						columns++;
 
 				if (text[i] == '\n' || text[i] == '\r') {
-					zeilen++;
+					rows++;
 					erste = false;
 				}
 			}
 
-			tiles = new char[spalten][zeilen];
+			tiles = new char[columns][rows];
 
-			for (int i = 0; i < zeilen; i++) {
-				for (int j = 0; j < spalten; j++) {
-					tiles[j][i] = (char)text[i*(spalten+1)+j];
+			for (int i = 0; i < rows; i++) {
+				for (int j = 0; j < columns; j++) {
+					tiles[j][i] = (char)text[i*(columns+1)+j];
 				}
 			}
 
@@ -75,17 +78,12 @@ public class TileEnvironment implements Environment {
 	}
 
 	public BufferedImage getBackground (int width, int height, AffineTransform transform) {
-
-		// TODO check whether it was repainted already
-
+		/* do not repaint if the transform has not changed at all */
 		if (transform.equals(previousTransform)) {
-			System.out.println("no need to paint");
 		}
 		else {
-			System.out.println("need to paint");
-
-			/* draw everything onto the background */
-
+			double twiceScreenRadius = Math.hypot(width, height);
+			/* draw only the visible items onto the background */
 			bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g = (Graphics2D) bg.getGraphics();
 			for (int i = 0; i < tiles[0].length; i++) {
@@ -94,8 +92,10 @@ public class TileEnvironment implements Environment {
 					tileTransform.scale(1.0/tileWidth*tileWidthInReal, 1.0/tileWidth*tileWidthInReal);
 					tileTransform.translate(j*tileWidth, i*tileWidth);
 					tileTransform.preConcatenate(transform);
-					g.drawImage(tile_default, tileTransform, null);
-
+					Point2D target = tileTransform.transform(origin, null);
+					if (target.distance(width/2, height/2) < twiceScreenRadius) {
+						g.drawImage(tile_default, tileTransform, null);
+					}
 					//tiles[j][i] = (char)text[i*(spalten+1)+j];
 					//System.out.println("drawing tile\t"+i+"\t"+j);
 				}
