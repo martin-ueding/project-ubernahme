@@ -6,8 +6,14 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+
+import projectubernahme.lifeforms.Human;
+import projectubernahme.lifeforms.Lifeform;
+import projectubernahme.lifeforms.Tree;
+import projectubernahme.simulator.MainSimulator;
 
 public class TileEnvironment implements Environment {
 
@@ -29,7 +35,7 @@ public class TileEnvironment implements Environment {
 
 		try {
 
-			tile_default = ImageIO.read(cl.getResourceAsStream("projectubernahme/gfx/tile_default.png"));
+			tile_default = ImageIO.read(cl.getResourceAsStream("projectubernahme/gfx/tile_default100.png"));
 
 			InputStream fis = cl.getResourceAsStream("projectubernahme/environments/tilemap_"+mapname+".txt");
 
@@ -69,7 +75,6 @@ public class TileEnvironment implements Environment {
 	}
 
 	public boolean isFreeBetween(double x1, double y1, double z1, double x2, double y2, double z2) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
@@ -96,8 +101,6 @@ public class TileEnvironment implements Environment {
 					if (target.distance(width/2, height/2) < twiceScreenRadius) {
 						g.drawImage(tile_default, tileTransform, null);
 					}
-					//tiles[j][i] = (char)text[i*(spalten+1)+j];
-					//System.out.println("drawing tile\t"+i+"\t"+j);
 				}
 			}
 			previousTransform = (AffineTransform) transform.clone();
@@ -106,4 +109,16 @@ public class TileEnvironment implements Environment {
 		return bg;
 	}
 
+	public void initializeNPCs(ArrayList<Lifeform> list, MainSimulator sim) {
+		for (int i = 0; i < tiles[0].length; i++) {
+			for (int j = 0; j < tiles.length; j++) {
+				if (Math.random() > 0.9) {
+					switch (tiles[j][i]) {
+					case 'S': list.add(new Human(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal));
+					case 'L': list.add(new Tree(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal));
+					}
+				}
+			}
+		}
+	}
 }

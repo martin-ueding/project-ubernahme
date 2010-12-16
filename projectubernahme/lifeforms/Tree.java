@@ -19,6 +19,12 @@ public class Tree extends Lifeform {
 		viewAngle = 2*Math.PI*Math.random();
 	}
 
+	public Tree(MainSimulator sim, double d, double e) {
+		this(sim);
+		x = d;
+		y = e;
+	}
+
 	@Override
 	public void act(int sleepTime) {
 		double t = sleepTime/1000.0;

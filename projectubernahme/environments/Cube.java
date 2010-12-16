@@ -6,6 +6,11 @@ import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import projectubernahme.lifeforms.Human;
+import projectubernahme.lifeforms.Lifeform;
+import projectubernahme.lifeforms.Tree;
+import projectubernahme.simulator.MainSimulator;
+
 public class Cube implements Environment {
 
 	private ArrayList<Line2D> lines2d;
@@ -52,6 +57,15 @@ public class Cube implements Environment {
 			AffineTransform transform) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void initializeNPCs(ArrayList<Lifeform> list, MainSimulator sim) {
+		/* add some NPCs to the game */
+		for (int i = 0; i < 5; i++) {
+			list.add(new Human(sim));
+			list.add(new Tree(sim));
+		}
+		
 	}
 
 }

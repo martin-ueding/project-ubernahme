@@ -18,6 +18,12 @@ public class Human extends Lifeform {
 		viewAngle = Math.atan(vy/vx);
 	}
 
+	public Human(MainSimulator sim, double d, double e) {
+		this(sim);
+		x = d;
+		y = e;
+	}
+
 	public boolean canSee (Lifeform l) {
 		return (isCanSee() && distance(l) < 10);			
 	}

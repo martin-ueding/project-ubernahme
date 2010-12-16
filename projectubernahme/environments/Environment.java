@@ -2,6 +2,10 @@ package projectubernahme.environments;
 
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
+import projectubernahme.lifeforms.Lifeform;
+import projectubernahme.simulator.MainSimulator;
 
 abstract public interface Environment {
 	
@@ -10,5 +14,8 @@ abstract public interface Environment {
 	public BufferedImage getBackground ();
 
 	public BufferedImage getBackground(int width, int height, AffineTransform transform);
+	
+	public void initializeNPCs (ArrayList<Lifeform> list, MainSimulator sim);
+	
 
 }

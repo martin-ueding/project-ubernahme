@@ -2,12 +2,7 @@ package projectubernahme.lifeforms;
 
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 
 import projectubernahme.Localizer;
 import projectubernahme.Player;
@@ -39,8 +34,6 @@ abstract public class Lifeform {
 	/** whether character is turning */
 	double dViewAngle;
 
-	public BufferedImage image;
-
 	ArrayList<Lifeform> neighbors = new ArrayList<Lifeform>();
 
 	/* senses */
@@ -68,26 +61,13 @@ abstract public class Lifeform {
 		this.sim = sim;
 		name = new String();
 		id = next_id++;
-
-		tryLoadImage();
-	}
-
-	/** tries to load an image from the gfx folder */
-	private void tryLoadImage() {
-		try {
-			InputStream is = ClassLoader.getSystemResourceAsStream("projectubernahme/gfx/"+this.getClass().getSimpleName()+".png");
-			if (is != null)
-				image = ImageIO.read(is);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	/** lets the lifeform look around and interact with its proximity */
 	public void lookAround (Player player) {
 		ArrayList<Lifeform> inProximity = new ArrayList<Lifeform>();
-		if (sim.getNpcLifeforms().size() > 0) {
-			for (Lifeform npc : sim.getNpcLifeforms()) {
+		if (sim.getLifeforms().size() > 0) {
+			for (Lifeform npc : sim.getLifeforms()) {
 				if (this.canSee(npc)) {
 					inProximity.add(npc);
 				}
@@ -112,7 +92,7 @@ abstract public class Lifeform {
 					player.takeControlOver(selected);
 				}
 				else if (action.equals(Localizer.get("in"))) {
-					sim.getNpcLifeforms().remove(selected);
+					sim.getLifeforms().remove(selected);
 					this.setBiomass(this.getBiomass() + selected.getBiomass());
 				}
 			}
@@ -156,7 +136,7 @@ abstract public class Lifeform {
 
 	/** lets the physics work on the lifeform and moves it by its velocities */
 	public void move(int sleepTime) {
-		if (canMove) {
+		if (canMove || canFly) {
 			double t = sleepTime/1000.0;
 
 			double a = x + vx*t;

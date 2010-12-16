@@ -4,6 +4,10 @@ import projectubernahme.simulator.MainSimulator;
 
 /** lifeform, a simple fly which can look around and fly a little */
 public class Fly extends Lifeform {
+	
+	/* actions */
+	boolean canMove = true;
+	private boolean canFly = true;
 
 	public Fly (MainSimulator sim) {
 		super(sim);

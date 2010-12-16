@@ -35,8 +35,6 @@ public class LifeformSelectionMouseListener implements MouseListener {
 		try {
 			p = transform.createInverse().transform(e.getPoint(), null);
 
-			System.out.println(p);
-
 			/* find the lifeform that is under the cursor */
 			for (Lifeform l : player.getControlledLifeforms()) {
 				if (selected == null && l.getPoint2D().distance(p) <= l.getDiameter()/2) {

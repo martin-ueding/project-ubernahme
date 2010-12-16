@@ -6,9 +6,7 @@ import projectubernahme.Player;
 import projectubernahme.environments.Environment;
 import projectubernahme.environments.TileEnvironment;
 import projectubernahme.lifeforms.Fly;
-import projectubernahme.lifeforms.Human;
 import projectubernahme.lifeforms.Lifeform;
-import projectubernahme.lifeforms.Tree;
 
 /** simulates all the lifeforms and the map, has a thread that moves everything around */
 public class MainSimulator {
@@ -18,17 +16,15 @@ public class MainSimulator {
 	ArrayList<Player> players;
 	
 	/** the environment **/
-	private Environment env = new TileEnvironment("squarecity");
+	private Environment env;
 	
 	public MainSimulator () {
-		setLifeforms(new ArrayList<Lifeform>());
+		lifeforms = new ArrayList<Lifeform>();
 		players = new ArrayList<Player>();
-
-		/* add some NPCs to the game */
-		for (int i = 0; i < 5; i++) {
-			getLifeforms().add(new Human(this));
-			getLifeforms().add(new Tree(this));
-		}
+		
+		env = new TileEnvironment("squarecity");
+		
+		env.initializeNPCs(lifeforms, this);
 		
 		/* start thread */
 		Thread SimulatorThread = new SimulatorThread(this);
@@ -36,8 +32,8 @@ public class MainSimulator {
 		
 	}
 
-	public ArrayList<Lifeform> getNpcLifeforms() {
-		return getLifeforms();
+	public ArrayList<Lifeform> getLifeforms() {
+		return lifeforms;
 	}
 
 	/** generates a lifeform and return is. The player then can add it to its list of controlled lifeforms */
@@ -67,10 +63,6 @@ public class MainSimulator {
 
 	public void setLifeforms(ArrayList<Lifeform> lifeforms) {
 		this.lifeforms = lifeforms;
-	}
-
-	public ArrayList<Lifeform> getLifeforms() {
-		return lifeforms;
 	}
 
 	public void setEnv(Environment env) {
