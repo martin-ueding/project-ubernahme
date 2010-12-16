@@ -133,10 +133,7 @@ abstract public class Lifeform {
 	}
 
 	public boolean takeover(Lifeform lifeform) {
-		if (canMove) {
-			x = lifeform.getX();
-			y = lifeform.getY();
-			z = lifeform.getZ();
+		if (canSee(lifeform)) {
 			lifeform.setControlled(controllingPlayer);
 			return true;
 		}
