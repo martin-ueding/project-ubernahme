@@ -1,0 +1,10 @@
+s	Street
+S	Sidewalk
+C	Crosswalk
+l	Lawn / Grass
+L	Lawn / Grass with automatic trees
+B	Blocked
+R	Roof
+W	Wall
+w	Water
+
