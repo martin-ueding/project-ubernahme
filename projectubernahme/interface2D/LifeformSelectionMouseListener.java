@@ -30,6 +30,7 @@ public class LifeformSelectionMouseListener implements MouseListener {
 		/* transform the mouse coordinates back to the game coordinates */
 		Point2D p;
 		Lifeform selected = null;
+		boolean primary = false;
 
 		try {
 			p = transform.createInverse().transform(e.getPoint(), null);
@@ -40,29 +41,38 @@ public class LifeformSelectionMouseListener implements MouseListener {
 			for (Lifeform l : player.getControlledLifeforms()) {
 				if (selected == null && l.getPoint2D().distance(p) <= l.getDiameter()/2) {
 					selected = l;
+					primary = true;
 				}
-			}
-
-			if (selected != null) {
-				player.setSelectedLifeform(selected);
 			}
 
 			/* if the lifeform is not within the controlled ones, search the whole premises */
 			if (selected == null) {
-
+				for (Lifeform l : sim.getLifeforms()) {
+					if (selected == null && l.getPoint2D().distance(p) <= l.getDiameter()/2) {
+						selected = l;
+					}
+				}
 			}
 
 			if (selected != null) {
 				/* if it was a single click, select the lifeform */
 				if (e.getClickCount() == 1) {
-					player.setSelectedLifeform(selected);
+					if (e.getButton() == MouseEvent.BUTTON1 && primary) {
+						player.setSelectedLifeform(selected);
+					}
+					else if (e.getButton() == MouseEvent.BUTTON3) {
+						player.setSecondarySelectedLifeform(selected);
+					}
 				}
 
 
 
 				/* if it was a double click, rename the lifeform */
 				else if (e.getClickCount() == 2) {
-					selected.setName(JOptionPane.showInputDialog(Localizer.get("New Name:")));
+					String input = JOptionPane.showInputDialog(Localizer.get("New Name:"));
+					if (input != null) {
+						selected.setName(input);
+					}
 				}
 			}
 

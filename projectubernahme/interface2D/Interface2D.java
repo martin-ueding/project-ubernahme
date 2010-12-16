@@ -12,10 +12,7 @@ public class Interface2D {
 	MainSimulator sim;
 	Player player;
 	
-	public Interface2D (MainSimulator sim, Player p) {
-		@SuppressWarnings("unused")
-		JFrame lifeformFrame = new LifeformFrame(sim, p);
-		
+	public Interface2D (MainSimulator sim, Player p) {		
 		JFrame graphicsPanel = new JFrame();
 		View2D view = new View2D(sim, p);
 		graphicsPanel.add(view);

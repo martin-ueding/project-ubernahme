@@ -11,28 +11,35 @@ public class Player {
 	private ArrayList<Lifeform> controlledLifeforms;
 
 	MainSimulator sim;
-	
+
 	private Lifeform selectedLifeform;
-	
-	
+	private Lifeform secondarySelectedLifeform;
+
+
 	/** initializes the list of controlledLifeforms, add a starting one */
 	public Player (MainSimulator sim) {
 		this.sim = sim;
 		setControlledLifeforms(new ArrayList<Lifeform>());
-		getControlledLifeforms().add(sim.giveLifeform());
+		getControlledLifeforms().add(sim.giveLifeform(this));
 	}
 
 	public void takeControlOver (Lifeform l) {
 		getControlledLifeforms().add(l);
-		l.setControlled(true);
+		l.setControlled(this);
 	}
 
 	/** checks whether the player is in control of at least one lifeform */
 	public boolean hasSomeControl() {
 		return getControlledLifeforms().size() > 0;
 	}
-	
+
 	public void handleKeyPressed(KeyEvent e) {
+		if (e.getKeyChar() == 't') {
+			takeover(selectedLifeform, secondarySelectedLifeform);
+		}
+		else if (e.getKeyChar() == 'f') {
+			ingest(selectedLifeform, secondarySelectedLifeform);
+		}
 		if (getSelectedLifeform() != null)
 			getSelectedLifeform().handleKeyPressed(e);
 	}
@@ -51,6 +58,9 @@ public class Player {
 	}
 
 	public void setSelectedLifeform(Lifeform selectedLifeform) {
+		if (selectedLifeform != this.selectedLifeform) {
+			secondarySelectedLifeform = null;
+		}
 		this.selectedLifeform = selectedLifeform;
 	}
 
@@ -60,21 +70,50 @@ public class Player {
 		return selectedLifeform;
 	}
 
+	public Lifeform getSecondarySelectedLifeform() {
+		return secondarySelectedLifeform;
+	}
+
+	public void setSecondarySelectedLifeform(Lifeform secondarySelectedLifeform) {
+		if (secondarySelectedLifeform == selectedLifeform) {
+			this.secondarySelectedLifeform = null;
+		}
+		else {
+			this.secondarySelectedLifeform = secondarySelectedLifeform;
+		}
+	}
+
 	public void takeover(int who, int whom) {
+		Lifeform whoL = controlledLifeforms.get(who);
+		Lifeform whomL = controlledLifeforms.get(who).getNeighbors().get(whom);
+		if (whoL != null && whomL != null) {
+			takeover(whoL, whomL);
+		}
+	}
+
+	private void takeover(Lifeform who, Lifeform whom) {
 		if (!controlledLifeforms.contains(whom)) {
-			if (controlledLifeforms.get(who).takeover(controlledLifeforms.get(who).getNeighbors().get(whom)))
-				controlledLifeforms.add(controlledLifeforms.get(who).getNeighbors().get(whom));
+			if (who.takeover(whom))
+				controlledLifeforms.add(whom);
 		}
 	}
 
 	public void ingest(int who, int whom) {
+		Lifeform a = controlledLifeforms.get(who);
+		Lifeform b = controlledLifeforms.get(who).getNeighbors().get(whom);
+		
+		if (a != null && b != null) {
+			ingest(a, b);
+		}
+	}
+
+	private void ingest(Lifeform who, Lifeform whom) {
 		if (controlledLifeforms.contains(whom)) {
 			controlledLifeforms.remove(whom);
 		}
-		if (controlledLifeforms.get(who).getNeighbors().size() > whom) {
-			sim.getNpcLifeforms().remove(controlledLifeforms.get(who).getNeighbors().get(whom));
-			controlledLifeforms.get(who).setBiomass(controlledLifeforms.get(who).getBiomass() + controlledLifeforms.get(who).getNeighbors().get(whom).getBiomass());
-		}
+		sim.getLifeforms().remove(whom);
+		who.setBiomass(who.getBiomass() + whom.getBiomass());
+		
 	}
 
 	/** determined whether the player can see a certain lifeform */

@@ -88,16 +88,26 @@ public class View2D extends JPanel {
 				Point2D p = transform.transform(l.getPoint2D(), null);
 
 				/* draw arc if selected */
-
 				if (player.getSelectedLifeform() == l) {
 					g.setColor(new Color(255, 50, 50, 255));
 					g.drawArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, (int)Math.toDegrees(selectionRoationAngle), 90);
 					g.drawArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, (int)Math.toDegrees(selectionRoationAngle+Math.PI), 90);
-					
+				}
+				
+				if (player.getSecondarySelectedLifeform() == l) {
+					g.setColor(new Color(50, 50, 255, 255));
+					g.drawArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, (int)Math.toDegrees(selectionRoationAngle+Math.PI/2), 90);
+					g.drawArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, (int)Math.toDegrees(selectionRoationAngle+3*Math.PI/2), 90);
 				}
 				
 				if (l.isControlled()) {
 					g.setColor(new Color(100, 200, 100, 100));
+					g.fillOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
+				}
+				
+				/* if the lifeform can be seen, draw a blue circle below it */
+				else if (player.getSelectedLifeform().canSee(l) && l != player.getSelectedLifeform()) {
+					g.setColor(new Color(100, 100, 200, 100));
 					g.fillOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
 				}
 

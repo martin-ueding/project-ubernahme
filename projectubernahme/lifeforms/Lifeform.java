@@ -57,7 +57,7 @@ abstract public class Lifeform {
 	private boolean canFly = false;
 
 	/** whether this lifeform is controlled by some player, meaning that it does not need to be controlled by the computer */
-	private boolean isControlled = false;
+	private Player controllingPlayer = null;
 
 	/** the mass of biological stuff the lifeform ingested so far */
 	private double biomass = 0.0;
@@ -137,7 +137,7 @@ abstract public class Lifeform {
 			x = lifeform.getX();
 			y = lifeform.getY();
 			z = lifeform.getZ();
-			lifeform.setControlled(true);
+			lifeform.setControlled(controllingPlayer);
 			return true;
 		}
 		return false;
@@ -257,11 +257,11 @@ abstract public class Lifeform {
 	}
 
 	public boolean isControlled() {
-		return isControlled;
+		return controllingPlayer != null;
 	}
 
-	public void setControlled(boolean isControlled) {
-		this.isControlled = isControlled;
+	public void setControlled(Player p) {
+		this.controllingPlayer = p;
 	}
 
 	public int getID() {
