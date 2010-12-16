@@ -15,7 +15,7 @@ public class TileEnvironment implements Environment {
 
 	private BufferedImage tile_default;
 
-	private int tileWidth = 50;
+	private int tileWidth = 100;
 	private double tileWidthInReal = 0.25;
 
 	private AffineTransform previousTransform;
