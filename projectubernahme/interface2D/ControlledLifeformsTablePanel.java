@@ -15,6 +15,7 @@ public class ControlledLifeformsTablePanel extends JPanel {
 	
 	private JTable table;
 	private Player player;
+	private int lastSelectedRow;
 
 	public ControlledLifeformsTablePanel (Player player) {
 		super();
@@ -36,8 +37,9 @@ public class ControlledLifeformsTablePanel extends JPanel {
 	}
 
 	public void refresh() {
-		if (getTable().getSelectedRow() >= 0) {
+		if (getTable().getSelectedRow() >= 0 && lastSelectedRow != getTable().getSelectedRow()) {
 			player.setSelectedLifeform(player.getControlledLifeforms().get(getTable().getSelectedRow()));
+			lastSelectedRow = getTable().getSelectedRow();
 		}
 	}
 

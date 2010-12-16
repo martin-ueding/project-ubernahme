@@ -76,4 +76,17 @@ public class Player {
 			controlledLifeforms.get(who).setBiomass(controlledLifeforms.get(who).getBiomass() + controlledLifeforms.get(who).getNeighbors().get(whom).getBiomass());
 		}
 	}
+
+	/** determined whether the player can see a certain lifeform */
+	public boolean canSee(Lifeform l) {
+		if (controlledLifeforms.contains(l)) {
+			return true;
+		}
+		for (Lifeform lifeform : controlledLifeforms) {
+			if (lifeform.getNeighbors().contains(l)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

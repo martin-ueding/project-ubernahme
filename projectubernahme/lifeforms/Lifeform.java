@@ -305,4 +305,8 @@ abstract public class Lifeform {
 	public double getViewAngle() {
 		return viewAngle;
 	}
+
+	public double getDiameter() {
+		return Math.max(Math.sqrt(biomass)/100, .1);
+	}
 }
