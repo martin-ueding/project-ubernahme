@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
 import javax.swing.JPanel;
@@ -64,10 +63,7 @@ public class View2D extends JPanel {
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		/* draw the map */
-		g.setColor(Color.BLACK);
-		for (Line2D line : sim.getEnv().get2DWalls()) {
-			g.draw(transform.createTransformedShape(line));
-		}
+		g.drawImage(sim.getEnv().getBackground(getWidth(), getHeight(), transform), 0, 0, null);
 
 		/* draw all the lifeforms */
 		for (Lifeform l : sim.getLifeforms()) {

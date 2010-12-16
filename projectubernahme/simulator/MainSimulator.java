@@ -3,8 +3,8 @@ package projectubernahme.simulator;
 import java.util.ArrayList;
 
 import projectubernahme.Player;
-import projectubernahme.environments.Cube;
 import projectubernahme.environments.Environment;
+import projectubernahme.environments.TileEnvironment;
 import projectubernahme.lifeforms.Fly;
 import projectubernahme.lifeforms.Human;
 import projectubernahme.lifeforms.Lifeform;
@@ -18,7 +18,7 @@ public class MainSimulator {
 	ArrayList<Player> players;
 	
 	/** the environment **/
-	private Environment env = new Cube();
+	private Environment env = new TileEnvironment("squarecity");
 	
 	public MainSimulator () {
 		setLifeforms(new ArrayList<Lifeform>());
