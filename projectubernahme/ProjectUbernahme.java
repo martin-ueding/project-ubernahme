@@ -49,9 +49,15 @@ public class ProjectUbernahme {
 	public static BufferedImage getImage(String name, int resolution) {
 		//System.out.println("Query for "+name+resolution);
 		
-		if (resolution != 100)
-			resolution = 500;
-		String key = name+resolution;
+		int res = 1;
+		while (resolution > res)
+			res *= 2;
+		
+		res = Math.min(res, 256);
+
+		//System.out.println("Query for "+name+res);
+		
+		String key = name+res;
 		if (images.containsKey(key)) {
 			return images.get(key);
 		}

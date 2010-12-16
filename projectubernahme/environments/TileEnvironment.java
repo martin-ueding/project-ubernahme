@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-
 import projectubernahme.ProjectUbernahme;
 import projectubernahme.lifeforms.Human;
 import projectubernahme.lifeforms.Lifeform;
@@ -20,8 +18,6 @@ public class TileEnvironment implements Environment {
 
 	private char[][] tiles;
 	private BufferedImage bg;
-
-	private BufferedImage tile_default;
 
 	private int tileWidth = 100;
 	private double tileWidthInReal = 0.25;
@@ -87,21 +83,37 @@ public class TileEnvironment implements Environment {
 		}
 		else {
 			double twiceScreenRadius = Math.hypot(width, height);
+			tileWidth = (int)(Math.sqrt(transform.getDeterminant())*tileWidthInReal);
+			int w = 1;
+			while (tileWidth > w)
+				w *= 4;
+			tileWidth = w;
+			
+			tileWidth = Math.min(256, tileWidth);
+
+			
+
+			int increment = 1;
+			
+			while (30.0/tileWidth > increment) {
+				increment++;
+			}
+			
 			/* draw only the visible items onto the background */
 			bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g = (Graphics2D) bg.getGraphics();
-			for (int i = 0; i < tiles[0].length; i++) {
-				for (int j = 0; j < tiles.length; j++) {
+			for (int i = 0; i < tiles[0].length; i += increment) {
+				for (int j = 0; j < tiles.length; j += increment) {
 					AffineTransform tileTransform = new AffineTransform();
+					tileTransform.translate(j*tileWidthInReal, i*tileWidthInReal);
 					tileTransform.scale(1.0/tileWidth*tileWidthInReal, 1.0/tileWidth*tileWidthInReal);
-					tileTransform.translate(j*tileWidth, i*tileWidth);
 					tileTransform.preConcatenate(transform);
 					Point2D target = tileTransform.transform(origin, null);
 					if (target.distance(width/2, height/2) < twiceScreenRadius) {
 						BufferedImage imageToDraw = null;
-						imageToDraw = ProjectUbernahme.getImage("tile_"+tiles[j][i], 100);
+						imageToDraw = ProjectUbernahme.getImage("tile_"+tiles[j][i], tileWidth*increment);
 						if (imageToDraw == null) {
-							imageToDraw = ProjectUbernahme.getImage("tile_default", 100);
+							imageToDraw = ProjectUbernahme.getImage("tile_default", tileWidth*increment);
 						}
 						if (imageToDraw == null) {
 							System.out.println("Konnte keine Bilder finden");
@@ -122,7 +134,7 @@ public class TileEnvironment implements Environment {
 		int spawned = 0;
 		for (int i = 0; i < tiles[0].length; i++) {
 			for (int j = 0; j < tiles.length; j++) {
-				if (Math.random() > 0.9) {
+				if (Math.random() > 0.5) {
 					switch (tiles[j][i]) {
 					case 'S': list.add(new Human(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)); spawned++; break;
 					case 'L': list.add(new Tree(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)); spawned++; break;

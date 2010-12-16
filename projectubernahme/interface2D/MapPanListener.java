@@ -22,25 +22,30 @@ public class MapPanListener implements MouseWheelListener, MouseMotionListener {
 	}
 
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		try {
-			/* get the current mouse position and translate it from the px coordinate system of the screen into the meter
-			 * coordinate system of the game with the inverse transformation */
-			Point2D currentMousePos = e.getPoint();
-			AffineTransform inverse = view.transform.createInverse();
-			Point2D mouseInverse = inverse.transform(currentMousePos, null);
-			view.transform.translate(mouseInverse.getX(), mouseInverse.getY());
+		wheel -= e.getWheelRotation();
+		if (wheel >= -65) {
+			try {
+				/* get the current mouse position and translate it from the px coordinate system of the screen into the meter
+				 * coordinate system of the game with the inverse transformation */
+				Point2D currentMousePos = e.getPoint();
+				AffineTransform inverse = view.transform.createInverse();
+				Point2D mouseInverse = inverse.transform(currentMousePos, null);
+				view.transform.translate(mouseInverse.getX(), mouseInverse.getY());
 
-			view.transform.scale(1.0/view.viewScaling, 1.0/view.viewScaling);
+				view.transform.scale(1.0/view.viewScaling, 1.0/view.viewScaling);
 
-			wheel -= e.getWheelRotation();
-			view.viewScaling = (int)(Math.exp(wheel/15.0)*100);
+				view.viewScaling = (int)(Math.exp(wheel/15.0)*100);
 
-			view.transform.scale(view.viewScaling, view.viewScaling);
+				view.transform.scale(view.viewScaling, view.viewScaling);
 
-			view.transform.translate(-mouseInverse.getX(), -mouseInverse.getY());
-		} catch (NoninvertibleTransformException e1) {
-			e1.printStackTrace();
-		}		
+				view.transform.translate(-mouseInverse.getX(), -mouseInverse.getY());
+			} catch (NoninvertibleTransformException e1) {
+				e1.printStackTrace();
+			}
+		}
+		else {
+			wheel = -65;
+		}
 	}
 
 	public void mouseDragged(MouseEvent e) {
@@ -52,7 +57,7 @@ public class MapPanListener implements MouseWheelListener, MouseMotionListener {
 		else if (e.getButton() == MouseEvent.BUTTON3) {
 			double oldAngle = angle;
 			angle += (e.getY()-y)/100.0;
-			
+
 			Point2D mouse;
 			try {
 				mouse = view.transform.inverseTransform(new Point2D.Double(startx, starty), null);

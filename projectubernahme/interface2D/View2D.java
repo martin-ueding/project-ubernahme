@@ -124,8 +124,8 @@ public class View2D extends JPanel {
 						picTransform.preConcatenate(transform);
 						picTransform.translate(l.getX()-diameter/2, l.getY()-diameter/2);
 						picTransform.rotate(l.getViewAngle(), diameter/2, diameter/2);
-						picTransform.scale(diameter/ProjectUbernahme.getImage(l.getClass().getSimpleName(), (int)diameter).getWidth(), diameter/ProjectUbernahme.getImage(l.getClass().getSimpleName(), (int)diameter).getWidth());
-						g.drawImage(ProjectUbernahme.getImage(l.getClass().getSimpleName(), (int)diameter), picTransform, null);
+						picTransform.scale(diameter/ProjectUbernahme.getImage(l.getClass().getSimpleName(), (int)diameterView).getWidth(), diameter/ProjectUbernahme.getImage(l.getClass().getSimpleName(), (int)diameterView).getWidth());
+						g.drawImage(ProjectUbernahme.getImage(l.getClass().getSimpleName(), (int)diameterView), picTransform, null);
 					}
 
 					/* draw a circle */
