@@ -122,7 +122,7 @@ public class TileEnvironment implements Environment {
 		int spawned = 0;
 		for (int i = 0; i < tiles[0].length; i++) {
 			for (int j = 0; j < tiles.length; j++) {
-				if (Math.random() > 0.5) {
+				if (Math.random() > 0.9) {
 					switch (tiles[j][i]) {
 					case 'S': list.add(new Human(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)); spawned++; break;
 					case 'L': list.add(new Tree(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)); spawned++; break;

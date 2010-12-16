@@ -113,7 +113,8 @@ public class Player {
 		}
 		sim.getLifeforms().remove(whom);
 		who.setBiomass(who.getBiomass() + whom.getBiomass());
-		
+		if (!who.getName().equals("") && !whom.getName().equals(""))
+			who.setName(who.getName()+"-"+whom.getName());
 	}
 
 	/** determined whether the player can see a certain lifeform */
