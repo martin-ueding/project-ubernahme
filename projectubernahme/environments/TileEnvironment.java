@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import projectubernahme.ProjectUbernahme;
 import projectubernahme.lifeforms.Human;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.lifeforms.Tree;
@@ -34,8 +35,6 @@ public class TileEnvironment implements Environment {
 		ClassLoader cl = getClass().getClassLoader();
 
 		try {
-
-			tile_default = ImageIO.read(cl.getResourceAsStream("projectubernahme/gfx/tile_default100.png"));
 
 			InputStream fis = cl.getResourceAsStream("projectubernahme/environments/tilemap_"+mapname+".txt");
 
@@ -99,7 +98,16 @@ public class TileEnvironment implements Environment {
 					tileTransform.preConcatenate(transform);
 					Point2D target = tileTransform.transform(origin, null);
 					if (target.distance(width/2, height/2) < twiceScreenRadius) {
-						g.drawImage(tile_default, tileTransform, null);
+						BufferedImage imageToDraw = null;
+						imageToDraw = ProjectUbernahme.getImage("tile_"+tiles[j][i], 100);
+						if (imageToDraw == null) {
+							imageToDraw = ProjectUbernahme.getImage("tile_default", 100);
+						}
+						if (imageToDraw == null) {
+							System.out.println("Konnte keine Bilder finden");
+							System.exit(1);
+						}
+						g.drawImage(imageToDraw, tileTransform, null);
 					}
 				}
 			}
@@ -110,15 +118,21 @@ public class TileEnvironment implements Environment {
 	}
 
 	public void initializeNPCs(ArrayList<Lifeform> list, MainSimulator sim) {
+		int analysiert = 0;
+		int spawned = 0;
 		for (int i = 0; i < tiles[0].length; i++) {
 			for (int j = 0; j < tiles.length; j++) {
-				if (Math.random() > 0.9) {
+				if (Math.random() > 0.5) {
 					switch (tiles[j][i]) {
-					case 'S': list.add(new Human(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal));
-					case 'L': list.add(new Tree(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal));
+					case 'S': list.add(new Human(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)); spawned++; break;
+					case 'L': list.add(new Tree(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)); spawned++; break;
 					}
+					
 				}
+				analysiert++;
 			}
 		}
+		System.out.println(analysiert+" tiles analysed while creation of npc");
+		System.out.println(spawned+" npcs created");
 	}
 }

@@ -10,12 +10,6 @@ public class Human extends Lifeform {
 		setCanSee(true);
 		canMove = true;
 		setBiomass(60.0 + Math.random()*60);
-		
-
-		vx = Math.random()-0.5;
-		vy = Math.random()-0.5;
-		
-		viewAngle = Math.atan(vy/vx);
 	}
 
 	public Human(MainSimulator sim, double d, double e) {

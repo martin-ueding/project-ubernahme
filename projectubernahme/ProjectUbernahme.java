@@ -46,9 +46,12 @@ public class ProjectUbernahme {
 	
 	private static HashMap<String,BufferedImage> images = new HashMap<String,BufferedImage>();
 
-	public static BufferedImage getImage(Object classsample, int resolution) {
-		String key = classsample.getClass().getSimpleName()+"500";
-		//System.out.println("getting image "+key);
+	public static BufferedImage getImage(String name, int resolution) {
+		//System.out.println("Query for "+name+resolution);
+		
+		if (resolution != 100)
+			resolution = 500;
+		String key = name+resolution;
 		if (images.containsKey(key)) {
 			return images.get(key);
 		}

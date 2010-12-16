@@ -8,7 +8,7 @@ public class SimulatorThread extends Thread {
 	private MainSimulator sim;
 	private int cycle = 0;
 
-	private int sleepTime = 100;
+	private int sleepTime = 30;
 
 	public SimulatorThread(MainSimulator mainSimulator) {
 		sim = mainSimulator;

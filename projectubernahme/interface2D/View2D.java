@@ -28,7 +28,7 @@ public class View2D extends JPanel {
 
 	double selectionRoationAngle;
 
-	
+
 
 	public View2D (MainSimulator sim, Player player) {
 		this.sim = sim;
@@ -56,6 +56,8 @@ public class View2D extends JPanel {
 
 	protected void paintComponent (Graphics h) {
 		selectionRoationAngle = (selectionRoationAngle+0.1) % (Math.PI*2);
+
+		double twiceScreenRadius = Math.hypot(getWidth(), getHeight());
 
 		final Graphics2D g = (Graphics2D)h;
 		g.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
@@ -87,57 +89,60 @@ public class View2D extends JPanel {
 
 				Point2D p = transform.transform(l.getPoint2D(), null);
 
-				/* draw arc if selected */
-				if (player.getSelectedLifeform() == l) {
-					g.setColor(new Color(255, 50, 50, 255));
-					g.drawArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, (int)Math.toDegrees(selectionRoationAngle), 90);
-					g.drawArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, (int)Math.toDegrees(selectionRoationAngle+Math.PI), 90);
-				}
+				if (p.distance(getWidth()/2, getHeight()/2) < twiceScreenRadius/2) {
 
-				if (player.getSecondarySelectedLifeform() == l) {
-					g.setColor(new Color(50, 50, 255, 255));
-					g.drawArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, (int)Math.toDegrees(selectionRoationAngle+Math.PI/2), 90);
-					g.drawArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, (int)Math.toDegrees(selectionRoationAngle+3*Math.PI/2), 90);
-				}
+					/* draw arc if selected */
+					if (player.getSelectedLifeform() == l) {
+						g.setColor(new Color(255, 50, 50, 255));
+						g.drawArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, (int)Math.toDegrees(selectionRoationAngle), 90);
+						g.drawArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, (int)Math.toDegrees(selectionRoationAngle+Math.PI), 90);
+					}
 
-				if (l.isControlled()) {
-					g.setColor(new Color(100, 200, 100, 100));
-					g.fillOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
-				}
+					if (player.getSecondarySelectedLifeform() == l) {
+						g.setColor(new Color(50, 50, 255, 255));
+						g.drawArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, (int)Math.toDegrees(selectionRoationAngle+Math.PI/2), 90);
+						g.drawArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, (int)Math.toDegrees(selectionRoationAngle+3*Math.PI/2), 90);
+					}
 
-				/* if the lifeform can be seen, draw a blue circle below it */
-				else if (player.getSelectedLifeform().canSee(l) && l != player.getSelectedLifeform()) {
-					g.setColor(new Color(100, 100, 200, 100));
-					g.fillOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
-				}
+					if (l.isControlled()) {
+						g.setColor(new Color(100, 200, 100, 100));
+						g.fillOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
+					}
+
+					/* if the lifeform can be seen, draw a blue circle below it */
+					else if (player.getSelectedLifeform().canSee(l) && l != player.getSelectedLifeform()) {
+						g.setColor(new Color(100, 100, 200, 100));
+						g.fillOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
+					}
 
 
-				/* draw image if available */
-				if (ProjectUbernahme.getImage(l, (int)diameter) != null) {
+					/* draw image if available */
+					if (ProjectUbernahme.getImage(l.getClass().getSimpleName(), (int)diameter) != null) {
 
-					AffineTransform picTransform = new AffineTransform();
-					picTransform.setToIdentity();
-					picTransform.preConcatenate(transform);
-					picTransform.translate(l.getX()-diameter/2, l.getY()-diameter/2);
-					picTransform.rotate(l.getViewAngle(), diameter/2, diameter/2);
-					picTransform.scale(diameter/ProjectUbernahme.getImage(l, (int)diameter).getWidth(), diameter/ProjectUbernahme.getImage(l, (int)diameter).getWidth());
-					g.drawImage(ProjectUbernahme.getImage(l, (int)diameter), picTransform, null);
-				}
+						AffineTransform picTransform = new AffineTransform();
+						picTransform.setToIdentity();
+						picTransform.preConcatenate(transform);
+						picTransform.translate(l.getX()-diameter/2, l.getY()-diameter/2);
+						picTransform.rotate(l.getViewAngle(), diameter/2, diameter/2);
+						picTransform.scale(diameter/ProjectUbernahme.getImage(l.getClass().getSimpleName(), (int)diameter).getWidth(), diameter/ProjectUbernahme.getImage(l.getClass().getSimpleName(), (int)diameter).getWidth());
+						g.drawImage(ProjectUbernahme.getImage(l.getClass().getSimpleName(), (int)diameter), picTransform, null);
+					}
 
-				/* draw a circle */
-				
-				else {
+					/* draw a circle */
 
-					g.drawOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
-					Point2D nose = new Point2D.Double(l.getX() + diameter*Math.cos(l.getViewAngle())/2, l.getY() + diameter*Math.sin(l.getViewAngle())/2);
-					transform.transform(nose, nose);
+					else {
 
-					g.drawLine((int)p.getX(), (int)p.getY(), (int)nose.getX(), (int)nose.getY());
-				}
+						g.drawOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
+						Point2D nose = new Point2D.Double(l.getX() + diameter*Math.cos(l.getViewAngle())/2, l.getY() + diameter*Math.sin(l.getViewAngle())/2);
+						transform.transform(nose, nose);
 
-				if (!l.getName().equals("")) {
-					g.setColor(new Color(100, 100, 100, 200));
-					g.drawString(l.getName(), (int)(p.getX()+diameterView/2), (int)(p.getY()+diameterView/2));
+						g.drawLine((int)p.getX(), (int)p.getY(), (int)nose.getX(), (int)nose.getY());
+					}
+
+					if (!l.getName().equals("")) {
+						g.setColor(new Color(100, 100, 100, 200));
+						g.drawString(l.getName(), (int)(p.getX()+diameterView/2), (int)(p.getY()+diameterView/2));
+					}
 				}
 			}
 
