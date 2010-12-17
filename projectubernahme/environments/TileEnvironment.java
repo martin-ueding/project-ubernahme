@@ -6,7 +6,7 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import projectubernahme.ProjectUbernahme;
 import projectubernahme.lifeforms.Human;
@@ -129,7 +129,7 @@ public class TileEnvironment implements Environment {
 		return bg;
 	}
 
-	public void initializeNPCs(ArrayList<Lifeform> list, MainSimulator sim) {
+	public void initializeNPCs(CopyOnWriteArrayList<Lifeform> list, MainSimulator sim) {
 		int analysiert = 0;
 		int spawned = 0;
 		for (int i = 0; i < tiles[0].length; i++) {

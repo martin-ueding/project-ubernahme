@@ -1,6 +1,7 @@
 package projectubernahme.simulator;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import projectubernahme.Player;
 import projectubernahme.environments.Environment;
@@ -12,14 +13,14 @@ import projectubernahme.lifeforms.Lifeform;
 public class MainSimulator {
 
 	/** list of all lifeforms in the whole game */
-	private ArrayList<Lifeform> lifeforms;
+	private CopyOnWriteArrayList<Lifeform> lifeforms;
 	ArrayList<Player> players;
 	
 	/** the environment **/
 	private Environment env;
 	
 	public MainSimulator () {
-		lifeforms = new ArrayList<Lifeform>();
+		lifeforms = new CopyOnWriteArrayList<Lifeform>();
 		players = new ArrayList<Player>();
 		
 		env = new TileEnvironment("squarecity");
@@ -32,7 +33,7 @@ public class MainSimulator {
 		
 	}
 
-	public ArrayList<Lifeform> getLifeforms() {
+	public CopyOnWriteArrayList<Lifeform> getLifeforms() {
 		return lifeforms;
 	}
 
@@ -61,7 +62,7 @@ public class MainSimulator {
 		return isUp;
 	}
 
-	public void setLifeforms(ArrayList<Lifeform> lifeforms) {
+	public void setLifeforms(CopyOnWriteArrayList<Lifeform> lifeforms) {
 		this.lifeforms = lifeforms;
 	}
 

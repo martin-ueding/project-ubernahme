@@ -5,6 +5,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import projectubernahme.lifeforms.Human;
 import projectubernahme.lifeforms.Lifeform;
@@ -59,7 +60,7 @@ public class Cube implements Environment {
 		return null;
 	}
 
-	public void initializeNPCs(ArrayList<Lifeform> list, MainSimulator sim) {
+	public void initializeNPCs(CopyOnWriteArrayList<Lifeform> list, MainSimulator sim) {
 		/* add some NPCs to the game */
 		for (int i = 0; i < 5; i++) {
 			list.add(new Human(sim));

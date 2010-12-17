@@ -2,7 +2,7 @@ package projectubernahme.environments;
 
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.simulator.MainSimulator;
@@ -15,7 +15,7 @@ abstract public interface Environment {
 
 	public BufferedImage getBackground(int width, int height, AffineTransform transform);
 	
-	public void initializeNPCs (ArrayList<Lifeform> list, MainSimulator sim);
+	public void initializeNPCs (CopyOnWriteArrayList<Lifeform> list, MainSimulator sim);
 	
 
 }
