@@ -95,7 +95,7 @@ public class TileEnvironment implements Environment {
 
 			int increment = 1;
 			
-			while (30.0/tileWidth > increment) {
+			while (15.0/tileWidth > increment) {
 				increment++;
 			}
 			
