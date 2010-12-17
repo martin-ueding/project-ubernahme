@@ -108,13 +108,7 @@ public class Player {
 	}
 
 	private void ingest(Lifeform who, Lifeform whom) {
-		if (controlledLifeforms.contains(whom)) {
-			controlledLifeforms.remove(whom);
-		}
-		sim.getLifeforms().remove(whom);
-		who.setBiomass(who.getBiomass() + whom.getBiomass());
-		if (!who.getName().equals("") && !whom.getName().equals(""))
-			who.setName(who.getName()+"-"+whom.getName());
+		who.ingest(whom);
 	}
 
 	/** determined whether the player can see a certain lifeform */

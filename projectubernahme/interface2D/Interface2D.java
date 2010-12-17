@@ -14,6 +14,7 @@ public class Interface2D {
 	
 	public Interface2D (MainSimulator sim, Player p) {		
 		JFrame graphicsPanel = new JFrame();
+		graphicsPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		View2D view = new View2D(sim, p);
 		graphicsPanel.add(view);
 		graphicsPanel.setSize(800, 800);
