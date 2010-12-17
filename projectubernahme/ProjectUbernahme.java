@@ -68,12 +68,16 @@ public class ProjectUbernahme {
 
 	private static void loadImagesIntoMap () {
 		/* load the gfx directory */
-		File gfxDirectory = new File(ClassLoader.getSystemResource("projectubernahme/gfx").getFile());
+		File gfxDirectory = new File(ClassLoader.getSystemResource("projectubernahme/gfx/").getFile());
 
 		/* if this worked quite well ... */
 		if (gfxDirectory != null) {
 			/* get all the files within the gfx directory */
 			File[] files = gfxDirectory.listFiles();
+			System.out.println(gfxDirectory.getAbsolutePath());
+			System.out.println(gfxDirectory.exists());
+			System.out.println(gfxDirectory.isDirectory());
+			System.out.println(gfxDirectory.listFiles());
 			
 			if (files != null){
 
@@ -83,7 +87,9 @@ public class ProjectUbernahme {
 					if (file.getName().endsWith(".png")) {
 						System.out.println("Loading file: "+file.getName());
 						try {
-							InputStream is = ClassLoader.getSystemResourceAsStream("projectubernahme/gfx/"+file.getName());
+							String fullPath = gfxDirectory.getAbsolutePath()+File.separator+file.getName();
+							System.out.println("Trying to access "+fullPath);
+							InputStream is = ClassLoader.getSystemResourceAsStream(fullPath);
 							/* place the picture in the hashmap */
 							if (is != null) {
 								images.put(file.getName().replace(".png", ""), ImageIO.read(is));
