@@ -92,6 +92,7 @@ public class View2D extends JPanel {
 
 				Point2D p = transform.transform(l.getPoint2D(), null);
 
+				/* only draw if the lifeform is within the screen */
 				if (p.distance(getWidth()/2, getHeight()/2) < twiceScreenRadius/2) {
 
 					/* draw arc if selected */
