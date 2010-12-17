@@ -292,4 +292,15 @@ abstract public class Lifeform {
 	public double getDiameter() {
 		return Math.max(Math.sqrt(biomass)/100, .1);
 	}
+
+	public void ingest(Lifeform whom) {
+		if (controllingPlayer.getControlledLifeforms().contains(whom)) {
+			controllingPlayer.getControlledLifeforms().remove(whom);
+		}
+		/* remove lifeform from simulator */
+		sim.getLifeforms().remove(whom);
+		setBiomass(getBiomass() + whom.getBiomass());
+		if (!getName().equals("") && !whom.getName().equals(""))
+			setName(getName()+"-"+whom.getName());
+	}
 }
