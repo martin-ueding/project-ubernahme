@@ -67,26 +67,44 @@ public class ProjectUbernahme {
 	}
 
 	private static void loadImagesIntoMap () {
-		File f = new File(ClassLoader.getSystemResource("projectubernahme/gfx/").getFile());
+		/* load the gfx directory */
+		File gfxDirectory = new File(ClassLoader.getSystemResource("projectubernahme/gfx").getFile());
 
-		File[] files = f.listFiles();
+		/* if this worked quite well ... */
+		if (gfxDirectory != null) {
+			/* get all the files within the gfx directory */
+			File[] files = gfxDirectory.listFiles();
+			
+			if (files != null){
 
-		for (File file : files) {
+				for (File file : files) {
 
-			if (file.getName().endsWith(".png")) {
-				System.out.println("Loading file: "+file.getName());
-				try {
-					InputStream is = ClassLoader.getSystemResourceAsStream("projectubernahme/gfx/"+file.getName());
-					if (is != null) {
-						images.put(file.getName().replace(".png", ""), ImageIO.read(is));
+					/* get all the files which hopefully are a picture */
+					if (file.getName().endsWith(".png")) {
+						System.out.println("Loading file: "+file.getName());
+						try {
+							InputStream is = ClassLoader.getSystemResourceAsStream("projectubernahme/gfx/"+file.getName());
+							/* place the picture in the hashmap */
+							if (is != null) {
+								images.put(file.getName().replace(".png", ""), ImageIO.read(is));
+							}
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
-				} catch (IOException e) {
-					e.printStackTrace();
 				}
+				
 			}
+			else{
+				System.out.println(Localizer.get("ERROR: Could not access the files within the gfx-directory somehow. Sorry, quitting now"));
+				System.exit(1);
+			}
+
 		}
-
-
+		else {
+			System.out.println(Localizer.get("ERROR: Could not access the gfx-directory somehow. Sorry, quitting now"));
+			System.exit(1);
+		}
 
 	}
 }
