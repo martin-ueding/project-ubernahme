@@ -35,10 +35,17 @@ public class Player {
 
 	public void handleKeyPressed(KeyEvent e) {
 		if (e.getKeyChar() == 't') {
-			takeover(selectedLifeform, secondarySelectedLifeform);
+			if(secondarySelectedLifeform != null) {
+				takeover(selectedLifeform, secondarySelectedLifeform);
+				secondarySelectedLifeform = null;
+			}
 		}
 		else if (e.getKeyChar() == 'f') {
-			ingest(selectedLifeform, secondarySelectedLifeform);
+			if(secondarySelectedLifeform != null) {
+				ingest(selectedLifeform, secondarySelectedLifeform);
+				secondarySelectedLifeform = null;
+			}
+			
 		}
 		if (getSelectedLifeform() != null)
 			getSelectedLifeform().handleKeyPressed(e);
