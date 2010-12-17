@@ -22,7 +22,7 @@ public class Interface2D {
 		graphicsPanel.addKeyListener(new LifeformControlKeyListener(p));
 		
 		Timer timer = new Timer();
-		timer.schedule(new JPanelRepaintTimerTask(view), 1000, 50);
+		timer.schedule(new JPanelRepaintTimerTask(view), 1000, 40);
 	}
 
 }

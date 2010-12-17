@@ -13,7 +13,7 @@ public class JPanelRepaintTimerTask extends TimerTask {
 	@Override
 	public void run() {
 		panel.repaint();
-		panel.measureTime += 50/1000.0;
+		panel.measureTime += 40/1000.0;
 	}
 
 }
