@@ -74,6 +74,10 @@ public class ProjectUbernahme {
 		if (gfxDirectory != null) {
 			/* get all the files within the gfx directory */
 			File[] files = gfxDirectory.listFiles();
+			System.out.println("Absolute Path of gfxDir: "+gfxDirectory.getAbsolutePath());
+			System.out.println("does the dir exist? "+gfxDirectory.exists());
+			System.out.println("is it a directory? "+gfxDirectory.isDirectory());
+			System.out.println("Files inside it: "+gfxDirectory.listFiles());
 			
 			if (files != null){
 
@@ -87,6 +91,9 @@ public class ProjectUbernahme {
 							/* place the picture in the hashmap */
 							if (is != null) {
 								images.put(file.getName().replace(".png", ""), ImageIO.read(is));
+							}
+							else {
+								System.out.println("is is null");
 							}
 						} catch (IOException e) {
 							e.printStackTrace();
