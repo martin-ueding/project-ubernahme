@@ -57,6 +57,8 @@ abstract public class Lifeform {
 
 	MainSimulator sim;
 
+	private double neighborsListAge = 0.0;
+
 	public Lifeform (MainSimulator sim) {
 		this.sim = sim;
 		name = new String();
@@ -136,8 +138,9 @@ abstract public class Lifeform {
 
 	/** lets the physics work on the lifeform and moves it by its velocities */
 	public void move(int sleepTime) {
+		double t = sleepTime/1000.0;
+		neighborsListAge += t;
 		if (canMove || canFly) {
-			double t = sleepTime/1000.0;
 
 			double a = x + vx*t;
 			double b = y + vy*t;
@@ -253,9 +256,12 @@ abstract public class Lifeform {
 	public ArrayList<Lifeform> getNeighbors() {
 		if (neighbors == null) {
 			neighbors = new ArrayList<Lifeform>();
-		}
-		if (neighbors.size() == 0) {
 			generateNeighborsList();
+		}
+		/* if the neighbors list is old, generate a new one */
+		if (neighborsListAge > 0.5) {
+			generateNeighborsList();
+			neighborsListAge = 0.0;
 		}
 		return neighbors;
 	}
