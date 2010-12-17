@@ -12,6 +12,7 @@ import projectubernahme.ProjectUbernahme;
 import projectubernahme.lifeforms.Human;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.lifeforms.Tree;
+import projectubernahme.lifeforms.Zombie;
 import projectubernahme.simulator.MainSimulator;
 
 public class TileEnvironment implements Environment {
@@ -136,7 +137,7 @@ public class TileEnvironment implements Environment {
 			for (int j = 0; j < tiles.length; j++) {
 				if (Math.random() > 0.5) {
 					switch (tiles[j][i]) {
-					case 'S': list.add(new Human(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)); spawned++; break;
+					case 'S': list.add(Math.random() < 0.995 ? new Human(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal) : new Zombie(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)); spawned++; break;
 					case 'L': list.add(new Tree(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)); spawned++; break;
 					}
 					

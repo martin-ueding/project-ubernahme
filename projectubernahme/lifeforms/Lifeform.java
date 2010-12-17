@@ -294,8 +294,10 @@ abstract public class Lifeform {
 	}
 
 	public void ingest(Lifeform whom) {
-		if (controllingPlayer.getControlledLifeforms().contains(whom)) {
-			controllingPlayer.getControlledLifeforms().remove(whom);
+		if (isControlled()) {
+			if (controllingPlayer.getControlledLifeforms().contains(whom)) {
+				controllingPlayer.getControlledLifeforms().remove(whom);
+			}
 		}
 		/* remove lifeform from simulator */
 		sim.getLifeforms().remove(whom);
