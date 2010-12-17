@@ -14,7 +14,10 @@
    id="svg2855"
    version="1.1"
    inkscape:version="0.47 r22583"
-   sodipodi:docname="Zombie.svg">
+   sodipodi:docname="Zombie.svg"
+   inkscape:export-filename="/Users/mu/Code/Projekte/ProjectUbernahme/trunk/original_SVG/Zombie.png"
+   inkscape:export-xdpi="439.75769"
+   inkscape:export-ydpi="439.75769">
   <defs
      id="defs2857">
     <inkscape:perspective
@@ -51,7 +54,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
