@@ -1,4 +1,6 @@
 @echo off
+echo deleting all the old stuff ...
+del *.class /S
 echo compile the java files ...
 javac projectubernahme/ProjectUbernahme.java
 echo.

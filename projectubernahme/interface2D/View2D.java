@@ -23,6 +23,9 @@ public class View2D extends JPanel {
 
 	int viewScaling = 100;
 	int viewOffsetX = 200, viewOffsetY = 200;
+	
+	int frames;
+	double measureTime;
 
 	Player player;
 
@@ -148,6 +151,15 @@ public class View2D extends JPanel {
 
 		}
 
+		frames++;
+		
+		g.setColor(Color.black);
+		g.drawString("FPS: "+Math.round(frames/measureTime), 10, 20);
+		
+		if (measureTime > 10) {
+			frames = 0;
+			measureTime = 0.0;
+		}
 
 	}
 
