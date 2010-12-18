@@ -1,6 +1,5 @@
 package projectubernahme.simulator;
 
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import projectubernahme.Player;
@@ -14,14 +13,14 @@ public class MainSimulator {
 
 	/** list of all lifeforms in the whole game */
 	private CopyOnWriteArrayList<Lifeform> lifeforms;
-	ArrayList<Player> players;
+	CopyOnWriteArrayList<Player> players;
 	
 	/** the environment **/
 	private Environment env;
 	
 	public MainSimulator () {
 		lifeforms = new CopyOnWriteArrayList<Lifeform>();
-		players = new ArrayList<Player>();
+		players = new CopyOnWriteArrayList<Player>();
 		
 		env = new TileEnvironment("squarecity");
 		
