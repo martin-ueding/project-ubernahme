@@ -116,8 +116,32 @@ public class TileEnvironment implements Environment {
 		}
 		else {
 			ConvertedGraphics cg;
+			
+			boolean[][] visible = new boolean[tiles.length][tiles[0].length];
 
 			double twiceScreenRadius = Math.hypot(width, height);
+			
+			/* iterate through the tiles ... */
+			for (int i = 0; i < tiles[0].length; i += 1) {
+				for (int j = 0; j < tiles.length; j += 1) {
+					/* create a new transform for each of the tiles */
+					AffineTransform tileTransform = new AffineTransform();
+					tileTransform.translate(j*tileWidthInReal, i*tileWidthInReal);
+
+					/* also add the (physical) player's transform to generate the picture that he wants to have */
+					tileTransform.preConcatenate(transform);
+
+					/* draw only the visible items onto the background */					
+					Point2D target = tileTransform.transform(origin, null);
+					
+					
+					visible[j][i] = target.distance(width/2, height/2) < twiceScreenRadius;
+				}
+			}
+			
+			
+			
+			
 
 			/* create a new background image and pull the graphics to draw on it */
 			bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -135,8 +159,7 @@ public class TileEnvironment implements Environment {
 					tileTransform.preConcatenate(transform);
 
 					/* draw only the visible items onto the background */
-					Point2D target = tileTransform.transform(origin, null);
-					if (target.distance(width/2, height/2) < twiceScreenRadius) {
+					if (visible[j][i] || (i+1 < tiles[0].length && j+1 < tiles.length && (visible[j+1][i] || visible[j][i+1] || visible[j+1][i+1]))) {
 
 						if (cgs[tiles[j][i]] != null) {
 							cg = cgs[tiles[j][i]];
