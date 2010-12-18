@@ -1,7 +1,6 @@
 package projectubernahme.lifeforms;
 
 import projectubernahme.gfx.ConvertedGraphics;
-import projectubernahme.gfx.FlyGraphics;
 import projectubernahme.gfx.ZombieGraphics;
 import projectubernahme.simulator.MainSimulator;
 
