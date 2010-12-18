@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import projectubernahme.ProjectUbernahme;
+import projectubernahme.gfx.ConvertedGraphics;
+import projectubernahme.gfx.TileDefault;
 import projectubernahme.lifeforms.Human;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.lifeforms.Tree;
@@ -68,6 +70,8 @@ public class TileEnvironment implements Environment {
 			for (int i = 0; i < rows; i++) {
 				for (int j = 0; j < columns; j++) {
 					tiles[j][i] = (char)text[i*(columns+1)+j];
+					
+					/* load the tile class if it is not in the map already */
 				}
 			}
 
@@ -92,36 +96,26 @@ public class TileEnvironment implements Environment {
 		if (transform.equals(previousTransform)) {
 		}
 		else {
+
+			ConvertedGraphics cg = new TileDefault();
+			
 			double twiceScreenRadius = Math.hypot(width, height);
 			tileWidth = (int)(Math.sqrt(transform.getDeterminant())*tileWidthInReal);
-			int w = 1;
-			while (tileWidth > w)
-				w *= 4;
-			tileWidth = w;
-			
-			tileWidth = Math.min(256, tileWidth);
+			tileWidth = 1;
 
-			
 
-			/* if the tiles are really narrow, some of them might be omitted in the drawing process
-			   This tries to figure out a number of how many tiles can be skipped. */
-			int increment = 1;
-			
-			while (15.0/tileWidth > increment) {
-				increment++;
-			}
-			
+
 			/* create a new background image and pull the graphics to draw on it */
 			bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g = (Graphics2D) bg.getGraphics();
 
 			/* iterate through the tiles ... */
-			for (int i = 0; i < tiles[0].length; i += increment) {
-				for (int j = 0; j < tiles.length; j += increment) {
+			for (int i = 0; i < tiles[0].length; i += 1) {
+				for (int j = 0; j < tiles.length; j += 1) {
 					/* create a new transform for each of the tiles */
 					AffineTransform tileTransform = new AffineTransform();
 					tileTransform.translate(j*tileWidthInReal, i*tileWidthInReal);
-					tileTransform.scale(1.0/tileWidth*tileWidthInReal, 1.0/tileWidth*tileWidthInReal);
+					//tileTransform.scale(1.0/tileWidth*tileWidthInReal, 1.0/tileWidth*tileWidthInReal);
 
 					/* also add the (physical) player's transform to generate the picture that he wants to have */
 					tileTransform.preConcatenate(transform);
@@ -130,18 +124,14 @@ public class TileEnvironment implements Environment {
 					Point2D target = tileTransform.transform(origin, null);
 					if (target.distance(width/2, height/2) < twiceScreenRadius) {
 						/* figure out which tile image is the right one */
-						BufferedImage imageToDraw = null;
-						imageToDraw = ProjectUbernahme.getImage("tile_"+tiles[j][i], tileWidth*increment);
-						if (imageToDraw == null) {
-							imageToDraw = ProjectUbernahme.getImage("tile_default", tileWidth*increment);
-						}
 
-						/* quit here if not even the default image could be found */
-						if (imageToDraw == null) {
-							System.out.println("Konnte keine Bilder finden");
-							System.exit(1);
-						}
-						g.drawImage(imageToDraw, tileTransform, null);
+						tileTransform.scale(tileWidthInReal/cg.getOrigWidth() / 1, tileWidthInReal/cg.getOrigWidth() / 1);
+						tileTransform.translate(-cg.getOrigX(), -cg.getOrigY());
+						
+
+						
+						g.setTransform(tileTransform);
+						cg.paint(g);
 					}
 				}
 			}
