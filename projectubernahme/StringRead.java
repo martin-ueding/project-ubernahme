@@ -1,6 +1,7 @@
 package projectubernahme;
 import java.io.*;
 
+/** provides some means to read a string from the terminal input */
 public class StringRead {
 
    public static String read () {
