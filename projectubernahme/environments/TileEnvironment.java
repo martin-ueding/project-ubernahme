@@ -10,6 +10,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.gfx.TileDefault;
+import projectubernahme.gfx.TileSidewalk;
 import projectubernahme.lifeforms.Human;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.lifeforms.Tree;
@@ -19,10 +20,14 @@ import projectubernahme.simulator.MainSimulator;
 /** an environment made up from tiles
   The tile environment is parsed from a text file filled with characters in a rectangular way. Every character stands for something on the map, these keys can be found in the guide file in the same folder this class is in. */
 public class TileEnvironment implements Environment {
+	
+	private ConvertedGraphics[] cgs;
 
 	/** the loaded tiles */
 	private char[][] tiles;
 	private BufferedImage bg;
+	
+	private static final ConvertedGraphics tileDefault = new TileDefault();
 
 	/** width of the tiles in meters of the game coordinates */
 	private double tileWidthInReal = 0.25;
@@ -34,6 +39,8 @@ public class TileEnvironment implements Environment {
 	private AffineTransform previousTransform;
 
 	public TileEnvironment (String mapname) {
+
+		cgs = new ConvertedGraphics[256];
 
 		/* load the map from the text file */
 		ClassLoader cl = getClass().getClassLoader();
@@ -69,6 +76,9 @@ public class TileEnvironment implements Environment {
 					tiles[j][i] = (char)text[i*(columns+1)+j];
 					
 					/* load the tile class if it is not in the map already */
+					if (cgs[tiles[j][i]] == null) {
+						loadTile(tiles[j][i]);
+					}
 				}
 			}
 
@@ -77,6 +87,18 @@ public class TileEnvironment implements Environment {
 			System.out.println("Error while reading file");
 			System.exit(1);
 		}
+		
+
+		for (int i = 0; i < cgs.length; i++) {
+			System.out.println(i+"\t"+(char)i+"\t"+cgs[i]);
+		}
+	}
+
+	private void loadTile(char c) {
+		switch (c) {
+		case 'S': cgs[c] = new TileSidewalk(); break;
+		}
+		
 	}
 
 	public boolean isFreeBetween(double x1, double y1, double z1, double x2, double y2, double z2) {
@@ -93,8 +115,7 @@ public class TileEnvironment implements Environment {
 		if (transform.equals(previousTransform)) {
 		}
 		else {
-
-			ConvertedGraphics cg = new TileDefault();
+			ConvertedGraphics cg;
 			
 			double twiceScreenRadius = Math.hypot(width, height);
 			
@@ -116,6 +137,14 @@ public class TileEnvironment implements Environment {
 					/* draw only the visible items onto the background */
 					Point2D target = tileTransform.transform(origin, null);
 					if (target.distance(width/2, height/2) < twiceScreenRadius) {
+						
+						if (cgs[tiles[j][i]] != null) {
+							cg = cgs[tiles[j][i]];
+						}
+						else {
+							cg = tileDefault;
+						}
+						
 						/* figure out which tile image is the right one */
 
 						tileTransform.scale(tileWidthInReal/cg.getOrigWidth() / 1, tileWidthInReal/cg.getOrigWidth() / 1);
