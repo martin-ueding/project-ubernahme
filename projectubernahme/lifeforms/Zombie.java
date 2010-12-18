@@ -1,8 +1,14 @@
 package projectubernahme.lifeforms;
 
+import projectubernahme.gfx.ConvertedGraphics;
+import projectubernahme.gfx.FlyGraphics;
+import projectubernahme.gfx.ZombieGraphics;
 import projectubernahme.simulator.MainSimulator;
 
 public class Zombie extends Lifeform {
+	
+
+	private static ConvertedGraphics cg = new ZombieGraphics();
 
 	public Zombie(MainSimulator sim) {
 		super(sim);
@@ -57,6 +63,12 @@ public class Zombie extends Lifeform {
 	@Override
 	public boolean canSee(Lifeform l) {
 		return distance(l) < 5.0;
+	}
+
+	@Override
+	public ConvertedGraphics getConvertedGraphics() {
+		// TODO Auto-generated method stub
+		return cg;
 	}
 
 }

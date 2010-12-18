@@ -1,8 +1,14 @@
 package projectubernahme.lifeforms;
 
+import projectubernahme.gfx.ConvertedGraphics;
+import projectubernahme.gfx.FlyGraphics;
+import projectubernahme.gfx.TreeGraphics;
 import projectubernahme.simulator.MainSimulator;
 
 public class Tree extends Lifeform {
+	
+
+	private static ConvertedGraphics cg = new TreeGraphics();
 	
 	private double growthFactor = 0.01;
 
@@ -34,6 +40,12 @@ public class Tree extends Lifeform {
 	@Override
 	public boolean canSee(Lifeform l) {
 		return false;
+	}
+
+	@Override
+	public ConvertedGraphics getConvertedGraphics() {
+		// TODO Auto-generated method stub
+		return cg;
 	}
 
 }

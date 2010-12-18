@@ -4,14 +4,13 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import projectubernahme.Localizer;
 import projectubernahme.Player;
-import projectubernahme.StringRead;
+import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.simulator.MainSimulator;
 
 
 /** something with its own mind in the game, can interact with other lifeforms and the world */
-abstract public class Lifeform {
+abstract public class Lifeform {	
 	/** unique id */
 	int id;
 
@@ -272,4 +271,6 @@ abstract public class Lifeform {
 		if (!getName().equals("") && !whom.getName().equals(""))
 			setName(getName()+"-"+whom.getName());
 	}
+
+	abstract public ConvertedGraphics getConvertedGraphics();
 }

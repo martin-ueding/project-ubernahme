@@ -1,8 +1,13 @@
 package projectubernahme.lifeforms;
 
+import projectubernahme.gfx.ConvertedGraphics;
+import projectubernahme.gfx.HumanGraphics;
 import projectubernahme.simulator.MainSimulator;
 
 public class Human extends Lifeform {
+	
+
+	private static ConvertedGraphics cg = new HumanGraphics();
 
 	public Human (MainSimulator sim) {
 		super(sim);
@@ -24,6 +29,12 @@ public class Human extends Lifeform {
 
 	@Override
 	public void act(int sleepTime) {		
+	}
+
+	@Override
+	public ConvertedGraphics getConvertedGraphics() {
+		// TODO Auto-generated method stub
+		return cg;
 	}
 
 	

@@ -10,7 +10,7 @@ import java.awt.geom.Point2D;
 import javax.swing.JPanel;
 
 import projectubernahme.Player;
-import projectubernahme.ProjectUbernahme;
+import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.simulator.MainSimulator;
 
@@ -76,6 +76,8 @@ public class View2D extends JPanel {
 
 		/* draw all the lifeforms */
 		for (Lifeform l : sim.getLifeforms()) {
+			/* reset the transform */
+			g.setTransform(new AffineTransform());
 
 			/* only paint lifeforms that are controlled or are within the reach of some other lifeform
 			 * that way, nothing is spoiled */
@@ -121,15 +123,34 @@ public class View2D extends JPanel {
 
 
 					/* draw image if available */
-					if (ProjectUbernahme.getImage(l.getClass().getSimpleName(), (int)diameter) != null) {
-
+					if (l.getConvertedGraphics() != null) {
+						
+						ConvertedGraphics cg = l.getConvertedGraphics();
+						int longerEdge = Math.max(cg.getOrigWidth(), cg.getOrigHeight());
+						
 						AffineTransform picTransform = new AffineTransform();
 						picTransform.setToIdentity();
 						picTransform.preConcatenate(transform);
+						
 						picTransform.translate(l.getX()-diameter/2, l.getY()-diameter/2);
 						picTransform.rotate(l.getViewAngle(), diameter/2, diameter/2);
-						picTransform.scale(diameter/ProjectUbernahme.getImage(l.getClass().getSimpleName(), (int)diameterView).getWidth(), diameter/ProjectUbernahme.getImage(l.getClass().getSimpleName(), (int)diameterView).getWidth());
-						g.drawImage(ProjectUbernahme.getImage(l.getClass().getSimpleName(), (int)diameterView), picTransform, null);
+						
+						picTransform.scale(diameter/longerEdge / 1, diameter/longerEdge / 1);
+						picTransform.translate(-cg.getOrigX(), -cg.getOrigY());
+						
+
+						/* translate a rectangular shape into the middle of the square */
+						if (cg.getOrigWidth() == longerEdge) {
+							/* pic is wider than high */
+							picTransform.translate(0, (cg.getOrigWidth()-cg.getOrigHeight()) / 2);
+						}
+						else {
+							/* pic is higher than wide */
+							picTransform.translate((cg.getOrigHeight()-cg.getOrigWidth()) / 2, 0);
+						}
+						
+						g.setTransform(picTransform);
+						cg.paint(g);
 					}
 
 					/* draw a circle */
@@ -154,6 +175,9 @@ public class View2D extends JPanel {
 
 		frames++;
 		
+		/* reset the transform */
+		g.setTransform(new AffineTransform());
+		
 		g.setColor(Color.black);
 		g.drawString("FPS: "+Math.round(frames/measureTime), 10, 20);
 		
@@ -161,6 +185,9 @@ public class View2D extends JPanel {
 			frames = 0;
 			measureTime = 0.0;
 		}
+		
+		
+		
 
 	}
 
