@@ -1,12 +1,7 @@
 package projectubernahme;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
-
-import javax.imageio.ImageIO;
 
 import projectubernahme.interface2D.Interface2D;
 import projectubernahme.simulator.MainSimulator;
@@ -33,8 +28,6 @@ public class ProjectUbernahme {
 	
 
 	public static void main (String[] args) {
-
-		loadImagesIntoMap();
 		
 		sim = new MainSimulator();
 
@@ -68,55 +61,6 @@ public class ProjectUbernahme {
 		}
 		else {
 			return null;
-		}
-	}
-
-	/** initializes the hashmap with the images */
-	private static void loadImagesIntoMap () {
-		/* load the gfx directory */
-		File gfxDirectory = new File(ClassLoader.getSystemResource("projectubernahme/gfx").getFile());
-
-		/* if this worked quite well ... */
-		if (gfxDirectory != null) {
-			/* get all the files within the gfx directory */
-			File[] files = gfxDirectory.listFiles();
-
-			/* some debug info, can be omitted later on */
-			System.out.println("Absolute Path of gfxDir: "+gfxDirectory.getAbsolutePath());
-			System.out.println("does the dir exist? "+gfxDirectory.exists());
-			System.out.println("is it a directory? "+gfxDirectory.isDirectory());
-			System.out.println("Files inside it: "+gfxDirectory.listFiles());
-			
-			if (files != null) {
-				for (File file : files) {
-
-					/* get all the files which hopefully are pictures */
-					if (file.getName().endsWith(".png")) {
-						System.out.println("Loading file: "+file.getName());
-						try {
-							InputStream is = ClassLoader.getSystemResourceAsStream("projectubernahme/gfx/"+file.getName());
-							/* place the picture in the hashmap */
-							if (is != null) {
-								images.put(file.getName().replace(".png", ""), ImageIO.read(is));
-							}
-							else {
-								System.out.println("is is null");
-							}
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
-				}
-			}
-			else {
-				System.out.println(Localizer.get("ERROR: Could not access the files within the gfx-directory somehow. Sorry, quitting now"));
-				System.exit(1);
-			}
-
-		}
-		else {
-			System.out.println(Localizer.get("ERROR: Could not access the gfx-directory somehow. Sorry, quitting now"));
-			System.exit(1);
 		}
 	}
 }

@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import projectubernahme.ProjectUbernahme;
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.gfx.TileDefault;
 import projectubernahme.lifeforms.Human;
@@ -24,8 +23,6 @@ public class TileEnvironment implements Environment {
 	/** the loaded tiles */
 	private char[][] tiles;
 	private BufferedImage bg;
-
-	private int tileWidth = 100;
 
 	/** width of the tiles in meters of the game coordinates */
 	private double tileWidthInReal = 0.25;
@@ -100,11 +97,7 @@ public class TileEnvironment implements Environment {
 			ConvertedGraphics cg = new TileDefault();
 			
 			double twiceScreenRadius = Math.hypot(width, height);
-			tileWidth = (int)(Math.sqrt(transform.getDeterminant())*tileWidthInReal);
-			tileWidth = 1;
-
-
-
+			
 			/* create a new background image and pull the graphics to draw on it */
 			bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g = (Graphics2D) bg.getGraphics();
