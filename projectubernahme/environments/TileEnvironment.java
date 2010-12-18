@@ -10,7 +10,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.gfx.TileDefault;
+import projectubernahme.gfx.TileLawn;
 import projectubernahme.gfx.TileSidewalk;
+import projectubernahme.gfx.TileStreet;
 import projectubernahme.lifeforms.Human;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.lifeforms.Tree;
@@ -20,18 +22,18 @@ import projectubernahme.simulator.MainSimulator;
 /** an environment made up from tiles
   The tile environment is parsed from a text file filled with characters in a rectangular way. Every character stands for something on the map, these keys can be found in the guide file in the same folder this class is in. */
 public class TileEnvironment implements Environment {
-	
+
 	private ConvertedGraphics[] cgs;
 
 	/** the loaded tiles */
 	private char[][] tiles;
 	private BufferedImage bg;
-	
+
 	private static final ConvertedGraphics tileDefault = new TileDefault();
 
 	/** width of the tiles in meters of the game coordinates */
 	private double tileWidthInReal = 0.25;
-	
+
 	private Point2D origin = new Point2D.Double(0.0, 0.0);
 
 	/** a copy of the previous transform to compare to the new one
@@ -74,7 +76,7 @@ public class TileEnvironment implements Environment {
 			for (int i = 0; i < rows; i++) {
 				for (int j = 0; j < columns; j++) {
 					tiles[j][i] = (char)text[i*(columns+1)+j];
-					
+
 					/* load the tile class if it is not in the map already */
 					if (cgs[tiles[j][i]] == null) {
 						loadTile(tiles[j][i]);
@@ -87,18 +89,16 @@ public class TileEnvironment implements Environment {
 			System.out.println("Error while reading file");
 			System.exit(1);
 		}
-		
-
-		for (int i = 0; i < cgs.length; i++) {
-			System.out.println(i+"\t"+(char)i+"\t"+cgs[i]);
-		}
 	}
 
 	private void loadTile(char c) {
 		switch (c) {
 		case 'S': cgs[c] = new TileSidewalk(); break;
+		case 'l':
+		case 'L': cgs[c] = new TileLawn(); break;
+		case 's': cgs[c] = new TileStreet(); break;
 		}
-		
+
 	}
 
 	public boolean isFreeBetween(double x1, double y1, double z1, double x2, double y2, double z2) {
@@ -116,9 +116,9 @@ public class TileEnvironment implements Environment {
 		}
 		else {
 			ConvertedGraphics cg;
-			
+
 			double twiceScreenRadius = Math.hypot(width, height);
-			
+
 			/* create a new background image and pull the graphics to draw on it */
 			bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g = (Graphics2D) bg.getGraphics();
@@ -137,21 +137,21 @@ public class TileEnvironment implements Environment {
 					/* draw only the visible items onto the background */
 					Point2D target = tileTransform.transform(origin, null);
 					if (target.distance(width/2, height/2) < twiceScreenRadius) {
-						
+
 						if (cgs[tiles[j][i]] != null) {
 							cg = cgs[tiles[j][i]];
 						}
 						else {
 							cg = tileDefault;
 						}
-						
+
 						/* figure out which tile image is the right one */
-
-						tileTransform.scale(tileWidthInReal/cg.getOrigWidth() / 1, tileWidthInReal/cg.getOrigWidth() / 1);
+						double scaling = 1.05;
+						tileTransform.scale(tileWidthInReal/cg.getOrigWidth()*scaling, tileWidthInReal/cg.getOrigWidth()*scaling);
 						tileTransform.translate(-cg.getOrigX(), -cg.getOrigY());
-						
 
-						
+
+
 						g.setTransform(tileTransform);
 						cg.paint(g);
 					}
@@ -171,7 +171,14 @@ public class TileEnvironment implements Environment {
 				if (Math.random() > 0.95) {
 					switch (tiles[j][i]) {
 					case 'S': list.add(Math.random() < 0.99 ? new Human(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal) : new Zombie(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)); break;
-					case 'L': list.add(new Tree(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)); break;
+					case 'L':
+						int treeOffset = 10;
+						if (i >= treeOffset && j >= treeOffset && i+treeOffset < tiles[0].length && j+treeOffset < tiles.length) {
+							if (tiles[j-treeOffset][i] == 'L' && tiles[j+treeOffset][i] == 'L' && tiles[j][i-treeOffset] == 'L' && tiles[j][i+treeOffset] == 'L' && Math.random() > 0.9) {
+								list.add(new Tree(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal));
+							}
+						}
+						break;
 					}
 				}
 			}

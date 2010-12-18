@@ -120,6 +120,14 @@ public class View2D extends JPanel {
 						g.setColor(new Color(100, 100, 200, 100));
 						g.fillOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
 					}
+					
+
+
+					/* draw the name */
+					if (!l.getName().equals("")) {
+						g.setColor(new Color(100, 100, 100, 200));
+						g.drawString(l.getName(), (int)(p.getX()+diameterView/2), (int)(p.getY()+diameterView/2));
+					}
 
 
 					/* draw image if available */
@@ -154,7 +162,6 @@ public class View2D extends JPanel {
 					}
 
 					/* draw a circle */
-
 					else {
 
 						g.drawOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
@@ -162,11 +169,6 @@ public class View2D extends JPanel {
 						transform.transform(nose, nose);
 
 						g.drawLine((int)p.getX(), (int)p.getY(), (int)nose.getX(), (int)nose.getY());
-					}
-
-					if (!l.getName().equals("")) {
-						g.setColor(new Color(100, 100, 100, 200));
-						g.drawString(l.getName(), (int)(p.getX()+diameterView/2), (int)(p.getY()+diameterView/2));
 					}
 				}
 			}
