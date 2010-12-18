@@ -15,7 +15,8 @@ abstract public class Lifeform {
 	/** unique id */
 	int id;
 
-	static int next_id = 0;
+	/** main id counter, determines the next given id */
+	protected static int next_id = 0;
 
 	/** coordinates */
 	double x, y, z;
@@ -34,6 +35,7 @@ abstract public class Lifeform {
 	/** whether character is turning */
 	double dViewAngle;
 
+	/** list of other lifeforms that this lifeform can see */
 	ArrayList<Lifeform> neighbors = new ArrayList<Lifeform>();
 
 	/* senses */
@@ -49,59 +51,22 @@ abstract public class Lifeform {
 	boolean canMove = false;
 	private boolean canFly = false;
 
-	/** whether this lifeform is controlled by some player, meaning that it does not need to be controlled by the computer */
+	/** the player who controls this lifeforms, if null, the computer controls it */
 	private Player controllingPlayer = null;
 
 	/** the mass of biological stuff the lifeform ingested so far */
 	private double biomass = 0.0;
 
+	/** the simulator this lifeform is connected to */
 	MainSimulator sim;
 
+	/** In order to save power, the list with neighbors is only refreshed when it expires. This tracks the age of the list */
 	private double neighborsListAge = 0.0;
 
 	public Lifeform (MainSimulator sim) {
 		this.sim = sim;
 		name = new String();
 		id = next_id++;
-	}
-
-	/** lets the lifeform look around and interact with its proximity */
-	public void lookAround (Player player) {
-		ArrayList<Lifeform> inProximity = new ArrayList<Lifeform>();
-		if (sim.getLifeforms().size() > 0) {
-			for (Lifeform npc : sim.getLifeforms()) {
-				if (this.canSee(npc)) {
-					inProximity.add(npc);
-				}
-			}
-		}
-		if (inProximity.size() > 0) {
-			System.out.println(Localizer.get("This lifeform can see the following other lifeforms:"));
-			int i = 0;
-			for (Lifeform npc : inProximity) {
-				System.out.println(i+++"\t"+npc.toString());
-			}
-			System.out.println(Localizer.get("choose a lifeform to interact with (-1 for no interaction) "));
-			int choice = Integer.parseInt(StringRead.read());
-			if (choice > -1) {
-				Lifeform selected = inProximity.get(choice);
-				System.out.println(Localizer.get("choose an interaction"));
-				System.out.println(Localizer.get("ta\ttake over control"));
-				System.out.println(Localizer.get("in\tingest biomass"));
-				String action = StringRead.read();
-
-				if (action.equals(Localizer.get("ta"))) {
-					player.takeControlOver(selected);
-				}
-				else if (action.equals(Localizer.get("in"))) {
-					sim.getLifeforms().remove(selected);
-					this.setBiomass(this.getBiomass() + selected.getBiomass());
-				}
-			}
-		}
-		else {
-			System.out.println(Localizer.get("This lifeform cannot see any other lifeforms"));
-		}
 	}
 
 	/** gives a generic description string of the object */
@@ -114,6 +79,7 @@ abstract public class Lifeform {
 		}
 	}
 
+	/** takes over control of the given lifeform, returns whether that was successful */
 	public boolean takeover(Lifeform lifeform) {
 		if (canSee(lifeform)) {
 			lifeform.setControlled(controllingPlayer);
@@ -127,13 +93,8 @@ abstract public class Lifeform {
 
 	/** returns the distance to the other lifeform l, currently just the geometric mean of the axes, later it might include some path trough the world */
 	public double distance (Lifeform l) {
+		// TODO use the easier method instead
 		return Math.sqrt(Math.pow(getX()-l.getX(), 2) + Math.pow(getY()-l.getY(), 2) + Math.pow(z-l.z, 2));
-	}
-
-	/** polls for a new name and applies it */
-	public void rename () {
-		System.out.print(Localizer.get("New Name: "));
-		name = StringRead.read();
 	}
 
 	/** lets the physics work on the lifeform and moves it by its velocities */
@@ -141,7 +102,6 @@ abstract public class Lifeform {
 		double t = sleepTime/1000.0;
 		neighborsListAge += t;
 		if (canMove || canFly) {
-
 			double a = x + vx*t;
 			double b = y + vy*t;
 			double c = z + vz*t;
@@ -152,7 +112,6 @@ abstract public class Lifeform {
 				y = b;
 				z = c;
 			}
-
 			viewAngle += dViewAngle*t;
 		}
 	}
@@ -160,6 +119,7 @@ abstract public class Lifeform {
 	/** this lets the lifeform act, this can be just sitting around or calling for support or attacking another lifeform */
 	abstract public void act(int sleepTime);
 
+	/** lets the lifeform handle a keystroke */
 	public void handleKeyPressed (KeyEvent e) {
 		switch (e.getKeyChar()) {
 		case 'w': v += .3; break;
@@ -174,6 +134,7 @@ abstract public class Lifeform {
 		vy = v*Math.sin(viewAngle);
 	}
 
+	/** lets the lifeform handle a keystroke */
 	public void handleKeyReleased (KeyEvent e) {
 		switch (e.getKeyChar()) {
 		case 'w':
@@ -270,9 +231,12 @@ abstract public class Lifeform {
 	public void generateNeighborsList() {
 		neighbors.clear();
 
-		for (Lifeform l : sim.getLifeforms()) {
-			if (canSee(l) && l != this) {
-				neighbors.add(l);
+		/** only traverse if the lifeform can see */
+		if (canSee) {
+			for (Lifeform l : sim.getLifeforms()) {
+				if (canSee(l) && l != this) {
+					neighbors.add(l);
+				}
 			}
 		}
 	}
@@ -293,12 +257,15 @@ abstract public class Lifeform {
 		return Math.max(Math.sqrt(biomass)/100, .1);
 	}
 
+	/** ingests the given lifeform */
 	public void ingest(Lifeform whom) {
+		/* remove lifeform from player's list */
 		if (isControlled()) {
 			if (controllingPlayer.getControlledLifeforms().contains(whom)) {
 				controllingPlayer.getControlledLifeforms().remove(whom);
 			}
 		}
+
 		/* remove lifeform from simulator */
 		sim.getLifeforms().remove(whom);
 		setBiomass(getBiomass() + whom.getBiomass());
