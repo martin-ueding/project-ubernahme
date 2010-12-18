@@ -1,8 +1,5 @@
 package projectubernahme;
 
-import java.awt.image.BufferedImage;
-import java.util.HashMap;
-
 import projectubernahme.interface2D.Interface2D;
 import projectubernahme.simulator.MainSimulator;
 
@@ -16,7 +13,6 @@ import projectubernahme.simulator.MainSimulator;
  * 
  * You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 
 /** the main game class */
 public class ProjectUbernahme {
@@ -38,29 +34,5 @@ public class ProjectUbernahme {
 		/* creates a new interface which lets the physical player take control over the player object */
 		@SuppressWarnings("unused")
 		Interface2D interface2d = new Interface2D(sim, player);
-	}
-	
-	/** stores all the images needed for the game */
-	private static HashMap<String,BufferedImage> images = new HashMap<String,BufferedImage>();
-
-	/** gets an image out of the map
-	  The graphics used to be very slow due to the fact that high resolution graphics were used even in lower zoom levels. This function tries to return the best sizes image for the current application. */
-	public static BufferedImage getImage(String name, int resolution) {
-		/* go up with the resolution until it matches at least the needed one */
-		int res = 1;
-		while (resolution > res)
-			res *= 2;
-		
-		/* there are no images bigger than 256 pixels, so this cuts it off */
-		res = Math.min(res, 256);
-
-		/* try to find the picture */
-		String key = name+res;
-		if (images.containsKey(key)) {
-			return images.get(key);
-		}
-		else {
-			return null;
-		}
 	}
 }
