@@ -1,17 +1,33 @@
 package projectubernahme;
 
+import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-/** translates stings */
+/** tries to translates stings, returns the input if nothing could be found */
 public class Localizer {
-	static ResourceBundle bundle = ResourceBundle.getBundle("sprache");
+	static ResourceBundle bundle;
+
+	private static void init () {
+		try {
+		bundle = ResourceBundle.getBundle("projectubernahme/strings");
+		} catch (MissingResourceException e) {
+			System.out.println("No Bundle for "+Locale.getDefault().getLanguage());
+		}
+	}
 
 	public static String get(String query) {
-		if (bundle.containsKey(query)) {
+		if (bundle == null) {
+			init();
+		}
+		
+		if (bundle != null && bundle.containsKey(query)) {
 			return bundle.getString(query);
 		}
 		else {
-			System.out.println("String \""+query+"\" is missing in "+bundle.getLocale());
+			if (bundle != null) {
+				System.out.println("String \""+query+"\" is missing in "+bundle.getLocale());
+			}
 			return query;
 		}
 	}

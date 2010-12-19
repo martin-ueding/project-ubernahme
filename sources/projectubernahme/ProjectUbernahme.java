@@ -24,6 +24,7 @@ public class ProjectUbernahme {
 	
 
 	public static void main (String[] args) {
+		System.out.println(Localizer.get("Welcome to Project Ubernahme"));
 		
 		sim = new MainSimulator();
 
