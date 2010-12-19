@@ -1,9 +1,18 @@
 package projectubernahme;
 
-/** translates stings -
- There have to be translated strings in sting_lang.properties files, in order for this to work. At this point, it just returns the string that is queried since the program is changing rapidly and any translation would not do any good right now. */
+import java.util.ResourceBundle;
+
+/** translates stings */
 public class Localizer {
-	public static String get (String query) {
-		return query;
+	static ResourceBundle bundle = ResourceBundle.getBundle("sprache");
+
+	public static String get(String query) {
+		if (bundle.containsKey(query)) {
+			return bundle.getString(query);
+		}
+		else {
+			System.out.println("String \""+query+"\" is missing in "+bundle.getLocale());
+			return query;
+		}
 	}
 }
