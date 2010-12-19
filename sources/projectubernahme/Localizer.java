@@ -4,7 +4,7 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-/** tries to translates stings, returns the input if nothing could be found */
+/** tries to translate strings, returns the input if nothing could be found */
 public class Localizer {
 	static ResourceBundle bundle;
 
