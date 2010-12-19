@@ -11,7 +11,9 @@ import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 
-public class HumanGraphics extends ConvertedGraphics {
+
+public class LifeformZombieGraphics extends ConvertedGraphics {
+
 	private float origAlpha = 1.0f;
 
 	/**
@@ -41,82 +43,81 @@ public class HumanGraphics extends ConvertedGraphics {
 
 	}
 
-	private void paintShapeNode_0_0_0_0_0(Graphics2D g) {
+	private void paintShapeNode_0_0_0_0(Graphics2D g) {
 		GeneralPath shape0 = new GeneralPath();
 		shape0.moveTo(361.12845, 537.5939);
-		shape0.curveTo(361.12845, 546.209, 351.17874, 553.19293, 338.90515, 553.19293);
-		shape0.curveTo(326.63156, 553.19293, 316.68185, 546.209, 316.68185, 537.5939);
-		shape0.curveTo(316.68185, 528.97876, 326.63156, 521.9948, 338.90515, 521.9948);
-		shape0.curveTo(351.17874, 521.9948, 361.12845, 528.97876, 361.12845, 537.5939);
+		shape0.curveTo(361.13504, 543.1699, 356.90073, 548.32446, 350.02213, 551.11383);
+		shape0.curveTo(343.14352, 553.9032, 334.6668, 553.9032, 327.7882, 551.11383);
+		shape0.curveTo(320.9096, 548.32446, 316.6753, 543.1699, 316.6819, 537.5939);
+		shape0.curveTo(316.6819, 528.97876, 326.6316, 521.9948, 338.90518, 521.9948);
+		shape0.curveTo(351.17877, 521.9948, 361.12848, 528.97876, 361.12848, 537.5939);
 		shape0.closePath();
-		g.setPaint(new Color(0, 0, 128, 255));
+		g.setPaint(new Color(255, 0, 0, 255));
 		g.fill(shape0);
 	}
 
-	private void paintShapeNode_0_0_0_0_1(Graphics2D g) {
+	private void paintShapeNode_0_0_0_1(Graphics2D g) {
 		GeneralPath shape1 = new GeneralPath();
 		shape1.moveTo(241.03722, 545.9276);
-		shape1.curveTo(241.03722, 550.17615, 237.49742, 553.6203, 233.13086, 553.6203);
-		shape1.curveTo(228.7643, 553.6203, 225.2245, 550.17615, 225.2245, 545.9276);
-		shape1.curveTo(225.2245, 541.6791, 228.7643, 538.2349, 233.13086, 538.2349);
-		shape1.curveTo(237.49742, 538.2349, 241.03722, 541.679, 241.03722, 545.9276);
+		shape1.curveTo(241.04062, 548.67816, 239.53442, 551.2211, 237.08679, 552.59735);
+		shape1.curveTo(234.63916, 553.9736, 231.62256, 553.9736, 229.17493, 552.59735);
+		shape1.curveTo(226.7273, 551.2211, 225.2211, 548.67816, 225.2245, 545.9276);
+		shape1.curveTo(225.2211, 543.17706, 226.7273, 540.6341, 229.17493, 539.2579);
+		shape1.curveTo(231.62256, 537.88165, 234.63916, 537.88165, 237.08679, 539.2579);
+		shape1.curveTo(239.53442, 540.6341, 241.04062, 543.17706, 241.03722, 545.9276);
 		shape1.closePath();
 		g.setPaint(new Color(36, 28, 28, 255));
 		g.fill(shape1);
 	}
 
-	private void paintShapeNode_0_0_0_0_2(Graphics2D g) {
+	private void paintShapeNode_0_0_0_2(Graphics2D g) {
 		GeneralPath shape2 = new GeneralPath();
 		shape2.moveTo(334.2041, 597.85315);
-		shape2.curveTo(334.2041, 600.3315, 330.6643, 602.3405, 326.29773, 602.3405);
-		shape2.curveTo(321.93118, 602.3405, 318.39136, 600.3314, 318.39136, 597.85315);
-		shape2.curveTo(318.39136, 595.3748, 321.93115, 593.3657, 326.29773, 593.3657);
-		shape2.curveTo(330.66428, 593.3657, 334.2041, 595.3748, 334.2041, 597.85315);
+		shape2.curveTo(334.2075, 599.45764, 332.7013, 600.94104, 330.25366, 601.74384);
+		shape2.curveTo(327.80603, 602.54663, 324.78946, 602.54663, 322.34183, 601.74384);
+		shape2.curveTo(319.8942, 600.94104, 318.388, 599.45764, 318.3914, 597.85315);
+		shape2.curveTo(318.388, 596.24866, 319.8942, 594.76526, 322.34183, 593.96246);
+		shape2.curveTo(324.78946, 593.15967, 327.80603, 593.15967, 330.25366, 593.96246);
+		shape2.curveTo(332.7013, 594.76526, 334.2075, 596.24866, 334.2041, 597.85315);
 		shape2.closePath();
-		g.setPaint(new Color(0, 0, 128, 255));
+		g.setPaint(new Color(255, 0, 0, 255));
 		g.fill(shape2);
 	}
 
-	private void paintShapeNode_0_0_0_0_3(Graphics2D g) {
+	private void paintShapeNode_0_0_0_3(Graphics2D g) {
 		GeneralPath shape3 = new GeneralPath();
 		shape3.moveTo(334.2041, 597.85315);
-		shape3.curveTo(334.2041, 600.3315, 330.6643, 602.3405, 326.29773, 602.3405);
-		shape3.curveTo(321.93118, 602.3405, 318.39136, 600.3314, 318.39136, 597.85315);
-		shape3.curveTo(318.39136, 595.3748, 321.93115, 593.3657, 326.29773, 593.3657);
-		shape3.curveTo(330.66428, 593.3657, 334.2041, 595.3748, 334.2041, 597.85315);
+		shape3.curveTo(334.2075, 599.45764, 332.7013, 600.94104, 330.25366, 601.74384);
+		shape3.curveTo(327.80603, 602.54663, 324.78946, 602.54663, 322.34183, 601.74384);
+		shape3.curveTo(319.8942, 600.94104, 318.388, 599.45764, 318.3914, 597.85315);
+		shape3.curveTo(318.388, 596.24866, 319.8942, 594.76526, 322.34183, 593.96246);
+		shape3.curveTo(324.78946, 593.15967, 327.80603, 593.15967, 330.25366, 593.96246);
+		shape3.curveTo(332.7013, 594.76526, 334.2075, 596.24866, 334.2041, 597.85315);
 		shape3.closePath();
 		g.fill(shape3);
-	}
-
-	private void paintCompositeGraphicsNode_0_0_0_0(Graphics2D g) {
-		// _0_0_0_0_0
-		AffineTransform trans_0_0_0_0_0 = g.getTransform();
-		g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-		paintShapeNode_0_0_0_0_0(g);
-		g.setTransform(trans_0_0_0_0_0);
-		// _0_0_0_0_1
-		AffineTransform trans_0_0_0_0_1 = g.getTransform();
-		g.transform(new AffineTransform(1.7567566633224487f, 0.0f, 0.0f, 2.027777910232544f, -70.43534851074219f, -572.4176025390625f));
-		paintShapeNode_0_0_0_0_1(g);
-		g.setTransform(trans_0_0_0_0_1);
-		// _0_0_0_0_2
-		AffineTransform trans_0_0_0_0_2 = g.getTransform();
-		g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, -9.829532623291016f, -59.831932067871094f));
-		paintShapeNode_0_0_0_0_2(g);
-		g.setTransform(trans_0_0_0_0_2);
-		// _0_0_0_0_3
-		AffineTransform trans_0_0_0_0_3 = g.getTransform();
-		g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 35.8991584777832f, -60.25930404663086f));
-		paintShapeNode_0_0_0_0_3(g);
-		g.setTransform(trans_0_0_0_0_3);
 	}
 
 	private void paintCompositeGraphicsNode_0_0_0(Graphics2D g) {
 		// _0_0_0_0
 		AffineTransform trans_0_0_0_0 = g.getTransform();
 		g.transform(new AffineTransform(0.0f, 1.0f, -1.0f, 0.0f, 875.4306030273438f, 196.76553344726562f));
-		paintCompositeGraphicsNode_0_0_0_0(g);
+		paintShapeNode_0_0_0_0(g);
 		g.setTransform(trans_0_0_0_0);
+		// _0_0_0_1
+		AffineTransform trans_0_0_0_1 = g.getTransform();
+		g.transform(new AffineTransform(0.0f, 1.7567566633224487f, -2.027777910232544f, 0.0f, 1447.84814453125f, 126.3301773071289f));
+		paintShapeNode_0_0_0_1(g);
+		g.setTransform(trans_0_0_0_1);
+		// _0_0_0_2
+		AffineTransform trans_0_0_0_2 = g.getTransform();
+		g.transform(new AffineTransform(-1.817752480506897f, 0.2958768308162689f, -0.5715018510818481f, -0.9410832524299622f, 1287.8731689453125f, 980.971435546875f));
+		paintShapeNode_0_0_0_2(g);
+		g.setTransform(trans_0_0_0_2);
+		// _0_0_0_3
+		AffineTransform trans_0_0_0_3 = g.getTransform();
+		g.transform(new AffineTransform(-1.817752480506897f, -0.2958768308162689f, -0.5715018510818481f, 0.9410832524299622f, 1287.4766845703125f, 91.48832702636719f));
+		paintShapeNode_0_0_0_3(g);
+		g.setTransform(trans_0_0_0_3);
 	}
 
 	private void paintCanvasGraphicsNode_0_0(Graphics2D g) {
@@ -143,7 +144,7 @@ public class HumanGraphics extends ConvertedGraphics {
      * @return The X of the bounding box of the original SVG image.
      */
     public int getOrigX() {
-        return 323;
+        return 322;
     }
 
     /**
@@ -151,7 +152,7 @@ public class HumanGraphics extends ConvertedGraphics {
      * @return The Y of the bounding box of the original SVG image.
      */
     public int getOrigY() {
-        return 506;
+        return 509;
     }
 
     /**
@@ -159,7 +160,7 @@ public class HumanGraphics extends ConvertedGraphics {
      * @return The width of the bounding box of the original SVG image.
      */
     public int getOrigWidth() {
-        return 35;
+        return 49;
     }
 
     /**
@@ -167,7 +168,7 @@ public class HumanGraphics extends ConvertedGraphics {
      * @return The height of the bounding box of the original SVG image.
      */
     public int getOrigHeight() {
-        return 62;
+        return 57;
     }
     
     
@@ -184,7 +185,7 @@ public class HumanGraphics extends ConvertedGraphics {
 	/**
 	 * Creates a new transcoded SVG image.
 	 */
-	public HumanGraphics() {
+	public LifeformZombieGraphics() {
         this.width = getOrigWidth();
         this.height = getOrigHeight();
 	}

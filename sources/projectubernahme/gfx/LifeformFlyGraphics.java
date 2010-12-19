@@ -19,7 +19,7 @@ import java.awt.geom.Point2D;
  * This class has been automatically generated using svg2java
  * 
  */
-public class FlyGraphics extends ConvertedGraphics {
+public class LifeformFlyGraphics extends ConvertedGraphics {
 
 	private float origAlpha = 1.0f;
 
@@ -593,7 +593,7 @@ public class FlyGraphics extends ConvertedGraphics {
 	/**
 	 * Creates a new transcoded SVG image.
 	 */
-	public FlyGraphics() {
+	public LifeformFlyGraphics() {
 		this.width = getOrigWidth();
 		this.height = getOrigHeight();
 	}

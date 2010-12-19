@@ -1,13 +1,13 @@
 package projectubernahme.lifeforms;
 
 import projectubernahme.gfx.ConvertedGraphics;
-import projectubernahme.gfx.FlyGraphics;
+import projectubernahme.gfx.LifeformFlyGraphics;
 import projectubernahme.simulator.MainSimulator;
 
 /** lifeform, a simple fly which can look around and fly a little */
 public class Fly extends Lifeform {
 	
-	private static ConvertedGraphics cg = new FlyGraphics();
+	private static ConvertedGraphics cg = new LifeformFlyGraphics();
 
 	public Fly (MainSimulator sim) {
 		super(sim);

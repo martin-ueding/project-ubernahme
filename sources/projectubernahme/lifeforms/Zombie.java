@@ -1,13 +1,13 @@
 package projectubernahme.lifeforms;
 
 import projectubernahme.gfx.ConvertedGraphics;
-import projectubernahme.gfx.ZombieGraphics;
+import projectubernahme.gfx.LifeformZombieGraphics;
 import projectubernahme.simulator.MainSimulator;
 
 public class Zombie extends Lifeform {
 	
 
-	private static ConvertedGraphics cg = new ZombieGraphics();
+	private static ConvertedGraphics cg = new LifeformZombieGraphics();
 
 	public Zombie(MainSimulator sim) {
 		super(sim);

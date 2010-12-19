@@ -13,7 +13,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 
 
-public class TreeGraphics extends ConvertedGraphics {
+public class LifeformTreeGraphics extends ConvertedGraphics {
 
 	private float origAlpha = 1.0f;
 
@@ -292,7 +292,7 @@ public class TreeGraphics extends ConvertedGraphics {
 	/**
 	 * Creates a new transcoded SVG image.
 	 */
-	public TreeGraphics() {
+	public LifeformTreeGraphics() {
         this.width = getOrigWidth();
         this.height = getOrigHeight();
 	}

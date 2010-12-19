@@ -1,13 +1,13 @@
 package projectubernahme.lifeforms;
 
 import projectubernahme.gfx.ConvertedGraphics;
-import projectubernahme.gfx.HumanGraphics;
+import projectubernahme.gfx.LifeformHumanGraphics;
 import projectubernahme.simulator.MainSimulator;
 
 public class Human extends Lifeform {
 	
 
-	private static ConvertedGraphics cg = new HumanGraphics();
+	private static ConvertedGraphics cg = new LifeformHumanGraphics();
 
 	public Human (MainSimulator sim) {
 		super(sim);

@@ -1,13 +1,13 @@
 package projectubernahme.lifeforms;
 
 import projectubernahme.gfx.ConvertedGraphics;
-import projectubernahme.gfx.TreeGraphics;
+import projectubernahme.gfx.LifeformTreeGraphics;
 import projectubernahme.simulator.MainSimulator;
 
 public class Tree extends Lifeform {
 	
 
-	private static ConvertedGraphics cg = new TreeGraphics();
+	private static ConvertedGraphics cg = new LifeformTreeGraphics();
 	
 	private double growthFactor = 0.01;
 
