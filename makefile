@@ -8,7 +8,7 @@ sources/projectubernahme/ProjectUbernahme.class: sources/projectubernahme/*.java
 
 # generates javadoc for everything
 javadoc:
-	javadoc sources/projectubernahme/*.java -d documentation/javadoc -private -subpackages projectubernahme
+	javadoc -sourcepath sources/ sources/projectubernahme/*.java -d documentation/javadoc -private -subpackages projectubernahme
 
 # deletes all the compiled or otherwise generated content
 .PHONY: clean
