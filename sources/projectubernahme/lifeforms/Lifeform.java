@@ -90,6 +90,32 @@ abstract public class Lifeform {
 		return false;
 	}
 
+	/** ingests the given lifeform */
+	public void ingest(Lifeform whom) {
+		if (whom == null)
+			return;
+		
+		/* remove lifeform from player's list */
+		if (whom.isControlled()) {
+			if (whom.controllingPlayer.getControlledLifeforms().contains(whom)) {
+				whom.controllingPlayer.getControlledLifeforms().remove(whom);
+			}
+			
+	
+			/* if the ingested lifeform was selected before, it will get unselected */
+			if (whom.controllingPlayer.getSelectedLifeform() == whom) {
+				whom.controllingPlayer.setSelectedLifeform(null);
+			}
+		}
+		
+	
+		/* remove lifeform from simulator */
+		sim.getLifeforms().remove(whom);
+		setBiomass(getBiomass() + whom.getBiomass());
+		if (!getName().equals("") && !whom.getName().equals(""))
+			setName(getName()+"-"+whom.getName());
+	}
+
 	/** decides whether this lifeform can see some other lifeform l */
 	public abstract boolean canSee (Lifeform l);
 
@@ -146,9 +172,9 @@ abstract public class Lifeform {
 	/** lets the lifeform handle a keystroke */
 	public void handleKeyReleased (KeyEvent e) {
 		switch (e.getKeyChar()) {
-		case 'w': localxvsign = 0; break;
+		case 'w':
 		case 's': localxvsign = 0; break;
-		case 'a': localrotvsign = 0; break;
+		case 'a':
 		case 'd': localrotvsign = 0; break;
 		}
 
@@ -265,33 +291,6 @@ abstract public class Lifeform {
 	public double getDiameter() {
 		return Math.max(Math.sqrt(biomass)/40, .01);
 	}
-
-	/** ingests the given lifeform */
-	public void ingest(Lifeform whom) {
-		if (whom == null)
-			return;
-		
-		/* remove lifeform from player's list */
-		if (whom.isControlled()) {
-			if (whom.controllingPlayer.getControlledLifeforms().contains(whom)) {
-				whom.controllingPlayer.getControlledLifeforms().remove(whom);
-			}
-			
-
-			/* if the ingested lifeform was selected before, it will get unselected */
-			if (whom.controllingPlayer.getSelectedLifeform() == whom) {
-				whom.controllingPlayer.setSelectedLifeform(null);
-			}
-		}
-		
-
-		/* remove lifeform from simulator */
-		sim.getLifeforms().remove(whom);
-		setBiomass(getBiomass() + whom.getBiomass());
-		if (!getName().equals("") && !whom.getName().equals(""))
-			setName(getName()+"-"+whom.getName());
-	}
-
 
 	abstract public ConvertedGraphics getConvertedGraphics();
 }
