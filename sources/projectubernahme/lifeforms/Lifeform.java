@@ -258,12 +258,22 @@ abstract public class Lifeform {
 
 	/** ingests the given lifeform */
 	public void ingest(Lifeform whom) {
+		if (whom == null)
+			return;
+		
 		/* remove lifeform from player's list */
-		if (isControlled()) {
-			if (controllingPlayer.getControlledLifeforms().contains(whom)) {
-				controllingPlayer.getControlledLifeforms().remove(whom);
+		if (whom.isControlled()) {
+			if (whom.controllingPlayer.getControlledLifeforms().contains(whom)) {
+				whom.controllingPlayer.getControlledLifeforms().remove(whom);
+			}
+			
+
+			/* if the ingested lifeform was selected before, it will get unselected */
+			if (whom.controllingPlayer.getSelectedLifeform() == whom) {
+				whom.controllingPlayer.setSelectedLifeform(null);
 			}
 		}
+		
 
 		/* remove lifeform from simulator */
 		sim.getLifeforms().remove(whom);
