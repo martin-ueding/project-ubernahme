@@ -30,8 +30,6 @@ public class View2D extends JPanel {
 
 	private double selectionRoationAngle;
 
-
-
 	public View2D (MainSimulator sim, Player player) {
 		this.sim = sim;
 		this.player = player;
@@ -67,7 +65,6 @@ public class View2D extends JPanel {
 
 		final Graphics2D g = (Graphics2D)h;
 		g.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
-
 
 
 		/* clear screen */
@@ -190,10 +187,5 @@ public class View2D extends JPanel {
 			frames = 0;
 			measureTime = 0.0;
 		}
-		
-		
-		
-
 	}
-
 }
