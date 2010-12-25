@@ -38,7 +38,7 @@ public class MainSimulator {
 
 	/** generates a lifeform and return is. The player then can add it to its list of controlled lifeforms */
 	public Lifeform giveLifeform(Player p) {
-		Lifeform l = new Fly(this);
+		Lifeform l = new Fly(env.getRandomPointOnMap(), this);
 		getLifeforms().add(l);
 		l.setControlled(p);
 		return l;

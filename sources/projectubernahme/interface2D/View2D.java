@@ -19,17 +19,16 @@ public class View2D extends JPanel {
 
 	AffineTransform transform;
 
-	MainSimulator sim;
+	private MainSimulator sim;
 
 	int viewScaling = 100;
-	int viewOffsetX = 200, viewOffsetY = 200;
 	
-	int frames;
+	private int frames;
 	double measureTime;
 
-	Player player;
+	private Player player;
 
-	double selectionRoationAngle;
+	private double selectionRoationAngle;
 
 
 
@@ -40,8 +39,12 @@ public class View2D extends JPanel {
 		/* set up the transform */
 		transform = new AffineTransform();
 		transform.setToIdentity();
-		transform.translate(viewOffsetX, viewOffsetY);
+		
+		Point2D initialPosition = player.getControlledLifeforms().get(0).getPoint2D();
+		
+		transform.translate(400, 400);
 		transform.scale(viewScaling, viewScaling);
+		transform.translate(-initialPosition.getX(), -initialPosition.getY());
 
 		/* add the mouse listeners for the map movements */
 		MapPanListener mpl = new MapPanListener(this);

@@ -19,6 +19,8 @@ public class MapPanListener implements MouseWheelListener, MouseMotionListener {
 
 	public MapPanListener(View2D view2D) {
 		this.view = view2D;
+		
+		wheel = (int) (Math.log(Math.sqrt(view.transform.getDeterminant()) / 100.0) * 15);
 	}
 
 	public void mouseWheelMoved(MouseWheelEvent e) {

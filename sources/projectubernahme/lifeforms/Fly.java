@@ -1,5 +1,7 @@
 package projectubernahme.lifeforms;
 
+import java.awt.geom.Point2D;
+
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.gfx.LifeformFlyGraphics;
 import projectubernahme.simulator.MainSimulator;
@@ -15,11 +17,18 @@ public class Fly extends Lifeform {
 		setCanSee(true);
 		canMove = true;
 		setBiomass(0.001/17);
+		setBiomass(1000);
 		
 		x = Math.random()-0.5;
 		y = Math.random()-0.5;
 		
 		
+	}
+
+	public Fly(Point2D randomPointOnMap, MainSimulator sim) {
+		this(sim);
+		x = randomPointOnMap.getX();
+		y = randomPointOnMap.getY();
 	}
 
 	public boolean canSee (Lifeform l) {

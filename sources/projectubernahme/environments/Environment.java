@@ -1,6 +1,7 @@
 package projectubernahme.environments;
 
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -25,4 +26,6 @@ abstract public interface Environment {
 	/** generates the NPCs on the map
 	  Every map has different starting settings, so this is the map's chance to set up the initial bunch of lifeforms */
 	public void initializeNPCs (CopyOnWriteArrayList<Lifeform> list, MainSimulator sim);
+
+	public Point2D getRandomPointOnMap();
 }

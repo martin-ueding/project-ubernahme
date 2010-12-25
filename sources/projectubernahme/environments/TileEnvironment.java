@@ -211,5 +211,9 @@ public class TileEnvironment implements Environment {
 			}
 		}
 	}
+
+	public Point2D getRandomPointOnMap() {
+		return new Point2D.Double(Math.random()*tiles.length*tileWidthInReal, Math.random()*tiles[0].length*tileWidthInReal);
+	}
 }
 
