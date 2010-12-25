@@ -253,7 +253,7 @@ abstract public class Lifeform {
 	}
 
 	public double getDiameter() {
-		return Math.max(Math.sqrt(biomass)/10, .01);
+		return Math.max(Math.sqrt(biomass)/40, .01);
 	}
 
 	/** ingests the given lifeform */

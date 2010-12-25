@@ -32,7 +32,7 @@ public class TileEnvironment implements Environment {
 	private static final ConvertedGraphics tileDefault = new TileDefault();
 
 	/** width of the tiles in meters of the game coordinates */
-	private double tileWidthInReal = 0.25;
+	private double tileWidthInReal = 1.0;
 
 	private Point2D origin = new Point2D.Double(0.0, 0.0);
 
@@ -195,11 +195,11 @@ public class TileEnvironment implements Environment {
 	public void initializeNPCs(CopyOnWriteArrayList<Lifeform> list, MainSimulator sim) {
 		for (int i = 0; i < tiles[0].length; i++) {
 			for (int j = 0; j < tiles.length; j++) {
-				if (Math.random() > 0.95) {
+				if (Math.random() > 0.8) {
 					switch (tiles[j][i]) {
 					case 'S': list.add(Math.random() < 0.99 ? new Human(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal) : new Zombie(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)); break;
 					case 'L':
-						int treeOffset = 10;
+						int treeOffset = 2;
 						if (i >= treeOffset && j >= treeOffset && i+treeOffset < tiles[0].length && j+treeOffset < tiles.length) {
 							if (tiles[j-treeOffset][i] == 'L' && tiles[j+treeOffset][i] == 'L' && tiles[j][i-treeOffset] == 'L' && tiles[j][i+treeOffset] == 'L' && Math.random() > 0.9) {
 								list.add(new Tree(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal));
