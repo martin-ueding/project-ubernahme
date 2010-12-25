@@ -30,6 +30,9 @@ abstract public class Lifeform {
 	String name = new String();
 
 	boolean alive = true;
+	
+	/** Movement state Variables*/
+	short localxvsign, localrotvsign;
 
 	/** whether character is turning */
 	double dViewAngle;
@@ -98,6 +101,18 @@ abstract public class Lifeform {
 
 	/** lets the physics work on the lifeform and moves it by its velocities */
 	public void move(int sleepTime) {
+		//Calculate velocity
+		if(localxvsign == 0) {
+			v = 0;
+		}else {
+			v += 0.3* localxvsign;
+		}
+		
+		v = Math.min(1, v);
+
+		vx = v*Math.cos(viewAngle);
+		vy = v*Math.sin(viewAngle);
+		
 		double t = sleepTime/1000.0;
 		neighborsListAge += t;
 		if (canMove || canFly) {
@@ -111,7 +126,7 @@ abstract public class Lifeform {
 				y = b;
 				z = c;
 			}
-			viewAngle += dViewAngle*t;
+			viewAngle += localrotvsign*t;
 		}
 	}
 
@@ -121,25 +136,20 @@ abstract public class Lifeform {
 	/** lets the lifeform handle a keystroke */
 	public void handleKeyPressed (KeyEvent e) {
 		switch (e.getKeyChar()) {
-		case 'w': v += .3; break;
-		case 's': v += -.3; break;
-		case 'a': dViewAngle = -3.0; break;
-		case 'd': dViewAngle = 3.0; break;
+		case 'w': localxvsign = 1; break;
+		case 's': localxvsign = -1; break;
+		case 'a': localrotvsign = -3; break;
+		case 'd': localrotvsign = 3; break;
 		}
-
-		v = Math.min(1, v);
-
-		vx = v*Math.cos(viewAngle);
-		vy = v*Math.sin(viewAngle);
 	}
 
 	/** lets the lifeform handle a keystroke */
 	public void handleKeyReleased (KeyEvent e) {
 		switch (e.getKeyChar()) {
-		case 'w':
-		case 's': v -= 3.0; break;
-		case 'a':
-		case 'd': dViewAngle = 0.0; break;
+		case 'w': localxvsign = 0; break;
+		case 's': localxvsign = 0; break;
+		case 'a': localrotvsign = 0; break;
+		case 'd': localrotvsign = 0; break;
 		}
 
 		v = Math.max(0, v);
@@ -258,22 +268,12 @@ abstract public class Lifeform {
 
 	/** ingests the given lifeform */
 	public void ingest(Lifeform whom) {
-		if (whom == null)
-			return;
-		
 		/* remove lifeform from player's list */
-		if (whom.isControlled()) {
-			if (whom.controllingPlayer.getControlledLifeforms().contains(whom)) {
-				whom.controllingPlayer.getControlledLifeforms().remove(whom);
-			}
-			
-
-			/* if the ingested lifeform was selected before, it will get unselected */
-			if (whom.controllingPlayer.getSelectedLifeform() == whom) {
-				whom.controllingPlayer.setSelectedLifeform(null);
+		if (isControlled()) {
+			if (controllingPlayer.getControlledLifeforms().contains(whom)) {
+				controllingPlayer.getControlledLifeforms().remove(whom);
 			}
 		}
-		
 
 		/* remove lifeform from simulator */
 		sim.getLifeforms().remove(whom);
