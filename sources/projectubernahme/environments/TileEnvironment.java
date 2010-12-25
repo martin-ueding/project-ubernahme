@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import projectubernahme.gfx.ConvertedGraphics;
+import projectubernahme.gfx.TileCrosswalkHorizontal;
+import projectubernahme.gfx.TileCrosswalkVertical;
 import projectubernahme.gfx.TileDefault;
 import projectubernahme.gfx.TileLawn;
 import projectubernahme.gfx.TileSidewalk;
@@ -97,6 +99,8 @@ public class TileEnvironment implements Environment {
 		case 'l':
 		case 'L': cgs[c] = new TileLawn(); break;
 		case 's': cgs[c] = new TileStreet(); break;
+		case 'C': cgs[c] = new TileCrosswalkHorizontal(); break;
+		case 'c': cgs[c] = new TileCrosswalkVertical(); break;
 		}
 
 	}
@@ -119,6 +123,8 @@ public class TileEnvironment implements Environment {
 		if (transform.equals(previousTransform)) {
 		}
 		else {
+
+			double scaling = 1.05;
 			ConvertedGraphics cg;
 			
 			boolean[][] visible = new boolean[tiles.length][tiles[0].length];
@@ -142,9 +148,6 @@ public class TileEnvironment implements Environment {
 					visible[j][i] = target.distance(width/2, height/2) < twiceScreenRadius;
 				}
 			}
-			
-			
-			
 			
 
 			/* create a new background image and pull the graphics to draw on it */
@@ -173,7 +176,6 @@ public class TileEnvironment implements Environment {
 						}
 
 						/* figure out which tile image is the right one */
-						double scaling = 1.05;
 						tileTransform.scale(tileWidthInReal/cg.getOrigWidth()*scaling, tileWidthInReal/cg.getOrigWidth()*scaling);
 						tileTransform.translate(-cg.getOrigX(), -cg.getOrigY());
 
