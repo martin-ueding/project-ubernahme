@@ -172,7 +172,6 @@ public class View2D extends JPanel {
 					}
 				}
 			}
-
 		}
 
 		frames++;

@@ -21,7 +21,6 @@ public class ProjectUbernahme {
 
 	/** simulator backbone that simulates all the nonplayer interactions */
 	static MainSimulator sim;
-	
 
 	public static void main (String[] args) {
 		System.out.println(Localizer.get("Welcome to Project Ubernahme"));

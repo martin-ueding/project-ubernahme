@@ -20,8 +20,6 @@ public class Fly extends Lifeform {
 		
 		x = Math.random()-0.5;
 		y = Math.random()-0.5;
-		
-		
 	}
 
 	public Fly(Point2D randomPointOnMap, MainSimulator sim) {

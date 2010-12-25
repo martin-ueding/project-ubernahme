@@ -123,7 +123,6 @@ public class TileEnvironment implements Environment {
 		if (transform.equals(previousTransform)) {
 		}
 		else {
-
 			double scaling = 1.05;
 			ConvertedGraphics cg;
 			
@@ -143,7 +142,6 @@ public class TileEnvironment implements Environment {
 
 					/* draw only the visible items onto the background */					
 					Point2D target = tileTransform.transform(origin, null);
-					
 					
 					visible[j][i] = target.distance(width/2, height/2) < twiceScreenRadius;
 				}
@@ -179,8 +177,6 @@ public class TileEnvironment implements Environment {
 						tileTransform.scale(tileWidthInReal/cg.getOrigWidth()*scaling, tileWidthInReal/cg.getOrigWidth()*scaling);
 						tileTransform.translate(-cg.getOrigX(), -cg.getOrigY());
 
-
-
 						g.setTransform(tileTransform);
 						cg.paint(g);
 					}
@@ -188,7 +184,6 @@ public class TileEnvironment implements Environment {
 			}
 			/* clone the current player's transform to compare it in the next iteration of this method */
 			previousTransform = (AffineTransform) transform.clone();
-
 		}
 		return bg;
 	}
