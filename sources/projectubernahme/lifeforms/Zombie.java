@@ -46,13 +46,12 @@ public class Zombie extends Lifeform {
 					ingest(closest);
 				}
 				else {
-					vx = closest.getX() - getX();
-					vy = closest.getY() - getY();
+					double xdist, ydist;
+					xdist = closest.getX() - getX();
+					ydist = closest.getY() - getY();
 					
-					vx /= Math.sqrt(minDistance) * 3;
-					vy /= Math.sqrt(minDistance) * 3;
-					
-					viewAngle = Math.atan2(vy, vx);
+					viewAngle = Math.atan2(ydist, xdist);
+					localxvsign = 1;
 				}
 			}
 		}

@@ -108,7 +108,7 @@ abstract public class Lifeform {
 			v += 0.3* localxvsign;
 		}
 		
-		v = Math.min(1, v);
+		v = Math.min(1, v * localxvsign);
 
 		vx = v*Math.cos(viewAngle);
 		vy = v*Math.sin(viewAngle);
