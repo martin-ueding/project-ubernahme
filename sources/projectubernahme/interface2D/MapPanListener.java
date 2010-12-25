@@ -51,7 +51,10 @@ public class MapPanListener implements MouseWheelListener, MouseMotionListener {
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		if (e.getButton() == MouseEvent.BUTTON1) {
+		/* print current position */
+		System.out.println(x+"\t"+e.getX()+"\t"+y+"\t"+e.getY()+"\t"+e.getButton());
+		
+		if (e.getButton() == MouseEvent.BUTTON1 || e.getButton() == 0) {
 			view.transform.rotate(-angle);
 			view.transform.translate((e.getX()-x) / view.transform.getScaleX(), (e.getY()-y) / view.transform.getScaleY());
 			view.transform.rotate(angle);
