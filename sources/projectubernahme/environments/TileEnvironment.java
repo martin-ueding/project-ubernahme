@@ -107,7 +107,7 @@ public class TileEnvironment implements Environment {
 
 	public boolean isFreeBetween(double x1, double y1, double z1, double x2, double y2, double z2) {
 		/* return false if path would lead out of the map */
-		if (x2 < 0 || y2 < 0 || x2 > tiles[0].length*tileWidthInReal || y2 > tiles.length*tileWidthInReal)
+		if (x2 < 0 || y2 < 0 || x2 > tiles.length*tileWidthInReal || y2 > tiles[0].length*tileWidthInReal)
 			return false;
 		
 		return true;
