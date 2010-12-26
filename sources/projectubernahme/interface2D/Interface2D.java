@@ -5,6 +5,7 @@ import java.util.Timer;
 import javax.swing.JFrame;
 
 import projectubernahme.Player;
+import projectubernahme.ProjectUbernahme;
 import projectubernahme.simulator.MainSimulator;
 
 public class Interface2D {
@@ -17,7 +18,7 @@ public class Interface2D {
 		graphicsPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		View2D view = new View2D(sim, p);
 		graphicsPanel.add(view);
-		graphicsPanel.setSize(800, 800);
+		graphicsPanel.setSize(Integer.parseInt(ProjectUbernahme.getConfigValue("initialWindowWidth")), Integer.parseInt(ProjectUbernahme.getConfigValue("initialWindowHeight")));
 		graphicsPanel.setVisible(true);
 		
 		graphicsPanel.addKeyListener(new LifeformControlKeyListener(p));

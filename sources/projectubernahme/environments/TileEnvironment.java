@@ -1,6 +1,5 @@
 package projectubernahme.environments;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
@@ -11,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import projectubernahme.ProjectUbernahme;
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.gfx.TileCrosswalkHorizontal;
 import projectubernahme.gfx.TileCrosswalkVertical;
@@ -203,13 +203,16 @@ public class TileEnvironment implements Environment {
 
 	/** iterate through the tiles and spawn some lifeforms where they belong */
 	public void initializeNPCs(CopyOnWriteArrayList<Lifeform> list, MainSimulator sim) {
+		int treeOffset = Integer.parseInt(ProjectUbernahme.getConfigValue("treeOffset"));
+		double zombieChance = 1.0/Integer.parseInt(ProjectUbernahme.getConfigValue("zombieChance"));
+		double humanSpawnChance = 1.0/Integer.parseInt(ProjectUbernahme.getConfigValue("humanSpawnChance"));
+		
 		for (int i = 0; i < tiles[0].length; i++) {
 			for (int j = 0; j < tiles.length; j++) {
-				if (Math.random() > 0.6) {
+				if (Math.random() < humanSpawnChance) {
 					switch (tiles[j][i]) {
-					case 'S': list.add(Math.random() < 0.9 ? new Human(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal) : new Zombie(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)); break;
+					case 'S': list.add(Math.random() > zombieChance ? new Human(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal) : new Zombie(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)); break;
 					case 'L':
-						int treeOffset = 2;
 						if (i >= treeOffset && j >= treeOffset && i+treeOffset < tiles[0].length && j+treeOffset < tiles.length) {
 							if (tiles[j-treeOffset][i] == 'L' && tiles[j+treeOffset][i] == 'L' && tiles[j][i-treeOffset] == 'L' && tiles[j][i+treeOffset] == 'L' && Math.random() > 0.9) {
 								list.add(new Tree(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal));

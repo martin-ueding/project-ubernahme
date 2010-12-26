@@ -12,6 +12,7 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 
 import projectubernahme.Player;
+import projectubernahme.ProjectUbernahme;
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.simulator.MainSimulator;
@@ -42,7 +43,7 @@ public class View2D extends JPanel {
 		
 		Point2D initialPosition = player.getControlledLifeforms().get(0).getPoint2D();
 		
-		transform.translate(400, 400);
+		transform.translate(Integer.parseInt(ProjectUbernahme.getConfigValue("initialWindowWidth"))/2, Integer.parseInt(ProjectUbernahme.getConfigValue("initialWindowHeight"))/2);
 		transform.scale(viewScaling, viewScaling);
 		transform.translate(-initialPosition.getX(), -initialPosition.getY());
 
@@ -66,7 +67,9 @@ public class View2D extends JPanel {
 		double twiceScreenRadius = Math.hypot(getWidth(), getHeight());
 
 		final Graphics2D g = (Graphics2D)h;
-		g.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
+		if (ProjectUbernahme.getConfigValue("anti_alias").equals("true")) {
+			g.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
+		}
 		
 
 		Rectangle2D screen = new Rectangle2D.Double(0, 0, getWidth(), getHeight());
@@ -183,17 +186,20 @@ public class View2D extends JPanel {
 			}
 		}
 
-		frames++;
-		
 		/* reset the transform */
 		g.setTransform(new AffineTransform());
-		
-		g.setColor(Color.black);
-		g.drawString("FPS: "+Math.round(frames/measureTime), 10, 20);
-		
-		if (measureTime > 10) {
-			frames = 0;
-			measureTime = 0.0;
+
+		if (ProjectUbernahme.getConfigValue("showFramesPerSecond").equals("true")) {
+			frames++;
+			
+			g.setColor(Color.black);
+			g.drawString("FPS: "+Math.round(frames/measureTime), 10, 20);
+			
+			if (measureTime > 10) {
+				frames = 0;
+				measureTime = 0.0;
+			}
 		}
+		
 	}
 }

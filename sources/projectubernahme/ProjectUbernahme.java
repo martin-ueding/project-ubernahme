@@ -1,5 +1,8 @@
 package projectubernahme;
 
+import java.io.IOException;
+import java.util.Properties;
+
 import projectubernahme.interface2D.Interface2D;
 import projectubernahme.simulator.MainSimulator;
 
@@ -22,7 +25,21 @@ public class ProjectUbernahme {
 	/** simulator backbone that simulates all the nonplayer interactions */
 	static MainSimulator sim;
 
+	private static Properties config;
+
+	public static String getConfigValue (String key) {
+		return (String) config.get(key);
+	}
+
 	public static void main (String[] args) {
+		config = new Properties();
+		try {
+			config.load(ClassLoader.getSystemResourceAsStream("projectubernahme/config.properties"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
 		System.out.println(Localizer.get("Welcome to Project Ubernahme"));
 		
 		sim = new MainSimulator();
