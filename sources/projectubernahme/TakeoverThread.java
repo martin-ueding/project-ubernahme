@@ -24,13 +24,16 @@ public class TakeoverThread extends Thread {
 
 		try {
 			/* walk towards the victim */
-			if (l.distance(prey) > 0.5) {
+			while (l.distance(prey) > 0.5) {
 				double xdist, ydist;
 				xdist = prey.getX() - l.getX();
 				ydist = prey.getY() - l.getY();
 				
 				l.viewAngle = Math.atan2(ydist, xdist);
 				l.localxvsign = 1;
+
+				/* wait a little till the next check */
+				sleep(100);
 			}
 			
 			/* stop when reached the prey */
