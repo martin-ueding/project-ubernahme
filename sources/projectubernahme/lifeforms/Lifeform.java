@@ -13,12 +13,6 @@ import projectubernahme.simulator.MainSimulator;
 
 /** something with its own mind in the game, can interact with other lifeforms and the world */
 abstract public class Lifeform {	
-	/** whether this lifeform is still alive */
-	boolean alive = true;
-
-	/** the mass of biological stuff the lifeform ingested so far */
-	private double biomass = 0.0;
-
 	/** the simulator this lifeform is connected to */
 	MainSimulator sim;
 
@@ -27,9 +21,21 @@ abstract public class Lifeform {
 		name = new String();
 		id = next_id++;
 	}
+	
+	/*
+	 * the AI
+	 */
 
 	/** this lets the lifeform act, this can be just sitting around or calling for support or attacking another lifeform */
 	abstract public void act(int sleepTime);
+	
+	/*
+	 * everything that has to do with movement
+	 * - position
+	 * - velocity
+	 * - rotation
+	 * - distance
+	 */
 
 	/** coordinates */
 	double x;
@@ -39,6 +45,30 @@ abstract public class Lifeform {
 
 	/** coordinates */
 	double z;
+
+	public double getX() {
+		return x;
+	}
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public void setY(double y) {
+		this.y = y;
+	}
+
+	public double getZ() {
+		return z;
+	}
+
+	public Point2D getPoint2D () {
+		return new Point2D.Double(x, y);
+	}
 
 	/** velocities in the three coordinate axes, [m/s] */
 	double v;
@@ -58,15 +88,24 @@ abstract public class Lifeform {
 	/** whether character is turning */
 	double dViewAngle;
 
-	/** movement state variables */
+	public double getViewAngle() {
+		return viewAngle;
+	}
+
+	public void setViewAngle(double viewAngle) {
+		this.viewAngle = viewAngle;
+	}
+
+	/** movement state variable */
 	public short localxvsign;
 
+	/** movement state variable */
 	short localrotvsign;
 
 	/** lets the physics work on the lifeform and moves it by its velocities */
 	public void move(int sleepTime) {
 		/* calculate velocity */
-		if(localxvsign == 0) {
+		if (localxvsign == 0) {
 			v = 0;
 		}
 		else {
@@ -95,7 +134,17 @@ abstract public class Lifeform {
 		}
 	}
 
-	/* senses */
+	/** returns the distance to the other lifeform l, currently just the geometric mean of the axes, later it might include some path trough the world */
+	public double distance (Lifeform l) {
+		return Math.hypot(getX()-l.getX(), getY()-l.getY());
+	}
+
+	/*
+	 * everything with perception
+	 * - senses
+	 * - neighbors
+	 */
+	
 	boolean canSee = false;
 	boolean canSeeIR = false;
 	boolean canSeeXRay = false;
@@ -103,14 +152,66 @@ abstract public class Lifeform {
 	boolean canFeel = false;
 	boolean canSmell = false;
 	boolean canTaste = false;
-
-	/* actions */
 	boolean canMove = false;
+	boolean canFly = false;
 
-	private boolean canFly = false;
+	public boolean isCanSee() {
+		return canSee;
+	}
+
+	public boolean isCanFly() {
+		return canFly;
+	}
+
+	public void setCanSee(boolean canSee) {
+		this.canSee = canSee;
+	}
+
+	public void setCanFly(boolean canFly) {
+		this.canFly = canFly;
+	}
 
 	/** decides whether this lifeform can see some other lifeform l */
 	public abstract boolean canSee (Lifeform l);
+	
+	/** list of other lifeforms that this lifeform can see */
+	ArrayList<Lifeform> neighbors = new ArrayList<Lifeform>();
+
+	/** In order to save power, the list with neighbors is only refreshed when it expires. This tracks the age of the list */
+	private double neighborsListAge = 0.0;
+	
+	public ArrayList<Lifeform> getNeighbors() {
+		if (neighbors == null) {
+			neighbors = new ArrayList<Lifeform>();
+			generateNeighborsList();
+		}
+		/* if the neighbors list is old, generate a new one */
+		if (neighborsListAge > 0.5) {
+			generateNeighborsList();
+			neighborsListAge = 0.0;
+		}
+		return neighbors;
+	}
+
+	/** generates a list with all the lifeforms this one can see */
+	public void generateNeighborsList() {
+		neighbors.clear();
+	
+		/** only traverse if the lifeform can see */
+		if (canSee) {
+			for (Lifeform l : sim.getLifeforms()) {
+				if (canSee(l) && l != this) {
+					neighbors.add(l);
+				}
+			}
+		}
+	}
+
+	/*
+	 * everything with actions
+	 * - ingestion
+	 * - takeover
+	 */
 
 	/** whether this lifeform is carrying out some sort of action */
 	public boolean busy;
@@ -151,7 +252,6 @@ abstract public class Lifeform {
 		if (canIngest(whom) && !busy) {
 			startIngestion(whom);
 		}
-
 	}
 
 	private void startIngestion(Lifeform whom) {
@@ -165,13 +265,14 @@ abstract public class Lifeform {
 			actionThread.interrupt();
 		}
 	}
+	
+	/*
+	 * everything with key handling
+	 * - key pressed
+	 * - key released
+	 */
 
-	/** returns the distance to the other lifeform l, currently just the geometric mean of the axes, later it might include some path trough the world */
-	public double distance (Lifeform l) {
-		return Math.hypot(getX()-l.getX(), getY()-l.getY());
-	}
-
-	/** lets the lifeform handle a keystroke */
+	/** lets the lifeform handle a key press */
 	public void handleKeyPressed (KeyEvent e) {
 		switch (e.getKeyChar()) {
 		case 'w': localxvsign = 1; break;
@@ -183,7 +284,7 @@ abstract public class Lifeform {
 		stopAction();
 	}
 
-	/** lets the lifeform handle a keystroke */
+	/** lets the lifeform handle a key release */
 	public void handleKeyReleased (KeyEvent e) {
 		switch (e.getKeyChar()) {
 		case 'w':
@@ -198,83 +299,10 @@ abstract public class Lifeform {
 		vy = v*Math.sin(viewAngle);
 	}
 
-	/** list of other lifeforms that this lifeform can see */
-	ArrayList<Lifeform> neighbors = new ArrayList<Lifeform>();
-
-	/** In order to save power, the list with neighbors is only refreshed when it expires. This tracks the age of the list */
-	private double neighborsListAge = 0.0;
-
-	public ArrayList<Lifeform> getNeighbors() {
-		if (neighbors == null) {
-			neighbors = new ArrayList<Lifeform>();
-			generateNeighborsList();
-		}
-		/* if the neighbors list is old, generate a new one */
-		if (neighborsListAge > 0.5) {
-			generateNeighborsList();
-			neighborsListAge = 0.0;
-		}
-		return neighbors;
-	}
-
-	/** generates a list with all the lifeforms this one can see */
-	public void generateNeighborsList() {
-		neighbors.clear();
+	/*
+	 * everything with external control by a player
+	 */
 	
-		/** only traverse if the lifeform can see */
-		if (canSee) {
-			for (Lifeform l : sim.getLifeforms()) {
-				if (canSee(l) && l != this) {
-					neighbors.add(l);
-				}
-			}
-		}
-	}
-
-	public double getX() {
-		return x;
-	}
-
-	public void setX(double x) {
-		this.x = x;
-	}
-
-	public double getY() {
-		return y;
-	}
-
-	public void setY(double y) {
-		this.y = y;
-	}
-
-	public double getZ() {
-		return z;
-	}
-
-	public double getBiomass() {
-		return biomass;
-	}
-
-	public void setBiomass(double biomass) {
-		this.biomass = biomass;
-	}
-
-	public boolean isCanSee() {
-		return canSee;
-	}
-
-	public boolean isCanFly() {
-		return canFly;
-	}
-
-	public void setCanSee(boolean canSee) {
-		this.canSee = canSee;
-	}
-
-	public void setCanFly(boolean canFly) {
-		this.canFly = canFly;
-	}
-
 	/** the player who controls this lifeforms, if null, the computer controls it */
 	public Player controllingPlayer = null;
 
@@ -285,6 +313,15 @@ abstract public class Lifeform {
 	public void setControlled(Player p) {
 		this.controllingPlayer = p;
 	}
+	
+	/*
+	 * everything with personal properties
+	 * - ID
+	 * - name
+	 * - biomass
+	 *   - diameter
+	 * - graphics
+	 */
 
 	/** unique id */
 	int id;
@@ -305,7 +342,20 @@ abstract public class Lifeform {
 
 	public void setName(String value) {
 		name = value;
+	}
 
+	/** whether this lifeform is still alive */
+	boolean alive = true;
+
+	/** the mass of biological stuff the lifeform ingested so far */
+	private double biomass = 0.0;
+
+	public double getBiomass() {
+		return biomass;
+	}
+
+	public void setBiomass(double biomass) {
+		this.biomass = biomass;
 	}
 
 	/** gives a generic description string of the object */
@@ -316,18 +366,6 @@ abstract public class Lifeform {
 		else {
 			return name+"\t("+getClass().getSimpleName()+")\t"+getBiomass()+" kg";
 		}
-	}
-
-	public Point2D getPoint2D () {
-		return new Point2D.Double(x, y);
-	}
-
-	public double getViewAngle() {
-		return viewAngle;
-	}
-
-	public void setViewAngle(double viewAngle) {
-		this.viewAngle = viewAngle;
 	}
 
 	public double getDiameter() {
