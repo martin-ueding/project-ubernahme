@@ -133,6 +133,12 @@ public class View2D extends JPanel {
 						g.fillOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
 					}
 					
+					/* if there is some action in progress, draw a progress indicator pie */
+					if (l.busy) {
+						g.setColor(new Color(200, 0, 0, 200));
+						g.fillArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, 90, -(int)(360*l.actionProgress));
+					}
+					
 
 
 					/* draw the name */

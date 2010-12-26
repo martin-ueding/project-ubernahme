@@ -8,7 +8,7 @@ import projectubernahme.simulator.MainSimulator;
 
 /** a physical player of the game, controlling a heap of different lifeforms */
 public class Player {
-	private ArrayList<Lifeform> controlledLifeforms;
+	public ArrayList<Lifeform> controlledLifeforms;
 
 	MainSimulator sim;
 
@@ -47,7 +47,7 @@ public class Player {
 			}
 			
 		}
-		if (getSelectedLifeform() != null)
+		else if (getSelectedLifeform() != null)
 			getSelectedLifeform().handleKeyPressed(e);
 	}
 
@@ -100,8 +100,7 @@ public class Player {
 
 	private void takeover(Lifeform who, Lifeform whom) {
 		if (!controlledLifeforms.contains(whom)) {
-			if (who.takeover(whom))
-				controlledLifeforms.add(whom);
+			who.takeover(whom);
 		}
 	}
 

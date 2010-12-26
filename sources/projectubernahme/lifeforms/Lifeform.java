@@ -23,19 +23,30 @@ abstract public class Lifeform {
 	/** angle of view */
 	double viewAngle;
 
+	// TODO is v still needed?
 	/** velocities in the three coordinate axes, [m/s] */
 	double v, vx, vy, vz;
 
 	/** given name of the object */
 	String name = new String();
 
+	/** whether this lifeform is still alive */
 	boolean alive = true;
 	
-	/** Movement state Variables*/
+	/** movement state variables */
 	short localxvsign, localrotvsign;
 
 	/** whether character is turning */
 	double dViewAngle;
+	
+	/** whether this lifeform is carrying out some sort of action */
+	public boolean busy;
+	
+	/** progress with that action, from 0.0 to 1.0 */
+	public double actionProgress;
+	
+	/** thread that handles the current action */
+	private Thread actionThread;
 
 	/** list of other lifeforms that this lifeform can see */
 	ArrayList<Lifeform> neighbors = new ArrayList<Lifeform>();
@@ -84,10 +95,15 @@ abstract public class Lifeform {
 	/** takes over control of the given lifeform, returns whether that was successful */
 	public boolean takeover(Lifeform lifeform) {
 		if (canSee(lifeform)) {
-			lifeform.setControlled(controllingPlayer);
-			return true;
+			return startTakeover(lifeform);
 		}
 		return false;
+	}
+
+	private boolean startTakeover(Lifeform lifeform) {
+		actionThread = new TakeoverThread(this, controllingPlayer, lifeform);
+		actionThread.start();
+		return true;
 	}
 
 	/** ingests the given lifeform */
@@ -166,6 +182,15 @@ abstract public class Lifeform {
 		case 's': localxvsign = -1; break;
 		case 'a': localrotvsign = -3; break;
 		case 'd': localrotvsign = 3; break;
+		}
+		
+		stopAction();
+	}
+
+	/** stop whatever that lifeform is doing right now */
+	private void stopAction() {
+		if (actionThread != null && actionThread.isAlive()) {
+			actionThread.interrupt();
 		}
 	}
 
