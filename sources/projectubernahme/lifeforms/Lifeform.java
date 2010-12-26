@@ -4,7 +4,9 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import projectubernahme.IngestionThread;
 import projectubernahme.Player;
+import projectubernahme.TakeoverThread;
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.simulator.MainSimulator;
 
@@ -21,7 +23,7 @@ abstract public class Lifeform {
 	double x, y, z;
 
 	/** angle of view */
-	double viewAngle;
+	public double viewAngle;
 
 	// TODO is v still needed?
 	/** velocities in the three coordinate axes, [m/s] */
@@ -32,19 +34,21 @@ abstract public class Lifeform {
 
 	/** whether this lifeform is still alive */
 	boolean alive = true;
-	
+
 	/** movement state variables */
-	short localxvsign, localrotvsign;
+	public short localxvsign;
+
+	short localrotvsign;
 
 	/** whether character is turning */
 	double dViewAngle;
-	
+
 	/** whether this lifeform is carrying out some sort of action */
 	public boolean busy;
-	
+
 	/** progress with that action, from 0.0 to 1.0 */
 	public double actionProgress;
-	
+
 	/** thread that handles the current action */
 	private Thread actionThread;
 
@@ -65,7 +69,7 @@ abstract public class Lifeform {
 	private boolean canFly = false;
 
 	/** the player who controls this lifeforms, if null, the computer controls it */
-	private Player controllingPlayer = null;
+	public Player controllingPlayer = null;
 
 	/** the mass of biological stuff the lifeform ingested so far */
 	private double biomass = 0.0;
@@ -110,26 +114,16 @@ abstract public class Lifeform {
 	public void ingest(Lifeform whom) {
 		if (whom == null)
 			return;
-		
-		/* remove lifeform from player's list */
-		if (whom.isControlled()) {
-			if (whom.controllingPlayer.getControlledLifeforms().contains(whom)) {
-				whom.controllingPlayer.getControlledLifeforms().remove(whom);
-			}
-			
-	
-			/* if the ingested lifeform was selected before, it will get unselected */
-			if (whom.controllingPlayer.getSelectedLifeform() == whom) {
-				whom.controllingPlayer.setSelectedLifeform(null);
-			}
+
+		if (canIngest(whom)) {
+			startIngestion(whom);
 		}
-		
-	
-		/* remove lifeform from simulator */
-		sim.getLifeforms().remove(whom);
-		setBiomass(getBiomass() + whom.getBiomass());
-		if (!getName().equals("") && !whom.getName().equals(""))
-			setName(getName()+"-"+whom.getName());
+
+	}
+
+	private void startIngestion(Lifeform whom) {
+		actionThread = new IngestionThread(this, controllingPlayer, whom, sim);
+		actionThread.start();		
 	}
 
 	/** decides whether this lifeform can see some other lifeform l */
@@ -149,12 +143,12 @@ abstract public class Lifeform {
 		}else {
 			v += 0.3* localxvsign;
 		}
-		
+
 		v = Math.min(1, v * localxvsign);
 
 		vx = v*Math.cos(viewAngle);
 		vy = v*Math.sin(viewAngle);
-		
+
 		double t = sleepTime/1000.0;
 		neighborsListAge += t;
 		if (canMove || canFly) {
@@ -183,7 +177,7 @@ abstract public class Lifeform {
 		case 'a': localrotvsign = -3; break;
 		case 'd': localrotvsign = 3; break;
 		}
-		
+
 		stopAction();
 	}
 
@@ -321,5 +315,9 @@ abstract public class Lifeform {
 
 	public boolean canTakeover(Lifeform prey) {
 		return canSee(prey);
+	}
+
+	public boolean canIngest(Lifeform prey) {
+		return true;
 	}
 }
