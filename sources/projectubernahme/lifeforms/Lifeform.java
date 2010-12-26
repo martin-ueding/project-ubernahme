@@ -94,7 +94,7 @@ abstract public class Lifeform {
 
 	/** takes over control of the given lifeform, returns whether that was successful */
 	public boolean takeover(Lifeform lifeform) {
-		if (canSee(lifeform)) {
+		if (canTakeover(lifeform)) {
 			return startTakeover(lifeform);
 		}
 		return false;
@@ -318,4 +318,8 @@ abstract public class Lifeform {
 	}
 
 	abstract public ConvertedGraphics getConvertedGraphics();
+
+	public boolean canTakeover(Lifeform prey) {
+		return canSee(prey);
+	}
 }

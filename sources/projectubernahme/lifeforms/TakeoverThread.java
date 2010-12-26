@@ -44,11 +44,12 @@ public class TakeoverThread extends Thread {
 			}
 
 			/* take over the lifeform */
-			// TODO check whether the lifeform can still be overtaken
-			prey.setControlled(player);
-
-			// TODO make a special adding method in the player class
-			player.controlledLifeforms.add(prey);
+			if (l.canTakeover(prey)) {
+				prey.setControlled(player);
+	
+				// TODO make a special adding method in the player class
+				player.controlledLifeforms.add(prey);
+			}
 
 
 		} catch (InterruptedException e) {
