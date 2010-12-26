@@ -98,7 +98,7 @@ abstract public class Lifeform {
 
 	/** takes over control of the given lifeform, returns whether that was successful */
 	public boolean takeover(Lifeform lifeform) {
-		if (canTakeover(lifeform)) {
+		if (canTakeover(lifeform) && !busy) {
 			return startTakeover(lifeform);
 		}
 		return false;
