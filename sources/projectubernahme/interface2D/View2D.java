@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
 
@@ -65,6 +67,9 @@ public class View2D extends JPanel {
 
 		final Graphics2D g = (Graphics2D)h;
 		g.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
+		
+
+		Rectangle2D screen = new Rectangle2D.Double(0, 0, getWidth(), getHeight());
 
 
 		/* clear screen */
@@ -93,9 +98,13 @@ public class View2D extends JPanel {
 				double diameterView = diameter * Math.sqrt(transform.getDeterminant());			
 
 				Point2D p = transform.transform(l.getPoint2D(), null);
+				
+				Rectangle2D lifeformShape = new Rectangle2D.Double(l.getPoint2D().getX()-diameter/2, l.getPoint2D().getY()-diameter/2, diameter, diameter);
+				Shape lifeformShapeResult = transform.createTransformedShape(lifeformShape);
+
 
 				/* only draw if the lifeform is within the screen */
-				if (p.distance(getWidth()/2, getHeight()/2) < twiceScreenRadius/2) {
+				if (p.distance(getWidth()/2, getHeight()/2) < twiceScreenRadius/2 || lifeformShapeResult.intersects(screen)) {
 
 					/* draw arc if selected */
 					if (player.getSelectedLifeform() == l) {

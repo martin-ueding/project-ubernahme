@@ -1,8 +1,11 @@
 package projectubernahme.environments;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -130,6 +133,13 @@ public class TileEnvironment implements Environment {
 
 			double twiceScreenRadius = Math.hypot(width, height);
 			
+			Rectangle2D screen = new Rectangle2D.Double(0, 0, width, height);
+			
+
+			/* create a new background image and pull the graphics to draw on it */
+			bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+			Graphics2D g = (Graphics2D) bg.getGraphics();
+			
 			/* iterate through the tiles ... */
 			for (int i = 0; i < tiles[0].length; i += 1) {
 				for (int j = 0; j < tiles.length; j += 1) {
@@ -143,14 +153,17 @@ public class TileEnvironment implements Environment {
 					/* draw only the visible items onto the background */					
 					Point2D target = tileTransform.transform(origin, null);
 					
-					visible[j][i] = target.distance(width/2, height/2) < twiceScreenRadius;
+					/* create a whole rectangle and transform it to the screen */
+					Rectangle2D tile = new Rectangle2D.Double(0, 0, tileWidthInReal, tileWidthInReal);
+					Shape tileResult = tileTransform.createTransformedShape(tile);
+
+					/* something is visible if it either is within the screen or the tile intersects with the screen */
+					visible[j][i] = target.distance(width/2, height/2) < twiceScreenRadius || tileResult.intersects(screen);
+
 				}
 			}
 			
 
-			/* create a new background image and pull the graphics to draw on it */
-			bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-			Graphics2D g = (Graphics2D) bg.getGraphics();
 
 			/* iterate through the tiles ... */
 			for (int i = 0; i < tiles[0].length; i += 1) {
