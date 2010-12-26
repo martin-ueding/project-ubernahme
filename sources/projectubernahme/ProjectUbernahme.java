@@ -40,7 +40,7 @@ public class ProjectUbernahme {
 			e.printStackTrace();
 		}		
 		
-		System.out.println(Localizer.get("Welcome to Project Ubernahme"));
+		ProjectUbernahme.log("Welcome to Project Ubernahme");
 		
 		sim = new MainSimulator();
 
