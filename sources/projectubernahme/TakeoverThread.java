@@ -12,8 +12,6 @@ public class TakeoverThread extends Thread {
 		l = lifeform;
 		player = controllingPlayer;
 		prey = lifeform2;
-
-
 	}
 
 	public void run () {

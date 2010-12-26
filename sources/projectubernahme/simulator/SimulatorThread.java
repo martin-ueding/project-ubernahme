@@ -33,5 +33,4 @@ public class SimulatorThread extends Thread {
 			cycle++;
 		}
 	}
-
 }

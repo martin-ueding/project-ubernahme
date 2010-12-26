@@ -13,7 +13,6 @@ import projectubernahme.Player;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.simulator.MainSimulator;
 
-
 public class LifeformSelectionMouseListener implements MouseListener {
 
 	Player player;
@@ -62,8 +61,6 @@ public class LifeformSelectionMouseListener implements MouseListener {
 						player.setSecondarySelectedLifeform(selected);
 					}
 				}
-
-
 
 				/* if it was a double click, rename the lifeform */
 				else if (e.getClickCount() == 2) {

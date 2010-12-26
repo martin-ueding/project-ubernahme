@@ -41,6 +41,4 @@ public class Fly extends Lifeform {
 	public ConvertedGraphics getConvertedGraphics() {
 		return cg;
 	}
-
-
 }

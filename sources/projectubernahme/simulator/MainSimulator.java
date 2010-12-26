@@ -29,7 +29,6 @@ public class MainSimulator {
 		/* start thread */
 		Thread SimulatorThread = new SimulatorThread(this);
 		SimulatorThread.start();
-		
 	}
 
 	public CopyOnWriteArrayList<Lifeform> getLifeforms() {
@@ -73,4 +72,3 @@ public class MainSimulator {
 		return env;
 	}
 }
-

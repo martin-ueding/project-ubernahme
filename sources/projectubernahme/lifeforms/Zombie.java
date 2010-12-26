@@ -6,7 +6,6 @@ import projectubernahme.simulator.MainSimulator;
 
 public class Zombie extends Lifeform {
 
-
 	private static ConvertedGraphics cg = new LifeformZombieGraphics();
 
 	public Zombie(MainSimulator sim) {
@@ -47,7 +46,6 @@ public class Zombie extends Lifeform {
 				}
 			}
 		}
-
 	}
 
 	@Override
@@ -59,5 +57,4 @@ public class Zombie extends Lifeform {
 	public ConvertedGraphics getConvertedGraphics() {
 		return cg;
 	}
-
 }

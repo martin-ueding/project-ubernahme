@@ -62,6 +62,4 @@ public class Human extends Lifeform {
 	public ConvertedGraphics getConvertedGraphics() {
 		return cg;
 	}
-
-	
 }

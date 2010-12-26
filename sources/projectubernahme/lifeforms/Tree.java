@@ -5,8 +5,6 @@ import projectubernahme.gfx.LifeformTreeGraphics;
 import projectubernahme.simulator.MainSimulator;
 
 public class Tree extends Lifeform {
-	
-
 	private static ConvertedGraphics cg = new LifeformTreeGraphics();
 	
 	private double growthFactor = 0.01;
@@ -45,5 +43,4 @@ public class Tree extends Lifeform {
 	public ConvertedGraphics getConvertedGraphics() {
 		return cg;
 	}
-
 }

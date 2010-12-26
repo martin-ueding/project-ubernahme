@@ -78,7 +78,5 @@ public class MapPanListener implements MouseWheelListener, MouseMotionListener {
 	public void mouseMoved(MouseEvent e) {
 		startx = x = e.getX();
 		starty = y = e.getY();
-
 	}
-
 }

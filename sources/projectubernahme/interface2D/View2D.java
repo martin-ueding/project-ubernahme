@@ -58,7 +58,6 @@ public class View2D extends JPanel {
 
 		/* add key listener */
 		addKeyListener(new LifeformControlKeyListener(player));
-
 	}
 
 	protected void paintComponent (Graphics h) {
@@ -70,10 +69,8 @@ public class View2D extends JPanel {
 		if (ProjectUbernahme.getConfigValue("anti_alias").equals("true")) {
 			g.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 		}
-		
 
 		Rectangle2D screen = new Rectangle2D.Double(0, 0, getWidth(), getHeight());
-
 
 		/* clear screen */
 		g.setColor(Color.WHITE);
@@ -148,7 +145,6 @@ public class View2D extends JPanel {
 							g.fillArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, 90, -(int)(360*l.actionProgress));
 						}
 					}
-					
 
 
 					/* draw the name */
@@ -216,6 +212,5 @@ public class View2D extends JPanel {
 				measureTime = 0.0;
 			}
 		}
-		
 	}
 }
