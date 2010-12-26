@@ -364,7 +364,7 @@ abstract public class Lifeform {
 			return getClass().getSimpleName()+"\t"+getBiomass()+" kg";
 		}
 		else {
-			return name+"\t("+getClass().getSimpleName()+")\t"+getBiomass()+" kg";
+			return getName()+"\t("+getClass().getSimpleName()+")\t"+getBiomass()+" kg";
 		}
 	}
 

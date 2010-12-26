@@ -44,8 +44,10 @@ public class IngestionThread extends Thread {
 			/* ingest the prey */
 
 			if (l.canIngest(prey)) {
-				if (!l.getName().equals("") && !prey.getName().equals(""))
+				/* add the prey's name to the lifeform's */
+				if (!l.getName().equals("") && !prey.getName().equals("") && l.getName().concat(prey.getName()).length() <= 25) {
 					l.setName(l.getName()+"-"+prey.getName());
+				}
 
 
 				
