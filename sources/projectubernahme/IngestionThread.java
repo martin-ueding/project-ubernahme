@@ -24,7 +24,7 @@ public class IngestionThread extends Thread {
 
 		try {
 			/* walk towards the victim */
-			while (l.distance(prey) > 0.5) {
+			if (l.distance(prey) > 0.5) {
 				double xdist, ydist;
 				xdist = prey.getX() - l.getX();
 				ydist = prey.getY() - l.getY();
