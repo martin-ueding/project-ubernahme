@@ -36,7 +36,7 @@ public class ProjectUbernahme {
 		try {
 			config.load(ClassLoader.getSystemResourceAsStream("projectubernahme/config.properties"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			ProjectUbernahme.log("ERROR: could not open main config file");
 			e.printStackTrace();
 		}		
 		
@@ -51,5 +51,10 @@ public class ProjectUbernahme {
 		/* creates a new interface which lets the physical player take control over the player object */
 		@SuppressWarnings("unused")
 		Interface2D interface2d = new Interface2D(sim, player);
+	}
+	
+	/* prints out a log message and translates it automatically */
+	public static void log (String s) {
+		System.out.println(Localizer.get(s));
 	}
 }

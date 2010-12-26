@@ -43,7 +43,6 @@ public class Tree extends Lifeform {
 
 	@Override
 	public ConvertedGraphics getConvertedGraphics() {
-		// TODO Auto-generated method stub
 		return cg;
 	}
 

@@ -130,4 +130,8 @@ public class Player {
 		}
 		return false;
 	}
+
+	public void addControlledLifeform(Lifeform prey) {
+		controlledLifeforms.add(prey);
+	}
 }

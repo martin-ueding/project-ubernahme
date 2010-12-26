@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import projectubernahme.ProjectUbernahme;
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.gfx.LifeformHumanGraphics;
 import projectubernahme.simulator.MainSimulator;
@@ -38,7 +39,7 @@ public class Human extends Lifeform {
 			while ((input = br.readLine()) != null)
 			names.add(input);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			ProjectUbernahme.log("ERROR: could not open file with list of first names");
 			e.printStackTrace();
 		}
 	}
@@ -59,7 +60,6 @@ public class Human extends Lifeform {
 
 	@Override
 	public ConvertedGraphics getConvertedGraphics() {
-		// TODO Auto-generated method stub
 		return cg;
 	}
 

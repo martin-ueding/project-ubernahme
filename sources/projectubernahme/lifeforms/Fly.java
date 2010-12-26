@@ -39,7 +39,6 @@ public class Fly extends Lifeform {
 
 	@Override
 	public ConvertedGraphics getConvertedGraphics() {
-		// TODO Auto-generated method stub
 		return cg;
 	}
 

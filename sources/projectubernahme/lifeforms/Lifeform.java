@@ -131,8 +131,7 @@ abstract public class Lifeform {
 
 	/** returns the distance to the other lifeform l, currently just the geometric mean of the axes, later it might include some path trough the world */
 	public double distance (Lifeform l) {
-		// TODO use the easier method instead
-		return Math.sqrt(Math.pow(getX()-l.getX(), 2) + Math.pow(getY()-l.getY(), 2) + Math.pow(z-l.z, 2));
+		return Math.hypot(getX()-l.getX(), getY()-l.getY());
 	}
 
 	/** lets the physics work on the lifeform and moves it by its velocities */
