@@ -115,7 +115,7 @@ abstract public class Lifeform {
 		if (whom == null)
 			return;
 
-		if (canIngest(whom)) {
+		if (canIngest(whom) && !busy) {
 			startIngestion(whom);
 		}
 
