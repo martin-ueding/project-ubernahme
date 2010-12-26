@@ -13,14 +13,12 @@ public class IngestionThread extends Thread {
 		l = lifeform;
 		prey = lifeform2;
 		this.sim = sim;
-
 	}
 
 	public void run () {
 		/* set the lifeform to busy */
 		l.busy = true;
 		l.actionProgress = 0.0;
-
 
 		try {
 			/* walk towards the victim */
@@ -39,19 +37,12 @@ public class IngestionThread extends Thread {
 			/* stop when reached the prey */
 			l.localxvsign = 0;
 
-
-
 			/* ingest the prey */
-
 			if (l.canIngest(prey)) {
 				/* add the prey's name to the lifeform's */
 				if (!l.getName().equals("") && !prey.getName().equals("") && l.getName().concat(prey.getName()).length() <= 25) {
 					l.setName(l.getName()+"-"+prey.getName());
 				}
-
-
-				
-				
 
 				double startBioMass = prey.getBiomass();
 
@@ -68,7 +59,6 @@ public class IngestionThread extends Thread {
 					sleep(50);
 				}
 				
-
 				/* remove lifeform from simulator */
 				sim.getLifeforms().remove(prey);
 				
@@ -85,8 +75,6 @@ public class IngestionThread extends Thread {
 					}
 				}
 			}
-
-
 
 		} catch (InterruptedException e) {
 			/* if the action was interrupted, then it will just stop, the busy state is reset at the end of this method anyway */
