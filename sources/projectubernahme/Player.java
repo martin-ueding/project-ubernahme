@@ -72,8 +72,9 @@ public class Player {
 	}
 
 	public Lifeform getSelectedLifeform() {
-		if (selectedLifeform == null)
+		if (selectedLifeform == null && controlledLifeforms != null && !controlledLifeforms.isEmpty()) {
 			selectedLifeform = controlledLifeforms.get(0);
+		}
 		return selectedLifeform;
 	}
 
