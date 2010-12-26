@@ -102,6 +102,9 @@ abstract public class Lifeform {
 	/** movement state variable */
 	short localrotvsign;
 
+	/** maximal velocity */
+	private static double vMax = 1.0;
+
 	/** lets the physics work on the lifeform and moves it by its velocities */
 	public void move(int sleepTime) {
 		/* calculate velocity */
@@ -112,13 +115,19 @@ abstract public class Lifeform {
 			v += 0.3* localxvsign;
 		}
 	
-		v = Math.min(1, v * localxvsign);
+		if (localxvsign > 0) {
+			v = Math.min(vMax, v);
+		}
+		else if (localxvsign < 0) {
+			v = Math.max(-vMax, v);
+		}
 	
 		vx = v*Math.cos(viewAngle);
 		vy = v*Math.sin(viewAngle);
 	
 		double t = sleepTime/1000.0;
 		neighborsListAge += t;
+		
 		if (canMove || canFly) {
 			double a = x + vx*t;
 			double b = y + vy*t;
