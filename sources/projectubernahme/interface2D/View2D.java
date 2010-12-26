@@ -135,7 +135,7 @@ public class View2D extends JPanel {
 					
 					/* if there is some action in progress, draw a progress indicator pie */
 					if (l.busy) {
-						g.setColor(new Color(200, 0, 0, 200));
+						g.setColor(new Color(200, 100, 0, 200));
 						
 						if (l.actionProgress == 0.0) {
 
