@@ -20,6 +20,7 @@ public class Tree extends Lifeform {
 		y = Math.random()-0.5;
 		
 		viewAngle = 2*Math.PI*Math.random();
+		setIntelligence(0.1);
 	}
 
 	public Tree(MainSimulator sim, double d, double e) {

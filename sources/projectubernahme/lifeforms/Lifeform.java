@@ -330,6 +330,7 @@ abstract public class Lifeform {
 	 * - biomass
 	 *   - diameter
 	 * - graphics
+	 * - intelligence
 	 */
 
 	/** unique id */
@@ -382,4 +383,15 @@ abstract public class Lifeform {
 	}
 
 	abstract public ConvertedGraphics getConvertedGraphics();
+
+	/** intelligence level, 100.0 would be of the average human */
+	private double intelligence;
+	
+	public void setIntelligence(double intelligence) {
+		this.intelligence = intelligence;
+	}
+
+	public double getIntelligence() {
+		return intelligence;
+	}
 }

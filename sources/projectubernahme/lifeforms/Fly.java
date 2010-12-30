@@ -17,6 +17,7 @@ public class Fly extends Lifeform {
 		setCanSee(true);
 		canMove = true;
 		setBiomass(0.001/17);
+		setIntelligence(1.0);
 		
 		x = Math.random()-0.5;
 		y = Math.random()-0.5;

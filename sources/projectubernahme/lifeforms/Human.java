@@ -28,6 +28,7 @@ public class Human extends Lifeform {
 		setCanSee(true);
 		canMove = true;
 		setBiomass(60.0 + Math.random()*60);
+		setIntelligence(50+100*Math.random());
 	}
 
 	private static void loadNames() {

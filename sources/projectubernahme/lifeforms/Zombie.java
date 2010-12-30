@@ -14,6 +14,7 @@ public class Zombie extends Lifeform {
 		setCanSee(true);
 		canMove = true;
 		setBiomass(60.0 + Math.random()*60);
+		setIntelligence(30);
 	}
 
 	public Zombie(MainSimulator sim, double d, double e) {
