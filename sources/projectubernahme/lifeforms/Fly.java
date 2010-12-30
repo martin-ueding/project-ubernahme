@@ -15,7 +15,7 @@ public class Fly extends Lifeform {
 		super(sim);
 		setCanFly(true);
 		setCanSee(true);
-		canMove = true;
+		setCanMove(true);
 		setBiomass(0.001/17);
 		setIntelligence(1.0);
 		

@@ -128,7 +128,7 @@ abstract public class Lifeform {
 		double t = sleepTime/1000.0;
 		neighborsListAge += t;
 		
-		if (canMove || canFly) {
+		if (isCanMove() || canFly) {
 			double a = x + vx*t;
 			double b = y + vy*t;
 			double c = z + vz*t;
@@ -154,15 +154,15 @@ abstract public class Lifeform {
 	 * - neighbors
 	 */
 	
-	boolean canSee = false;
-	boolean canSeeIR = false;
-	boolean canSeeXRay = false;
-	boolean canHear = false;
-	boolean canFeel = false;
-	boolean canSmell = false;
-	boolean canTaste = false;
-	boolean canMove = false;
-	boolean canFly = false;
+	private boolean canSee = false;
+	private boolean canSeeIR = false;
+	private boolean canSeeXRay = false;
+	private boolean canHear = false;
+	private boolean canFeel = false;
+	private boolean canSmell = false;
+	private boolean canTaste = false;
+	private boolean canMove = false;
+	private boolean canFly = false;
 
 	public boolean isCanSee() {
 		return canSee;
@@ -170,6 +170,62 @@ abstract public class Lifeform {
 
 	public boolean isCanFly() {
 		return canFly;
+	}
+
+	public void setCanMove(boolean canMove) {
+		this.canMove = canMove;
+	}
+
+	public boolean isCanMove() {
+		return canMove;
+	}
+
+	public void setCanSeeIR(boolean canSeeIR) {
+		this.canSeeIR = canSeeIR;
+	}
+
+	public boolean isCanSeeIR() {
+		return canSeeIR;
+	}
+
+	public void setCanSeeXRay(boolean canSeeXRay) {
+		this.canSeeXRay = canSeeXRay;
+	}
+
+	public boolean isCanSeeXRay() {
+		return canSeeXRay;
+	}
+
+	public void setCanHear(boolean canHear) {
+		this.canHear = canHear;
+	}
+
+	public boolean isCanHear() {
+		return canHear;
+	}
+
+	public void setCanFeel(boolean canFeel) {
+		this.canFeel = canFeel;
+	}
+
+	public boolean isCanFeel() {
+		return canFeel;
+	}
+
+	public void setCanSmell(boolean canSmell) {
+		this.canSmell = canSmell;
+	}
+
+	public boolean isCanSmell() {
+		return canSmell;
+	}
+
+	public void setCanTaste(boolean canTaste) {
+		this.canTaste = canTaste;
+	}
+
+	public boolean isCanTaste() {
+		return canTaste;
 	}
 
 	public void setCanSee(boolean canSee) {

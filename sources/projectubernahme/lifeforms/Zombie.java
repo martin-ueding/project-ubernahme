@@ -12,7 +12,7 @@ public class Zombie extends Lifeform {
 		super(sim);
 		setCanFly(false);
 		setCanSee(true);
-		canMove = true;
+		setCanMove(true);
 		setBiomass(60.0 + Math.random()*60);
 		setIntelligence(30);
 	}

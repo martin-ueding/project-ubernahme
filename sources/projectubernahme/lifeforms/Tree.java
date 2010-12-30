@@ -13,7 +13,7 @@ public class Tree extends Lifeform {
 		super(sim);
 		setCanFly(false);
 		setCanSee(false);
-		canMove = false;
+		setCanMove(false);
 		setBiomass(500+Math.random()*500);
 		
 		x = Math.random()-0.5;
