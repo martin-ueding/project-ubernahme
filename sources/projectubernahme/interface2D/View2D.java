@@ -49,9 +49,6 @@ public class View2D extends JPanel {
 
 		/* add the mouse listeners for the map movements */
 		MapPanListener mpl = new MapPanListener(this);
-		addMouseListener(mpl);
-		addMouseMotionListener(mpl);
-		addMouseWheelListener(mpl);
 
 		/* add mouse listener for lifeform selection */
 		addMouseListener(new LifeformSelectionMouseListener(sim, player, transform));
