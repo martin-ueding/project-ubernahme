@@ -1,6 +1,6 @@
 package projectubernahme;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.simulator.MainSimulator;
@@ -8,7 +8,7 @@ import projectubernahme.simulator.MainSimulator;
 
 /** a physical player of the game, controlling a heap of different lifeforms */
 public class Player {
-	public ArrayList<Lifeform> controlledLifeforms;
+	public CopyOnWriteArrayList<Lifeform> controlledLifeforms;
 
 	MainSimulator sim;
 
@@ -19,7 +19,7 @@ public class Player {
 	/** initializes the list of controlledLifeforms, add a starting one */
 	public Player (MainSimulator sim) {
 		this.sim = sim;
-		setControlledLifeforms(new ArrayList<Lifeform>());
+		setControlledLifeforms(new CopyOnWriteArrayList<Lifeform>());
 		getControlledLifeforms().add(sim.giveLifeform(this));
 	}
 
@@ -56,11 +56,11 @@ public class Player {
 			getSelectedLifeform().handleKeyReleased(e);
 	}
 
-	public void setControlledLifeforms(ArrayList<Lifeform> controlledLifeforms) {
-		this.controlledLifeforms = controlledLifeforms;
+	public void setControlledLifeforms(CopyOnWriteArrayList<Lifeform> copyOnWriteArrayList) {
+		this.controlledLifeforms = copyOnWriteArrayList;
 	}
 
-	public ArrayList<Lifeform> getControlledLifeforms() {
+	public CopyOnWriteArrayList<Lifeform> getControlledLifeforms() {
 		return controlledLifeforms;
 	}
 
