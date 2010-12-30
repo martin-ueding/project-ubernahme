@@ -1,6 +1,7 @@
 package projectubernahme.interface2D;
 
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
@@ -8,14 +9,17 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 
-public class MapPanListener implements MouseWheelListener, MouseMotionListener {
+public class MapPanListener implements MouseWheelListener, MouseMotionListener, MouseListener {
 
-	int x, y;
-	int startx, starty;
-	int wheel = 0;
-	double angle = 0.0;
+	private int x, y;
+	private int startx, starty;
+	private int wheel = 0;
+	private double angle = 0.0;
+	
+	/** tracks the current pressed mouse button for the panning and rotation movements */
+	private int pressedMouseButton;
 
-	View2D view;
+	private View2D view;
 
 	public MapPanListener(View2D view2D) {
 		this.view = view2D;
@@ -50,13 +54,14 @@ public class MapPanListener implements MouseWheelListener, MouseMotionListener {
 		}
 	}
 
+	/** handles dragging events that lead to panning or rotation */
 	public void mouseDragged(MouseEvent e) {		
-		if (e.getButton() == MouseEvent.BUTTON1 || e.getButton() == 0) {
+		if (pressedMouseButton == MouseEvent.BUTTON1) {
 			view.transform.rotate(-angle);
 			view.transform.translate((e.getX()-x) / view.transform.getScaleX(), (e.getY()-y) / view.transform.getScaleY());
 			view.transform.rotate(angle);
 		}
-		else if (e.getButton() == MouseEvent.BUTTON3) {
+		else if (pressedMouseButton == MouseEvent.BUTTON3) {
 			double oldAngle = angle;
 			angle += (e.getY()-y)/100.0;
 
@@ -78,5 +83,17 @@ public class MapPanListener implements MouseWheelListener, MouseMotionListener {
 	public void mouseMoved(MouseEvent e) {
 		startx = x = e.getX();
 		starty = y = e.getY();
+	}
+
+	public void mouseClicked(MouseEvent ignored) {}
+	public void mouseEntered(MouseEvent ignored) {}
+	public void mouseExited(MouseEvent ignored) {}
+
+	public void mousePressed(MouseEvent arg0) {
+		pressedMouseButton = arg0.getButton();
+	}
+
+	public void mouseReleased(MouseEvent arg0) {
+		pressedMouseButton = -1;
 	}
 }
