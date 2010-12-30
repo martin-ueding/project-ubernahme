@@ -31,7 +31,7 @@ public class Tree extends Lifeform {
 	@Override
 	public void act(int sleepTime) {
 		double t = sleepTime/1000.0;
-		setBiomass(getBiomass() + getBiomass()*(Math.exp(growthFactor*t)-1)*(500*500 / Math.pow(getBiomass(), 2)));
+		setBiomass(getBiomass() + getBiomass()*(Math.exp(growthFactor*t)-1));
 	}
 
 	@Override
