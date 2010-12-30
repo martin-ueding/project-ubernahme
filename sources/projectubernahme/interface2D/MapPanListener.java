@@ -20,6 +20,7 @@ public class MapPanListener implements MouseWheelListener, MouseMotionListener, 
 	private int pressedMouseButton;
 
 	private View2D view;
+	private double roundedAngle;
 
 	public MapPanListener(View2D view2D) {
 		this.view = view2D;
@@ -61,14 +62,23 @@ public class MapPanListener implements MouseWheelListener, MouseMotionListener, 
 			view.transform.translate((e.getX()-x) / view.transform.getScaleX(), (e.getY()-y) / view.transform.getScaleY());
 			view.transform.rotate(angle);
 		}
-		else if (pressedMouseButton == MouseEvent.BUTTON3) {
-			double oldAngle = angle;
+		else if (pressedMouseButton == MouseEvent.BUTTON2 || pressedMouseButton == MouseEvent.BUTTON3) {
+			double oldAngle = roundedAngle;
 			angle += (e.getY()-y)/100.0;
+			
+			double factor = 1.0/Math.PI/2*8;
+			
+			if (pressedMouseButton == MouseEvent.BUTTON3) {
+				roundedAngle = Math.round(angle*factor)/factor;
+			}
+			else {
+				roundedAngle = angle;
+			}
 
 			Point2D mouse;
 			try {
 				mouse = view.transform.inverseTransform(new Point2D.Double(startx, starty), null);
-				view.transform.rotate(angle - oldAngle, mouse.getX(), mouse.getY());
+				view.transform.rotate(roundedAngle - oldAngle, mouse.getX(), mouse.getY());
 			} catch (NoninvertibleTransformException e1) {
 				e1.printStackTrace();
 			}
