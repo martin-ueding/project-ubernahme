@@ -28,14 +28,14 @@ public class IngestionThread extends Thread {
 				ydist = prey.getY() - l.getY();
 
 				l.viewAngle = Math.atan2(ydist, xdist);
-				l.localxvsign = 1;
+				l.dvSign = 1;
 
 				/* wait a little till the next check */
 				sleep(100);
 			}
 
 			/* stop when reached the prey */
-			l.localxvsign = 0;
+			l.dvSign = 0;
 
 			/* ingest the prey */
 			if (l.canIngest(prey)) {

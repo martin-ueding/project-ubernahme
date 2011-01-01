@@ -97,10 +97,10 @@ abstract public class Lifeform {
 	}
 
 	/** movement state variable */
-	public short localxvsign;
+	public short dvSign;
 
 	/** movement state variable */
-	short localrotvsign;
+	short dViewAngleSign;
 
 	/** maximal velocity */
 	private static double vMax = 1.0;
@@ -108,17 +108,17 @@ abstract public class Lifeform {
 	/** lets the physics work on the lifeform and moves it by its velocities */
 	public void move(int sleepTime) {
 		/* calculate velocity */
-		if (localxvsign == 0) {
+		if (dvSign == 0) {
 			v = 0;
 		}
 		else {
-			v += 0.3* localxvsign;
+			v += 0.3* dvSign;
 		}
 	
-		if (localxvsign > 0) {
+		if (dvSign > 0) {
 			v = Math.min(vMax, v);
 		}
-		else if (localxvsign < 0) {
+		else if (dvSign < 0) {
 			v = Math.max(-vMax, v);
 		}
 	
@@ -139,7 +139,7 @@ abstract public class Lifeform {
 				y = b;
 				z = c;
 			}
-			viewAngle += localrotvsign*t;
+			viewAngle += dViewAngleSign*t;
 		}
 	}
 
@@ -340,10 +340,10 @@ abstract public class Lifeform {
 	/** lets the lifeform handle a key press */
 	public void handleKeyPressed (KeyEvent e) {
 		switch (e.getKeyChar()) {
-		case 'w': localxvsign = 1; break;
-		case 's': localxvsign = -1; break;
-		case 'a': localrotvsign = -3; break;
-		case 'd': localrotvsign = 3; break;
+		case 'w': dvSign = 1; break;
+		case 's': dvSign = -1; break;
+		case 'a': dViewAngleSign = -3; break;
+		case 'd': dViewAngleSign = 3; break;
 		}
 
 		stopAction();
@@ -353,9 +353,9 @@ abstract public class Lifeform {
 	public void handleKeyReleased (KeyEvent e) {
 		switch (e.getKeyChar()) {
 		case 'w':
-		case 's': localxvsign = 0; break;
+		case 's': dvSign = 0; break;
 		case 'a':
-		case 'd': localrotvsign = 0; break;
+		case 'd': dViewAngleSign = 0; break;
 		}
 	
 		v = Math.max(0, v);
