@@ -21,6 +21,7 @@ abstract public class Lifeform {
 		this.sim = sim;
 		name = new String();
 		id = next_id++;
+		setVelocity(new Vector2D(0.0, 0.0));
 	}
 	
 	/*
@@ -44,7 +45,7 @@ abstract public class Lifeform {
 		return position;
 	}
 	
-	Vector2D velocity;
+	private Vector2D velocity;
 
 	/** angle of view */
 	public double viewAngle;
@@ -71,22 +72,24 @@ abstract public class Lifeform {
 
 	/** lets the physics work on the lifeform and moves it by its velocities */
 	public void move(int sleepTime) {
-		/* calculate velocity */
-		if (dvSign == 0) {
-			velocity = new Vector2D(0, 0);
-		}
-		else {
-			velocity = new Vector2D(0.3*dvSign*Math.cos(viewAngle), 0.3*dvSign*Math.sin(viewAngle));
+		/* calculate new velocity if this lifeform is controlled */
+		if (isControlled()) {
+			if (dvSign == 0) {
+				getVelocity().zero();
+			}
+			else {
+				setVelocity(new Vector2D(1.0*dvSign*Math.cos(viewAngle), 1.0*dvSign*Math.sin(viewAngle)));
+			}
 		}
 		
-		velocity.lowpassThis(vMax);
-		velocity.highpassThis(-vMax);
+		getVelocity().lowpassThis(vMax);
+		getVelocity().highpassThis(-vMax);
 	
 		double t = sleepTime/1000.0;
 		neighborsListAge += t;
 		
 		if (isCanMove() || canFly) {
-			Point2D newPosition = velocity.multiply(t).add(position);
+			Point2D newPosition = getVelocity().multiply(t).add(position);
 	
 			/* try to move, check for wall */
 			if (sim.getEnv().isFreeBetween(position, newPosition)) {
@@ -397,5 +400,13 @@ abstract public class Lifeform {
 
 	public double getIntelligence() {
 		return intelligence;
+	}
+
+	public void setVelocity(Vector2D velocity) {
+		this.velocity = velocity;
+	}
+
+	public Vector2D getVelocity() {
+		return velocity;
 	}
 }

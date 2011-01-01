@@ -45,4 +45,13 @@ public class Vector2D {
 		}
 	}
 
+	public void setTo(double d, double e) {
+		x = d;
+		y = e;
+	}
+
+	public void zero() {
+		x = y = 0;
+	}
+
 }

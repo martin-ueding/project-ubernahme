@@ -28,14 +28,16 @@ public class IngestionThread extends Thread {
 				ydist = prey.getPoint2D().getY() - l.getPoint2D().getY();
 
 				l.viewAngle = Math.atan2(ydist, xdist);
-				l.dvSign = 1;
+				
+				double distSqrt = Math.sqrt(Math.hypot(xdist, ydist));
+				l.getVelocity().setTo(xdist/distSqrt, ydist/distSqrt);
 
 				/* wait a little till the next check */
 				sleep(100);
 			}
 
 			/* stop when reached the prey */
-			l.dvSign = 0;
+			l.getVelocity().zero();
 
 			/* ingest the prey */
 			if (l.canIngest(prey)) {
