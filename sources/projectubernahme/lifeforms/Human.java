@@ -1,5 +1,6 @@
 package projectubernahme.lifeforms;
 
+import java.awt.geom.Point2D;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,10 +46,9 @@ public class Human extends Lifeform {
 		}
 	}
 
-	public Human(MainSimulator sim, double d, double e) {
+	public Human(MainSimulator sim, Point2D p) {
 		this(sim);
-		x = d;
-		y = e;
+		position = p;
 	}
 
 	public boolean canSee (Lifeform l) {

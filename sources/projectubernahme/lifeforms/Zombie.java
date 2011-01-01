@@ -1,5 +1,7 @@
 package projectubernahme.lifeforms;
 
+import java.awt.geom.Point2D;
+
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.gfx.LifeformZombieGraphics;
 import projectubernahme.simulator.MainSimulator;
@@ -17,10 +19,9 @@ public class Zombie extends Lifeform {
 		setIntelligence(30);
 	}
 
-	public Zombie(MainSimulator sim, double d, double e) {
+	public Zombie(MainSimulator sim, Point2D p) {
 		this(sim);
-		x = d;
-		y = e;
+		position = p;
 	}
 
 	@Override

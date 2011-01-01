@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import projectubernahme.IngestionThread;
 import projectubernahme.Player;
 import projectubernahme.TakeoverThread;
+import projectubernahme.Vector2D;
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.simulator.MainSimulator;
 
@@ -37,50 +38,13 @@ abstract public class Lifeform {
 	 * - distance
 	 */
 
-	/** coordinates */
-	double x;
-
-	/** coordinates */
-	double y;
-
-	/** coordinates */
-	double z;
-
-	public double getX() {
-		return x;
-	}
-
-	public void setX(double x) {
-		this.x = x;
-	}
-
-	public double getY() {
-		return y;
-	}
-
-	public void setY(double y) {
-		this.y = y;
-	}
-
-	public double getZ() {
-		return z;
-	}
+	Point2D position;
 
 	public Point2D getPoint2D () {
-		return new Point2D.Double(x, y);
+		return position;
 	}
-
-	/** velocities in the three coordinate axes, [m/s] */
-	double v;
-
-	/** velocities in the three coordinate axes, [m/s] */
-	double vx;
-
-	/** velocities in the three coordinate axes, [m/s] */
-	double vy;
-
-	/** velocities in the three coordinate axes, [m/s] */
-	double vz;
+	
+	Vector2D velocity;
 
 	/** angle of view */
 	public double viewAngle;
@@ -109,35 +73,24 @@ abstract public class Lifeform {
 	public void move(int sleepTime) {
 		/* calculate velocity */
 		if (dvSign == 0) {
-			v = 0;
+			velocity = new Vector2D(0, 0);
 		}
 		else {
-			v += 0.3* dvSign;
+			velocity = new Vector2D(0.3*dvSign*Math.cos(viewAngle), 0.3*dvSign*Math.sin(viewAngle));
 		}
-	
-		if (dvSign > 0) {
-			v = Math.min(vMax, v);
-		}
-		else if (dvSign < 0) {
-			v = Math.max(-vMax, v);
-		}
-	
-		vx = v*Math.cos(viewAngle);
-		vy = v*Math.sin(viewAngle);
+		
+		velocity.lowpassThis(vMax);
+		velocity.highpassThis(-vMax);
 	
 		double t = sleepTime/1000.0;
 		neighborsListAge += t;
 		
 		if (isCanMove() || canFly) {
-			double a = x + vx*t;
-			double b = y + vy*t;
-			double c = z + vz*t;
+			Point2D newPosition = velocity.multiply(t).add(position);
 	
 			/* try to move, check for wall */
-			if (sim.getEnv().isFreeBetween(x, y, z, a, b, c)) {
-				x = a;
-				y = b;
-				z = c;
+			if (sim.getEnv().isFreeBetween(position, newPosition)) {
+				position = newPosition;
 			}
 			viewAngle += dViewAngleSign*t;
 		}
@@ -145,7 +98,7 @@ abstract public class Lifeform {
 
 	/** returns the distance to the other lifeform l, currently just the geometric mean of the axes, later it might include some path trough the world */
 	public double distance (Lifeform l) {
-		return Math.hypot(getX()-l.getX(), getY()-l.getY());
+		return position.distance(l.getPoint2D());
 	}
 
 	/*
@@ -357,11 +310,6 @@ abstract public class Lifeform {
 		case 'a':
 		case 'd': dViewAngleSign = 0; break;
 		}
-	
-		v = Math.max(0, v);
-	
-		vx = v*Math.cos(viewAngle);
-		vy = v*Math.sin(viewAngle);
 	}
 
 	/*

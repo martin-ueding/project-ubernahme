@@ -19,14 +19,12 @@ public class Fly extends Lifeform {
 		setBiomass(0.001/17);
 		setIntelligence(1.0);
 		
-		x = Math.random()-0.5;
-		y = Math.random()-0.5;
+		position = new Point2D.Double(Math.random()-0.5, Math.random()-0.5);
 	}
 
 	public Fly(Point2D randomPointOnMap, MainSimulator sim) {
 		this(sim);
-		x = randomPointOnMap.getX();
-		y = randomPointOnMap.getY();
+		position = randomPointOnMap;
 	}
 
 	public boolean canSee (Lifeform l) {

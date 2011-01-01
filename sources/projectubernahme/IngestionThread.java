@@ -24,8 +24,8 @@ public class IngestionThread extends Thread {
 			/* walk towards the victim */
 			while (l.distance(prey) > 0.5) {
 				double xdist, ydist;
-				xdist = prey.getX() - l.getX();
-				ydist = prey.getY() - l.getY();
+				xdist = prey.getPoint2D().getX() - l.getPoint2D().getX();
+				ydist = prey.getPoint2D().getY() - l.getPoint2D().getY();
 
 				l.viewAngle = Math.atan2(ydist, xdist);
 				l.dvSign = 1;
