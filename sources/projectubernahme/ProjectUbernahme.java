@@ -36,11 +36,11 @@ public class ProjectUbernahme {
 		try {
 			config.load(ClassLoader.getSystemResourceAsStream("projectubernahme/config.properties"));
 		} catch (IOException e) {
-			ProjectUbernahme.log("ERROR: could not open main config file");
+			ProjectUbernahme.log(Localizer.get("ERROR: could not open main config file"));
 			e.printStackTrace();
 		}		
 		
-		ProjectUbernahme.log("Welcome to Project Ubernahme");
+		ProjectUbernahme.log(Localizer.get("Welcome to Project Ubernahme"));
 		
 		sim = new MainSimulator();
 
@@ -53,8 +53,8 @@ public class ProjectUbernahme {
 		Interface2D interface2d = new Interface2D(sim, player);
 	}
 	
-	/* prints out a log message and translates it automatically */
+	/* prints out a log message */
 	public static void log (String s) {
-		System.out.println(Localizer.get(s));
+		System.out.println(s);
 	}
 }

@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import projectubernahme.Localizer;
 import projectubernahme.ProjectUbernahme;
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.gfx.LifeformHumanGraphics;
@@ -41,7 +42,7 @@ public class Human extends Lifeform {
 			while ((input = br.readLine()) != null)
 			names.add(input);
 		} catch (IOException e) {
-			ProjectUbernahme.log("ERROR: could not open file with list of first names");
+			ProjectUbernahme.log(Localizer.get("ERROR: could not open file with list of first names"));
 			e.printStackTrace();
 		}
 	}
