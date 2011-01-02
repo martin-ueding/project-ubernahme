@@ -1,5 +1,8 @@
 package projectubernahme.simulator;
 
+import javax.swing.JOptionPane;
+
+import projectubernahme.Localizer;
 import projectubernahme.lifeforms.Lifeform;
 
 /** moves all the lifeforms around fires off actions */
@@ -15,7 +18,7 @@ public class SimulatorThread extends Thread {
 	}
 
 	public void run() {
-		while (sim.isGameUp() || cycle < 1000) {
+		while (sim.isGameUp() || cycle < 100) {
 			if (cycle > 10) {
 				/* let the other blobs interact */
 				for (Lifeform l : sim.getLifeforms()) {
@@ -32,5 +35,8 @@ public class SimulatorThread extends Thread {
 
 			cycle++;
 		}
+		
+		JOptionPane.showMessageDialog(null, Localizer.get("Game Over!"));
+		System.exit(0);
 	}
 }
