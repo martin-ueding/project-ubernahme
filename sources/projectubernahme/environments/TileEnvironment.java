@@ -26,7 +26,7 @@ import projectubernahme.simulator.MainSimulator;
 
 /** an environment made up from tiles
   The tile environment is parsed from a text file filled with characters in a rectangular way. Every character stands for something on the map, these keys can be found in the guide file in the same folder this class is in. */
-public class TileEnvironment implements Environment {
+public class TileEnvironment {
 
 	private ConvertedGraphics[] cgs;
 
@@ -211,11 +211,11 @@ public class TileEnvironment implements Environment {
 			for (int j = 0; j < tiles.length; j++) {
 				if (Math.random() < humanSpawnChance) {
 					switch (tiles[j][i]) {
-					case 'S': list.add(Math.random() > zombieChance ? new Human(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal) : new Zombie(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)); break;
+					case 'S': list.add(Math.random() > zombieChance ? new Human(sim, new Point2D.Double((j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)) : new Zombie(sim, new Point2D.Double((j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal))); break;
 					case 'L':
 						if (i >= treeOffset && j >= treeOffset && i+treeOffset < tiles[0].length && j+treeOffset < tiles.length) {
 							if (tiles[j-treeOffset][i] == 'L' && tiles[j+treeOffset][i] == 'L' && tiles[j][i-treeOffset] == 'L' && tiles[j][i+treeOffset] == 'L' && Math.random() > 0.9) {
-								list.add(new Tree(sim, (j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal));
+								list.add(new Tree(sim, new Point2D.Double((j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)));
 							}
 						}
 						break;
@@ -227,6 +227,10 @@ public class TileEnvironment implements Environment {
 
 	public Point2D getRandomPointOnMap() {
 		return new Point2D.Double(Math.random()*tiles.length*tileWidthInReal, Math.random()*tiles[0].length*tileWidthInReal);
+	}
+
+	public boolean isFreeBetween(Point2D position, Point2D newPosition) {
+		return isFreeBetween(position.getX(), position.getY(), 0.0, newPosition.getX(), newPosition.getY(), 0.0);
 	}
 }
 

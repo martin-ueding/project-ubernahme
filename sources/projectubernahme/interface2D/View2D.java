@@ -156,7 +156,7 @@ public class View2D extends JPanel {
 						picTransform.setToIdentity();
 						picTransform.preConcatenate(transform);
 						
-						picTransform.translate(l.getX()-diameter/2, l.getY()-diameter/2);
+						picTransform.translate(l.getPoint2D().getX()-diameter/2, l.getPoint2D().getY()-diameter/2);
 						picTransform.rotate(l.getViewAngle(), diameter/2, diameter/2);
 						
 						picTransform.scale(diameter/longerEdge / 1, diameter/longerEdge / 1);
@@ -180,7 +180,7 @@ public class View2D extends JPanel {
 					/* draw a circle if there is no picture */
 					else {
 						g.drawOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
-						Point2D nose = new Point2D.Double(l.getX() + diameter*Math.cos(l.getViewAngle())/2, l.getY() + diameter*Math.sin(l.getViewAngle())/2);
+						Point2D nose = new Point2D.Double(l.getPoint2D().getX() + diameter*Math.cos(l.getViewAngle())/2, l.getPoint2D().getY() + diameter*Math.sin(l.getViewAngle())/2);
 						transform.transform(nose, nose);
 						g.drawLine((int)p.getX(), (int)p.getY(), (int)nose.getX(), (int)nose.getY());
 					}

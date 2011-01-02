@@ -1,5 +1,7 @@
 package projectubernahme.lifeforms;
 
+import java.awt.geom.Point2D;
+
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.gfx.LifeformTreeGraphics;
 import projectubernahme.simulator.MainSimulator;
@@ -15,18 +17,16 @@ public class Tree extends Lifeform {
 		setCanSee(false);
 		setCanMove(false);
 		setBiomass(500+Math.random()*500);
-		
-		x = Math.random()-0.5;
-		y = Math.random()-0.5;
+
+		position = new Point2D.Double(Math.random()-0.5, Math.random()-0.5);
 		
 		viewAngle = 2*Math.PI*Math.random();
 		setIntelligence(0.1);
 	}
 
-	public Tree(MainSimulator sim, double d, double e) {
+	public Tree(MainSimulator sim, Point2D p) {
 		this(sim);
-		x = d;
-		y = e;
+		position = p;
 	}
 
 	@Override

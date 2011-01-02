@@ -19,23 +19,24 @@ public class TakeoverThread extends Thread {
 		l.busy = true;
 		l.actionProgress = 0.0;
 
-
 		try {
 			/* walk towards the victim */
 			while (l.distance(prey) > 0.5) {
 				double xdist, ydist;
-				xdist = prey.getX() - l.getX();
-				ydist = prey.getY() - l.getY();
+				xdist = prey.getPoint2D().getX() - l.getPoint2D().getX();
+				ydist = prey.getPoint2D().getY() - l.getPoint2D().getY();
 				
 				l.viewAngle = Math.atan2(ydist, xdist);
-				l.dvSign = 1;
+				
+				double distSqrt = Math.sqrt(Math.hypot(xdist, ydist));
+				l.getVelocity().setTo(xdist/distSqrt, ydist/distSqrt);
 
 				/* wait a little till the next check */
 				sleep(100);
 			}
 			
 			/* stop when reached the prey */
-			l.dvSign = 0;
+			l.getVelocity().zero();
 
 			/* burn time until it is ready */
 			while (l.actionProgress < 1.0) {

@@ -3,7 +3,6 @@ package projectubernahme.simulator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import projectubernahme.Player;
-import projectubernahme.environments.Environment;
 import projectubernahme.environments.TileEnvironment;
 import projectubernahme.lifeforms.Fly;
 import projectubernahme.lifeforms.Lifeform;
@@ -16,7 +15,7 @@ public class MainSimulator {
 	CopyOnWriteArrayList<Player> players;
 	
 	/** the environment **/
-	private Environment env;
+	private TileEnvironment env;
 	
 	public MainSimulator () {
 		lifeforms = new CopyOnWriteArrayList<Lifeform>();
@@ -64,11 +63,11 @@ public class MainSimulator {
 		this.lifeforms = lifeforms;
 	}
 
-	public void setEnv(Environment env) {
+	public void setEnv(TileEnvironment env) {
 		this.env = env;
 	}
 
-	public Environment getEnv() {
+	public TileEnvironment getEnv() {
 		return env;
 	}
 }
