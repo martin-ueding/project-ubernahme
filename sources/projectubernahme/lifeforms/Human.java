@@ -42,7 +42,7 @@ public class Human extends Lifeform {
 			while ((input = br.readLine()) != null)
 			names.add(input);
 		} catch (IOException e) {
-			ProjectUbernahme.log(Localizer.get("ERROR: could not open file with list of first names"));
+			ProjectUbernahme.log(Localizer.get("ERROR")+": "+Localizer.get("could not open file with list of first names"));
 			e.printStackTrace();
 		}
 	}

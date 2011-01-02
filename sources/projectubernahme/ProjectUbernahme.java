@@ -36,7 +36,7 @@ public class ProjectUbernahme {
 		try {
 			config.load(ClassLoader.getSystemResourceAsStream("projectubernahme/config.properties"));
 		} catch (IOException e) {
-			ProjectUbernahme.log(Localizer.get("ERROR: could not open main config file"));
+			ProjectUbernahme.log(Localizer.get("ERROR")+": "+Localizer.get("could not open main config file"));
 			e.printStackTrace();
 		}		
 		

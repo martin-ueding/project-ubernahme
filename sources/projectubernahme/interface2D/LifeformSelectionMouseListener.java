@@ -64,7 +64,7 @@ public class LifeformSelectionMouseListener implements MouseListener {
 
 				/* if it was a double click, rename the lifeform */
 				else if (e.getClickCount() == 2) {
-					String input = JOptionPane.showInputDialog(Localizer.get("New Name:"));
+					String input = JOptionPane.showInputDialog(Localizer.get("new name")+":");
 					if (input != null) {
 						selected.setName(input);
 					}
