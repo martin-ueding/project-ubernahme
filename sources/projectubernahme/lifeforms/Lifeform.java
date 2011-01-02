@@ -73,7 +73,7 @@ abstract public class Lifeform {
 	/** lets the physics work on the lifeform and moves it by its velocities */
 	public void move(int sleepTime) {
 		/* calculate new velocity if this lifeform is controlled */
-		if (isControlled()) {
+		if (isControlled() && !busy) {
 			if (dvSign == 0) {
 				getVelocity().zero();
 			}
