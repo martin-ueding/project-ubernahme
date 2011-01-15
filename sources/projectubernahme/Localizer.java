@@ -10,7 +10,7 @@ public class Localizer {
 
 	private static void init () {
 		try {
-		bundle = ResourceBundle.getBundle("projectubernahme/strings");
+			bundle = ResourceBundle.getBundle("projectubernahme/strings");
 		} catch (MissingResourceException e) {
 			System.out.println("No Bundle for "+Locale.getDefault().getLanguage());
 		}
