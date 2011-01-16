@@ -1,0 +1,12 @@
+Source: projectubernahme
+Section: games
+Priority: optional
+Maintainer: Martin Ueding <dev@martin-ueding.de>
+Build-Depends: default-jre (>= 1.6)
+Standards-Version: 3.7.2
+
+Package: projectubernahme
+Architecture: all
+Depends: default-jdk (>= 1.6)
+Description: World Control Game
+ In Project Ubernahme, there you play a little lifeform and try to gain control over the whole game world.
