@@ -2,8 +2,8 @@
 p = sources/projectubernahme
 
 # puts the binaries and the sources into the jar
-pu.jar: $(p)/ProjectUbernahme.class $(p)/*.java $(p)/*/*.java localisation/messages.pot $(p)/strings*.properties
-	jar -cfm pu.jar manifest.txt -C sources projectubernahme
+projectubernahme.jar: $(p)/ProjectUbernahme.class $(p)/*.java $(p)/*/*.java localisation/messages.pot $(p)/strings*.properties
+	jar -cfm projectubernahme.jar manifest.txt -C sources projectubernahme
 
 # compiles the game
 $(p)/ProjectUbernahme.class: $(p)/*.java $(p)/*/*.java $(p)/*.properties
