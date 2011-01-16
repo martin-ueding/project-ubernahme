@@ -1,9 +1,9 @@
-# path to the main sourced
+version = 0.4
+# path to the main source
 p = projectubernahme
 
-# puts the binaries and the sources into the jar
-../projectubernahme.jar: $(p)/ProjectUbernahme.class $(p)/*.java $(p)/*/*.java ../localisation/messages.pot $(p)/strings*.properties
-	jar -cfm ../projectubernahme.jar manifest.txt projectubernahme
+../projectubernahme-$(version).jar: $(p)/ProjectUbernahme.class $(p)/*.java $(p)/*/*.java ../localisation/messages.pot $(p)/strings*.properties
+	jar -cfm ../projectubernahme-$(version).jar manifest.txt projectubernahme
 
 # compiles the game
 $(p)/ProjectUbernahme.class: $(p)/*.java $(p)/*/*.java $(p)/*.properties
