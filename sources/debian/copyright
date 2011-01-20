@@ -1,0 +1,25 @@
+This work was packaged for Debian by:
+
+    Martin Ueding <dev@martin-ueding.de> on Thu, 20 Jan 2011 18:27:27 +0100
+
+It was downloaded from:
+
+    bzr lp:projectubernahme
+
+Upstream Author(s):
+
+    Martin Ueding <dev@martin-ueding.de>
+
+Copyright:
+
+    Copyright (C) 2011 Martin Ueding <dev@martin-ueding.de>
+
+License:
+
+    GPL 3
+
+The Debian packaging is:
+
+    Copyright (C) 2011 Martin Ueding <dev@martin-ueding.de>
+	and is licensed under the GPL version 3,
+	see "/usr/share/common-licenses/GPL-3".

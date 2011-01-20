@@ -1,12 +1,16 @@
 # path to the main sourced
 p = projectubernahme
 
+standard: projectubernahme.jar
+
+full: projectubernahme.jar ../localisation/messages.pot $(p)/strings*.properties
+
 # puts the binaries and the sources into the jar
-../projectubernahme.jar: $(p)/ProjectUbernahme.class $(p)/*.java $(p)/*/*.java ../localisation/messages.pot $(p)/strings*.properties
-	jar -cfm ../projectubernahme.jar manifest.txt projectubernahme
+projectubernahme.jar: $(p)/ProjectUbernahme.class $(p)/*.java $(p)/*/*.java
+	jar -cfm projectubernahme.jar manifest.txt projectubernahme
 
 # compiles the game
-$(p)/ProjectUbernahme.class: $(p)/*.java $(p)/*/*.java $(p)/*.properties
+$(p)/ProjectUbernahme.class: $(p)/*.java $(p)/*/*.java
 	javac $(p)/ProjectUbernahme.java $(p)/*/*.java
 
 # generates javadoc for everything
