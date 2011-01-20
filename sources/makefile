@@ -1,4 +1,4 @@
-# path to the main sourced
+# path to the main source
 p = projectubernahme
 
 standard: projectubernahme.jar
