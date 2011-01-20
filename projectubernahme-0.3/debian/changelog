@@ -1,4 +1,10 @@
-projectubernahme (0.3-1) maverick; urgency=low
+projectubernahme (0.3.1) maverick; urgency=low
+
+  * tried to fix makefile so this one will actually build
+
+ -- Martin Ueding <dev@martin-ueding.de>  Thu, 20 Jan 2011 22:13:13 +0100
+
+projectubernahme (0.3) maverick; urgency=low
 
   * Initial release
 
