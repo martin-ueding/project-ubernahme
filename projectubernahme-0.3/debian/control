@@ -1,0 +1,13 @@
+Source: projectubernahme
+Section: games
+Priority: optional
+Maintainer: Martin Ueding <dev@martin-ueding.de>
+Build-Depends: debhelper (>= 7.0.50~), default-jdk (>= 1.6)
+Standards-Version: 3.8.4
+Homepage: https://launchpad.net/projectubernahme
+
+Package: projectubernahme
+Architecture: all
+Depends: default-jre (>= 1.6)
+Description: 2D world control game
+ Start as a little fly and try to gain more and more control over the game world by forcing your control over other lifeforms or bluntly ingesting them.
