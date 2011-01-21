@@ -26,7 +26,7 @@ clean:
 
 # generates the main .pot file
 ../localisation/messages.pot: $(sourceFiles)
-	xgettext -kLocalizer.get -o ../localisation/messages.pot $(p)/*.java $(p)/*/*.java
+	xgettext -kLocalizer.get -o ../localisation/messages.pot --from-code=UTF-8 $(sourceFiles)
 
 # converts the translated .po files to .properties files that Java can use then
 $(p)/strings_de.properties: ../localisation/de.po

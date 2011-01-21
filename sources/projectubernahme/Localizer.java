@@ -1,5 +1,6 @@
 package projectubernahme;
 
+import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -16,7 +17,7 @@ public class Localizer {
 		}
 	}
 
-	public static String get(String query) {
+	public static String get (String query) {
 		if (bundle == null) {
 			init();
 		}
@@ -25,8 +26,8 @@ public class Localizer {
 			return bundle.getString(query);
 		}
 		else {
-			if (bundle != null) {
-				System.out.println("String \""+query+"\" is missing in "+bundle.getLocale());
+			if (bundle != null && !query.equals("String “{0}” is missing in bundle “{1}”.")) {
+				ProjectUbernahme.log(MessageFormat.format(Localizer.get("String “{0}” is missing in bundle “{1}”."), new Object[] {query, bundle.getLocale()}), MessageTypes.DEBUG);
 			}
 			return query;
 		}

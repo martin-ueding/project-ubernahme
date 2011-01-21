@@ -2,7 +2,6 @@ package projectubernahme;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -35,7 +34,7 @@ public class ProjectUbernahme {
 	}
 
 	public static void main (String[] args) {
-		logMessages = new ArrayList<String>();
+		logMessages = new ArrayList<LogMessage>();
 		f = new DecimalFormat();
 		f.applyPattern("0.##E0");
 		
@@ -60,20 +59,24 @@ public class ProjectUbernahme {
 		Interface2D interface2d = new Interface2D(sim, player);
 	}
 	
-	private static ArrayList<String> logMessages;
+	private static ArrayList<LogMessage> logMessages;
 	
 	/* prints out a log message */
-	public static void log (String s) {
-		//System.out.println(s);
-		if (getLogMessages().size() == 0 || !getLogMessages().get(getLogMessages().size()-1).equals(s)) {
-			getLogMessages().add(s);
+	public static void log (String s, Enum<MessageTypes> type) {
+		
+		if (getLogMessages().size() == 0 || !getLogMessages().get(getLogMessages().size()-1).msg.equals(s)) {
+			getLogMessages().add(new LogMessage(s, type));
 			while (getLogMessages().size() > 5) {
 				getLogMessages().remove(0);
 			}
 		}
 	}
+	
+	public static void log (String s) {
+		log(s, MessageTypes.UNKNOWN);
+	}
 
-	public static ArrayList<String> getLogMessages() {
+	public static ArrayList<LogMessage> getLogMessages() {
 		return logMessages;
 	}
 	

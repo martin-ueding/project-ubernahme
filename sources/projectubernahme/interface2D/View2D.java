@@ -11,6 +11,8 @@ import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
 
+import projectubernahme.LogMessage;
+import projectubernahme.MessageTypes;
 import projectubernahme.Player;
 import projectubernahme.ProjectUbernahme;
 import projectubernahme.gfx.ConvertedGraphics;
@@ -32,6 +34,8 @@ public class View2D extends JPanel {
 	private Player player;
 
 	private double selectionRoationAngle;
+
+	private Color colorWarning, colorError, colorInfo, colorDebug;
 
 	public View2D (MainSimulator sim, Player player) {
 		this.sim = sim;
@@ -55,6 +59,12 @@ public class View2D extends JPanel {
 
 		/* add key listener */
 		addKeyListener(new LifeformControlKeyListener(player));
+		
+		
+		colorWarning = new Color(Integer.decode(ProjectUbernahme.getConfigValue("colorWarning")));
+		colorError = new Color(Integer.decode(ProjectUbernahme.getConfigValue("colorError")));
+		colorInfo = new Color(Integer.decode(ProjectUbernahme.getConfigValue("colorInfo")));
+		colorDebug = new Color(Integer.decode(ProjectUbernahme.getConfigValue("colorDebug")));
 	}
 
 	protected void paintComponent (Graphics h) {
@@ -206,11 +216,25 @@ public class View2D extends JPanel {
 		
 		/* draw log messages */
 		int i = 0;
-		for (String s : ProjectUbernahme.getLogMessages()) {
+		for (LogMessage s : ProjectUbernahme.getLogMessages()) {
 			g.setColor(Color.black);
-			g.drawString(s, 10, i*15+20);
-			g.setColor(Color.white);
-			g.drawString(s, 10-1, i*15+20-1);
+			g.drawString(s.msg, 10, i*15+20);
+			if (s.type == MessageTypes.INFO) {
+				g.setColor(colorInfo);
+			}
+			else if (s.type == MessageTypes.WARNING) {
+				g.setColor(colorWarning);
+			}
+			else if (s.type == MessageTypes.ERROR) {
+				g.setColor(colorError);
+			}
+			else if (s.type == MessageTypes.DEBUG) {
+				g.setColor(colorDebug);
+			}
+			else {
+				g.setColor(Color.white);
+			}
+			g.drawString(s.msg, 10-1, i*15+20-1);
 			i++;
 		}
 	}
