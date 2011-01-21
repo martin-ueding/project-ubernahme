@@ -45,6 +45,7 @@ public class TileEnvironment {
 	/** a copy of the previous transform to compare to the new one
 	  This saves a new rendering if the transform stayed all the same, making the game more fluent when not zooming or panning around. */
 	private AffineTransform previousTransform;
+	private int previousWidth, previousHeight;
 
 	public TileEnvironment (String mapname) {
 
@@ -124,7 +125,7 @@ public class TileEnvironment {
 	/** returns the background and renders it new, if needed */
 	public BufferedImage getBackground (int width, int height, AffineTransform transform) {
 		/* do not repaint if the transform has not changed at all */
-		if (transform.equals(previousTransform)) {
+		if (transform.equals(previousTransform) && previousHeight == height && previousWidth == width) {
 		}
 		else {
 			double scaling = 1.05;
@@ -198,6 +199,9 @@ public class TileEnvironment {
 			}
 			/* clone the current player's transform to compare it in the next iteration of this method */
 			previousTransform = (AffineTransform) transform.clone();
+			previousHeight = height;
+			previousWidth = width;
+			
 		}
 		return bg;
 	}
