@@ -2,6 +2,7 @@ package projectubernahme.lifeforms;
 
 import java.awt.geom.Point2D;
 
+import projectubernahme.ProjectUbernahme;
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.gfx.LifeformTreeGraphics;
 import projectubernahme.simulator.MainSimulator;
@@ -32,7 +33,7 @@ public class Tree extends Lifeform {
 	@Override
 	public void act(int sleepTime) {
 		double t = sleepTime/1000.0;
-		setBiomass(getBiomass() + getBiomass()*(Math.exp(growthFactor*t)-1));
+		setBiomass(Math.min(getBiomass() + getBiomass()*(Math.exp(growthFactor*t)-1), Integer.parseInt(ProjectUbernahme.getConfigValue("maxTreeMass"))));
 	}
 
 	@Override
