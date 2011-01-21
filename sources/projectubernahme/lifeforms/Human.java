@@ -67,7 +67,7 @@ public class Human extends Lifeform {
 			 */
 			boolean strangeGuyAround = false;
 			for (SuspicionCase sc : suspicionCases) {
-				if (sc.l.getPoint2D().distance(getPoint2D()) < 1/sc.strengh) {
+				if (sc.l.getPoint2D().distance(getPoint2D()) < 5*sc.strengh) {
 					/* run away */
 					viewAngle = Math.atan2(this.getPoint2D().getY()-sc.l.getPoint2D().getY(), this.getPoint2D().getX()-sc.l.getPoint2D().getX());
 					setVelocity(new Vector2D(0.8*Math.cos(viewAngle), 0.8*Math.sin(viewAngle)));
@@ -84,6 +84,11 @@ public class Human extends Lifeform {
 				viewAngle = Math.atan2(-this.getPoint2D().getY()+waypoint.getY(), -this.getPoint2D().getX()+waypoint.getX());
 				setVelocity(new Vector2D(0.8*Math.cos(viewAngle), 0.8*Math.sin(viewAngle)));
 			}
+		}
+		
+		/* drop suspicion rates slowly */
+		for (SuspicionCase sc : suspicionCases) {
+			sc.strengh = Math.max(0.0, sc.strengh-sleepTime/1000.0*0.01);
 		}
 	}
 
