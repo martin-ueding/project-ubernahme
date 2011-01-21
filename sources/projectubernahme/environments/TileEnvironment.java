@@ -5,9 +5,11 @@ import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Point2D.Double;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import projectubernahme.ProjectUbernahme;
@@ -227,6 +229,165 @@ public class TileEnvironment {
 
 	public Point2D getRandomPointOnMap() {
 		return new Point2D.Double(Math.random()*tiles.length*tileWidthInReal, Math.random()*tiles[0].length*tileWidthInReal);
+	}
+	public Point2D generateNewWaypoint(Point2D p) {
+		/* find the current tile */
+		int tileX = (int)(p.getX()/tileWidthInReal);
+		int tileY = (int)(p.getY()/tileWidthInReal);
+		
+		ArrayList<Point2D> possibleNewWaypoints = new ArrayList<Point2D>();
+
+		/* try to find the next intersection */
+		int offset = 1;
+		while ((tileX - offset) >= 0 && canWalkOn(tiles[tileX-offset][tileY]) && !isOnIntersection(tileX-(offset), tileY)) {
+			offset++;
+		}
+		offset--;
+
+		if (offset > 0) {
+			possibleNewWaypoints.add(new Point2D.Double((tileX-(offset+1)+0.5)*tileWidthInReal, (tileY+0.5)*tileWidthInReal));
+		}
+
+		offset = 1;
+		while ((tileY - offset) >= 0 && canWalkOn(tiles[tileX][tileY-offset]) && !isOnIntersection(tileX, tileY-(offset))) {
+			offset++;
+		}
+		offset--;
+
+		if (offset > 0) {
+			possibleNewWaypoints.add(new Point2D.Double((tileX+0.5)*tileWidthInReal, (tileY-(offset+1)+0.5)*tileWidthInReal));
+		}
+
+		offset = 1;
+		while ((tileY + offset) < tiles[0].length && canWalkOn(tiles[tileX][tileY+offset]) && !isOnIntersection(tileX, tileY+(offset))) {
+			offset++;
+		}
+		offset--;
+
+		if (offset > 0) {
+			possibleNewWaypoints.add(new Point2D.Double((tileX+0.5)*tileWidthInReal, (tileY+(offset+1)+0.5)*tileWidthInReal));
+		}
+
+		offset = 1;
+		while ((tileX + offset) < tiles.length && canWalkOn(tiles[tileX+offset][tileY]) && !isOnIntersection(tileX+(offset), tileY)) {
+			offset++;
+		}
+		offset--;
+
+		if (offset > 0) {
+			possibleNewWaypoints.add(new Point2D.Double((tileX+(offset+1)+0.5)*tileWidthInReal, (tileY+0.5)*tileWidthInReal));
+		}
+
+		int index = (int) (Math.random()*(possibleNewWaypoints.size()));
+		if (possibleNewWaypoints.size() > 0)
+			return (possibleNewWaypoints.get(index));
+		else return p;
+
+	}
+
+	private boolean canWalkOn(char c) {
+		return c == 'S' || c == 'C' || c == 'c';
+	}
+
+	private boolean isOnIntersection(int x, int y) {
+		boolean top, right, left, bottom;
+		top = right = left = bottom = false;
+
+		int possibleNeighbors = 0;
+
+		/* find the current tile */
+		int tileX = x;
+		int tileY = y;
+
+		/* check to the left */
+		if (tileX > 0) {
+			if (canWalkOn(tiles[tileX-1][tileY])) {
+				left = true;
+				possibleNeighbors++;
+			}
+		}
+
+		/* check to the top */
+		if (tileY > 0) {
+			if (canWalkOn(tiles[tileX][tileY-1])) {
+				top = true;
+				possibleNeighbors++;
+			}
+		}
+
+		/* check to the right */
+		if (tileX + 1 < tiles.length) {
+			if (canWalkOn(tiles[tileX+1][tileY])) {
+				right = true;
+				possibleNeighbors++;
+			}
+		}
+
+		/* check to the bottom */
+		if (tileY + 1 < tiles[0].length) {
+			if (canWalkOn(tiles[tileX][tileY+1] )) {
+				bottom = true;
+				possibleNeighbors++;
+			}
+		}
+
+		return (possibleNeighbors > 2 || (top && !bottom) || (left && !right) || (!top && bottom) || (!left && right));
+	}
+
+	private double getLegalDirection(Point2D p) {
+		boolean top, right, left, bottom;
+		top = right = left = bottom = false;
+
+		/* find the current tile */
+		int tileX = (int)(p.getX()/tileWidthInReal);
+		int tileY = (int)(p.getY()/tileWidthInReal);
+		char tile = tiles[tileX][tileY];
+
+		/* check to the left */
+		if (tileX > 0) {
+			if (canWalkOn(tiles[tileX-1][tileY])) {
+				left = true;
+			}
+		}
+
+		/* check to the top */
+		if (tileY > 0) {
+			if (canWalkOn(tiles[tileX][tileY-1])) {
+				top = true;
+			}
+		}
+
+		/* check to the right */
+		if (tileX + 1 < tiles.length) {
+			if (canWalkOn(tiles[tileX+1][tileY])) {
+				right = true;
+			}
+		}
+
+		/* check to the bottom */
+		if (tileY + 1 < tiles[0].length) {
+			if (canWalkOn(tiles[tileX][tileY+1] )) {
+				bottom = true;
+			}
+		}
+
+		ArrayList<java.lang.Double> possibleDirections = new ArrayList<java.lang.Double>();
+		if (bottom) {
+			possibleDirections.add(new java.lang.Double(Math.PI/2));
+		}
+		if (left) {
+			possibleDirections.add(new java.lang.Double(Math.PI));
+		}
+		if (right) {
+			possibleDirections.add(new java.lang.Double(0.0));
+		}
+		if (top) {
+			possibleDirections.add(new java.lang.Double(3*Math.PI/2));
+		}
+
+		if (possibleDirections.size() > 0)
+			return possibleDirections.get((int)(Math.random()*possibleDirections.size()));
+		return -1;
 	}
 
 	public boolean isFreeBetween(Point2D position, Point2D newPosition) {
