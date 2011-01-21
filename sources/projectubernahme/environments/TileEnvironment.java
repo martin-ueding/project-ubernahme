@@ -5,6 +5,7 @@ import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Point2D.Double;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -233,50 +234,54 @@ public class TileEnvironment {
 		/* find the current tile */
 		int tileX = (int)(p.getX()/tileWidthInReal);
 		int tileY = (int)(p.getY()/tileWidthInReal);
-		char tile = tiles[tileX][tileY];
+		
+		ArrayList<Point2D> possibleNewWaypoints = new ArrayList<Point2D>();
 
 		/* try to find the next intersection */
 		int offset = 1;
-		while ((tileX - offset) >= 0 && canWalkOn(tiles[tileX-offset][tileY])) {
+		while ((tileX - offset) >= 0 && canWalkOn(tiles[tileX-offset][tileY]) && !isOnIntersection(tileX-(offset), tileY)) {
 			offset++;
 		}
 		offset--;
 
 		if (offset > 0) {
-			return new Point2D.Double((tileX-offset+0.5)*tileWidthInReal, (tileY+0.5)*tileWidthInReal);
+			possibleNewWaypoints.add(new Point2D.Double((tileX-(offset+1)+0.5)*tileWidthInReal, (tileY+0.5)*tileWidthInReal));
 		}
 
 		offset = 1;
-		while ((tileY - offset) >= 0 && canWalkOn(tiles[tileX][tileY-offset])) {
+		while ((tileY - offset) >= 0 && canWalkOn(tiles[tileX][tileY-offset]) && !isOnIntersection(tileX, tileY-(offset))) {
 			offset++;
 		}
 		offset--;
 
 		if (offset > 0) {
-			return new Point2D.Double((tileX+0.5)*tileWidthInReal, (tileY-offset+0.5)*tileWidthInReal);
+			possibleNewWaypoints.add(new Point2D.Double((tileX+0.5)*tileWidthInReal, (tileY-(offset+1)+0.5)*tileWidthInReal));
 		}
 
 		offset = 1;
-		while ((tileY + offset) < tiles[0].length && canWalkOn(tiles[tileX][tileY+offset])) {
+		while ((tileY + offset) < tiles[0].length && canWalkOn(tiles[tileX][tileY+offset]) && !isOnIntersection(tileX, tileY+(offset))) {
 			offset++;
 		}
 		offset--;
 
 		if (offset > 0) {
-			return new Point2D.Double((tileX+0.5)*tileWidthInReal, (tileY+offset+0.5)*tileWidthInReal);
+			possibleNewWaypoints.add(new Point2D.Double((tileX+0.5)*tileWidthInReal, (tileY+(offset+1)+0.5)*tileWidthInReal));
 		}
 
 		offset = 1;
-		while ((tileX + offset) < tiles.length && canWalkOn(tiles[tileX+offset][tileY])) {
+		while ((tileX + offset) < tiles.length && canWalkOn(tiles[tileX+offset][tileY]) && !isOnIntersection(tileX+(offset), tileY)) {
 			offset++;
 		}
 		offset--;
 
 		if (offset > 0) {
-			return new Point2D.Double((tileX+offset+0.5)*tileWidthInReal, (tileY+0.5)*tileWidthInReal);
+			possibleNewWaypoints.add(new Point2D.Double((tileX+(offset+1)+0.5)*tileWidthInReal, (tileY+0.5)*tileWidthInReal));
 		}
 
-		return p;
+		int index = (int) (Math.random()*(possibleNewWaypoints.size()));
+		if (possibleNewWaypoints.size() > 0)
+			return (possibleNewWaypoints.get(index));
+		else return p;
 
 	}
 
@@ -284,16 +289,15 @@ public class TileEnvironment {
 		return c == 'S' || c == 'C' || c == 'c';
 	}
 
-	private boolean isOnIntersection(Point2D p) {
+	private boolean isOnIntersection(int x, int y) {
 		boolean top, right, left, bottom;
 		top = right = left = bottom = false;
 
 		int possibleNeighbors = 0;
 
 		/* find the current tile */
-		int tileX = (int)(p.getX()/tileWidthInReal);
-		int tileY = (int)(p.getY()/tileWidthInReal);
-		char tile = tiles[tileX][tileY];
+		int tileX = x;
+		int tileY = y;
 
 		/* check to the left */
 		if (tileX > 0) {
@@ -367,18 +371,18 @@ public class TileEnvironment {
 			}
 		}
 
-		ArrayList<Double> possibleDirections = new ArrayList<Double>();
+		ArrayList<java.lang.Double> possibleDirections = new ArrayList<java.lang.Double>();
 		if (bottom) {
-			possibleDirections.add(new Double(Math.PI/2));
+			possibleDirections.add(new java.lang.Double(Math.PI/2));
 		}
 		if (left) {
-			possibleDirections.add(new Double(Math.PI));
+			possibleDirections.add(new java.lang.Double(Math.PI));
 		}
 		if (right) {
-			possibleDirections.add(new Double(0.0));
+			possibleDirections.add(new java.lang.Double(0.0));
 		}
 		if (top) {
-			possibleDirections.add(new Double(3*Math.PI/2));
+			possibleDirections.add(new java.lang.Double(3*Math.PI/2));
 		}
 
 		if (possibleDirections.size() > 0)
