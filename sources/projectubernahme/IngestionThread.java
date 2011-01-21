@@ -21,6 +21,15 @@ public class IngestionThread extends Thread {
 		/* set the lifeform to busy */
 		l.busy = true;
 		l.actionProgress = 0.0;
+		
+		Enum<MessageTypes> ingestionMessageType;
+		
+		if (!l.isControlled() && prey.isControlled())
+			ingestionMessageType = MessageTypes.WARNING;
+		else if (l.isControlled() && !prey.isControlled())
+			ingestionMessageType = MessageTypes.SUCCESS;
+		else
+			ingestionMessageType = MessageTypes.INFO;
 
 		try {
 			/* walk towards the victim */
@@ -87,6 +96,6 @@ public class IngestionThread extends Thread {
 		/* set the lifeform back to normal */
 		l.busy = false;
 
-		ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} ingested {1}."), new Object[] {l.toString(), prey.toString()}), MessageTypes.INFO);
+		ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} ingested {1}."), new Object[] {l.toString(), prey.toString()}), ingestionMessageType);
 	}
 }

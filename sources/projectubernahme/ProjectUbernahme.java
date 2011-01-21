@@ -66,7 +66,7 @@ public class ProjectUbernahme {
 		
 		if (getLogMessages().size() == 0 || !getLogMessages().get(getLogMessages().size()-1).msg.equals(s)) {
 			getLogMessages().add(new LogMessage(s, type));
-			while (getLogMessages().size() > Integer.decode(ProjectUbernahme.getConfigValue("colorWarning"))) {
+			while (getLogMessages().size() > Integer.decode(ProjectUbernahme.getConfigValue("maxLogLines"))) {
 				getLogMessages().remove(0);
 			}
 		}

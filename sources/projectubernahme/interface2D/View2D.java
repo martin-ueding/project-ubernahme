@@ -35,7 +35,7 @@ public class View2D extends JPanel {
 
 	private double selectionRoationAngle;
 
-	private Color colorWarning, colorError, colorInfo, colorDebug;
+	private Color colorWarning, colorError, colorInfo, colorDebug, colorSuccess;
 
 	public View2D (MainSimulator sim, Player player) {
 		this.sim = sim;
@@ -65,6 +65,7 @@ public class View2D extends JPanel {
 		colorError = new Color(Integer.decode(ProjectUbernahme.getConfigValue("colorError")));
 		colorInfo = new Color(Integer.decode(ProjectUbernahme.getConfigValue("colorInfo")));
 		colorDebug = new Color(Integer.decode(ProjectUbernahme.getConfigValue("colorDebug")));
+		colorSuccess = new Color(Integer.decode(ProjectUbernahme.getConfigValue("colorSuccess")));
 	}
 
 	protected void paintComponent (Graphics h) {
@@ -230,6 +231,9 @@ public class View2D extends JPanel {
 			}
 			else if (s.type == MessageTypes.DEBUG) {
 				g.setColor(colorDebug);
+			}
+			else if (s.type == MessageTypes.SUCCESS) {
+				g.setColor(colorSuccess);
 			}
 			else {
 				g.setColor(Color.white);
