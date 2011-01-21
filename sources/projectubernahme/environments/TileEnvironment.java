@@ -5,7 +5,6 @@ import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Point2D.Double;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -332,62 +331,6 @@ public class TileEnvironment {
 		}
 
 		return (possibleNeighbors > 2 || (top && !bottom) || (left && !right) || (!top && bottom) || (!left && right));
-	}
-
-	private double getLegalDirection(Point2D p) {
-		boolean top, right, left, bottom;
-		top = right = left = bottom = false;
-
-		/* find the current tile */
-		int tileX = (int)(p.getX()/tileWidthInReal);
-		int tileY = (int)(p.getY()/tileWidthInReal);
-		char tile = tiles[tileX][tileY];
-
-		/* check to the left */
-		if (tileX > 0) {
-			if (canWalkOn(tiles[tileX-1][tileY])) {
-				left = true;
-			}
-		}
-
-		/* check to the top */
-		if (tileY > 0) {
-			if (canWalkOn(tiles[tileX][tileY-1])) {
-				top = true;
-			}
-		}
-
-		/* check to the right */
-		if (tileX + 1 < tiles.length) {
-			if (canWalkOn(tiles[tileX+1][tileY])) {
-				right = true;
-			}
-		}
-
-		/* check to the bottom */
-		if (tileY + 1 < tiles[0].length) {
-			if (canWalkOn(tiles[tileX][tileY+1] )) {
-				bottom = true;
-			}
-		}
-
-		ArrayList<java.lang.Double> possibleDirections = new ArrayList<java.lang.Double>();
-		if (bottom) {
-			possibleDirections.add(new java.lang.Double(Math.PI/2));
-		}
-		if (left) {
-			possibleDirections.add(new java.lang.Double(Math.PI));
-		}
-		if (right) {
-			possibleDirections.add(new java.lang.Double(0.0));
-		}
-		if (top) {
-			possibleDirections.add(new java.lang.Double(3*Math.PI/2));
-		}
-
-		if (possibleDirections.size() > 0)
-			return possibleDirections.get((int)(Math.random()*possibleDirections.size()));
-		return -1;
 	}
 
 	public boolean isFreeBetween(Point2D position, Point2D newPosition) {
