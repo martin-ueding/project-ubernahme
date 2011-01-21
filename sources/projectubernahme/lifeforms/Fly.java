@@ -17,7 +17,7 @@ public class Fly extends Lifeform {
 		setCanSee(true);
 		setCanMove(true);
 		setBiomass(0.001/17);
-		setIntelligence(1.0);
+		setIntelligence(0.1);
 		
 		position = new Point2D.Double(Math.random()-0.5, Math.random()-0.5);
 	}

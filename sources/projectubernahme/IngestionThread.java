@@ -30,6 +30,7 @@ public class IngestionThread extends Thread {
 			ingestionMessageType = MessageTypes.SUCCESS;
 		else
 			ingestionMessageType = MessageTypes.INFO;
+		
 
 		try {
 			/* walk towards the victim */
@@ -49,6 +50,9 @@ public class IngestionThread extends Thread {
 
 			/* stop when reached the prey */
 			l.getVelocity().zero();
+			
+
+			sim.alertEverybody(l);
 
 			/* ingest the prey */
 			if (l.canIngest(prey)) {

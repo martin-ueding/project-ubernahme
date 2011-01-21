@@ -1,11 +1,16 @@
 package projectubernahme.simulator;
 
+import java.text.MessageFormat;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import projectubernahme.Localizer;
+import projectubernahme.MessageTypes;
 import projectubernahme.Player;
+import projectubernahme.ProjectUbernahme;
 import projectubernahme.environments.TileEnvironment;
 import projectubernahme.lifeforms.Fly;
 import projectubernahme.lifeforms.Lifeform;
+import projectubernahme.lifeforms.SuspicionCase;
 
 /** simulates all the lifeforms and the map, has a thread that moves everything around */
 public class MainSimulator {
@@ -69,5 +74,19 @@ public class MainSimulator {
 
 	public TileEnvironment getEnv() {
 		return env;
+	}
+
+	public void alertEverybody(Lifeform l) {
+		for (Lifeform other : lifeforms) {
+			if (other.canSee(l) && other.willSuspect(l)) {
+				SuspicionCase sc = new SuspicionCase();
+				sc.l = l;
+				// TODO adjust this strengh
+				sc.strengh = 0.5;
+				other.suspicionCases.add(sc);
+				ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} suspects {1} now."), new Object[] {other.toString(), l.toString()}),
+						l.isControlled() ? MessageTypes.WARNING : MessageTypes.INFO);
+			}
+		}
 	}
 }

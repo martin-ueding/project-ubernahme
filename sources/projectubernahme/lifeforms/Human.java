@@ -33,7 +33,7 @@ public class Human extends Lifeform {
 		setCanSee(true);
 		setCanMove(true);
 		setBiomass(60.0 + Math.random()*60);
-		setIntelligence(50+100*Math.random());
+		setIntelligence(0.3+0.3*Math.random());
 	}
 
 	private static void loadNames() {
@@ -62,8 +62,27 @@ public class Human extends Lifeform {
 	@Override
 	public void act(int sleepTime) {
 		if (!isControlled()) {
+			/* check whether there is somebody around that this lifeform does
+			 * not really trust
+			 */
+			boolean strangeGuyAround = false;
+			for (SuspicionCase sc : suspicionCases) {
+				if (sc.l.getPoint2D().distance(getPoint2D()) < 1/sc.strengh) {
+					/* run away */
+					viewAngle = Math.atan2(this.getPoint2D().getY()-sc.l.getPoint2D().getY(), this.getPoint2D().getX()-sc.l.getPoint2D().getX());
+					setVelocity(new Vector2D(0.8*Math.cos(viewAngle), 0.8*Math.sin(viewAngle)));
+					strangeGuyAround = true;
+				}
+			}
+			
+			
 			if (reachedWaypoint()) {
 				generateNewWaypoint();
+			}
+			
+			if (!strangeGuyAround) {
+				viewAngle = Math.atan2(-this.getPoint2D().getY()+waypoint.getY(), -this.getPoint2D().getX()+waypoint.getX());
+				setVelocity(new Vector2D(0.8*Math.cos(viewAngle), 0.8*Math.sin(viewAngle)));
 			}
 		}
 	}

@@ -3,17 +3,20 @@ package projectubernahme;
 import java.text.MessageFormat;
 
 import projectubernahme.lifeforms.Lifeform;
+import projectubernahme.simulator.MainSimulator;
 
 public class TakeoverThread extends Thread {
 
 	private Lifeform l;
 	private Lifeform prey;
 	private Player player;
+	private MainSimulator sim;
 
-	public TakeoverThread(Lifeform lifeform, Player controllingPlayer, Lifeform lifeform2) {
+	public TakeoverThread(Lifeform lifeform, Player controllingPlayer, Lifeform lifeform2, MainSimulator sim) {
 		l = lifeform;
 		player = controllingPlayer;
 		prey = lifeform2;
+		this.sim = sim;
 	}
 
 	public void run () {
@@ -29,6 +32,7 @@ public class TakeoverThread extends Thread {
 			ingestionMessageType = MessageTypes.SUCCESS;
 		else
 			ingestionMessageType = MessageTypes.INFO;
+		
 
 		try {
 			/* walk towards the victim */
@@ -48,6 +52,9 @@ public class TakeoverThread extends Thread {
 			
 			/* stop when reached the prey */
 			l.getVelocity().zero();
+			
+
+			sim.alertEverybody(l);
 
 			/* burn time until it is ready */
 			while (l.actionProgress < 1.0) {

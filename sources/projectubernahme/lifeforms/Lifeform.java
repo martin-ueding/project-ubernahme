@@ -2,9 +2,13 @@ package projectubernahme.lifeforms;
 
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import projectubernahme.IngestionThread;
+import projectubernahme.Localizer;
+import projectubernahme.MessageTypes;
 import projectubernahme.Player;
 import projectubernahme.ProjectUbernahme;
 import projectubernahme.TakeoverThread;
@@ -17,12 +21,14 @@ import projectubernahme.simulator.MainSimulator;
 abstract public class Lifeform {	
 	/** the simulator this lifeform is connected to */
 	MainSimulator sim;
+	
 
 	public Lifeform (MainSimulator sim) {
 		this.sim = sim;
 		name = new String();
 		id = next_id++;
 		setVelocity(new Vector2D(0.0, 0.0));
+		suspicionCases = new CopyOnWriteArrayList<SuspicionCase>();
 	}
 	
 	/*
@@ -31,6 +37,11 @@ abstract public class Lifeform {
 
 	/** this lets the lifeform act, this can be just sitting around or calling for support or attacking another lifeform */
 	abstract public void act(int sleepTime);
+	
+	/** whether this lifeforms thinks that something weird is going on [0, 1] */
+	private double suspicion = 0.05;
+	
+	public CopyOnWriteArrayList<SuspicionCase> suspicionCases;
 	
 	/*
 	 * everything that has to do with movement
@@ -257,7 +268,7 @@ abstract public class Lifeform {
 	}
 
 	private boolean startTakeover(Lifeform lifeform) {
-		actionThread = new TakeoverThread(this, controllingPlayer, lifeform);
+		actionThread = new TakeoverThread(this, controllingPlayer, lifeform, sim);
 		actionThread.start();
 		return true;
 	}
@@ -393,7 +404,7 @@ abstract public class Lifeform {
 
 	abstract public ConvertedGraphics getConvertedGraphics();
 
-	/** intelligence level, 100.0 would be of the average human */
+	/** intelligence level, 1.0 would be a genius */
 	private double intelligence;
 	
 	public void setIntelligence(double intelligence) {
@@ -410,5 +421,19 @@ abstract public class Lifeform {
 
 	public Vector2D getVelocity() {
 		return velocity;
+	}
+
+	public boolean willSuspect(Lifeform l) {
+		double points = 0.0;
+		
+		/* the smaller the other lifeform the less will it become looked at */
+		points += Math.log(l.getBiomass()/getBiomass());
+		
+		/* the more intelligent the other lifeform is, the less points */
+		points += 10*(intelligence - l.intelligence);
+
+		ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} has {1} suspicion points against {2}."), new Object[] {toString(), points, l.toString()}), MessageTypes.DEBUG);
+		
+		return points > 1;
 	}
 }
