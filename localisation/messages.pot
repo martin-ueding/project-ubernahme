@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-16 23:27+0100\n"
+"POT-Creation-Date: 2011-01-21 21:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,17 +17,27 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: projectubernahme/ProjectUbernahme.java:39
-#: projectubernahme/lifeforms/Human.java:45
+#: projectubernahme/IngestionThread.java:90
+#, java-format
+msgid "{0} ingested {1}."
+msgstr ""
+
+#: projectubernahme/ProjectUbernahme.java:46
+#: projectubernahme/lifeforms/Human.java:48
 msgid "ERROR"
 msgstr ""
 
-#: projectubernahme/ProjectUbernahme.java:39
+#: projectubernahme/ProjectUbernahme.java:46
 msgid "could not open main config file"
 msgstr ""
 
-#: projectubernahme/ProjectUbernahme.java:43
+#: projectubernahme/ProjectUbernahme.java:50
 msgid "Welcome to Project Ubernahme"
+msgstr ""
+
+#: projectubernahme/TakeoverThread.java:64
+#, java-format
+msgid "{0} took control over {1}."
 msgstr ""
 
 #: projectubernahme/interface2D/Interface2D.java:18
@@ -38,7 +48,7 @@ msgstr ""
 msgid "new name"
 msgstr ""
 
-#: projectubernahme/lifeforms/Human.java:45
+#: projectubernahme/lifeforms/Human.java:48
 msgid "could not open file with list of first names"
 msgstr ""
 
