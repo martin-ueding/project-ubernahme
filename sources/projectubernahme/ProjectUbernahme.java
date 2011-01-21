@@ -37,7 +37,7 @@ public class ProjectUbernahme {
 	public static void main (String[] args) {
 		logMessages = new ArrayList<String>();
 		f = new DecimalFormat();
-		f.setMaximumFractionDigits(3);
+		f.applyPattern("0.##E0");
 		
 		config = new Properties();
 		try {
