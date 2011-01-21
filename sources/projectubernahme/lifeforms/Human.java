@@ -71,8 +71,13 @@ public class Human extends Lifeform {
 	}
 
 	private void generateNewWaypoint() {
-
-		waypoint = new Point2D.Double(Math.random()*30, Math.random()*30);
+		Point2D lastLastWaypoint = lastWaypoint;
+		lastWaypoint = waypoint;
+		
+		//waypoint = new Point2D.Double(Math.random()*30, Math.random()*30);
+		waypoint = sim.getEnv().generateNewWaypoint(getPoint2D());
+		
+		// TODO generate new waypoint, if it is the same than the lastlast one.
 	}
 
 	private boolean reachedWaypoint() {
