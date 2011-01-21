@@ -5,7 +5,7 @@ sourceFiles = $(shell find . | egrep "\.java$$")
 
 standard: projectubernahme.jar
 
-all: ../localisation/messages.pot $(p)/strings_de.properties $(p)/strings_tr.properties projectubernahme.jar
+all: ../localisation/messages.pot $(p)/strings_de.properties $(p)/strings_tr.properties projectubernahme.jar linecount
 
 # puts the binaries and the sources into the jar
 projectubernahme.jar: $(p)/ProjectUbernahme.class $(sourceFiles)
@@ -35,3 +35,6 @@ $(p)/strings_de.properties: ../localisation/de.po
 $(p)/strings_tr.properties: ../localisation/tr.po
 	msgcat --properties-output -o $(p)/strings_tr.properties ../localisation/tr.po
 
+.PHONY: linecount
+linecount:
+	cat $(sourceFiles) | wc
