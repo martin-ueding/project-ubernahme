@@ -1,5 +1,7 @@
 package projectubernahme;
 
+import java.text.MessageFormat;
+
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.simulator.MainSimulator;
 
@@ -84,7 +86,7 @@ public class IngestionThread extends Thread {
 
 		/* set the lifeform back to normal */
 		l.busy = false;
+
+		ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} ingested {1}."), new Object[] {l.toString(), prey.toString()}));
 	}
-
-
 }

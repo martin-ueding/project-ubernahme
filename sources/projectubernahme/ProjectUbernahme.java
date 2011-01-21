@@ -1,6 +1,7 @@
 package projectubernahme;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -35,6 +36,7 @@ public class ProjectUbernahme {
 
 	public static void main (String[] args) {
 		logMessages = new ArrayList<String>();
+		f = new DecimalFormat();
 		f.setMaximumFractionDigits(3);
 		
 		config = new Properties();
@@ -73,5 +75,5 @@ public class ProjectUbernahme {
 		return logMessages;
 	}
 	
-	public static NumberFormat f = NumberFormat.getInstance();
+	public static DecimalFormat f;
 }
