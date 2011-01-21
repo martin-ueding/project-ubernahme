@@ -65,9 +65,11 @@ public class ProjectUbernahme {
 	/* prints out a log message */
 	public static void log (String s) {
 		//System.out.println(s);
-		getLogMessages().add(s);
-		while (getLogMessages().size() > 5) {
-			getLogMessages().remove(0);
+		if (getLogMessages().size() == 0 || !getLogMessages().get(getLogMessages().size()-1).equals(s)) {
+			getLogMessages().add(s);
+			while (getLogMessages().size() > 5) {
+				getLogMessages().remove(0);
+			}
 		}
 	}
 
