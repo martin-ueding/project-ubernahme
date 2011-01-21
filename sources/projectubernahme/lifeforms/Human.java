@@ -65,10 +65,6 @@ public class Human extends Lifeform {
 			if (reachedWaypoint()) {
 				generateNewWaypoint();
 			}
-			else {
-				viewAngle = Math.atan2(-this.getPoint2D().getY()+waypoint.getY(), -this.getPoint2D().getX()+waypoint.getX());
-				setVelocity(new Vector2D(0.8*Math.cos(viewAngle), 0.8*Math.sin(viewAngle)));
-			}
 		}
 	}
 
@@ -76,15 +72,14 @@ public class Human extends Lifeform {
 		Point2D lastLastWaypoint = lastWaypoint;
 		lastWaypoint = waypoint;
 		
-		//waypoint = new Point2D.Double(Math.random()*30, Math.random()*30);
 		int trials = 0;
 		do {
 			waypoint = sim.getEnv().generateNewWaypoint(getPoint2D());
-			System.out.println(waypoint+"\t"+lastLastWaypoint);
 			trials++;
-		} while (lastLastWaypoint != null && trials < 3 && waypoint.equals(lastLastWaypoint));
+		} while (lastLastWaypoint != null && trials <= 3 && waypoint.equals(lastLastWaypoint));
 		
-		// TODO generate new waypoint, if it is the same than the lastlast one.
+		viewAngle = Math.atan2(-this.getPoint2D().getY()+waypoint.getY(), -this.getPoint2D().getX()+waypoint.getX());
+		setVelocity(new Vector2D(0.8*Math.cos(viewAngle), 0.8*Math.sin(viewAngle)));
 	}
 
 	private boolean reachedWaypoint() {
