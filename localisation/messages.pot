@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-21 22:24+0100\n"
+"POT-Creation-Date: 2011-01-21 22:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "String “{0}” is missing in bundle “{1}”."
 msgstr ""
 
-#: projectubernahme/TakeoverThread.java:64
+#: projectubernahme/TakeoverThread.java:73
 #, java-format
 msgid "{0} took control over {1}."
 msgstr ""
@@ -56,7 +56,7 @@ msgstr ""
 msgid "Welcome to Project Ubernahme"
 msgstr ""
 
-#: projectubernahme/IngestionThread.java:90
+#: projectubernahme/IngestionThread.java:99
 #, java-format
 msgid "{0} ingested {1}."
 msgstr ""
