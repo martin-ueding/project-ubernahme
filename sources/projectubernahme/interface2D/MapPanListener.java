@@ -19,6 +19,8 @@ public class MapPanListener implements MouseWheelListener, MouseMotionListener, 
 	/** tracks the current pressed mouse button for the panning and rotation movements */
 	private int pressedMouseButton;
 
+	// TODO use e.getModifiers() == MouseEvent.BUTTON1_DOWN_MASK instead
+
 	private View2D view;
 	private double roundedAngle;
 
