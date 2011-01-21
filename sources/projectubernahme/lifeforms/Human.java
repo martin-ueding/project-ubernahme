@@ -61,12 +61,14 @@ public class Human extends Lifeform {
 
 	@Override
 	public void act(int sleepTime) {
-		if (reachedWaypoint()) {
-			generateNewWaypoint();
-		}
-		else {
-			viewAngle = Math.atan2(-this.getPoint2D().getY()+waypoint.getY(), -this.getPoint2D().getX()+waypoint.getX());
-			setVelocity(new Vector2D(0.8*Math.cos(viewAngle), 0.8*Math.sin(viewAngle)));
+		if (!isControlled()) {
+			if (reachedWaypoint()) {
+				generateNewWaypoint();
+			}
+			else {
+				viewAngle = Math.atan2(-this.getPoint2D().getY()+waypoint.getY(), -this.getPoint2D().getX()+waypoint.getX());
+				setVelocity(new Vector2D(0.8*Math.cos(viewAngle), 0.8*Math.sin(viewAngle)));
+			}
 		}
 	}
 
