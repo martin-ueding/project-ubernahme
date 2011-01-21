@@ -63,13 +63,22 @@ public class ProjectUbernahme {
 	
 	/* prints out a log message */
 	public static void log (String s, Enum<MessageTypes> type) {
+		/* check if it is already in the queue */
+		boolean isInQueue = false;
+		for (LogMessage message : getLogMessages()) {
+			if (message.msg.equals(s)) {
+				isInQueue = true;
+			}
+		}
 		
-		if (getLogMessages().size() == 0 || !getLogMessages().get(getLogMessages().size()-1).msg.equals(s)) {
+		if (!isInQueue) {
 			getLogMessages().add(new LogMessage(s, type));
+
 			while (getLogMessages().size() > Integer.decode(ProjectUbernahme.getConfigValue("maxLogLines"))) {
 				getLogMessages().remove(0);
 			}
 		}
+		
 	}
 	
 	public static void log (String s) {
