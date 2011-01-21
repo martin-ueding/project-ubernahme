@@ -1,5 +1,7 @@
 package projectubernahme;
 
+import java.text.MessageFormat;
+
 import projectubernahme.lifeforms.Lifeform;
 
 public class TakeoverThread extends Thread {
@@ -58,6 +60,8 @@ public class TakeoverThread extends Thread {
 
 		/* set the lifeform back to normal */
 		l.busy = false;
+		
+		ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} took control over {1}."), new Object[] {l.toString(), prey.toString()}));
 	}
 
 

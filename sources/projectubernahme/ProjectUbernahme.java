@@ -1,6 +1,8 @@
 package projectubernahme;
 
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import projectubernahme.interface2D.Interface2D;
@@ -32,6 +34,9 @@ public class ProjectUbernahme {
 	}
 
 	public static void main (String[] args) {
+		logMessages = new ArrayList<String>();
+		f.setMaximumFractionDigits(3);
+		
 		config = new Properties();
 		try {
 			config.load(ClassLoader.getSystemResourceAsStream("projectubernahme/config.properties"));
@@ -53,8 +58,20 @@ public class ProjectUbernahme {
 		Interface2D interface2d = new Interface2D(sim, player);
 	}
 	
+	private static ArrayList<String> logMessages;
+	
 	/* prints out a log message */
 	public static void log (String s) {
-		System.out.println(s);
+		//System.out.println(s);
+		getLogMessages().add(s);
+		while (getLogMessages().size() > 5) {
+			getLogMessages().remove(0);
+		}
 	}
+
+	public static ArrayList<String> getLogMessages() {
+		return logMessages;
+	}
+	
+	public static NumberFormat f = NumberFormat.getInstance();
 }

@@ -196,12 +196,22 @@ public class View2D extends JPanel {
 			frames++;
 			
 			g.setColor(Color.black);
-			g.drawString("FPS: "+Math.round(frames/measureTime), 10, 20);
+			g.drawString("FPS: "+Math.round(frames/measureTime), getWidth()-80, 20);
 			
 			if (measureTime > 10) {
 				frames = 0;
 				measureTime = 0.0;
 			}
+		}
+		
+		/* draw log messages */
+		int i = 0;
+		for (String s : ProjectUbernahme.getLogMessages()) {
+			g.setColor(Color.black);
+			g.drawString(s, 10, i*15+20);
+			g.setColor(Color.white);
+			g.drawString(s, 10-1, i*15+20-1);
+			i++;
 		}
 	}
 }

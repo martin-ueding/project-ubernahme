@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import projectubernahme.IngestionThread;
 import projectubernahme.Player;
+import projectubernahme.ProjectUbernahme;
 import projectubernahme.TakeoverThread;
 import projectubernahme.Vector2D;
 import projectubernahme.gfx.ConvertedGraphics;
@@ -378,10 +379,11 @@ abstract public class Lifeform {
 	/** gives a generic description string of the object */
 	public String toString () {
 		if (name.equals("")) {
-			return getClass().getSimpleName()+"\t"+getBiomass()+" kg";
+			return getClass().getSimpleName()+" \t"+ProjectUbernahme.f.format(getBiomass())+" kg";
+			
 		}
 		else {
-			return getName()+"\t("+getClass().getSimpleName()+")\t"+getBiomass()+" kg";
+			return getName()+" \t("+getClass().getSimpleName()+") \t"+ProjectUbernahme.f.format(getBiomass())+" kg";
 		}
 	}
 
