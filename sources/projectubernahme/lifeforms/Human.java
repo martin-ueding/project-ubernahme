@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import projectubernahme.Localizer;
 import projectubernahme.ProjectUbernahme;
+import projectubernahme.Vector2D;
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.gfx.LifeformHumanGraphics;
 import projectubernahme.simulator.MainSimulator;
@@ -19,6 +20,8 @@ public class Human extends Lifeform {
 	
 
 	private static ConvertedGraphics cg = new LifeformHumanGraphics();
+	
+	Point2D waypoint, lastWaypoint;
 
 	public Human (MainSimulator sim) {
 		super(sim);
@@ -57,7 +60,23 @@ public class Human extends Lifeform {
 	}
 
 	@Override
-	public void act(int sleepTime) {		
+	public void act(int sleepTime) {
+		if (reachedWaypoint()) {
+			generateNewWaypoint();
+		}
+		else {
+			viewAngle = Math.atan2(-this.getPoint2D().getY()+waypoint.getY(), -this.getPoint2D().getX()+waypoint.getX());
+			setVelocity(new Vector2D(0.8*Math.cos(viewAngle), 0.8*Math.sin(viewAngle)));
+		}
+	}
+
+	private void generateNewWaypoint() {
+
+		waypoint = new Point2D.Double(Math.random()*30, Math.random()*30);
+	}
+
+	private boolean reachedWaypoint() {
+		return waypoint == null || this.getPoint2D().distance(waypoint) < 0.25;
 	}
 
 	@Override
