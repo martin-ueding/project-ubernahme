@@ -24,14 +24,14 @@ public class TakeoverThread extends Thread {
 		l.busy = true;
 		l.actionProgress = 0.0;
 		
-		Enum<MessageTypes> ingestionMessageType;
+		Enum<MessageTypes> takeoverMessageType;
 		
 		if (!l.isControlled() && prey.isControlled())
-			ingestionMessageType = MessageTypes.WARNING;
+			takeoverMessageType = MessageTypes.WARNING;
 		else if (l.isControlled() && !prey.isControlled())
-			ingestionMessageType = MessageTypes.SUCCESS;
+			takeoverMessageType = MessageTypes.SUCCESS;
 		else
-			ingestionMessageType = MessageTypes.INFO;
+			takeoverMessageType = MessageTypes.INFO;
 		
 
 		try {
@@ -76,8 +76,8 @@ public class TakeoverThread extends Thread {
 
 		/* set the lifeform back to normal */
 		l.busy = false;
-		
-		ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} took control over {1}."), new Object[] {l.toString(), prey.toString()}), ingestionMessageType);
+		if ((takeoverMessageType == MessageTypes.INFO && ProjectUbernahme.verboseLevel >= 3) || takeoverMessageType != MessageTypes.INFO)
+			ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} took control over {1}."), new Object[] {l.toString(), prey.toString()}), takeoverMessageType);
 	}
 
 

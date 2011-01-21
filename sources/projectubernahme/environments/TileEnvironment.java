@@ -161,11 +161,8 @@ public class TileEnvironment {
 
 					/* something is visible if it either is within the screen or the tile intersects with the screen */
 					visible[j][i] = target.distance(width/2, height/2) < twiceScreenRadius || tileResult.intersects(screen);
-
 				}
 			}
-			
-
 
 			/* iterate through the tiles ... */
 			for (int i = 0; i < tiles[0].length; i += 1) {

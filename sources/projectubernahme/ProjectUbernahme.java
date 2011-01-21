@@ -28,6 +28,10 @@ public class ProjectUbernahme {
 	static MainSimulator sim;
 
 	private static Properties config;
+	
+	public static DecimalFormat f;
+
+	public static int verboseLevel;
 
 	public static String getConfigValue (String key) {
 		return (String) config.get(key);
@@ -42,9 +46,11 @@ public class ProjectUbernahme {
 		try {
 			config.load(ClassLoader.getSystemResourceAsStream("projectubernahme/config.properties"));
 		} catch (IOException e) {
-			ProjectUbernahme.log(Localizer.get("ERROR")+": "+Localizer.get("could not open main config file"));
+			ProjectUbernahme.log(Localizer.get("could not open main config file"), MessageTypes.ERROR);
 			e.printStackTrace();
 		}		
+		
+		verboseLevel = Integer.parseInt(ProjectUbernahme.getConfigValue("verboseLevel"));
 		
 		ProjectUbernahme.log(Localizer.get("Welcome to Project Ubernahme"));
 		
@@ -88,6 +94,4 @@ public class ProjectUbernahme {
 	public static ArrayList<LogMessage> getLogMessages() {
 		return logMessages;
 	}
-	
-	public static DecimalFormat f;
 }

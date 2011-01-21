@@ -84,7 +84,9 @@ public class MainSimulator {
 				// TODO adjust this strengh
 				sc.strengh = 0.5;
 				other.suspicionCases.add(sc);
-				ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} suspects {1} now."), new Object[] {other.toString(), l.toString()}),
+				
+				if (ProjectUbernahme.verboseLevel >= 4)
+					ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} suspects {1} now."), new Object[] {other.toString(), l.toString()}),
 						l.isControlled() ? MessageTypes.WARNING : MessageTypes.INFO);
 			}
 		}
