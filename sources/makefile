@@ -1,7 +1,7 @@
 # path to the main source, relative to the makefile
 p = projectubernahme
 
-sourceFiles = $(p)/environments/TileEnvironment.java $(p)/simulator/SimulatorThread.java $(p)/simulator/MainSimulator.java $(p)/interface2D/JPanelRepaintTimerTask.java $(p)/interface2D/LifeformSelectionMouseListener.java $(p)/interface2D/LifeformControlKeyListener.java $(p)/interface2D/MapPanListener.java $(p)/interface2D/View2D.java $(p)/interface2D/Interface2D.java $(p)/Localizer.java $(p)/gfx/ConvertedGraphics.java $(p)/gfx/TileDefault.java $(p)/gfx/TileSidewalk.java $(p)/gfx/LifeformZombieGraphics.java $(p)/gfx/LifeformFlyGraphics.java $(p)/gfx/TileCrosswalkHorizontal.java $(p)/gfx/TileCrosswalkVertical.java $(p)/gfx/TileLawn.java $(p)/gfx/LifeformHumanGraphics.java $(p)/gfx/LifeformTreeGraphics.java $(p)/gfx/TileStreet.java $(p)/TakeoverThread.java $(p)/lifeforms/Human.java $(p)/lifeforms/Fly.java $(p)/lifeforms/Zombie.java $(p)/lifeforms/Tree.java $(p)/lifeforms/Lifeform.java $(p)/Player.java $(p)/Vector2D.java $(p)/ProjectUbernahme.java $(p)/IngestionThread.java
+sourceFiles = $(shell find . | egrep "\.java$$")
 
 standard: projectubernahme.jar
 
