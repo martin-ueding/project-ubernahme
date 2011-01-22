@@ -21,16 +21,16 @@ public class IngestionThread extends Thread {
 		/* set the lifeform to busy */
 		l.busy = true;
 		l.actionProgress = 0.0;
-		
+
 		Enum<MessageTypes> ingestionMessageType;
-		
+
 		if (!l.isControlled() && prey.isControlled())
 			ingestionMessageType = MessageTypes.WARNING;
 		else if (l.isControlled() && !prey.isControlled())
 			ingestionMessageType = MessageTypes.SUCCESS;
 		else
 			ingestionMessageType = MessageTypes.INFO;
-		
+
 
 		try {
 			/* walk towards the victim */
@@ -40,7 +40,7 @@ public class IngestionThread extends Thread {
 				ydist = prey.getPoint2D().getY() - l.getPoint2D().getY();
 
 				l.viewAngle = Math.atan2(ydist, xdist);
-				
+
 				double distSqrt = Math.sqrt(Math.hypot(xdist, ydist));
 				l.getVelocity().setTo(xdist/distSqrt, ydist/distSqrt);
 
@@ -50,7 +50,7 @@ public class IngestionThread extends Thread {
 
 			/* stop when reached the prey */
 			l.getVelocity().zero();
-			
+
 
 			sim.alertEverybody(l);
 
@@ -75,10 +75,10 @@ public class IngestionThread extends Thread {
 
 					sleep(50);
 				}
-				
+
 				/* remove lifeform from simulator */
 				sim.getLifeforms().remove(prey);
-				
+
 				/* remove lifeform from player's list */
 				if (prey.isControlled()) {
 					if (prey.controllingPlayer.getControlledLifeforms().contains(prey)) {
@@ -92,7 +92,7 @@ public class IngestionThread extends Thread {
 					}
 				}
 			}
-			
+
 			if ((ingestionMessageType == MessageTypes.INFO && ProjectUbernahme.verboseLevel >= 3) || ingestionMessageType != MessageTypes.INFO)
 				ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} ingested {1}."), new Object[] {l.toString(), prey.toString()}), ingestionMessageType);
 
