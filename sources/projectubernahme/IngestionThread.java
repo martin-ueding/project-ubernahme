@@ -92,6 +92,9 @@ public class IngestionThread extends Thread {
 					}
 				}
 			}
+			
+			if ((ingestionMessageType == MessageTypes.INFO && ProjectUbernahme.verboseLevel >= 3) || ingestionMessageType != MessageTypes.INFO)
+				ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} ingested {1}."), new Object[] {l.toString(), prey.toString()}), ingestionMessageType);
 
 		} catch (InterruptedException e) {
 			/* if the action was interrupted, then it will just stop, the busy state is reset at the end of this method anyway */
@@ -99,8 +102,5 @@ public class IngestionThread extends Thread {
 
 		/* set the lifeform back to normal */
 		l.busy = false;
-		
-		if ((ingestionMessageType == MessageTypes.INFO && ProjectUbernahme.verboseLevel >= 3) || ingestionMessageType != MessageTypes.INFO)
-			ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} ingested {1}."), new Object[] {l.toString(), prey.toString()}), ingestionMessageType);
 	}
 }

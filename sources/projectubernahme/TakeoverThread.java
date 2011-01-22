@@ -69,15 +69,15 @@ public class TakeoverThread extends Thread {
 				player.addControlledLifeform(prey);
 			}
 
-
+		if ((takeoverMessageType == MessageTypes.INFO && ProjectUbernahme.verboseLevel >= 3) || takeoverMessageType != MessageTypes.INFO)
+			ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} took control over {1}."), new Object[] {l.toString(), prey.toString()}), takeoverMessageType);
+		
 		} catch (InterruptedException e) {
 			/* if the action was interrupted, then it will just stop, the busy state is reset at the end of this method anyway */
 		}
 
 		/* set the lifeform back to normal */
 		l.busy = false;
-		if ((takeoverMessageType == MessageTypes.INFO && ProjectUbernahme.verboseLevel >= 3) || takeoverMessageType != MessageTypes.INFO)
-			ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} took control over {1}."), new Object[] {l.toString(), prey.toString()}), takeoverMessageType);
 	}
 
 
