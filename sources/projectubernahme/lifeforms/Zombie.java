@@ -28,7 +28,7 @@ public class Zombie extends Lifeform {
 	public void act(int sleepTime) {
 		if (!isControlled()) {
 			/* find the closest human to this zombie */
-			Human closest = null;
+			Lifeform closest = null;
 			double minDistance = Double.MAX_VALUE;
 
 			for(Lifeform n : getNeighbors()) {
@@ -36,7 +36,22 @@ public class Zombie extends Lifeform {
 					double distance = distance(n);
 					if (distance < minDistance) {
 						minDistance = distance;
-						closest = (Human) n;
+						closest = n;
+					}
+				}
+			}
+			
+			/* if there is no human to ingest, eat another, smaller zombie
+			 * instead, that way, zombies do not start piling up on a spot but
+			 * become huge */
+			if (closest == null) {
+				for(Lifeform n : getNeighbors()) {
+					if (n.getClass().getName().endsWith("Zombie")) {
+						double distance = distance(n);
+						if (distance < minDistance && n.getBiomass() < getBiomass()) {
+							minDistance = distance;
+							closest = n;
+						}
 					}
 				}
 			}
