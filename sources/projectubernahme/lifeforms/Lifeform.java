@@ -333,13 +333,16 @@ abstract public class Lifeform {
 	
 	/** the player who controls this lifeforms, if null, the computer controls it */
 	public Player controllingPlayer = null;
+	
+	public boolean inControlledMode = false;
 
 	public boolean isControlled() {
-		return controllingPlayer != null;
+		return controllingPlayer != null && inControlledMode;
 	}
 
 	public void setControlled(Player p) {
 		this.controllingPlayer = p;
+		inControlledMode = true;
 	}
 	
 	/*
