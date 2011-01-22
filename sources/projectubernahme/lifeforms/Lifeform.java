@@ -399,7 +399,7 @@ abstract public class Lifeform {
 	}
 
 	public double getDiameter() {
-		return Math.max(Math.sqrt(biomass)/40, .01);
+		return Math.pow(biomass/1000, 1.0/3.0);
 	}
 
 	abstract public ConvertedGraphics getConvertedGraphics();
