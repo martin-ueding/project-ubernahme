@@ -20,7 +20,7 @@ public class SimulatorThread extends Thread {
 	public void run() {
 		while (sim.isGameUp() || cycle < 100) {
 			if (cycle > 10) {
-				/* let the other blobs interact */
+				/* let the other lifeforms interact */
 				for (Lifeform l : sim.getLifeforms()) {
 					l.move(sleepTime);
 					l.act(sleepTime);

@@ -85,7 +85,7 @@ abstract public class Lifeform {
 	/** lets the physics work on the lifeform and moves it by its velocities */
 	public void move(int sleepTime) {
 		/* calculate new velocity if this lifeform is controlled */
-		if (isControlled() && !busy) {
+		if (inControlledMode && !busy) {
 			if (dvSign == 0) {
 				getVelocity().zero();
 			}
@@ -324,6 +324,11 @@ abstract public class Lifeform {
 		case 's': dvSign = 0; break;
 		case 'a':
 		case 'd': dViewAngleSign = 0; break;
+		case 'p': if (isControlled()) {
+			inControlledMode = !inControlledMode;
+			stopAction();
+			break;
+		}
 		}
 	}
 
@@ -337,7 +342,7 @@ abstract public class Lifeform {
 	public boolean inControlledMode = false;
 
 	public boolean isControlled() {
-		return controllingPlayer != null && inControlledMode;
+		return controllingPlayer != null;
 	}
 
 	public void setControlled(Player p) {

@@ -61,7 +61,7 @@ public class Human extends Lifeform {
 
 	@Override
 	public void act(int sleepTime) {
-		if (!isControlled()) {
+		if (!inControlledMode) {
 			/* check whether there is somebody around that this lifeform does
 			 * not really trust
 			 */
