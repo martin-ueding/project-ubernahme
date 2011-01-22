@@ -1,6 +1,7 @@
 s	Street
 S	Sidewalk
-C	Crosswalk
+C	Crosswalk vertical --
+c	Crosswalk horizontal |
 l	Lawn / Grass
 L	Lawn / Grass with automatic trees
 B	Blocked
