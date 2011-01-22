@@ -274,7 +274,7 @@ abstract public class Lifeform {
 	}
 
 	public boolean canIngest(Lifeform prey) {
-		return true;
+		return canSee(prey);
 	}
 
 	/** ingests the given lifeform */
@@ -432,6 +432,7 @@ abstract public class Lifeform {
 	}
 
 	public boolean willSuspect(Lifeform l) {
+		// TODO tweak the score system
 		double points = 0.0;
 		
 		/* the smaller the other lifeform the less will it become looked at */
