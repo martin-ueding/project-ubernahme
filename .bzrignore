@@ -7,3 +7,5 @@ javadoc
 .classpath
 .project
 .settings
+projectubernahme_*
+*.jar.asc

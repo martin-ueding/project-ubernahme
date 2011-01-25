@@ -1,3 +1,14 @@
+projectubernahme (0.4) maverick; urgency=low
+
+  * central log system with colors
+  * suspicion system for humans
+  * passive mode for controled lifeforms
+  * fixed mouse control in Windows and Linux
+  * turkish l10n
+  * new Human AI
+
+ -- Martin Ueding <dev@martin-ueding.de>  Sat, 22 Jan 2011 22:25:21 +0100
+
 projectubernahme (0.3.1) maverick; urgency=low
 
   * tried to fix makefile so this one will actually build

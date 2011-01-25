@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-22 13:29+0100\n"
+"POT-Creation-Date: 2011-01-22 22:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,7 @@ msgstr ""
 msgid "String “{0}” is missing in bundle “{1}”."
 msgstr ""
 
-#: projectubernahme/TakeoverThread.java:80
+#: projectubernahme/TakeoverThread.java:73
 #, java-format
 msgid "{0} took control over {1}."
 msgstr ""
@@ -52,7 +52,7 @@ msgstr ""
 msgid "could not open file with list of first names"
 msgstr ""
 
-#: projectubernahme/lifeforms/Lifeform.java:436
+#: projectubernahme/lifeforms/Lifeform.java:445
 #, java-format
 msgid "{0} has {1} suspicion points against {2}."
 msgstr ""
@@ -65,7 +65,7 @@ msgstr ""
 msgid "Welcome to Project Ubernahme"
 msgstr ""
 
-#: projectubernahme/IngestionThread.java:104
+#: projectubernahme/IngestionThread.java:97
 #, java-format
 msgid "{0} ingested {1}."
 msgstr ""
