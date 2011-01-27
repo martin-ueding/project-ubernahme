@@ -268,7 +268,13 @@ abstract public class Lifeform {
 	private Thread actionThread;
 
 	public boolean canTakeover(Lifeform prey) {
-		return canSee(prey);
+		double sizeFactor = prey.getBiomass() / this.biomass;
+		double intelligenceFactor = prey.getIntelligence();
+		if(sizeFactor * intelligenceFactor < 5 && canSee(prey)){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	/** takes over control of the given lifeform, returns whether that was successful */
@@ -459,4 +465,5 @@ abstract public class Lifeform {
 		
 		return points > 1;
 	}
+
 }
