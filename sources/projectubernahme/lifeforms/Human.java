@@ -32,6 +32,7 @@ public class Human extends Lifeform {
 		setCanFly(false);
 		setCanSee(true);
 		setCanMove(true);
+		setRangeOfSight(10);
 		setBiomass(60.0 + Math.random()*60);
 		setIntelligence(0.3+0.3*Math.random());
 	}
@@ -53,10 +54,6 @@ public class Human extends Lifeform {
 	public Human(MainSimulator sim, Point2D p) {
 		this(sim);
 		position = p;
-	}
-
-	public boolean canSee (Lifeform l) {
-		return (isCanSee() && distance(l) < 10);			
 	}
 
 	@Override

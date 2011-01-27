@@ -131,7 +131,17 @@ abstract public class Lifeform {
 	private boolean canTaste = false;
 	private boolean canMove = false;
 	private boolean canFly = false;
+	private int rangeOfSight = 0;
+	private double diameter = 0;
 
+	public void setRangeOfSight(int range){
+		this.rangeOfSight = range;
+	}
+	
+	public int getRangeOfSight(){
+		return this.rangeOfSight;
+	}
+	
 	public boolean isCanSee() {
 		return canSee;
 	}
@@ -205,7 +215,9 @@ abstract public class Lifeform {
 	}
 
 	/** decides whether this lifeform can see some other lifeform l */
-	public abstract boolean canSee (Lifeform l);
+	public boolean canSee (Lifeform l) {
+		return (isCanSee() && distance(l) < rangeOfSight+diameter);			
+	}
 	
 	/** list of other lifeforms that this lifeform can see */
 	ArrayList<Lifeform> neighbors = new ArrayList<Lifeform>();
@@ -393,6 +405,7 @@ abstract public class Lifeform {
 
 	public void setBiomass(double biomass) {
 		this.biomass = biomass;
+		this.diameter = Math.pow(biomass/1000, 1.0/3.0);
 	}
 
 	/** gives a generic description string of the object */
@@ -407,7 +420,7 @@ abstract public class Lifeform {
 	}
 
 	public double getDiameter() {
-		return Math.pow(biomass/1000, 1.0/3.0);
+		return diameter;
 	}
 
 	abstract public ConvertedGraphics getConvertedGraphics();

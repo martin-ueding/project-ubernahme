@@ -16,6 +16,7 @@ public class Fly extends Lifeform {
 		setCanFly(true);
 		setCanSee(true);
 		setCanMove(true);
+		setRangeOfSight(3);
 		setBiomass(0.001/17);
 		setIntelligence(0.1);
 		
@@ -25,10 +26,6 @@ public class Fly extends Lifeform {
 	public Fly(Point2D randomPointOnMap, MainSimulator sim) {
 		this(sim);
 		position = randomPointOnMap;
-	}
-
-	public boolean canSee (Lifeform l) {
-		return (isCanSee() && distance(l) < 3);
 	}
 
 	@Override

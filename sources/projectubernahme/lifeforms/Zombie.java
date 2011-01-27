@@ -17,6 +17,7 @@ public class Zombie extends Lifeform {
 		setCanMove(true);
 		setBiomass(60.0 + Math.random()*60);
 		setIntelligence(0.0);
+		setRangeOfSight(5);
 	}
 
 	public Zombie(MainSimulator sim, Point2D p) {
@@ -63,11 +64,6 @@ public class Zombie extends Lifeform {
 				}
 			}
 		}
-	}
-
-	@Override
-	public boolean canSee(Lifeform l) {
-		return distance(l) < 5.0;
 	}
 
 	@Override
