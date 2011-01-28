@@ -133,7 +133,7 @@ abstract public class Lifeform {
 	private boolean canFly = false;
 	private int rangeOfSight = 0;
 	private double diameter = 0;
-	double ingestionEff = 0.9;
+	private double ingestionEff = 0.9;
 	
 	public void setIngestionEff(double newEff){
 		this.ingestionEff = newEff;

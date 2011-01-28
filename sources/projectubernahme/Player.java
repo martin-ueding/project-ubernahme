@@ -14,6 +14,8 @@ public class Player {
 
 	private Lifeform selectedLifeform;
 	private Lifeform secondarySelectedLifeform;
+	private double Upgradepoints = 0;
+	private double intFactor = 1;
 
 
 	/** initializes the list of controlledLifeforms, add a starting one */
@@ -26,6 +28,7 @@ public class Player {
 	public void takeControlOver (Lifeform l) {
 		getControlledLifeforms().add(l);
 		l.setControlled(this);
+		l.setIntelligence(l.getIntelligence()*intFactor);
 	}
 
 	/** checks whether the player is in control of at least one lifeform */
@@ -46,6 +49,16 @@ public class Player {
 				secondarySelectedLifeform = null;
 			}
 			
+		}
+		else if (e.getKeyChar() == 'u'){
+			if(Upgradepoints > 1)
+			{
+				--Upgradepoints;
+				++intFactor;
+				for(Lifeform toUpgrade : this.getControlledLifeforms()){
+					toUpgrade.setIntelligence(toUpgrade.getIntelligence()*intFactor);
+				}
+			}
 		}
 		else if (getSelectedLifeform() != null)
 			getSelectedLifeform().handleKeyPressed(e);
