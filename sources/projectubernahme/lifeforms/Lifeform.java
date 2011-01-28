@@ -6,6 +6,8 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import javax.swing.JOptionPane;
+
 import projectubernahme.IngestionThread;
 import projectubernahme.Localizer;
 import projectubernahme.MessageTypes;
@@ -458,5 +460,12 @@ abstract public class Lifeform {
 			ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} has {1} suspicion points against {2}."), new Object[] {toString(), points, l.toString()}), MessageTypes.DEBUG);
 		
 		return points > 1;
+	}
+	
+	public void rename () {
+		String input = JOptionPane.showInputDialog(Localizer.get("new name")+":");
+		if (input != null) {
+			setName(input);
+		}
 	}
 }

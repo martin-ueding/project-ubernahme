@@ -6,9 +6,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 
-import javax.swing.JOptionPane;
-
-import projectubernahme.Localizer;
 import projectubernahme.Player;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.simulator.MainSimulator;
@@ -69,10 +66,7 @@ public class LifeformSelectionMouseListener implements MouseListener {
 
 				/* if it was a double click, rename the lifeform */
 				else if (e.getClickCount() == 2) {
-					String input = JOptionPane.showInputDialog(Localizer.get("new name")+":");
-					if (input != null) {
-						selected.setName(input);
-					}
+					selected.rename();
 				}
 			}
 

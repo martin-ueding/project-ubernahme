@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-25 21:53+0100\n"
+"POT-Creation-Date: 2011-01-28 16:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,8 +26,8 @@ msgstr ""
 msgid "{0} suspects {1} now."
 msgstr ""
 
-#: projectubernahme/interface2D/LifeformSelectionMouseListener.java:67
-msgid "new name"
+#: projectubernahme/interface2D/CircleMenu.java:127
+msgid "This menu item was clicked."
 msgstr ""
 
 #: projectubernahme/interface2D/Interface2D.java:18
@@ -44,17 +44,21 @@ msgstr ""
 msgid "{0} took control over {1}."
 msgstr ""
 
-#: projectubernahme/lifeforms/Human.java:48
+#: projectubernahme/lifeforms/Human.java:49
 msgid "ERROR"
 msgstr ""
 
-#: projectubernahme/lifeforms/Human.java:48
+#: projectubernahme/lifeforms/Human.java:49
 msgid "could not open file with list of first names"
 msgstr ""
 
-#: projectubernahme/lifeforms/Lifeform.java:445
+#: projectubernahme/lifeforms/Lifeform.java:460
 #, java-format
 msgid "{0} has {1} suspicion points against {2}."
+msgstr ""
+
+#: projectubernahme/lifeforms/Lifeform.java:466
+msgid "new name"
 msgstr ""
 
 #: projectubernahme/ProjectUbernahme.java:49
