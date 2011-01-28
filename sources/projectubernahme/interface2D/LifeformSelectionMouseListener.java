@@ -60,7 +60,7 @@ public class LifeformSelectionMouseListener implements MouseListener {
 					/* secondary click will select the lifeform and open the interaction menu */
 					else if (e.getButton() == MouseEvent.BUTTON3) {
 						player.setSecondarySelectedLifeform(selected);
-						player.setMenu(new CircleMenu(view, selected));
+						player.setMenu(new CircleMenu(view, selected, player));
 					}
 				}
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-28 16:56+0100\n"
+"POT-Creation-Date: 2011-01-28 17:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,27 @@ msgstr ""
 msgid "{0} suspects {1} now."
 msgstr ""
 
-#: projectubernahme/interface2D/CircleMenu.java:127
+#: projectubernahme/interface2D/CircleMenu.java:43
+msgid "rename"
+msgstr ""
+
+#: projectubernahme/interface2D/CircleMenu.java:50
+msgid "ingest"
+msgstr ""
+
+#: projectubernahme/interface2D/CircleMenu.java:58
+msgid "take over"
+msgstr ""
+
+#: projectubernahme/interface2D/CircleMenu.java:66
+msgid "enable auto AI"
+msgstr ""
+
+#: projectubernahme/interface2D/CircleMenu.java:66
+msgid "disable auto AI"
+msgstr ""
+
+#: projectubernahme/interface2D/CircleMenu.java:158
 msgid "This menu item was clicked."
 msgstr ""
 
