@@ -55,7 +55,7 @@ public class View2D extends JPanel {
 		new MapPanListener(this);
 
 		/* add mouse listener for lifeform selection */
-		addMouseListener(new LifeformSelectionMouseListener(sim, player, transform));
+		addMouseListener(new LifeformSelectionMouseListener(this, sim, player, transform));
 
 		/* add key listener */
 		addKeyListener(new LifeformControlKeyListener(player));
@@ -201,6 +201,12 @@ public class View2D extends JPanel {
 
 		/* reset the transform */
 		g.setTransform(new AffineTransform());
+		
+
+		/* draw the menu */
+		if (player.circlemenu != null) {
+			player.circlemenu.draw(g);
+		}
 
 		/* work out the frames per second */
 		if (ProjectUbernahme.getConfigValue("showFramesPerSecond").equals("true")) {

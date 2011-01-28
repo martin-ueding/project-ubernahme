@@ -2,6 +2,7 @@ package projectubernahme;
 import java.awt.event.KeyEvent;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import projectubernahme.interface2D.CircleMenu;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.simulator.MainSimulator;
 
@@ -133,5 +134,10 @@ public class Player {
 
 	public void addControlledLifeform(Lifeform prey) {
 		controlledLifeforms.add(prey);
+	}
+	
+	public CircleMenu circlemenu;
+	public void setMenu(CircleMenu circleMenu) {
+		this.circlemenu = circleMenu;		
 	}
 }
