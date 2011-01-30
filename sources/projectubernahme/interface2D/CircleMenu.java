@@ -50,7 +50,7 @@ public class CircleMenu implements MouseListener, MouseMotionListener {
 
 		if (player.getSelectedLifeform().canIngest(l)) {
 			item = new CircleMenuItemIngest(this, l);
-			item.angle = 0.25*Math.PI;
+			item.angle = 0.75*Math.PI;
 			item.text = Localizer.get("ingest");
 			item.p = player;
 			menuitems.add(item);
@@ -58,7 +58,7 @@ public class CircleMenu implements MouseListener, MouseMotionListener {
 
 		if (player.getSelectedLifeform().canTakeover(l)) {
 			item = new CircleMenuItemTakeover(this, l);
-			item.angle = 0.5*Math.PI;
+			item.angle = 1.0*Math.PI;
 			item.text = Localizer.get("take over");
 			item.p = player;
 			menuitems.add(item);
@@ -66,7 +66,7 @@ public class CircleMenu implements MouseListener, MouseMotionListener {
 
 		if (l.controllingPlayer == player) {
 			item = new CircleMenuItemPassive(this, l);
-			item.angle = 0.75*Math.PI;
+			item.angle = 0.25*Math.PI;
 			item.text = l.inControlledMode ? Localizer.get("enable auto AI") : Localizer.get("disable auto AI");
 			item.p = player;
 			menuitems.add(item);
@@ -193,7 +193,7 @@ class CircleMenuItem {
 		/* if the radius is complete, draw string (or later image) */
 		if (parent.radiusPart == 1.0) {
 			g.setColor(Color.ORANGE);
-			g.drawString(text, (int)(center.getX() + Math.cos(parent.anglePart*angle)*parent.radiusPart*CircleMenu.MAX_RADIUS -DIAMETER/2), (int)(center.getY() + Math.sin(parent.anglePart*angle)*parent.radiusPart*CircleMenu.MAX_RADIUS));
+			g.drawString(text, (int)(center.getX() + Math.cos(parent.anglePart*angle)*parent.radiusPart*CircleMenu.MAX_RADIUS -DIAMETER/2) +DIAMETER/20, (int)(center.getY() + Math.sin(parent.anglePart*angle)*parent.radiusPart*CircleMenu.MAX_RADIUS)+DIAMETER/20);
 		}
 	}
 }
