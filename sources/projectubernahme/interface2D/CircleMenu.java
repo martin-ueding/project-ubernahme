@@ -15,6 +15,8 @@ import projectubernahme.MessageTypes;
 import projectubernahme.Player;
 import projectubernahme.ProjectUbernahme;
 import projectubernahme.gfx.ConvertedGraphics;
+import projectubernahme.gfx.MenuAiGreen;
+import projectubernahme.gfx.MenuAiRed;
 import projectubernahme.gfx.MenuIngest;
 import projectubernahme.gfx.MenuRename;
 import projectubernahme.gfx.MenuTakeover;
@@ -28,8 +30,8 @@ public class CircleMenu implements MouseListener, MouseMotionListener {
 	private Player player;
 
 
-	public static final int DIAMETER = 70;
-	public static double MAX_RADIUS = 100;
+	public static final int DIAMETER = 100;
+	public static double MAX_RADIUS = 150;
 	public double radiusPart = 0;
 	public double anglePart = 0.0;
 
@@ -287,6 +289,10 @@ class CircleMenuItemPassive extends CircleMenuItem {
 
 	void action () {
 		l.inControlledMode = !l.inControlledMode;
+	}
+	
+	ConvertedGraphics getConvertedGraphics() {
+		return l.inControlledMode ? new MenuAiRed() : new MenuAiGreen();
 	}
 }
 
