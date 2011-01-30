@@ -238,7 +238,7 @@ public class View2D extends JPanel {
 		int i = 0;
 		for (LogMessage s : ProjectUbernahme.getLogMessages()) {
 			g.setColor(Color.black);
-			g.drawString(s.msg, 10, (getHeight()-INTERFACE_HEIGHT)+i*15+20);
+			g.drawString(s.msg, 10, i*15+20);
 			if (s.type == MessageTypes.INFO) {
 				g.setColor(colorInfo);
 			}
@@ -257,7 +257,7 @@ public class View2D extends JPanel {
 			else {
 				g.setColor(Color.white);
 			}
-			g.drawString(s.msg, 10-1, (getHeight()-INTERFACE_HEIGHT)+i*15+20-1);
+			g.drawString(s.msg, 10-1, i*15+20-1);
 			i++;
 		}
 
