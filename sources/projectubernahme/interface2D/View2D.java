@@ -329,5 +329,54 @@ public class View2D extends JPanel {
 			g.drawString(l.getName(), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200+10, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+set*40+15);
 			set++;
 		}
+		
+		/* draw little images of all the lifeforms the player has selected */
+		int controlledLifeformsColumn = 0;
+		int controlledLifeformsLine = 0;
+		final int THUMB_WIDTH = 50;
+		final int THUMB_MARGIN = 10;
+		for (Lifeform lf : player.getControlledLifeforms()) {
+			if (lf.getConvertedGraphics() != null) {
+
+				ConvertedGraphics cg = lf.getConvertedGraphics();
+				int longerEdge = Math.max(cg.getOrigWidth(), cg.getOrigHeight());
+
+				AffineTransform picTransform = new AffineTransform();
+				picTransform.setToIdentity();
+
+
+				picTransform.translate(THUMB_MARGIN/2 + controlledLifeformsColumn*(THUMB_WIDTH+THUMB_MARGIN), getHeight()-INTERFACE_HEIGHT+THUMB_MARGIN/2 + controlledLifeformsLine*(THUMB_WIDTH+THUMB_MARGIN));
+				picTransform.scale((double)THUMB_WIDTH/longerEdge, (double)THUMB_WIDTH/longerEdge);
+
+
+				picTransform.rotate(lf.getViewAngle(), longerEdge/2, longerEdge/2);
+
+				picTransform.translate(-cg.getOrigX(), -cg.getOrigY());
+
+				/* translate a rectangular shape into the middle of the square */
+				if (cg.getOrigWidth() == longerEdge) {
+					/* pic is wider than high */
+					picTransform.translate(0, (cg.getOrigWidth()-cg.getOrigHeight()) / 2);
+				}
+				else {
+					/* pic is higher than wide */
+					picTransform.translate((cg.getOrigHeight()-cg.getOrigWidth()) / 2, 0);
+				}
+
+
+				g.setTransform(picTransform);
+				cg.paint(g);
+				g.setTransform(new AffineTransform());
+			}
+			controlledLifeformsColumn++;
+			/* if it is too wide, go to the next row */
+			if ((THUMB_MARGIN/2 + (controlledLifeformsColumn+1)*(THUMB_WIDTH+THUMB_MARGIN)) > getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200) {
+				controlledLifeformsColumn = 0;
+				controlledLifeformsLine++;
+			}
+			if (controlledLifeformsLine == 2) {
+				break;
+			}
+		}
 	}
 }
