@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-30 14:27+0100\n"
+"POT-Creation-Date: 2011-01-30 15:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,6 +24,15 @@ msgstr ""
 #: projectubernahme/simulator/MainSimulator.java:90
 #, java-format
 msgid "{0} suspects {1} now."
+msgstr ""
+
+#: projectubernahme/interface2D/View2D.java:311
+#: projectubernahme/interface2D/View2D.java:323
+msgid "Class"
+msgstr ""
+
+#: projectubernahme/interface2D/View2D.java:317
+msgid "Biomass"
 msgstr ""
 
 #: projectubernahme/interface2D/CircleMenu.java:43
@@ -70,6 +79,22 @@ msgstr ""
 
 #: projectubernahme/lifeforms/Human.java:49
 msgid "could not open file with list of first names"
+msgstr ""
+
+#: projectubernahme/lifeforms/Human.java:117
+msgid "Human"
+msgstr ""
+
+#: projectubernahme/lifeforms/Fly.java:44
+msgid "Fly"
+msgstr ""
+
+#: projectubernahme/lifeforms/Zombie.java:77
+msgid "Zombie"
+msgstr ""
+
+#: projectubernahme/lifeforms/Tree.java:52
+msgid "Tree"
 msgstr ""
 
 #: projectubernahme/lifeforms/Lifeform.java:460

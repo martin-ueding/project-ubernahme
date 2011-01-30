@@ -413,11 +413,11 @@ abstract public class Lifeform {
 	/** gives a generic description string of the object */
 	public String toString () {
 		if (name.equals("")) {
-			return getClass().getSimpleName()+" \t"+ProjectUbernahme.f.format(getBiomass())+" kg";
+			return getI18nClassName()+" \t"+ProjectUbernahme.f.format(getBiomass())+" kg";
 			
 		}
 		else {
-			return getName()+" \t("+getClass().getSimpleName()+") \t"+ProjectUbernahme.f.format(getBiomass())+" kg";
+			return getName()+" \t("+getI18nClassName()+") \t"+ProjectUbernahme.f.format(getBiomass())+" kg";
 		}
 	}
 
@@ -468,4 +468,6 @@ abstract public class Lifeform {
 			setName(input);
 		}
 	}
+
+	abstract public String getI18nClassName();
 }

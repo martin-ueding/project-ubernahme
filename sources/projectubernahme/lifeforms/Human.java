@@ -111,4 +111,9 @@ public class Human extends Lifeform {
 	public ConvertedGraphics getConvertedGraphics() {
 		return cg;
 	}
+
+	@Override
+	public String getI18nClassName() {
+		return Localizer.get("Human");
+	}
 }

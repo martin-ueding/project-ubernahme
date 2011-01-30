@@ -2,6 +2,7 @@ package projectubernahme.lifeforms;
 
 import java.awt.geom.Point2D;
 
+import projectubernahme.Localizer;
 import projectubernahme.ProjectUbernahme;
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.gfx.LifeformTreeGraphics;
@@ -44,5 +45,10 @@ public class Tree extends Lifeform {
 	@Override
 	public ConvertedGraphics getConvertedGraphics() {
 		return cg;
+	}
+
+	@Override
+	public String getI18nClassName() {
+		return Localizer.get("Tree");
 	}
 }
