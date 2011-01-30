@@ -15,6 +15,7 @@ import projectubernahme.MessageTypes;
 import projectubernahme.Player;
 import projectubernahme.ProjectUbernahme;
 import projectubernahme.gfx.ConvertedGraphics;
+import projectubernahme.gfx.MenuIngest;
 import projectubernahme.gfx.MenuTakeover;
 import projectubernahme.lifeforms.Lifeform;
 
@@ -253,6 +254,10 @@ class CircleMenuItemIngest extends CircleMenuItem {
 
 	void action () {
 		p.getSelectedLifeform().ingest(l);
+	}
+	
+	ConvertedGraphics getConvertedGraphics() {
+		return new MenuIngest();
 	}
 }
 
