@@ -457,7 +457,7 @@ abstract public class Lifeform {
 		points += 10*(intelligence - l.intelligence);
 		
 		if (ProjectUbernahme.verboseLevel >= 5)
-			ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} has {1} suspicion points against {2}."), new Object[] {toString(), points, l.toString()}), MessageTypes.DEBUG);
+			ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} has {1} suspicion points against {2}."), new Object[] {toString(), points, l.toString()}), MessageTypes.INFO);
 		
 		return points > 1;
 	}
