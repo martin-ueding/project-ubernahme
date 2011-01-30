@@ -1,7 +1,6 @@
 package projectubernahme.interface2D;
 
 import java.awt.Color;
-import java.awt.Composite;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
