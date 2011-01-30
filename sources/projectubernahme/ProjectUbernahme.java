@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import projectubernahme.interface2D.Interface2D;
 import projectubernahme.simulator.MainSimulator;
@@ -38,7 +39,7 @@ public class ProjectUbernahme {
 	}
 
 	public static void main (String[] args) {
-		logMessages = new ArrayList<LogMessage>();
+		logMessages = new CopyOnWriteArrayList<LogMessage>();
 		f = new DecimalFormat();
 		f.applyPattern("0.00E0");
 		
@@ -65,7 +66,7 @@ public class ProjectUbernahme {
 		Interface2D interface2d = new Interface2D(sim, player);
 	}
 	
-	private static ArrayList<LogMessage> logMessages;
+	private static CopyOnWriteArrayList<LogMessage> logMessages;
 	
 	/* prints out a log message */
 	public static void log (String s, Enum<MessageTypes> type) {
@@ -91,7 +92,7 @@ public class ProjectUbernahme {
 		log(s, MessageTypes.UNKNOWN);
 	}
 
-	public static ArrayList<LogMessage> getLogMessages() {
+	public static CopyOnWriteArrayList<LogMessage> getLogMessages() {
 		return logMessages;
 	}
 }
