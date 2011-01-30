@@ -28,7 +28,7 @@ public class View2D extends JPanel {
 	private MainSimulator sim;
 
 	int viewScaling = 1000;
-	
+
 	private int frames;
 	double measureTime;
 
@@ -45,9 +45,9 @@ public class View2D extends JPanel {
 		/* set up the transform */
 		transform = new AffineTransform();
 		transform.setToIdentity();
-		
+
 		Point2D initialPosition = player.getControlledLifeforms().get(0).getPoint2D();
-		
+
 		transform.translate(Integer.parseInt(ProjectUbernahme.getConfigValue("initialWindowWidth"))/2, Integer.parseInt(ProjectUbernahme.getConfigValue("initialWindowHeight"))/2);
 		transform.scale(viewScaling, viewScaling);
 		transform.translate(-initialPosition.getX(), -initialPosition.getY());
@@ -59,9 +59,11 @@ public class View2D extends JPanel {
 		addMouseListener(new LifeformSelectionMouseListener(this, sim, player, transform));
 
 		/* add key listener */
+		addKeyListener(sim.getGamePauseKeyListener());
 		addKeyListener(new LifeformControlKeyListener(player));
-		
-		
+
+
+
 		colorWarning = new Color(Integer.decode(ProjectUbernahme.getConfigValue("colorWarning")));
 		colorError = new Color(Integer.decode(ProjectUbernahme.getConfigValue("colorError")));
 		colorInfo = new Color(Integer.decode(ProjectUbernahme.getConfigValue("colorInfo")));
@@ -102,7 +104,7 @@ public class View2D extends JPanel {
 				double diameterView = diameter * Math.sqrt(transform.getDeterminant());			
 
 				Point2D p = transform.transform(l.getPoint2D(), null);
-				
+
 				Rectangle2D lifeformShape = new Rectangle2D.Double(l.getPoint2D().getX()-diameter/2, l.getPoint2D().getY()-diameter/2, diameter, diameter);
 				Shape lifeformShapeResult = transform.createTransformedShape(lifeformShape);
 
@@ -135,11 +137,11 @@ public class View2D extends JPanel {
 						g.setColor(new Color(100, 100, 200, 100));
 						g.fillOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
 					}
-					
+
 					/* if there is some action in progress, draw a progress indicator pie */
 					if (l.busy) {
 						g.setColor(new Color(200, 100, 0, 200));
-						
+
 						if (l.actionProgress == 0.0) {
 							g.fillArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, (int)Math.toDegrees(2*selectionRoationAngle), 20);
 							g.fillArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, (int)Math.toDegrees(2*selectionRoationAngle+Math.PI*2/3), 20);
@@ -160,20 +162,20 @@ public class View2D extends JPanel {
 
 					/* draw image if available */
 					if (l.getConvertedGraphics() != null) {
-						
+
 						ConvertedGraphics cg = l.getConvertedGraphics();
 						int longerEdge = Math.max(cg.getOrigWidth(), cg.getOrigHeight());
-						
+
 						AffineTransform picTransform = new AffineTransform();
 						picTransform.setToIdentity();
 						picTransform.preConcatenate(transform);
-						
+
 						picTransform.translate(l.getPoint2D().getX()-diameter/2, l.getPoint2D().getY()-diameter/2);
 						picTransform.rotate(l.getViewAngle(), diameter/2, diameter/2);
-						
+
 						picTransform.scale(diameter/longerEdge / 1, diameter/longerEdge / 1);
 						picTransform.translate(-cg.getOrigX(), -cg.getOrigY());
-						
+
 
 						/* translate a rectangular shape into the middle of the square */
 						if (cg.getOrigWidth() == longerEdge) {
@@ -184,7 +186,7 @@ public class View2D extends JPanel {
 							/* pic is higher than wide */
 							picTransform.translate((cg.getOrigHeight()-cg.getOrigWidth()) / 2, 0);
 						}
-						
+
 						g.setTransform(picTransform);
 						cg.paint(g);
 					}
@@ -202,7 +204,7 @@ public class View2D extends JPanel {
 
 		/* reset the transform */
 		g.setTransform(new AffineTransform());
-		
+
 
 		/* draw the menu */
 		if (player.circlemenu != null) {
@@ -212,17 +214,17 @@ public class View2D extends JPanel {
 		/* work out the frames per second */
 		if (ProjectUbernahme.getConfigValue("showFramesPerSecond").equals("true")) {
 			frames++;
-			
+
 			g.setColor(Color.black);
 			g.drawString("FPS: "+Math.round(frames/measureTime), getWidth()-80, 20);
-			
+
 			if (measureTime > 10) {
 				frames = 0;
 				measureTime = 0.0;
 			}
 		}
-		
-		
+
+
 		drawInterface(g);
 	}
 
@@ -231,7 +233,7 @@ public class View2D extends JPanel {
 		/* draw the background */
 		g.setColor(new Color(100, 100, 100, 230));
 		g.fillRect(0, getHeight()-INTERFACE_HEIGHT, getWidth(), INTERFACE_HEIGHT);
-		
+
 		/* draw log messages */
 		int i = 0;
 		for (LogMessage s : ProjectUbernahme.getLogMessages()) {
@@ -258,7 +260,7 @@ public class View2D extends JPanel {
 			g.drawString(s.msg, 10-1, (getHeight()-INTERFACE_HEIGHT)+i*15+20-1);
 			i++;
 		}
-		
+
 		/* draw biomass slider */
 		double worldBiomass = sim.getTotalBiomass();
 		double playerBiomass = player.getTotalBiomass();
@@ -268,23 +270,23 @@ public class View2D extends JPanel {
 		g.fillRect(0, getHeight()-INTERFACE_HEIGHT-SLIDER_HEIGHT, getWidth(), SLIDER_HEIGHT);
 		g.setColor(Color.GREEN);
 		g.fillRect(0, getHeight()-INTERFACE_HEIGHT-SLIDER_HEIGHT, (int)Math.round(getWidth()*(playerBiomass/worldBiomass)), SLIDER_HEIGHT);
-	
+
 		/* draw a portrait of the currently selected lifeform */
 		/* draw image if available */
 		Lifeform l = player.getSelectedLifeform();
 		final int SELECTED_SIZE = 120;
 		if (l.getConvertedGraphics() != null) {
-			
+
 			ConvertedGraphics cg = l.getConvertedGraphics();
 			int longerEdge = Math.max(cg.getOrigWidth(), cg.getOrigHeight());
-			
+
 			AffineTransform picTransform = new AffineTransform();
 			picTransform.setToIdentity();
 
 
 			picTransform.translate(getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2);
 			picTransform.scale((double)SELECTED_SIZE/longerEdge, (double)SELECTED_SIZE/longerEdge);
-			
+
 
 			picTransform.rotate(l.getViewAngle(), longerEdge/2, longerEdge/2);
 
@@ -300,12 +302,12 @@ public class View2D extends JPanel {
 				picTransform.translate((cg.getOrigHeight()-cg.getOrigWidth()) / 2, 0);
 			}
 
-			
+
 			g.setTransform(picTransform);
 			cg.paint(g);
 			g.setTransform(new AffineTransform());
 		}
-		
+
 		/* draw info strings */
 		int set = 0;
 		g.setColor(new Color(210, 210, 210));
@@ -321,11 +323,11 @@ public class View2D extends JPanel {
 		set++;
 
 		if (l.getName().length() > 0) {
-		g.setColor(new Color(210, 210, 210));
-		g.drawString(Localizer.get("Name"), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+set*40);
-		g.setColor(Color.WHITE);
-		g.drawString(l.getName(), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200+10, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+set*40+15);
-		set++;
-	}
+			g.setColor(new Color(210, 210, 210));
+			g.drawString(Localizer.get("Name"), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+set*40);
+			g.setColor(Color.WHITE);
+			g.drawString(l.getName(), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200+10, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+set*40+15);
+			set++;
+		}
 	}
 }

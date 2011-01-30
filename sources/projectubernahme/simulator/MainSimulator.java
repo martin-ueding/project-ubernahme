@@ -1,5 +1,6 @@
 package projectubernahme.simulator;
 
+import java.awt.event.KeyListener;
 import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -9,6 +10,7 @@ import projectubernahme.MessageTypes;
 import projectubernahme.Player;
 import projectubernahme.ProjectUbernahme;
 import projectubernahme.environments.TileEnvironment;
+import projectubernahme.interface2D.GamePauseKeyListener;
 import projectubernahme.lifeforms.Fly;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.lifeforms.SuspicionCase;
@@ -31,9 +33,8 @@ public class MainSimulator {
 		
 		env.initializeNPCs(lifeforms, this);
 		
-		/* start thread */
-		Thread SimulatorThread = new SimulatorThread(this);
-		SimulatorThread.start();
+		simulatorThread = new SimulatorThread(this);
+		simulatorThread.start();
 	}
 
 	public CopyOnWriteArrayList<Lifeform> getLifeforms() {
@@ -95,6 +96,7 @@ public class MainSimulator {
 
 	private double lastCalculatedTotalBiomass;
 	private long lastCalculatedTotalBiomassTime;
+	private Thread simulatorThread;
 	public double getTotalBiomass() {
 		Calendar cal = Calendar.getInstance();
 		if (lastCalculatedTotalBiomassTime + Long.parseLong(ProjectUbernahme.getConfigValue("TotalBiomassCalcInterval")) < cal.getTimeInMillis()) {
@@ -105,5 +107,23 @@ public class MainSimulator {
 			}
 		}
 		return lastCalculatedTotalBiomass;
+	}
+	
+	private KeyListener gamePauseKeyListener;
+	public KeyListener getGamePauseKeyListener () {
+		if (gamePauseKeyListener == null) {
+			gamePauseKeyListener = new GamePauseKeyListener(this);
+		}
+		return gamePauseKeyListener;
+	}
+
+	public void toggleGamePause() {
+		if (simulatorThread.isAlive()) {
+			((SimulatorThread) simulatorThread).halt();
+		}
+		else {
+			simulatorThread.run();
+		}
+		
 	}
 }
