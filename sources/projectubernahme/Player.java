@@ -16,8 +16,8 @@ public class Player {
 
 	private Lifeform selectedLifeform;
 	private Lifeform secondarySelectedLifeform;
-	private double Upgradepoints = 0;
-	private double intFactor = 1;
+	private double upgradePoints = 0;
+	private double intelligenceFactor = 1;
 
 
 	/** initializes the list of controlledLifeforms, add a starting one */
@@ -52,8 +52,8 @@ public class Player {
 			
 		}
 		else if (e.getKeyChar() == 'u'){
-			if(Upgradepoints > 1) {
-				--Upgradepoints;
+			if(upgradePoints > 1) {
+				--upgradePoints;
 				setIntFactor(getIntFactor() + 1);
 			}
 		}
@@ -165,10 +165,10 @@ public class Player {
 	}
 
 	public void setIntFactor(double intFactor) {
-		this.intFactor = intFactor;
+		this.intelligenceFactor = intFactor;
 	}
 
 	public double getIntFactor() {
-		return intFactor;
+		return intelligenceFactor;
 	}
 }
