@@ -27,7 +27,7 @@ public class View2D extends JPanel {
 
 	private MainSimulator sim;
 
-	int viewScaling = 1000;
+	int viewScaling =50000;
 
 	private int frames;
 	double measureTime;
