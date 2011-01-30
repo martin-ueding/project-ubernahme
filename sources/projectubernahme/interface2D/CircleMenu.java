@@ -23,11 +23,9 @@ import projectubernahme.gfx.MenuTakeover;
 import projectubernahme.lifeforms.Lifeform;
 
 public class CircleMenu implements MouseListener, MouseMotionListener {
-	private Lifeform l;
 	private View2D view;
 	private Point2D location;
 	boolean display;
-	private Player player;
 
 
 	public static final int DIAMETER = 100;
@@ -40,7 +38,6 @@ public class CircleMenu implements MouseListener, MouseMotionListener {
 
 	public CircleMenu (View2D view, Lifeform l, Player player) {
 		this.view = view;
-		this.l = l;
 		this.location = l.getPoint2D();
 		view.addMouseListener(this);
 		view.addMouseMotionListener(this);

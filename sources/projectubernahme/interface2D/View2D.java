@@ -234,45 +234,64 @@ public class View2D extends JPanel {
 		g.setColor(new Color(100, 100, 100, 230));
 		g.fillRect(0, getHeight()-INTERFACE_HEIGHT, getWidth(), INTERFACE_HEIGHT);
 
-		/* draw log messages */
-		int i = 0;
-		for (LogMessage s : ProjectUbernahme.getLogMessages()) {
-			g.setColor(Color.black);
-			g.drawString(s.msg, 10, i*15+20);
-			if (s.type == MessageTypes.INFO) {
-				g.setColor(colorInfo);
+		drawLogMessages(g);
+		drawBiomassSlider(g, INTERFACE_HEIGHT);
+		drawLifeformInfo(g, INTERFACE_HEIGHT);
+		final int WIDTH_FOR_SELECTED_LIFEFORMS_LIST = getWidth()-120-(INTERFACE_HEIGHT-120)/2-200;
+		drawSelectedLifeformsList(g, INTERFACE_HEIGHT, WIDTH_FOR_SELECTED_LIFEFORMS_LIST);
+	}
+
+	private void drawSelectedLifeformsList(final Graphics2D g, final int INTERFACE_HEIGHT, final int WIDTH) {
+		int controlledLifeformsColumn = 0;
+		int controlledLifeformsLine = 0;
+		final int THUMB_WIDTH = 50;
+		final int THUMB_MARGIN = 10;
+		for (Lifeform lf : player.getControlledLifeforms()) {
+			if (lf.getConvertedGraphics() != null) {
+
+				ConvertedGraphics cg = lf.getConvertedGraphics();
+				int longerEdge = Math.max(cg.getOrigWidth(), cg.getOrigHeight());
+
+				AffineTransform picTransform = new AffineTransform();
+				picTransform.setToIdentity();
+
+
+				picTransform.translate(THUMB_MARGIN/2 + controlledLifeformsColumn*(THUMB_WIDTH+THUMB_MARGIN), getHeight()-INTERFACE_HEIGHT+THUMB_MARGIN/2 + controlledLifeformsLine*(THUMB_WIDTH+THUMB_MARGIN));
+				picTransform.scale((double)THUMB_WIDTH/longerEdge, (double)THUMB_WIDTH/longerEdge);
+
+
+				picTransform.rotate(lf.getViewAngle(), longerEdge/2, longerEdge/2);
+
+				picTransform.translate(-cg.getOrigX(), -cg.getOrigY());
+
+				/* translate a rectangular shape into the middle of the square */
+				if (cg.getOrigWidth() == longerEdge) {
+					/* pic is wider than high */
+					picTransform.translate(0, (cg.getOrigWidth()-cg.getOrigHeight()) / 2);
+				}
+				else {
+					/* pic is higher than wide */
+					picTransform.translate((cg.getOrigHeight()-cg.getOrigWidth()) / 2, 0);
+				}
+
+
+				g.setTransform(picTransform);
+				cg.paint(g);
+				g.setTransform(new AffineTransform());
 			}
-			else if (s.type == MessageTypes.WARNING) {
-				g.setColor(colorWarning);
+			controlledLifeformsColumn++;
+			/* if it is too wide, go to the next row */
+			if ((THUMB_MARGIN/2 + (controlledLifeformsColumn+1)*(THUMB_WIDTH+THUMB_MARGIN)) > WIDTH) {
+				controlledLifeformsColumn = 0;
+				controlledLifeformsLine++;
 			}
-			else if (s.type == MessageTypes.ERROR) {
-				g.setColor(colorError);
+			if (controlledLifeformsLine == 2) {
+				break;
 			}
-			else if (s.type == MessageTypes.DEBUG) {
-				g.setColor(colorDebug);
-			}
-			else if (s.type == MessageTypes.SUCCESS) {
-				g.setColor(colorSuccess);
-			}
-			else {
-				g.setColor(Color.white);
-			}
-			g.drawString(s.msg, 10-1, i*15+20-1);
-			i++;
 		}
+	}
 
-		/* draw biomass slider */
-		double worldBiomass = sim.getTotalBiomass();
-		double playerBiomass = player.getTotalBiomass();
-
-		final int SLIDER_HEIGHT = 1;
-		g.setColor(Color.RED);
-		g.fillRect(0, getHeight()-INTERFACE_HEIGHT-SLIDER_HEIGHT, getWidth(), SLIDER_HEIGHT);
-		g.setColor(Color.GREEN);
-		g.fillRect(0, getHeight()-INTERFACE_HEIGHT-SLIDER_HEIGHT, (int)Math.round(getWidth()*(playerBiomass/worldBiomass)), SLIDER_HEIGHT);
-
-		/* draw a portrait of the currently selected lifeform */
-		/* draw image if available */
+	private void drawLifeformInfo(final Graphics2D g, final int INTERFACE_HEIGHT) {
 		Lifeform l = player.getSelectedLifeform();
 		final int SELECTED_SIZE = 120;
 		if (l.getConvertedGraphics() != null) {
@@ -329,54 +348,45 @@ public class View2D extends JPanel {
 			g.drawString(l.getName(), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200+10, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40+15);
 			infoStringsColumn++;
 		}
-		
-		/* draw little images of all the lifeforms the player has selected */
-		int controlledLifeformsColumn = 0;
-		int controlledLifeformsLine = 0;
-		final int THUMB_WIDTH = 50;
-		final int THUMB_MARGIN = 10;
-		for (Lifeform lf : player.getControlledLifeforms()) {
-			if (lf.getConvertedGraphics() != null) {
+	}
 
-				ConvertedGraphics cg = lf.getConvertedGraphics();
-				int longerEdge = Math.max(cg.getOrigWidth(), cg.getOrigHeight());
-
-				AffineTransform picTransform = new AffineTransform();
-				picTransform.setToIdentity();
-
-
-				picTransform.translate(THUMB_MARGIN/2 + controlledLifeformsColumn*(THUMB_WIDTH+THUMB_MARGIN), getHeight()-INTERFACE_HEIGHT+THUMB_MARGIN/2 + controlledLifeformsLine*(THUMB_WIDTH+THUMB_MARGIN));
-				picTransform.scale((double)THUMB_WIDTH/longerEdge, (double)THUMB_WIDTH/longerEdge);
-
-
-				picTransform.rotate(lf.getViewAngle(), longerEdge/2, longerEdge/2);
-
-				picTransform.translate(-cg.getOrigX(), -cg.getOrigY());
-
-				/* translate a rectangular shape into the middle of the square */
-				if (cg.getOrigWidth() == longerEdge) {
-					/* pic is wider than high */
-					picTransform.translate(0, (cg.getOrigWidth()-cg.getOrigHeight()) / 2);
-				}
-				else {
-					/* pic is higher than wide */
-					picTransform.translate((cg.getOrigHeight()-cg.getOrigWidth()) / 2, 0);
-				}
-
-
-				g.setTransform(picTransform);
-				cg.paint(g);
-				g.setTransform(new AffineTransform());
+	private void drawLogMessages(final Graphics2D g) {
+		int i = 0;
+		for (LogMessage s : ProjectUbernahme.getLogMessages()) {
+			g.setColor(Color.black);
+			g.drawString(s.msg, 10, i*15+20);
+			if (s.type == MessageTypes.INFO) {
+				g.setColor(colorInfo);
 			}
-			controlledLifeformsColumn++;
-			/* if it is too wide, go to the next row */
-			if ((THUMB_MARGIN/2 + (controlledLifeformsColumn+1)*(THUMB_WIDTH+THUMB_MARGIN)) > getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200) {
-				controlledLifeformsColumn = 0;
-				controlledLifeformsLine++;
+			else if (s.type == MessageTypes.WARNING) {
+				g.setColor(colorWarning);
 			}
-			if (controlledLifeformsLine == 2) {
-				break;
+			else if (s.type == MessageTypes.ERROR) {
+				g.setColor(colorError);
 			}
+			else if (s.type == MessageTypes.DEBUG) {
+				g.setColor(colorDebug);
+			}
+			else if (s.type == MessageTypes.SUCCESS) {
+				g.setColor(colorSuccess);
+			}
+			else {
+				g.setColor(Color.white);
+			}
+			g.drawString(s.msg, 10-1, i*15+20-1);
+			i++;
 		}
+	}
+
+	private void drawBiomassSlider(final Graphics2D g,
+			final int INTERFACE_HEIGHT) {
+		double worldBiomass = sim.getTotalBiomass();
+		double playerBiomass = player.getTotalBiomass();
+
+		final int SLIDER_HEIGHT = 1;
+		g.setColor(Color.RED);
+		g.fillRect(0, getHeight()-INTERFACE_HEIGHT-SLIDER_HEIGHT, getWidth(), SLIDER_HEIGHT);
+		g.setColor(Color.GREEN);
+		g.fillRect(0, getHeight()-INTERFACE_HEIGHT-SLIDER_HEIGHT, (int)Math.round(getWidth()*(playerBiomass/worldBiomass)), SLIDER_HEIGHT);
 	}
 }
