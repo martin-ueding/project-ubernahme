@@ -151,8 +151,8 @@ public class View2D extends JPanel {
 					}
 
 
-					/* draw the name */
-					if (!l.getName().equals("")) {
+					/* draw the name if lifeform is big enough to be seen */
+					if (lifeformShapeResult.getBounds().height > 50 && !l.getName().equals("")) {
 						g.setColor(new Color(100, 100, 100, 200));
 						g.drawString(l.getName(), (int)(p.getX()+diameterView/2), (int)(p.getY()+diameterView/2));
 					}
