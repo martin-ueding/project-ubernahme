@@ -248,12 +248,12 @@ class CircleMenuUnfoldThread extends Thread {
 	public void run() {
 		try {
 			while (parent.radiusPart < 1.0) {
-				parent.radiusPart = Math.min(parent.radiusPart + .3, 1.0);
+				parent.radiusPart = Math.min(parent.radiusPart + .35, 1.0);
 				sleep(50);
 			}
 
 			while (parent.anglePart < 1.0) {
-				parent.anglePart = Math.min(parent.anglePart + .3, 1.0);
+				parent.anglePart = Math.min(parent.anglePart + .35, 1.0);
 				sleep(50);
 			}
 		} catch (InterruptedException e) {
@@ -273,12 +273,12 @@ class CircleMenuFoldThread extends Thread {
 	public void run() {
 		try {
 			while (parent.anglePart > 0.0) {
-				parent.anglePart = Math.max(parent.anglePart - .3, 0);
+				parent.anglePart = Math.max(parent.anglePart - .35, 0);
 				sleep(50);
 			}
 
 			while (parent.radiusPart > 0.0) {
-				parent.radiusPart = Math.max(parent.radiusPart - .3, 0);
+				parent.radiusPart = Math.max(parent.radiusPart - .35, 0);
 				sleep(50);
 			}
 		} catch (InterruptedException e) {
