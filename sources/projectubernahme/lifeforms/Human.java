@@ -79,7 +79,7 @@ public class Human extends Lifeform {
 			
 			if (!strangeGuyAround) {
 				viewAngle = Math.atan2(-this.getPoint2D().getY()+waypoint.getY(), -this.getPoint2D().getX()+waypoint.getX());
-				setVelocity(new Vector2D(0.8*Math.cos(viewAngle), 0.8*Math.sin(viewAngle)));
+				setVelocity(new Vector2D(0.5*Math.cos(viewAngle), 0.5*Math.sin(viewAngle)));
 			}
 		}
 		

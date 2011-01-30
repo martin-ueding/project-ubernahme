@@ -33,47 +33,47 @@ public class IngestionThread extends Thread {
 
 
 		try {
-			/* walk towards the victim */
-			while (l.distance(prey) > 0.5) {
-				double xdist, ydist;
-				xdist = prey.getPoint2D().getX() - l.getPoint2D().getX();
-				ydist = prey.getPoint2D().getY() - l.getPoint2D().getY();
 
-				l.viewAngle = Math.atan2(ydist, xdist);
-
-				double distSqrt = Math.sqrt(Math.hypot(xdist, ydist));
-				l.getVelocity().setTo(xdist/distSqrt, ydist/distSqrt);
-
-				/* wait a little till the next check */
-				sleep(100);
-			}
-
-			/* stop when reached the prey */
-			l.getVelocity().zero();
-
-
-			sim.alertEverybody(l);
-
-			/* ingest the prey */
 			if (l.canIngest(prey)) {
-				/* add the prey's name to the lifeform's */
-				if (!l.getName().equals("") && !prey.getName().equals("") && l.getName().concat(prey.getName()).length() <= 25) {
-					l.setName(l.getName()+"-"+prey.getName());
-				}
-
 				double startBioMass = prey.getBiomass();
 
 				while (l.actionProgress < 1.0) {
-					if (l.canIngest(prey)) {
-						double diff = Math.min(prey.getBiomass(), Math.sqrt(l.getBiomass())/10);
 
-						l.setBiomass(l.getBiomass() + diff/l.getIngestionEff());
-						prey.setBiomass(prey.getBiomass() - diff);
+					/* walk towards the victim */
+					if (l.distance(prey) > 0.1) {
+						double xdist, ydist;
+						xdist = prey.getPoint2D().getX() - l.getPoint2D().getX();
+						ydist = prey.getPoint2D().getY() - l.getPoint2D().getY();
+
+						l.viewAngle = Math.atan2(ydist, xdist);
+
+						double distSqrt = Math.hypot(xdist, ydist);
+						l.getVelocity().setTo(xdist/distSqrt, ydist/distSqrt);
 					}
+					else {
+						l.getVelocity().zero();
+					}
+					
+					if (l.distance(prey) <= 0.5) {
+						/* stop when reached the prey */
+						
+						sim.alertEverybody(l);
 
-					l.actionProgress = (startBioMass-prey.getBiomass()) / startBioMass;
+						if (l.canIngest(prey)) {
+							double diff = Math.min(prey.getBiomass(), Math.sqrt(l.getBiomass())/10);
 
+							l.setBiomass(l.getBiomass() + diff/l.getIngestionEff());
+							prey.setBiomass(prey.getBiomass() - diff);
+						}
+
+						l.actionProgress = (startBioMass-prey.getBiomass()) / startBioMass;
+					}
 					sleep(50);
+				}
+
+				/* add the prey's name to the lifeform's */
+				if (!l.getName().equals("") && !prey.getName().equals("") && l.getName().concat(prey.getName()).length() <= 25) {
+					l.setName(l.getName()+"-"+prey.getName());
 				}
 
 				/* remove lifeform from simulator */
