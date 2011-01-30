@@ -2,14 +2,17 @@
 p = projectubernahme
 
 sourceFiles = $(shell find . | egrep "\.java$$")
+classesFiles = $(shell find . | egrep "\.class$$")
+propertiesFiles = $(shell find . | egrep "\.properties$$")
+textFiles = $(shell find . | egrep "\.txt$$")
 
 standard: projectubernahme.jar
 
 all: ../localisation/messages.pot $(p)/strings_de.properties $(p)/strings_tr.properties projectubernahme.jar linecount
 
-# puts the binaries and the sources into the jar
+# puts the binaries into the jar
 projectubernahme.jar: $(p)/ProjectUbernahme.class $(sourceFiles)
-	jar -cfm projectubernahme.jar manifest.txt projectubernahme
+	jar -cfm projectubernahme.jar manifest.txt $(classesFiles) $(propertiesFiles) $(textFiles)
 
 # compiles the game
 $(p)/ProjectUbernahme.class: $(sourceFiles)

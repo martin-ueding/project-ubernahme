@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-25 21:53+0100\n"
+"POT-Creation-Date: 2011-01-29 22:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,15 +44,15 @@ msgstr ""
 msgid "{0} took control over {1}."
 msgstr ""
 
-#: projectubernahme/lifeforms/Human.java:48
+#: projectubernahme/lifeforms/Human.java:49
 msgid "ERROR"
 msgstr ""
 
-#: projectubernahme/lifeforms/Human.java:48
+#: projectubernahme/lifeforms/Human.java:49
 msgid "could not open file with list of first names"
 msgstr ""
 
-#: projectubernahme/lifeforms/Lifeform.java:445
+#: projectubernahme/lifeforms/Lifeform.java:458
 #, java-format
 msgid "{0} has {1} suspicion points against {2}."
 msgstr ""
