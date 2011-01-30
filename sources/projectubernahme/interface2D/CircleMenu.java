@@ -1,6 +1,7 @@
 package projectubernahme.interface2D;
 
 import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -16,15 +17,18 @@ import projectubernahme.ProjectUbernahme;
 import projectubernahme.lifeforms.Lifeform;
 
 public class CircleMenu implements MouseListener, MouseMotionListener {
-	Lifeform l;
-	View2D view;
-	Point2D location;
+	private Lifeform l;
+	private View2D view;
+	private Point2D location;
 	boolean display;
-	Player player;
+	private Player player;
 
-	public static final double RADIUS = 100;
+	public static double MAX_RADIUS = 100;
+	public double radiusPart = 0;
+	public double anglePart = 0.0;
 
-	LinkedList<CircleMenuItem> menuitems;
+	private LinkedList<CircleMenuItem> menuitems;
+	private Thread thread; 
 
 	public CircleMenu (View2D view, Lifeform l, Player player) {
 		this.view = view;
@@ -35,17 +39,18 @@ public class CircleMenu implements MouseListener, MouseMotionListener {
 
 		menuitems = new LinkedList<CircleMenuItem>();
 
+
 		/* add the options to the menu that are allowed */
 		CircleMenuItem item;
 
-		item = new CircleMenuItemRename(l);
+		item = new CircleMenuItemRename(this, l);
 		item.angle = 0.0*Math.PI;
 		item.text = Localizer.get("rename");
 		item.p = player;
 		menuitems.add(item);
 
 		if (player.getSelectedLifeform().canIngest(l)) {
-			item = new CircleMenuItemIngest(l);
+			item = new CircleMenuItemIngest(this, l);
 			item.angle = 0.25*Math.PI;
 			item.text = Localizer.get("ingest");
 			item.p = player;
@@ -53,7 +58,7 @@ public class CircleMenu implements MouseListener, MouseMotionListener {
 		}
 
 		if (player.getSelectedLifeform().canTakeover(l)) {
-			item = new CircleMenuItemTakeover(l);
+			item = new CircleMenuItemTakeover(this, l);
 			item.angle = 0.5*Math.PI;
 			item.text = Localizer.get("take over");
 			item.p = player;
@@ -61,7 +66,7 @@ public class CircleMenu implements MouseListener, MouseMotionListener {
 		}
 
 		if (l.controllingPlayer == player) {
-			item = new CircleMenuItemPassive(l);
+			item = new CircleMenuItemPassive(this, l);
 			item.angle = 0.75*Math.PI;
 			item.text = l.inControlledMode ? Localizer.get("enable auto AI") : Localizer.get("disable auto AI");
 			item.p = player;
@@ -69,6 +74,10 @@ public class CircleMenu implements MouseListener, MouseMotionListener {
 		}
 
 		display = true;
+
+
+		thread = new CircleMenuUnfoldThread(this);
+		thread.start();
 	}
 
 	public void draw (Graphics2D g) {
@@ -91,7 +100,8 @@ public class CircleMenu implements MouseListener, MouseMotionListener {
 	}
 
 	private void destroy () {
-		display = false;
+		thread = new CircleMenuFoldThread(this);
+		thread.start();
 	}
 
 	public void mouseEntered(MouseEvent e) {
@@ -135,6 +145,7 @@ class CircleMenuItem {
 	String text;
 	Lifeform l;
 	Player p;
+	CircleMenu parent;
 
 	boolean hover;
 
@@ -142,8 +153,9 @@ class CircleMenuItem {
 
 	private static final int DIAMETER = 70;
 
-	public CircleMenuItem(Lifeform l) {
+	public CircleMenuItem(CircleMenu circleMenu, Lifeform l) {
 		this.l = l;
+		this.parent = circleMenu;
 	}
 
 	public boolean mouseClicked(MouseEvent e) {
@@ -164,8 +176,8 @@ class CircleMenuItem {
 
 	private boolean isMouseIn(Point arg0) {
 		return (center != null && Math.hypot(
-				(center.getX() + Math.cos(angle)*CircleMenu.RADIUS) - arg0.getX(),
-				(center.getY() + Math.sin(angle)*CircleMenu.RADIUS) - arg0.getY()
+				(center.getX() + Math.cos(angle)*parent.radiusPart*CircleMenu.MAX_RADIUS) - arg0.getX(),
+				(center.getY() + Math.sin(angle)*parent.radiusPart*CircleMenu.MAX_RADIUS) - arg0.getY()
 		) < DIAMETER/2);
 	}
 
@@ -177,15 +189,19 @@ class CircleMenuItem {
 		else {
 			g.setColor(new Color(100, 100, 100, 200));
 		}
-		g.fillOval((int)(center.getX() + Math.cos(angle)*CircleMenu.RADIUS -DIAMETER/2), (int)(center.getY() + Math.sin(angle)*CircleMenu.RADIUS -DIAMETER/2), DIAMETER, DIAMETER);
-		g.setColor(Color.ORANGE);
-		g.drawString(text, (int)(center.getX() + Math.cos(angle)*CircleMenu.RADIUS -DIAMETER/2), (int)(center.getY() + Math.sin(angle)*CircleMenu.RADIUS));
+		g.fillOval((int)(center.getX() + Math.cos(parent.anglePart*angle)*parent.radiusPart*CircleMenu.MAX_RADIUS -DIAMETER*parent.radiusPart/2), (int)(center.getY() + Math.sin(parent.anglePart*angle)*parent.radiusPart*CircleMenu.MAX_RADIUS -DIAMETER*parent.radiusPart/2), (int)(DIAMETER*parent.radiusPart), (int)(DIAMETER*parent.radiusPart));
+
+		/* if the radius is complete, draw string (or later image) */
+		if (parent.radiusPart == 1.0) {
+			g.setColor(Color.ORANGE);
+			g.drawString(text, (int)(center.getX() + Math.cos(parent.anglePart*angle)*parent.radiusPart*CircleMenu.MAX_RADIUS -DIAMETER/2), (int)(center.getY() + Math.sin(parent.anglePart*angle)*parent.radiusPart*CircleMenu.MAX_RADIUS));
+		}
 	}
 }
 
 class CircleMenuItemRename extends CircleMenuItem {
-	public CircleMenuItemRename(Lifeform l) {
-		super(l);
+	public CircleMenuItemRename(CircleMenu parent, Lifeform l) {
+		super(parent, l);
 	}
 
 	void action () {
@@ -194,8 +210,8 @@ class CircleMenuItemRename extends CircleMenuItem {
 }
 
 class CircleMenuItemIngest extends CircleMenuItem {
-	public CircleMenuItemIngest(Lifeform l) {
-		super(l);
+	public CircleMenuItemIngest(CircleMenu parent, Lifeform l) {
+		super(parent, l);
 	}
 
 	void action () {
@@ -204,8 +220,8 @@ class CircleMenuItemIngest extends CircleMenuItem {
 }
 
 class CircleMenuItemTakeover extends CircleMenuItem {
-	public CircleMenuItemTakeover(Lifeform l) {
-		super(l);
+	public CircleMenuItemTakeover(CircleMenu parent, Lifeform l) {
+		super(parent, l);
 	}
 
 	void action () {
@@ -214,11 +230,63 @@ class CircleMenuItemTakeover extends CircleMenuItem {
 }
 
 class CircleMenuItemPassive extends CircleMenuItem {
-	public CircleMenuItemPassive(Lifeform l) {
-		super(l);
+	public CircleMenuItemPassive(CircleMenu parent, Lifeform l) {
+		super(parent, l);
 	}
 
 	void action () {
 		l.inControlledMode = !l.inControlledMode;
+	}
+}
+
+class CircleMenuUnfoldThread extends Thread {
+	CircleMenu parent;
+
+	public CircleMenuUnfoldThread (CircleMenu parent) {
+		this.parent = parent;
+	}
+
+	public void run() {
+		try {
+			while (parent.radiusPart < 1.0) {
+				parent.radiusPart = Math.min(parent.radiusPart + .3, 1.0);
+				sleep(50);
+			}
+
+			while (parent.anglePart < 1.0) {
+				parent.anglePart = Math.min(parent.anglePart + .3, 1.0);
+				sleep(50);
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
+
+class CircleMenuFoldThread extends Thread {
+	CircleMenu parent;
+
+	public CircleMenuFoldThread (CircleMenu parent) {
+		this.parent = parent;
+	}
+
+	public void run() {
+		try {
+			while (parent.anglePart > 0.0) {
+				parent.anglePart = Math.max(parent.anglePart - .3, 0);
+				sleep(50);
+			}
+
+			while (parent.radiusPart > 0.0) {
+				parent.radiusPart = Math.max(parent.radiusPart - .3, 0);
+				sleep(50);
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		parent.display = false;
 	}
 }
