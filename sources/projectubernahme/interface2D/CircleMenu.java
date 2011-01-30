@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
 
@@ -13,6 +14,8 @@ import projectubernahme.Localizer;
 import projectubernahme.MessageTypes;
 import projectubernahme.Player;
 import projectubernahme.ProjectUbernahme;
+import projectubernahme.gfx.ConvertedGraphics;
+import projectubernahme.gfx.MenuTakeover;
 import projectubernahme.lifeforms.Lifeform;
 
 public class CircleMenu implements MouseListener, MouseMotionListener {
@@ -22,6 +25,8 @@ public class CircleMenu implements MouseListener, MouseMotionListener {
 	boolean display;
 	private Player player;
 
+
+	public static final int DIAMETER = 70;
 	public static double MAX_RADIUS = 100;
 	public double radiusPart = 0;
 	public double anglePart = 0.0;
@@ -150,7 +155,6 @@ class CircleMenuItem {
 
 	Point2D center;
 
-	private static final int DIAMETER = 70;
 
 	public CircleMenuItem(CircleMenu circleMenu, Lifeform l) {
 		this.l = l;
@@ -177,24 +181,58 @@ class CircleMenuItem {
 		return (center != null && Math.hypot(
 				(center.getX() + Math.cos(angle)*parent.radiusPart*CircleMenu.MAX_RADIUS) - arg0.getX(),
 				(center.getY() + Math.sin(angle)*parent.radiusPart*CircleMenu.MAX_RADIUS) - arg0.getY()
-		) < DIAMETER/2);
+		) < CircleMenu.DIAMETER/2);
 	}
 
 	public void draw(Graphics2D g, Point2D center) {
 		this.center = center;
 		if (hover) {
-			g.setColor(new Color(200, 200, 200, 200));
-		}
-		else {
 			g.setColor(new Color(100, 100, 100, 200));
 		}
-		g.fillOval((int)(center.getX() + Math.cos(parent.anglePart*angle)*parent.radiusPart*CircleMenu.MAX_RADIUS -DIAMETER*parent.radiusPart/2), (int)(center.getY() + Math.sin(parent.anglePart*angle)*parent.radiusPart*CircleMenu.MAX_RADIUS -DIAMETER*parent.radiusPart/2), (int)(DIAMETER*parent.radiusPart), (int)(DIAMETER*parent.radiusPart));
+		else {
+			g.setColor(new Color(50, 50, 50, 200));
+		}
+		g.fillOval((int)(center.getX() + Math.cos(parent.anglePart*angle)*parent.radiusPart*CircleMenu.MAX_RADIUS -CircleMenu.DIAMETER*parent.radiusPart/2), (int)(center.getY() + Math.sin(parent.anglePart*angle)*parent.radiusPart*CircleMenu.MAX_RADIUS -CircleMenu.DIAMETER*parent.radiusPart/2), (int)(CircleMenu.DIAMETER*parent.radiusPart), (int)(CircleMenu.DIAMETER*parent.radiusPart));
 
 		/* if the radius is complete, draw string (or later image) */
 		if (parent.radiusPart == 1.0) {
-			g.setColor(Color.ORANGE);
-			g.drawString(text, (int)(center.getX() + Math.cos(parent.anglePart*angle)*parent.radiusPart*CircleMenu.MAX_RADIUS -DIAMETER/2) +DIAMETER/20, (int)(center.getY() + Math.sin(parent.anglePart*angle)*parent.radiusPart*CircleMenu.MAX_RADIUS)+DIAMETER/20);
+			if (getConvertedGraphics() != null) {
+				ConvertedGraphics cg = getConvertedGraphics();
+				int longerEdge = Math.max(cg.getOrigWidth(), cg.getOrigHeight());
+
+				AffineTransform picTransform = new AffineTransform();
+				picTransform.setToIdentity();
+
+
+				picTransform.translate(center.getX() + Math.cos(parent.anglePart*angle)*parent.radiusPart*CircleMenu.MAX_RADIUS -CircleMenu.DIAMETER*parent.radiusPart/2, center.getY() + Math.sin(parent.anglePart*angle)*parent.radiusPart*CircleMenu.MAX_RADIUS -CircleMenu.DIAMETER*parent.radiusPart/2);
+				picTransform.scale((double)CircleMenu.DIAMETER/longerEdge, (double)CircleMenu.DIAMETER/longerEdge);
+
+				picTransform.translate(-cg.getOrigX(), -cg.getOrigY());
+
+				/* translate a rectangular shape into the middle of the square */
+				if (cg.getOrigWidth() == longerEdge) {
+					/* pic is wider than high */
+					picTransform.translate(0, (cg.getOrigWidth()-cg.getOrigHeight()) / 2);
+				}
+				else {
+					/* pic is higher than wide */
+					picTransform.translate((cg.getOrigHeight()-cg.getOrigWidth()) / 2, 0);
+				}
+
+
+				g.setTransform(picTransform);
+				cg.paint(g);
+				g.setTransform(new AffineTransform());
+			}
+			else {
+				g.setColor(Color.ORANGE);
+				g.drawString(text, (int)(center.getX() + Math.cos(parent.anglePart*angle)*parent.radiusPart*CircleMenu.MAX_RADIUS -CircleMenu.DIAMETER/2) +CircleMenu.DIAMETER/20, (int)(center.getY() + Math.sin(parent.anglePart*angle)*parent.radiusPart*CircleMenu.MAX_RADIUS)+CircleMenu.DIAMETER/20);
+			}
 		}
+	}
+
+	ConvertedGraphics getConvertedGraphics() {
+		return null;
 	}
 }
 
@@ -225,6 +263,10 @@ class CircleMenuItemTakeover extends CircleMenuItem {
 
 	void action () {
 		p.getSelectedLifeform().takeover(l);
+	}
+	
+	ConvertedGraphics getConvertedGraphics() {
+		return new MenuTakeover();
 	}
 }
 

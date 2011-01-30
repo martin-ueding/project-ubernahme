@@ -270,6 +270,9 @@ abstract public class Lifeform {
 	private Thread actionThread;
 
 	public boolean canTakeover(Lifeform prey) {
+		if (prey == this) {
+			return false;
+		}
 		return canSee(prey);
 	}
 
@@ -288,6 +291,9 @@ abstract public class Lifeform {
 	}
 
 	public boolean canIngest(Lifeform prey) {
+		if (prey == this) {
+			return false;
+		}
 		return canSee(prey);
 	}
 
