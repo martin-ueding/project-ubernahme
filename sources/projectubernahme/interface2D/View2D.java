@@ -11,6 +11,7 @@ import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
 
+import projectubernahme.Localizer;
 import projectubernahme.LogMessage;
 import projectubernahme.MessageTypes;
 import projectubernahme.Player;
@@ -55,7 +56,7 @@ public class View2D extends JPanel {
 		new MapPanListener(this);
 
 		/* add mouse listener for lifeform selection */
-		addMouseListener(new LifeformSelectionMouseListener(sim, player, transform));
+		addMouseListener(new LifeformSelectionMouseListener(this, sim, player, transform));
 
 		/* add key listener */
 		addKeyListener(new LifeformControlKeyListener(player));
@@ -201,6 +202,12 @@ public class View2D extends JPanel {
 
 		/* reset the transform */
 		g.setTransform(new AffineTransform());
+		
+
+		/* draw the menu */
+		if (player.circlemenu != null) {
+			player.circlemenu.draw(g);
+		}
 
 		/* work out the frames per second */
 		if (ProjectUbernahme.getConfigValue("showFramesPerSecond").equals("true")) {
@@ -215,11 +222,21 @@ public class View2D extends JPanel {
 			}
 		}
 		
+		
+		drawInterface(g);
+	}
+
+	private void drawInterface(final Graphics2D g) {
+		final int INTERFACE_HEIGHT = 150;
+		/* draw the background */
+		g.setColor(new Color(100, 100, 100, 230));
+		g.fillRect(0, getHeight()-INTERFACE_HEIGHT, getWidth(), INTERFACE_HEIGHT);
+		
 		/* draw log messages */
 		int i = 0;
 		for (LogMessage s : ProjectUbernahme.getLogMessages()) {
 			g.setColor(Color.black);
-			g.drawString(s.msg, 10, i*15+20);
+			g.drawString(s.msg, 10, (getHeight()-INTERFACE_HEIGHT)+i*15+20);
 			if (s.type == MessageTypes.INFO) {
 				g.setColor(colorInfo);
 			}
@@ -238,8 +255,77 @@ public class View2D extends JPanel {
 			else {
 				g.setColor(Color.white);
 			}
-			g.drawString(s.msg, 10-1, i*15+20-1);
+			g.drawString(s.msg, 10-1, (getHeight()-INTERFACE_HEIGHT)+i*15+20-1);
 			i++;
 		}
+		
+		/* draw biomass slider */
+		double worldBiomass = sim.getTotalBiomass();
+		double playerBiomass = player.getTotalBiomass();
+
+		final int SLIDER_HEIGHT = 1;
+		g.setColor(Color.RED);
+		g.fillRect(0, getHeight()-INTERFACE_HEIGHT-SLIDER_HEIGHT, getWidth(), SLIDER_HEIGHT);
+		g.setColor(Color.GREEN);
+		g.fillRect(0, getHeight()-INTERFACE_HEIGHT-SLIDER_HEIGHT, (int)Math.round(getWidth()*(playerBiomass/worldBiomass)), SLIDER_HEIGHT);
+	
+		/* draw a portrait of the currently selected lifeform */
+		/* draw image if available */
+		Lifeform l = player.getSelectedLifeform();
+		final int SELECTED_SIZE = 120;
+		if (l.getConvertedGraphics() != null) {
+			
+			ConvertedGraphics cg = l.getConvertedGraphics();
+			int longerEdge = Math.max(cg.getOrigWidth(), cg.getOrigHeight());
+			
+			AffineTransform picTransform = new AffineTransform();
+			picTransform.setToIdentity();
+
+
+			picTransform.translate(getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2);
+			picTransform.scale((double)SELECTED_SIZE/longerEdge, (double)SELECTED_SIZE/longerEdge);
+			
+
+			picTransform.rotate(l.getViewAngle(), longerEdge/2, longerEdge/2);
+
+			picTransform.translate(-cg.getOrigX(), -cg.getOrigY());
+
+			/* translate a rectangular shape into the middle of the square */
+			if (cg.getOrigWidth() == longerEdge) {
+				/* pic is wider than high */
+				picTransform.translate(0, (cg.getOrigWidth()-cg.getOrigHeight()) / 2);
+			}
+			else {
+				/* pic is higher than wide */
+				picTransform.translate((cg.getOrigHeight()-cg.getOrigWidth()) / 2, 0);
+			}
+
+			
+			g.setTransform(picTransform);
+			cg.paint(g);
+			g.setTransform(new AffineTransform());
+		}
+		
+		/* draw info strings */
+		int set = 0;
+		g.setColor(new Color(210, 210, 210));
+		g.drawString(Localizer.get("Class"), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+set*40);
+		g.setColor(Color.WHITE);
+		g.drawString(l.getI18nClassName(), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200+10, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+set*40+15);
+		set++;
+
+		g.setColor(new Color(210, 210, 210));
+		g.drawString(Localizer.get("Biomass"), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+set*40);
+		g.setColor(Color.WHITE);
+		g.drawString(ProjectUbernahme.f.format(l.getBiomass())+" kg", getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200+10, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+set*40+15);
+		set++;
+
+		if (l.getName().length() > 0) {
+		g.setColor(new Color(210, 210, 210));
+		g.drawString(Localizer.get("Name"), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+set*40);
+		g.setColor(Color.WHITE);
+		g.drawString(l.getName(), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200+10, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+set*40+15);
+		set++;
+	}
 	}
 }

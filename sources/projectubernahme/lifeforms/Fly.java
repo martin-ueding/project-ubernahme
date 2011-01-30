@@ -2,6 +2,7 @@ package projectubernahme.lifeforms;
 
 import java.awt.geom.Point2D;
 
+import projectubernahme.Localizer;
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.gfx.LifeformFlyGraphics;
 import projectubernahme.simulator.MainSimulator;
@@ -16,7 +17,7 @@ public class Fly extends Lifeform {
 		setCanFly(true);
 		setCanSee(true);
 		setCanMove(true);
-		setRangeOfSight(3);
+		setRangeOfSight(300);
 		setBiomass(0.001/17);
 		setIntelligence(0.1);
 		
@@ -36,5 +37,10 @@ public class Fly extends Lifeform {
 	@Override
 	public ConvertedGraphics getConvertedGraphics() {
 		return cg;
+	}
+
+	@Override
+	public String getI18nClassName() {
+		return Localizer.get("Fly");
 	}
 }

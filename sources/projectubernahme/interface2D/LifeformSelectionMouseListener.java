@@ -6,9 +6,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 
-import javax.swing.JOptionPane;
-
-import projectubernahme.Localizer;
 import projectubernahme.Player;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.simulator.MainSimulator;
@@ -18,8 +15,10 @@ public class LifeformSelectionMouseListener implements MouseListener {
 	Player player;
 	AffineTransform transform;
 	MainSimulator sim;
+	View2D view;
 
-	public LifeformSelectionMouseListener (MainSimulator sim, Player player, AffineTransform transform) {
+	public LifeformSelectionMouseListener (View2D view, MainSimulator sim, Player player, AffineTransform transform) {
+		this.view = view;
 		this.sim = sim;
 		this.player = player;
 		this.transform = transform;
@@ -54,20 +53,20 @@ public class LifeformSelectionMouseListener implements MouseListener {
 			if (selected != null) {
 				/* if it was a single click, select the lifeform */
 				if (e.getClickCount() == 1) {
+					/* primary click select the lifeform to act with */
 					if (e.getButton() == MouseEvent.BUTTON1 && primary) {
 						player.setSelectedLifeform(selected);
 					}
+					/* secondary click will select the lifeform and open the interaction menu */
 					else if (e.getButton() == MouseEvent.BUTTON3) {
 						player.setSecondarySelectedLifeform(selected);
+						player.setMenu(new CircleMenu(view, selected, player));
 					}
 				}
 
 				/* if it was a double click, rename the lifeform */
 				else if (e.getClickCount() == 2) {
-					String input = JOptionPane.showInputDialog(Localizer.get("new name")+":");
-					if (input != null) {
-						selected.setName(input);
-					}
+					selected.rename();
 				}
 			}
 

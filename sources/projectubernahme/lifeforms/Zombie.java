@@ -2,6 +2,7 @@ package projectubernahme.lifeforms;
 
 import java.awt.geom.Point2D;
 
+import projectubernahme.Localizer;
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.gfx.LifeformZombieGraphics;
 import projectubernahme.simulator.MainSimulator;
@@ -69,5 +70,10 @@ public class Zombie extends Lifeform {
 	@Override
 	public ConvertedGraphics getConvertedGraphics() {
 		return cg;
+	}
+
+	@Override
+	public String getI18nClassName() {
+		return Localizer.get("Zombie");
 	}
 }

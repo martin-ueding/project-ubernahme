@@ -1,6 +1,7 @@
 package projectubernahme.simulator;
 
 import java.text.MessageFormat;
+import java.util.Calendar;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import projectubernahme.Localizer;
@@ -90,5 +91,19 @@ public class MainSimulator {
 						l.isControlled() ? MessageTypes.WARNING : MessageTypes.INFO);
 			}
 		}
+	}
+
+	private double lastCalculatedTotalBiomass;
+	private long lastCalculatedTotalBiomassTime;
+	public double getTotalBiomass() {
+		Calendar cal = Calendar.getInstance();
+		if (lastCalculatedTotalBiomassTime + Long.parseLong(ProjectUbernahme.getConfigValue("TotalBiomassCalcInterval")) < cal.getTimeInMillis()) {
+			lastCalculatedTotalBiomassTime = cal.getTimeInMillis();
+			lastCalculatedTotalBiomass = 0.0;
+			for (Lifeform l : lifeforms) {
+				lastCalculatedTotalBiomass += l.getBiomass();
+			}
+		}
+		return lastCalculatedTotalBiomass;
 	}
 }
