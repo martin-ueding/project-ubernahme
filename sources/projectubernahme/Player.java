@@ -1,5 +1,6 @@
 package projectubernahme;
 import java.awt.event.KeyEvent;
+import java.util.Calendar;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import projectubernahme.interface2D.CircleMenu;
@@ -139,5 +140,19 @@ public class Player {
 	public CircleMenu circlemenu;
 	public void setMenu(CircleMenu circleMenu) {
 		this.circlemenu = circleMenu;		
+	}
+	
+	private double lastCalculatedTotalBiomass;
+	private long lastCalculatedTotalBiomassTime;
+	public double getTotalBiomass() {
+		Calendar cal = Calendar.getInstance();
+		if (lastCalculatedTotalBiomassTime + Long.parseLong(ProjectUbernahme.getConfigValue("TotalBiomassCalcInterval")) < cal.getTimeInMillis()) {
+			lastCalculatedTotalBiomassTime = cal.getTimeInMillis();
+			lastCalculatedTotalBiomass = 0.0;
+			for (Lifeform l : controlledLifeforms) {
+				lastCalculatedTotalBiomass += l.getBiomass();
+			}
+		}
+		return lastCalculatedTotalBiomass;
 	}
 }

@@ -221,11 +221,21 @@ public class View2D extends JPanel {
 			}
 		}
 		
+		
+		drawInterface(g);
+	}
+
+	private void drawInterface(final Graphics2D g) {
+		final int INTERFACE_HEIGHT = 150;
+		/* draw the background */
+		g.setColor(new Color(100, 100, 100, 230));
+		g.fillRect(0, getHeight()-INTERFACE_HEIGHT, getWidth(), INTERFACE_HEIGHT);
+		
 		/* draw log messages */
 		int i = 0;
 		for (LogMessage s : ProjectUbernahme.getLogMessages()) {
 			g.setColor(Color.black);
-			g.drawString(s.msg, 10, i*15+20);
+			g.drawString(s.msg, 10, (getHeight()-INTERFACE_HEIGHT)+i*15+20);
 			if (s.type == MessageTypes.INFO) {
 				g.setColor(colorInfo);
 			}
@@ -244,8 +254,18 @@ public class View2D extends JPanel {
 			else {
 				g.setColor(Color.white);
 			}
-			g.drawString(s.msg, 10-1, i*15+20-1);
+			g.drawString(s.msg, 10-1, (getHeight()-INTERFACE_HEIGHT)+i*15+20-1);
 			i++;
 		}
+		
+		/* draw biomass slider */
+		double worldBiomass = sim.getTotalBiomass();
+		double playerBiomass = player.getTotalBiomass();
+
+		final int SLIDER_HEIGHT = 1;
+		g.setColor(Color.RED);
+		g.fillRect(0, getHeight()-INTERFACE_HEIGHT-SLIDER_HEIGHT, getWidth(), SLIDER_HEIGHT);
+		g.setColor(Color.GREEN);
+		g.fillRect(0, getHeight()-INTERFACE_HEIGHT-SLIDER_HEIGHT, (int)Math.round(getWidth()*(playerBiomass/worldBiomass)), SLIDER_HEIGHT);
 	}
 }
