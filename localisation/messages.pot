@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-30 15:41+0100\n"
+"POT-Creation-Date: 2011-01-30 16:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,36 +26,39 @@ msgstr ""
 msgid "{0} suspects {1} now."
 msgstr ""
 
-#: projectubernahme/interface2D/View2D.java:311
-#: projectubernahme/interface2D/View2D.java:323
+#: projectubernahme/interface2D/View2D.java:312
 msgid "Class"
 msgstr ""
 
-#: projectubernahme/interface2D/View2D.java:317
+#: projectubernahme/interface2D/View2D.java:318
 msgid "Biomass"
 msgstr ""
 
-#: projectubernahme/interface2D/CircleMenu.java:43
+#: projectubernahme/interface2D/View2D.java:325
+msgid "Name"
+msgstr ""
+
+#: projectubernahme/interface2D/CircleMenu.java:48
 msgid "rename"
 msgstr ""
 
-#: projectubernahme/interface2D/CircleMenu.java:50
+#: projectubernahme/interface2D/CircleMenu.java:55
 msgid "ingest"
 msgstr ""
 
-#: projectubernahme/interface2D/CircleMenu.java:58
+#: projectubernahme/interface2D/CircleMenu.java:63
 msgid "take over"
 msgstr ""
 
-#: projectubernahme/interface2D/CircleMenu.java:66
+#: projectubernahme/interface2D/CircleMenu.java:71
 msgid "enable auto AI"
 msgstr ""
 
-#: projectubernahme/interface2D/CircleMenu.java:66
+#: projectubernahme/interface2D/CircleMenu.java:71
 msgid "disable auto AI"
 msgstr ""
 
-#: projectubernahme/interface2D/CircleMenu.java:158
+#: projectubernahme/interface2D/CircleMenu.java:170
 msgid "This menu item was clicked."
 msgstr ""
 
