@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-30 16:39+0100\n"
+"POT-Creation-Date: 2011-01-30 20:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,44 +21,48 @@ msgstr ""
 msgid "Game Over!"
 msgstr ""
 
-#: projectubernahme/simulator/MainSimulator.java:90
+#: projectubernahme/simulator/MainSimulator.java:91
 #, java-format
 msgid "{0} suspects {1} now."
 msgstr ""
 
-#: projectubernahme/interface2D/View2D.java:312
+#: projectubernahme/interface2D/GamePauseKeyListener.java:21
+msgid "Game paused/resumed"
+msgstr ""
+
+#: projectubernahme/interface2D/View2D.java:314
 msgid "Class"
 msgstr ""
 
-#: projectubernahme/interface2D/View2D.java:318
+#: projectubernahme/interface2D/View2D.java:320
 msgid "Biomass"
 msgstr ""
 
-#: projectubernahme/interface2D/View2D.java:325
+#: projectubernahme/interface2D/View2D.java:327
 msgid "Name"
 msgstr ""
 
-#: projectubernahme/interface2D/CircleMenu.java:48
+#: projectubernahme/interface2D/CircleMenu.java:56
 msgid "rename"
 msgstr ""
 
-#: projectubernahme/interface2D/CircleMenu.java:55
+#: projectubernahme/interface2D/CircleMenu.java:63
 msgid "ingest"
 msgstr ""
 
-#: projectubernahme/interface2D/CircleMenu.java:63
+#: projectubernahme/interface2D/CircleMenu.java:71
 msgid "take over"
 msgstr ""
 
-#: projectubernahme/interface2D/CircleMenu.java:71
+#: projectubernahme/interface2D/CircleMenu.java:79
 msgid "enable auto AI"
 msgstr ""
 
-#: projectubernahme/interface2D/CircleMenu.java:71
+#: projectubernahme/interface2D/CircleMenu.java:79
 msgid "disable auto AI"
 msgstr ""
 
-#: projectubernahme/interface2D/CircleMenu.java:170
+#: projectubernahme/interface2D/CircleMenu.java:177
 msgid "This menu item was clicked."
 msgstr ""
 
@@ -100,12 +104,12 @@ msgstr ""
 msgid "Tree"
 msgstr ""
 
-#: projectubernahme/lifeforms/Lifeform.java:460
+#: projectubernahme/lifeforms/Lifeform.java:481
 #, java-format
 msgid "{0} has {1} suspicion points against {2}."
 msgstr ""
 
-#: projectubernahme/lifeforms/Lifeform.java:466
+#: projectubernahme/lifeforms/Lifeform.java:487
 msgid "new name"
 msgstr ""
 

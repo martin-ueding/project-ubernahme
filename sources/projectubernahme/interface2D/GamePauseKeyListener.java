@@ -16,7 +16,7 @@ public class GamePauseKeyListener implements KeyListener {
 	}
 
 	public void keyPressed(KeyEvent e) {
-		ProjectUbernahme.log(Localizer.get("GamePauseKeyListener keyPressed(KeyEvent e) evoked"), MessageTypes.INFO);
+		//ProjectUbernahme.log(Localizer.get("GamePauseKeyListener keyPressed(KeyEvent e) evoked"), MessageTypes.INFO);
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			ProjectUbernahme.log(Localizer.get("Game paused/resumed"), MessageTypes.INFO);
 			sim.toggleGamePause();
@@ -24,10 +24,10 @@ public class GamePauseKeyListener implements KeyListener {
 	}
 
 	public void keyReleased(KeyEvent arg0) {
-		ProjectUbernahme.log(Localizer.get("GamePauseKeyListener keyReleased(KeyEvent e) evoked"), MessageTypes.INFO);
+		//ProjectUbernahme.log(Localizer.get("GamePauseKeyListener keyReleased(KeyEvent e) evoked"), MessageTypes.INFO);
 	}
 
 	public void keyTyped(KeyEvent arg0) {
-		ProjectUbernahme.log(Localizer.get("GamePauseKeyListener keyTyped(KeyEvent e) evoked"), MessageTypes.INFO);
+		//ProjectUbernahme.log(Localizer.get("GamePauseKeyListener keyTyped(KeyEvent e) evoked"), MessageTypes.INFO);
 	}
 }
