@@ -35,43 +35,41 @@ public class TakeoverThread extends Thread {
 
 
 		try {
-			/* walk towards the victim */
-			while (l.distance(prey) > 0.5) {
-				double xdist, ydist;
-				xdist = prey.getPoint2D().getX() - l.getPoint2D().getX();
-				ydist = prey.getPoint2D().getY() - l.getPoint2D().getY();
-
-				l.viewAngle = Math.atan2(ydist, xdist);
-
-				double distSqrt = Math.sqrt(Math.hypot(xdist, ydist));
-				l.getVelocity().setTo(xdist/distSqrt, ydist/distSqrt);
-
-				/* wait a little till the next check */
-				sleep(100);
-			}
-
-			/* stop when reached the prey */
-			l.getVelocity().zero();
-
-
-			sim.alertEverybody(l);
-
-			/* burn time until it is ready */
-			while (l.actionProgress < 1.0) {
-				l.actionProgress += 0.05;
-
-				sleep(50);
-			}
-
-			/* take over the lifeform */
 			if (l.canTakeover(prey)) {
+
+				while (l.actionProgress < 1.0) {
+					/* walk towards the victim */
+					if (l.distance(prey) > 0.1) {
+						double xdist, ydist;
+						xdist = prey.getPoint2D().getX() - l.getPoint2D().getX();
+						ydist = prey.getPoint2D().getY() - l.getPoint2D().getY();
+
+						l.viewAngle = Math.atan2(ydist, xdist);
+
+						double distSqrt = Math.hypot(xdist, ydist);
+						l.getVelocity().setTo(xdist/distSqrt, ydist/distSqrt);
+					}
+					else {
+						/* stop when reached the prey */
+						l.getVelocity().zero();
+					}
+					if (l.distance(prey) <= 0.5) {
+						sim.alertEverybody(l);
+
+						/* burn time until it is ready */
+						l.actionProgress += 0.05;
+					}
+					
+					sleep(50);
+				}
+				
+				/* take over the lifeform */
 				prey.setControlled(player);				
 				player.addControlledLifeform(prey);
+
+				if ((takeoverMessageType == MessageTypes.INFO && ProjectUbernahme.verboseLevel >= 3) || takeoverMessageType != MessageTypes.INFO)
+					ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} took control over {1}."), new Object[] {l.toString(), prey.toString()}), takeoverMessageType);
 			}
-
-			if ((takeoverMessageType == MessageTypes.INFO && ProjectUbernahme.verboseLevel >= 3) || takeoverMessageType != MessageTypes.INFO)
-				ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} took control over {1}."), new Object[] {l.toString(), prey.toString()}), takeoverMessageType);
-
 		} catch (InterruptedException e) {
 			/* if the action was interrupted, then it will just stop, the busy state is reset at the end of this method anyway */
 		}
