@@ -452,11 +452,16 @@ abstract public class Lifeform {
 	private double intelligence;
 	
 	public void setIntelligence(double intelligence) {
-		this.intelligence = intelligence*controllingPlayer.getIntFactor();
+		this.intelligence = intelligence;
 	}
 
 	public double getIntelligence() {
-		return intelligence;
+		if (controllingPlayer != null) {
+			return intelligence*controllingPlayer.getIntFactor();
+		}
+		else {
+			return intelligence;
+		}
 	}
 
 	public void setVelocity(Vector2D velocity) {
