@@ -16,6 +16,7 @@ import projectubernahme.Player;
 import projectubernahme.ProjectUbernahme;
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.gfx.MenuIngest;
+import projectubernahme.gfx.MenuRename;
 import projectubernahme.gfx.MenuTakeover;
 import projectubernahme.lifeforms.Lifeform;
 
@@ -244,6 +245,10 @@ class CircleMenuItemRename extends CircleMenuItem {
 
 	void action () {
 		l.rename();
+	}
+	
+	ConvertedGraphics getConvertedGraphics() {
+		return new MenuRename();
 	}
 }
 
