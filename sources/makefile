@@ -40,4 +40,4 @@ $(p)/strings_tr.properties: ../localisation/tr.po
 
 .PHONY: linecount
 linecount:
-	@cat $(sourceFiles) | wc
+	@cat $(sourceFiles) $(propertiesFiles) $(textFiles) | wc
