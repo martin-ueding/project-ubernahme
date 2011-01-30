@@ -28,7 +28,7 @@ public class Zombie extends Lifeform {
 
 	@Override
 	public void act(int sleepTime) {
-		if (!isControlled()) {
+		if (!inControlledMode) {
 			/* find the closest human to this zombie */
 			Lifeform closest = null;
 			double minDistance = Double.MAX_VALUE;
