@@ -16,6 +16,8 @@ public class Player {
 
 	private Lifeform selectedLifeform;
 	private Lifeform secondarySelectedLifeform;
+	private double Upgradepoints = 0;
+	private double intFactor = 1;
 
 
 	/** initializes the list of controlledLifeforms, add a starting one */
@@ -48,6 +50,12 @@ public class Player {
 				secondarySelectedLifeform = null;
 			}
 			
+		}
+		else if (e.getKeyChar() == 'u'){
+			if(Upgradepoints > 1) {
+				--Upgradepoints;
+				setIntFactor(getIntFactor() + 1);
+			}
 		}
 		else if (getSelectedLifeform() != null)
 			getSelectedLifeform().handleKeyPressed(e);
@@ -154,5 +162,13 @@ public class Player {
 			}
 		}
 		return lastCalculatedTotalBiomass;
+	}
+
+	public void setIntFactor(double intFactor) {
+		this.intFactor = intFactor;
+	}
+
+	public double getIntFactor() {
+		return intFactor;
 	}
 }

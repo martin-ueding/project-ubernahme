@@ -40,9 +40,6 @@ abstract public class Lifeform {
 	/** this lets the lifeform act, this can be just sitting around or calling for support or attacking another lifeform */
 	abstract public void act(int sleepTime);
 	
-	/** whether this lifeforms thinks that something weird is going on [0, 1] */
-	private double suspicion = 0.05;
-	
 	public CopyOnWriteArrayList<SuspicionCase> suspicionCases;
 	
 	/*
@@ -135,6 +132,15 @@ abstract public class Lifeform {
 	private boolean canFly = false;
 	private int rangeOfSight = 0;
 	private double diameter = 0;
+	private double ingestionEff = 0.9;
+	
+	public void setIngestionEff(double newEff){
+		this.ingestionEff = newEff;
+	}
+	
+	public double getIngestionEff(){
+		return ingestionEff;
+	}
 
 	public void setRangeOfSight(int range){
 		this.rangeOfSight = range;
@@ -273,7 +279,16 @@ abstract public class Lifeform {
 		if (prey == this) {
 			return false;
 		}
-		return canSee(prey);
+		double random1 = Math.random()/0.5 + 0.5;
+		double random2 = Math.random()/0.5 + 0.5;
+		double sizeFactor = prey.getBiomass()*random1 / this.biomass*random2;
+		double intelligenceFactor = prey.getIntelligence();
+		if (sizeFactor * intelligenceFactor < 5 && canSee(prey)) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	/** takes over control of the given lifeform, returns whether that was successful */
@@ -437,7 +452,7 @@ abstract public class Lifeform {
 	private double intelligence;
 	
 	public void setIntelligence(double intelligence) {
-		this.intelligence = intelligence;
+		this.intelligence = intelligence*controllingPlayer.getIntFactor();
 	}
 
 	public double getIntelligence() {

@@ -67,7 +67,7 @@ public class IngestionThread extends Thread {
 					if (l.canIngest(prey)) {
 						double diff = Math.min(prey.getBiomass(), Math.sqrt(l.getBiomass())/10);
 
-						l.setBiomass(l.getBiomass() + diff);
+						l.setBiomass(l.getBiomass() + diff/l.getIngestionEff());
 						prey.setBiomass(prey.getBiomass() - diff);
 					}
 
