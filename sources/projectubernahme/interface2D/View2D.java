@@ -205,13 +205,17 @@ public class View2D extends JPanel {
 		/* reset the transform */
 		g.setTransform(new AffineTransform());
 
+		drawFramesPerSecond(g);
 
+		drawInterface(g);
+		
 		/* draw the menu */
 		if (player.circlemenu != null) {
 			player.circlemenu.draw(g);
 		}
+	}
 
-		/* work out the frames per second */
+	private void drawFramesPerSecond(final Graphics2D g) {
 		if (ProjectUbernahme.getConfigValue("showFramesPerSecond").equals("true")) {
 			frames++;
 
@@ -223,9 +227,6 @@ public class View2D extends JPanel {
 				measureTime = 0.0;
 			}
 		}
-
-
-		drawInterface(g);
 	}
 
 	private void drawInterface(final Graphics2D g) {
