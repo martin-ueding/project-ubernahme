@@ -29,6 +29,7 @@ public class MainSimulator {
 		lifeforms = new CopyOnWriteArrayList<Lifeform>();
 		players = new CopyOnWriteArrayList<Player>();
 		
+		// TODO add selector for multiple maps here
 		env = new TileEnvironment("squarecity");
 		
 		env.initializeNPCs(lifeforms, this);
@@ -83,7 +84,7 @@ public class MainSimulator {
 			if (other.canSee(l) && other.willSuspect(l)) {
 				SuspicionCase sc = new SuspicionCase();
 				sc.l = l;
-				// TODO adjust this strengh
+				// TODO adjust this strengh and let strengths add up, avoid duplicate entries
 				sc.strengh = 0.5;
 				other.suspicionCases.add(sc);
 				

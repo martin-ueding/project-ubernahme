@@ -28,8 +28,8 @@ public class CircleMenu implements MouseListener, MouseMotionListener {
 	boolean display;
 
 
-	public static final int DIAMETER = 100;
-	public static double MAX_RADIUS = 150;
+	public static final int DIAMETER = Integer.parseInt(ProjectUbernahme.getConfigValue("circleMenuItemDiameter"));
+	public static double MAX_RADIUS = Integer.parseInt(ProjectUbernahme.getConfigValue("circleMenuRadius"));
 	public double radiusPart = 0;
 	public double anglePart = 0.0;
 

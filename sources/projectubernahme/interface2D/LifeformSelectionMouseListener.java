@@ -64,6 +64,7 @@ public class LifeformSelectionMouseListener implements MouseListener {
 					}
 				}
 
+				// TODO remove this?
 				/* if it was a double click, rename the lifeform */
 				else if (e.getClickCount() == 2) {
 					selected.rename();

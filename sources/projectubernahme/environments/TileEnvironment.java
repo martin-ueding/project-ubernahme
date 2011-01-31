@@ -128,7 +128,7 @@ public class TileEnvironment {
 		if (transform.equals(previousTransform) && previousHeight == height && previousWidth == width) {
 		}
 		else {
-			double scaling = 1.05;
+			double scaling = Double.parseDouble(ProjectUbernahme.getConfigValue("tileOverlapScaling"));
 			ConvertedGraphics cg;
 			
 			boolean[][] visible = new boolean[tiles.length][tiles[0].length];

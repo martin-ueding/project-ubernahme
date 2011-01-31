@@ -27,7 +27,7 @@ public class View2D extends JPanel {
 
 	private MainSimulator sim;
 
-	int viewScaling =50000;
+	int viewScaling = Integer.parseInt(ProjectUbernahme.getConfigValue("initialViewScaling"));
 
 	private int frames;
 	double measureTime;
@@ -72,7 +72,6 @@ public class View2D extends JPanel {
 	}
 
 	protected void paintComponent (Graphics h) {
-
 		final Graphics2D g = (Graphics2D)h;
 		if (ProjectUbernahme.getConfigValue("anti_alias").equals("true")) {
 			g.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
@@ -113,6 +112,7 @@ public class View2D extends JPanel {
 			/* only paint lifeforms that are controlled or are within the reach of some other lifeform
 			 * that way, nothing is spoiled */
 			if (player.canSee(l)) {
+				// TODO externalize these colors
 				g.setColor(l.isControlled() ? Color.GREEN : Color.BLUE);
 
 				double diameter = l.getDiameter();
@@ -143,18 +143,21 @@ public class View2D extends JPanel {
 
 					/* draw green shade if controlled */
 					if (l.isControlled()) {
+						// TODO externalize this color
 						g.setColor(new Color(100, 200, 100, 100));
 						g.fillOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
 					}
 
 					/* if the lifeform can be seen by the currently selected lifeform, draw a blue circle below it */
 					else if (player.getSelectedLifeform().canSee(l) && l != player.getSelectedLifeform()) {
+						// TODO externalize this color
 						g.setColor(new Color(100, 100, 200, 100));
 						g.fillOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
 					}
 
 					/* if there is some action in progress, draw a progress indicator pie */
 					if (l.busy) {
+						// TODO externalize this color
 						g.setColor(new Color(200, 100, 0, 200));
 
 						if (l.actionProgress == 0.0) {
@@ -170,6 +173,7 @@ public class View2D extends JPanel {
 
 					/* draw the name if lifeform is big enough to be seen */
 					if (lifeformShapeResult.getBounds().height > 50 && !l.getName().equals("")) {
+						// TODO externalize this color
 						g.setColor(new Color(100, 100, 100, 200));
 						g.drawString(l.getName(), (int)(p.getX()+diameterView/2), (int)(p.getY()+diameterView/2));
 					}
@@ -225,6 +229,7 @@ public class View2D extends JPanel {
 		if (ProjectUbernahme.getConfigValue("showFramesPerSecond").equals("true")) {
 			frames++;
 
+			// TODO externalize this color
 			g.setColor(Color.black);
 			g.drawString("FPS: "+Math.round(frames/measureTime), getWidth()-80, 20);
 
@@ -236,8 +241,9 @@ public class View2D extends JPanel {
 	}
 
 	private void drawInterface(final Graphics2D g) {
-		final int INTERFACE_HEIGHT = 150;
+		final int INTERFACE_HEIGHT = Integer.parseInt(ProjectUbernahme.getConfigValue("interfaceHeight"));
 		/* draw the background */
+		// TODO externalize this color
 		g.setColor(new Color(100, 100, 100, 230));
 		g.fillRect(0, getHeight()-INTERFACE_HEIGHT, getWidth(), INTERFACE_HEIGHT);
 
@@ -336,21 +342,27 @@ public class View2D extends JPanel {
 
 		/* draw info strings */
 		int infoStringsColumn = 0;
+		// TODO externalize this color
 		g.setColor(new Color(210, 210, 210));
 		g.drawString(Localizer.get("Class"), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40);
+		// TODO externalize this color
 		g.setColor(Color.WHITE);
 		g.drawString(l.getI18nClassName(), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200+10, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40+15);
 		infoStringsColumn++;
 
+		// TODO externalize this color
 		g.setColor(new Color(210, 210, 210));
 		g.drawString(Localizer.get("Biomass"), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40);
+		// TODO externalize this color
 		g.setColor(Color.WHITE);
 		g.drawString(ProjectUbernahme.f.format(l.getBiomass())+" kg", getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200+10, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40+15);
 		infoStringsColumn++;
 
 		if (l.getName().length() > 0) {
+			// TODO externalize this color
 			g.setColor(new Color(210, 210, 210));
 			g.drawString(Localizer.get("Name"), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40);
+			// TODO externalize this color
 			g.setColor(Color.WHITE);
 			g.drawString(l.getName(), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200+10, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40+15);
 			infoStringsColumn++;
@@ -385,14 +397,15 @@ public class View2D extends JPanel {
 		}
 	}
 
-	private void drawBiomassSlider(final Graphics2D g,
-			final int INTERFACE_HEIGHT) {
+	private void drawBiomassSlider(final Graphics2D g, final int INTERFACE_HEIGHT) {
 		double worldBiomass = sim.getTotalBiomass();
 		double playerBiomass = player.getTotalBiomass();
 
-		final int SLIDER_HEIGHT = 1;
+		final int SLIDER_HEIGHT = Integer.parseInt(ProjectUbernahme.getConfigValue("biomassRatioSliderHeight"));
+		// TODO externalize this color
 		g.setColor(Color.RED);
 		g.fillRect(0, getHeight()-INTERFACE_HEIGHT-SLIDER_HEIGHT, getWidth(), SLIDER_HEIGHT);
+		// TODO externalize this color
 		g.setColor(Color.GREEN);
 		g.fillRect(0, getHeight()-INTERFACE_HEIGHT-SLIDER_HEIGHT, (int)Math.round(getWidth()*(playerBiomass/worldBiomass)), SLIDER_HEIGHT);
 	}

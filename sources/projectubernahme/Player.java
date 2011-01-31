@@ -52,13 +52,17 @@ public class Player {
 			
 		}
 		else if (e.getKeyChar() == 'u'){
-			if(upgradePoints > 1) {
-				--upgradePoints;
-				setIntFactor(getIntFactor() + 1);
-			}
+			upgradeIntelligence();
 		}
 		else if (getSelectedLifeform() != null)
 			getSelectedLifeform().handleKeyPressed(e);
+	}
+
+	private void upgradeIntelligence() {
+		if(upgradePoints > 1) {
+			--upgradePoints;
+			setIntFactor(getIntFactor() + 1);
+		}
 	}
 
 	public void handleKeyReleased(KeyEvent e) {
