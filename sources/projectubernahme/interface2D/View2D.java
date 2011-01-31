@@ -72,16 +72,12 @@ public class View2D extends JPanel {
 	}
 
 	protected void paintComponent (Graphics h) {
-		selectionRoationAngle = (selectionRoationAngle+0.1) % (Math.PI*2);
-
-		double twiceScreenRadius = Math.hypot(getWidth(), getHeight());
 
 		final Graphics2D g = (Graphics2D)h;
 		if (ProjectUbernahme.getConfigValue("anti_alias").equals("true")) {
 			g.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 		}
 
-		Rectangle2D screen = new Rectangle2D.Double(0, 0, getWidth(), getHeight());
 
 		/* clear screen */
 		g.setColor(Color.WHITE);
@@ -89,6 +85,25 @@ public class View2D extends JPanel {
 
 		/* draw the map */
 		g.drawImage(sim.getEnv().getBackground(getWidth(), getHeight(), transform), 0, 0, null);
+		
+
+		drawLifeforms(g);
+		drawFramesPerSecond(g);
+		drawInterface(g);
+		drawCircleMenu(g);
+	}
+
+	private void drawCircleMenu(final Graphics2D g) {
+		if (player.circlemenu != null) {
+			player.circlemenu.draw(g);
+		}
+	}
+
+	private void drawLifeforms(final Graphics2D g) {
+		selectionRoationAngle = (selectionRoationAngle+0.1) % (Math.PI*2);
+
+		Rectangle2D screen = new Rectangle2D.Double(0, 0, getWidth(), getHeight());
+		double twiceScreenRadius = Math.hypot(getWidth(), getHeight());
 
 		/* draw all the lifeforms */
 		for (Lifeform l : sim.getLifeforms()) {
@@ -204,15 +219,6 @@ public class View2D extends JPanel {
 
 		/* reset the transform */
 		g.setTransform(new AffineTransform());
-
-		drawFramesPerSecond(g);
-
-		drawInterface(g);
-		
-		/* draw the menu */
-		if (player.circlemenu != null) {
-			player.circlemenu.draw(g);
-		}
 	}
 
 	private void drawFramesPerSecond(final Graphics2D g) {
