@@ -40,7 +40,7 @@ public class ProjectUbernahme {
 	public static void main (String[] args) {
 		logMessages = new CopyOnWriteArrayList<LogMessage>();
 		f = new DecimalFormat();
-		f.applyPattern(ProjectUbernahme.getConfigValue("numberPattern"));
+		f.applyPattern("0.00E0");
 		
 		config = new Properties();
 		try {
