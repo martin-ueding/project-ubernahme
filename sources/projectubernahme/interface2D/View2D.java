@@ -90,8 +90,8 @@ public class View2D extends JPanel {
 
 	protected void paintComponent (Graphics h) {
 		repaintTimer.lock(true);
-
 		Calendar c = Calendar.getInstance();
+		
 		long time = c.getTimeInMillis();
 		final Graphics2D g = (Graphics2D)h;
 		if (ProjectUbernahme.getConfigValue("anti_alias").equals("true")) {
@@ -111,8 +111,8 @@ public class View2D extends JPanel {
 		drawFramesPerSecond(g);
 		drawInterface(g);
 		drawCircleMenu(g);
-		drawPowerMeter(g, sim.getCalcTimeList(), sim.getPeriod(), getWidth()-100, 10);
-		drawPowerMeter(g, calcTime, repaintInterval, getWidth()-100, 160);
+		drawPowerMeter(g, sim.getCalcTimeList(), sim.getPeriod(), getWidth()-100, 0);
+		drawPowerMeter(g, calcTime, repaintInterval, getWidth()-100, 110);
 		
 
 		// TODO put the 50 into a config file
@@ -296,7 +296,7 @@ public class View2D extends JPanel {
 			frames++;
 
 			// TODO externalize this color
-			g.setColor(Color.black);
+			g.setColor(Color.WHITE);
 			g.drawString("FPS: "+Math.round(frames/measureTime), getWidth()-80, 20);
 
 			if (measureTime > 10) {
