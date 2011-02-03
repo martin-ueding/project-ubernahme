@@ -97,7 +97,7 @@ public class MainSimulator {
 
 	private double lastCalculatedTotalBiomass;
 	private long lastCalculatedTotalBiomassTime;
-	private Thread simulatorThread;
+	private SimulatorThread simulatorThread;
 	public double getTotalBiomass() {
 		Calendar cal = Calendar.getInstance();
 		if (lastCalculatedTotalBiomassTime + Long.parseLong(ProjectUbernahme.getConfigValue("TotalBiomassCalcInterval")) < cal.getTimeInMillis()) {
@@ -126,5 +126,13 @@ public class MainSimulator {
 			simulatorThread.run();
 		}
 		
+	}
+
+	public CopyOnWriteArrayList<Integer> getCalcTimeList() {
+		return simulatorThread.calcTime;
+	}
+
+	public int getPeriod() {
+		return simulatorThread.sleepTime;
 	}
 }

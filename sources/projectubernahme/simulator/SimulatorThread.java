@@ -1,5 +1,8 @@
 package projectubernahme.simulator;
 
+import java.util.Calendar;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import javax.swing.JOptionPane;
 
 import projectubernahme.Localizer;
@@ -11,17 +14,23 @@ public class SimulatorThread extends Thread {
 	private MainSimulator sim;
 	private int cycle = 0;
 
-	private int sleepTime = 30;
+	int sleepTime = 30;
 	
 	private boolean halt = false;
 
+	CopyOnWriteArrayList<Integer> calcTime;
+
 	public SimulatorThread(MainSimulator mainSimulator) {
 		sim = mainSimulator;
+		calcTime = new CopyOnWriteArrayList<Integer>();
 	}
-
+	
 	public void run() {
 		try {
 			while (!halt && sim.isGameUp() || cycle < 100) {
+				Calendar c = Calendar.getInstance();
+				long time = c.getTimeInMillis();
+				
 				if (cycle > 10) {
 					/* let the other lifeforms interact */
 					for (Lifeform l : sim.getLifeforms()) {
@@ -29,7 +38,14 @@ public class SimulatorThread extends Thread {
 						l.act(sleepTime);
 					}
 				}
-
+				// TODO put the 50 into a config file
+				if (calcTime.size() > 50) {
+					calcTime.remove(0);
+				}
+				
+				c = Calendar.getInstance();
+				calcTime.add(new Integer((int) (c.getTimeInMillis() - time)));
+				
 				Thread.sleep(sleepTime);
 
 				cycle++;

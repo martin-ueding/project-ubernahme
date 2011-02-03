@@ -23,9 +23,6 @@ public class Interface2D {
 		graphicsPanel.setVisible(true);
 		
 		graphicsPanel.addKeyListener(new LifeformControlKeyListener(p));
-		
-		Timer timer = new Timer();
-		timer.schedule(new JPanelRepaintTimerTask(view), 1000, 40);
 	}
 
 }

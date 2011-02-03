@@ -8,6 +8,9 @@ import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JPanel;
 
@@ -37,8 +40,16 @@ public class View2D extends JPanel {
 	private double selectionRoationAngle;
 
 	private Color colorWarning, colorError, colorInfo, colorDebug, colorSuccess;
+	
+	private int repaintInterval = 40;
+	JPanelRepaintTimerTask repaintTimer;
+	
+
+	CopyOnWriteArrayList<Integer> calcTime;
 
 	public View2D (MainSimulator sim, Player player) {
+
+		calcTime = new CopyOnWriteArrayList<Integer>();
 		this.sim = sim;
 		this.player = player;
 
@@ -69,9 +80,19 @@ public class View2D extends JPanel {
 		colorInfo = new Color(Integer.decode(ProjectUbernahme.getConfigValue("colorInfo")));
 		colorDebug = new Color(Integer.decode(ProjectUbernahme.getConfigValue("colorDebug")));
 		colorSuccess = new Color(Integer.decode(ProjectUbernahme.getConfigValue("colorSuccess")));
+		
+
+		
+		Timer timer = new Timer();
+		repaintTimer = new JPanelRepaintTimerTask(this);
+		timer.schedule(repaintTimer, 1000, repaintInterval);
 	}
 
 	protected void paintComponent (Graphics h) {
+		repaintTimer.lock(true);
+
+		Calendar c = Calendar.getInstance();
+		long time = c.getTimeInMillis();
 		final Graphics2D g = (Graphics2D)h;
 		if (ProjectUbernahme.getConfigValue("anti_alias").equals("true")) {
 			g.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
@@ -90,6 +111,51 @@ public class View2D extends JPanel {
 		drawFramesPerSecond(g);
 		drawInterface(g);
 		drawCircleMenu(g);
+		drawPowerMeter(g, sim.getCalcTimeList(), sim.getPeriod(), getWidth()-100, 10);
+		drawPowerMeter(g, calcTime, repaintInterval, getWidth()-100, 160);
+		
+
+		// TODO put the 50 into a config file
+		if (calcTime.size() > 50) {
+			calcTime.remove(0);
+		}
+		
+		c = Calendar.getInstance();
+		calcTime.add(new Integer((int) (c.getTimeInMillis() - time)));
+		
+
+		repaintTimer.lock(false);
+	}
+
+	private void drawPowerMeter(Graphics2D g, CopyOnWriteArrayList<Integer> list, int time, int x0, int y0) {
+		
+		g.setColor(Color.gray);
+		int barWidth = 2;
+		int maxValue = 100;
+		int k = 0;
+		g.setColor(new Color(0, 0, 0, 100));
+		g.fillRect(x0, y0, barWidth*list.size(), maxValue+1);
+		for (Integer integer : list) {
+			int i = integer.intValue();
+			
+			if (i < time) {
+				g.setColor(Color.green);
+				g.fillRect(x0+k*barWidth, y0+maxValue-time, barWidth, time-i);
+			}
+			else if (i <= maxValue) {
+				g.setColor(Color.yellow);
+				g.fillRect(x0+k*barWidth, y0+maxValue-i, barWidth, i-time);
+			}
+			else {
+				g.setColor(Color.red);
+				g.fillRect(x0+k*barWidth, y0+maxValue-maxValue, barWidth, maxValue-time);
+			}
+			k++;
+		}
+		
+		g.setColor(Color.WHITE);
+		g.drawLine(x0+0, y0+maxValue-time, x0+k*barWidth, y0+maxValue-time);
+
 	}
 
 	private void drawCircleMenu(final Graphics2D g) {
