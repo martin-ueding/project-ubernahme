@@ -78,7 +78,7 @@ public class IngestionThread extends Thread {
 				}
 
 				/* remove lifeform from simulator */
-				sim.getLifeforms().remove(prey);
+				sim.remove(prey);
 
 				/* remove lifeform from player's list */
 				if (prey.isControlled()) {

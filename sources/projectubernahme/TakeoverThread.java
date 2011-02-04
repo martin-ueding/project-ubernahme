@@ -67,6 +67,7 @@ public class TakeoverThread extends Thread {
 				/* take over the lifeform */
 				prey.setControlled(player);				
 				player.addControlledLifeform(prey);
+				prey.stopAction();
 
 				if ((takeoverMessageType == MessageTypes.INFO && ProjectUbernahme.getVerboseLevel() >= 3) || takeoverMessageType != MessageTypes.INFO)
 					ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} took control over {1}."), new Object[] {l.toString(), prey.toString()}), takeoverMessageType);

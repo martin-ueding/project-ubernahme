@@ -1,6 +1,7 @@
 package projectubernahme.simulator;
 
 import java.awt.event.KeyListener;
+import java.awt.geom.Point2D;
 import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -134,5 +135,11 @@ public class MainSimulator {
 
 	public int getPeriod() {
 		return simulatorThread.getSleepTime();
+	}
+
+	public void remove(Lifeform prey) {
+		lifeforms.remove(prey);
+		prey.setPosition(new Point2D.Double(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY));
+		
 	}
 }

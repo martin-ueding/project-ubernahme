@@ -337,10 +337,11 @@ abstract public class Lifeform {
 	}
 
 	/** stop whatever that lifeform is doing right now */
-	private void stopAction() {
+	public void stopAction() {
 		if (actionThread != null && actionThread.isAlive()) {
 			actionThread.interrupt();
 		}
+		busy = false;
 	}
 	
 	/*
@@ -481,6 +482,10 @@ abstract public class Lifeform {
 	}
 
 	public boolean willSuspect(Lifeform l) {
+		/* nobody suspects a policemen ;-) */
+		if (l.getClass() == Police.class) {
+			return false;
+		}
 		// TODO tweak the score system
 		double points = 0.0;
 		
@@ -545,7 +550,7 @@ abstract public class Lifeform {
 		return inControlledMode;
 	}
 
-	void setPosition(Point2D position) {
+	public void setPosition(Point2D position) {
 		this.position = position;
 	}
 

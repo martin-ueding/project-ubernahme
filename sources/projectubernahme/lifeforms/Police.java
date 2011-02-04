@@ -29,17 +29,19 @@ public class Police extends Human {
 	
 	@Override
 	public void act(int sleepTime) {		
-		if (!isInControlledMode()) {
+		if (!isInControlledMode() && !isBusy()) {
 			/* check whether there is somebody around that this lifeform does
 			 * not really trust
 			 */
 			double maxSuspicion = 0.0;
 			Lifeform target = null;
+			SuspicionCase maxSc = null;
 			for (SuspicionCase sc : getSuspicionCases()) {
 				if (sc.getL().getPoint2D().distance(getPoint2D()) < 5*sc.getStrengh()) {
 					if (sc.getStrengh() > maxSuspicion) {
 						maxSuspicion = sc.getStrengh();
 						target = sc.getL();
+						maxSc = sc;
 					}
 				}
 			}
@@ -50,6 +52,7 @@ public class Police extends Human {
 			}
 			else {
 				ingest(target);
+				getSuspicionCases().remove(maxSc);
 			}
 		}
 		
