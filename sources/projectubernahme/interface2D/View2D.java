@@ -26,14 +26,14 @@ import projectubernahme.simulator.MainSimulator;
 @SuppressWarnings("serial")
 public class View2D extends JPanel {
 
-	AffineTransform transform;
+	private AffineTransform transform;
 
 	private MainSimulator sim;
 
-	int viewScaling = Integer.parseInt(ProjectUbernahme.getConfigValue("initialViewScaling"));
+	private int viewScaling = Integer.parseInt(ProjectUbernahme.getConfigValue("initialViewScaling"));
 
 	private int frames;
-	double measureTime;
+	private double measureTime;
 
 	private Player player;
 
@@ -42,10 +42,10 @@ public class View2D extends JPanel {
 	private Color colorWarning, colorError, colorInfo, colorDebug, colorSuccess;
 	
 	private int repaintInterval = 40;
-	JPanelRepaintTimerTask repaintTimer;
+	private JPanelRepaintTimerTask repaintTimer;
 	
 
-	CopyOnWriteArrayList<Integer> calcTime;
+	private CopyOnWriteArrayList<Integer> calcTime;
 
 	private Color colorFramesPerSecondText;
 
@@ -74,20 +74,20 @@ public class View2D extends JPanel {
 		this.player = player;
 
 		/* set up the transform */
-		transform = new AffineTransform();
-		transform.setToIdentity();
+		setTransform(new AffineTransform());
+		getTransform().setToIdentity();
 
 		Point2D initialPosition = player.getControlledLifeforms().get(0).getPoint2D();
 
-		transform.translate(Integer.parseInt(ProjectUbernahme.getConfigValue("initialWindowWidth"))/2, Integer.parseInt(ProjectUbernahme.getConfigValue("initialWindowHeight"))/2);
-		transform.scale(viewScaling, viewScaling);
-		transform.translate(-initialPosition.getX(), -initialPosition.getY());
+		getTransform().translate(Integer.parseInt(ProjectUbernahme.getConfigValue("initialWindowWidth"))/2, Integer.parseInt(ProjectUbernahme.getConfigValue("initialWindowHeight"))/2);
+		getTransform().scale(getViewScaling(), getViewScaling());
+		getTransform().translate(-initialPosition.getX(), -initialPosition.getY());
 
 		/* add the mouse listeners for the map movements */
 		new MapPanListener(this);
 
 		/* add mouse listener for lifeform selection */
-		addMouseListener(new LifeformSelectionMouseListener(this, sim, player, transform));
+		addMouseListener(new LifeformSelectionMouseListener(this, sim, player, getTransform()));
 
 		/* add key listener */
 		addKeyListener(sim.getGamePauseKeyListener());
@@ -122,8 +122,8 @@ public class View2D extends JPanel {
 		//clock = new PowerClock();
 	}
 	
-	static int powerMeterMeasurementsCount = Integer.parseInt(ProjectUbernahme.getConfigValue("powerMeterMeasurementsCount"));
-	static int powerMeterMeasurementsWidth = Integer.parseInt(ProjectUbernahme.getConfigValue("powerMeterMeasurementsWidth"));
+	private static int powerMeterMeasurementsCount = Integer.parseInt(ProjectUbernahme.getConfigValue("powerMeterMeasurementsCount"));
+	private static int powerMeterMeasurementsWidth = Integer.parseInt(ProjectUbernahme.getConfigValue("powerMeterMeasurementsWidth"));
 
 	protected void paintComponent (Graphics h) {
 		repaintTimer.lock(true);
@@ -137,7 +137,7 @@ public class View2D extends JPanel {
 
 		/* draw the map */
 		//clock.start();
-		g.drawImage(sim.getEnv().getBackground(getWidth(), getHeight(), transform), 0, 0, null);
+		g.drawImage(sim.getEnv().getBackground(getWidth(), getHeight(), getTransform()), 0, 0, null);
 		//clock.end(Localizer.get("draw map"));	
 
 		//clock.start();
@@ -211,8 +211,8 @@ public class View2D extends JPanel {
 	}
 
 	private void drawCircleMenu(final Graphics2D g) {
-		if (player.circlemenu != null) {
-			player.circlemenu.draw(g);
+		if (player.getCirclemenu() != null) {
+			player.getCirclemenu().draw(g);
 		}
 	}
 
@@ -231,12 +231,12 @@ public class View2D extends JPanel {
 			 * that way, nothing is spoiled */
 			if (player.canSee(l)) {
 				double diameter = l.getDiameter();
-				double diameterView = diameter * Math.sqrt(transform.getDeterminant());			
+				double diameterView = diameter * Math.sqrt(getTransform().getDeterminant());			
 
-				Point2D p = transform.transform(l.getPoint2D(), null);
+				Point2D p = getTransform().transform(l.getPoint2D(), null);
 
 				Rectangle2D lifeformShape = new Rectangle2D.Double(l.getPoint2D().getX()-diameter/2, l.getPoint2D().getY()-diameter/2, diameter, diameter);
-				Shape lifeformShapeResult = transform.createTransformedShape(lifeformShape);
+				Shape lifeformShapeResult = getTransform().createTransformedShape(lifeformShape);
 
 
 				/* only draw if the lifeform is within the screen */
@@ -269,16 +269,16 @@ public class View2D extends JPanel {
 					}
 
 					/* if there is some action in progress, draw a progress indicator pie */
-					if (l.busy) {
+					if (l.isBusy()) {
 						g.setColor(colorLifeformProgressPie);
 
-						if (l.actionProgress == 0.0) {
+						if (l.getActionProgress() == 0.0) {
 							g.fillArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, (int)Math.toDegrees(2*selectionRoationAngle), 20);
 							g.fillArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, (int)Math.toDegrees(2*selectionRoationAngle+Math.PI*2/3), 20);
 							g.fillArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, (int)Math.toDegrees(2*selectionRoationAngle+Math.PI*4/3), 20);
 						}
 						else {
-							g.fillArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, 90, -(int)(360*l.actionProgress));
+							g.fillArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, 90, -(int)(360*l.getActionProgress()));
 						}
 					}
 
@@ -298,7 +298,7 @@ public class View2D extends JPanel {
 
 						AffineTransform picTransform = new AffineTransform();
 						picTransform.setToIdentity();
-						picTransform.preConcatenate(transform);
+						picTransform.preConcatenate(getTransform());
 
 						picTransform.translate(l.getPoint2D().getX()-diameter/2, l.getPoint2D().getY()-diameter/2);
 						picTransform.rotate(l.getViewAngle(), diameter/2, diameter/2);
@@ -325,7 +325,7 @@ public class View2D extends JPanel {
 					else {
 						g.drawOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
 						Point2D nose = new Point2D.Double(l.getPoint2D().getX() + diameter*Math.cos(l.getViewAngle())/2, l.getPoint2D().getY() + diameter*Math.sin(l.getViewAngle())/2);
-						transform.transform(nose, nose);
+						getTransform().transform(nose, nose);
 						g.drawLine((int)p.getX(), (int)p.getY(), (int)nose.getX(), (int)nose.getY());
 					}
 				}
@@ -341,11 +341,11 @@ public class View2D extends JPanel {
 			frames++;
 
 			g.setColor(colorFramesPerSecondText);
-			g.drawString("FPS: "+Math.round(frames/measureTime), getWidth()-80, 20);
+			g.drawString("FPS: "+Math.round(frames/getMeasureTime()), getWidth()-80, 20);
 
-			if (measureTime > 10) {
+			if (getMeasureTime() > 10) {
 				frames = 0;
-				measureTime = 0.0;
+				setMeasureTime(0.0);
 			}
 		}
 	}
@@ -460,7 +460,7 @@ public class View2D extends JPanel {
 		g.setColor(colorInterfaceDescriptorText);
 		g.drawString(Localizer.get("Biomass"), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40);
 		g.setColor(colorInterfaceValueText);
-		g.drawString(ProjectUbernahme.f.format(l.getBiomass())+" kg", getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200+10, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40+15);
+		g.drawString(ProjectUbernahme.getF().format(l.getBiomass())+" kg", getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200+10, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40+15);
 		infoStringsColumn++;
 
 		if (l.getName().length() > 0) {
@@ -476,26 +476,26 @@ public class View2D extends JPanel {
 		int i = 0;
 		for (LogMessage s : ProjectUbernahme.getLogMessages()) {
 			g.setColor(Color.black);
-			g.drawString(s.msg, 10, i*15+20);
-			if (s.type == MessageTypes.INFO) {
+			g.drawString(s.getMsg(), 10, i*15+20);
+			if (s.getType() == MessageTypes.INFO) {
 				g.setColor(colorInfo);
 			}
-			else if (s.type == MessageTypes.WARNING) {
+			else if (s.getType() == MessageTypes.WARNING) {
 				g.setColor(colorWarning);
 			}
-			else if (s.type == MessageTypes.ERROR) {
+			else if (s.getType() == MessageTypes.ERROR) {
 				g.setColor(colorError);
 			}
-			else if (s.type == MessageTypes.DEBUG) {
+			else if (s.getType() == MessageTypes.DEBUG) {
 				g.setColor(colorDebug);
 			}
-			else if (s.type == MessageTypes.SUCCESS) {
+			else if (s.getType() == MessageTypes.SUCCESS) {
 				g.setColor(colorSuccess);
 			}
 			else {
 				g.setColor(Color.white);
 			}
-			g.drawString(s.msg, 10-1, i*15+20-1);
+			g.drawString(s.getMsg(), 10-1, i*15+20-1);
 			i++;
 		}
 	}
@@ -510,5 +510,41 @@ public class View2D extends JPanel {
 		g.fillRect(playerBiomassPixels, getHeight()-INTERFACE_HEIGHT-SLIDER_HEIGHT, getWidth()-playerBiomassPixels, SLIDER_HEIGHT);
 		g.setColor(colorInterfaceBiomassPlayer);
 		g.fillRect(0, getHeight()-INTERFACE_HEIGHT-SLIDER_HEIGHT, playerBiomassPixels, SLIDER_HEIGHT);
+	}
+
+
+
+	public void setMeasureTime(double measureTime) {
+		this.measureTime = measureTime;
+	}
+
+
+
+	public double getMeasureTime() {
+		return measureTime;
+	}
+
+
+
+	public void setTransform(AffineTransform transform) {
+		this.transform = transform;
+	}
+
+
+
+	public AffineTransform getTransform() {
+		return transform;
+	}
+
+
+
+	public void setViewScaling(int viewScaling) {
+		this.viewScaling = viewScaling;
+	}
+
+
+
+	public int getViewScaling() {
+		return viewScaling;
 	}
 }

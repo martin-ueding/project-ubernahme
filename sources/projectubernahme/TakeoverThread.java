@@ -21,8 +21,8 @@ public class TakeoverThread extends Thread {
 
 	public void run () {
 		/* set the lifeform to busy */
-		l.busy = true;
-		l.actionProgress = 0.0;
+		l.setBusy(true);
+		l.setActionProgress(0.0);
 
 		Enum<MessageTypes> takeoverMessageType;
 
@@ -37,14 +37,14 @@ public class TakeoverThread extends Thread {
 		try {
 			if (l.canTakeover(prey)) {
 
-				while (l.actionProgress < 1.0) {
+				while (l.getActionProgress() < 1.0) {
 					/* walk towards the victim */
 					if (l.distance(prey) > 0.1) {
 						double xdist, ydist;
 						xdist = prey.getPoint2D().getX() - l.getPoint2D().getX();
 						ydist = prey.getPoint2D().getY() - l.getPoint2D().getY();
 
-						l.viewAngle = Math.atan2(ydist, xdist);
+						l.setViewAngle(Math.atan2(ydist, xdist));
 
 						double distSqrt = Math.hypot(xdist, ydist);
 						l.getVelocity().setTo(xdist/distSqrt, ydist/distSqrt);
@@ -57,7 +57,8 @@ public class TakeoverThread extends Thread {
 						sim.alertEverybody(l);
 
 						/* burn time until it is ready */
-						l.actionProgress += 0.05;
+						l
+								.setActionProgress(l.getActionProgress() + 0.05);
 					}
 					
 					sleep(50);
@@ -67,7 +68,7 @@ public class TakeoverThread extends Thread {
 				prey.setControlled(player);				
 				player.addControlledLifeform(prey);
 
-				if ((takeoverMessageType == MessageTypes.INFO && ProjectUbernahme.verboseLevel >= 3) || takeoverMessageType != MessageTypes.INFO)
+				if ((takeoverMessageType == MessageTypes.INFO && ProjectUbernahme.getVerboseLevel() >= 3) || takeoverMessageType != MessageTypes.INFO)
 					ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} took control over {1}."), new Object[] {l.toString(), prey.toString()}), takeoverMessageType);
 			}
 		} catch (InterruptedException e) {
@@ -75,7 +76,7 @@ public class TakeoverThread extends Thread {
 		}
 
 		/* set the lifeform back to normal */
-		l.busy = false;
+		l.setBusy(false);
 	}
 
 

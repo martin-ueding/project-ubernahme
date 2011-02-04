@@ -20,15 +20,15 @@ public class Tree extends Lifeform {
 		setCanMove(false);
 		setBiomass(500+Math.random()*500);
 
-		position = new Point2D.Double(Math.random()-0.5, Math.random()-0.5);
+		setPosition(new Point2D.Double(Math.random()-0.5, Math.random()-0.5));
 		
-		viewAngle = 2*Math.PI*Math.random();
+		setViewAngle(2*Math.PI*Math.random());
 		setIntelligence(0.1);
 	}
 
 	public Tree(MainSimulator sim, Point2D p) {
 		this(sim);
-		position = p;
+		setPosition(p);
 	}
 
 	@Override

@@ -10,9 +10,7 @@ import projectubernahme.simulator.MainSimulator;
 
 /** a physical player of the game, controlling a heap of different lifeforms */
 public class Player {
-	public CopyOnWriteArrayList<Lifeform> controlledLifeforms;
-
-	MainSimulator sim;
+	private CopyOnWriteArrayList<Lifeform> controlledLifeforms;
 
 	private Lifeform selectedLifeform;
 	private Lifeform secondarySelectedLifeform;
@@ -22,7 +20,6 @@ public class Player {
 
 	/** initializes the list of controlledLifeforms, add a starting one */
 	public Player (MainSimulator sim) {
-		this.sim = sim;
 		setControlledLifeforms(new CopyOnWriteArrayList<Lifeform>());
 		getControlledLifeforms().add(sim.giveLifeform(this));
 	}
@@ -149,9 +146,9 @@ public class Player {
 		controlledLifeforms.add(prey);
 	}
 	
-	public CircleMenu circlemenu;
+	private CircleMenu circlemenu;
 	public void setMenu(CircleMenu circleMenu) {
-		this.circlemenu = circleMenu;		
+		this.setCirclemenu(circleMenu);		
 	}
 	
 	private double lastCalculatedTotalBiomass;
@@ -174,5 +171,13 @@ public class Player {
 
 	public double getIntFactor() {
 		return intelligenceFactor;
+	}
+
+	public void setCirclemenu(CircleMenu circlemenu) {
+		this.circlemenu = circlemenu;
+	}
+
+	public CircleMenu getCirclemenu() {
+		return circlemenu;
 	}
 }

@@ -22,16 +22,16 @@ import projectubernahme.simulator.MainSimulator;
 /** the main game class */
 public class ProjectUbernahme {
 	/** main player */
-	static Player player;
+	private static Player player;
 
 	/** simulator backbone that simulates all the nonplayer interactions */
-	static MainSimulator sim;
+	private static MainSimulator sim;
 
 	private static Properties config;
 	
-	public static DecimalFormat f;
+	private static DecimalFormat f;
 
-	public static int verboseLevel;
+	private static int verboseLevel;
 
 	public static String getConfigValue (String key) {
 		return (String) config.get(key);
@@ -39,8 +39,8 @@ public class ProjectUbernahme {
 
 	public static void main (String[] args) {
 		logMessages = new CopyOnWriteArrayList<LogMessage>();
-		f = new DecimalFormat();
-		f.applyPattern("0.00E0");
+		setF(new DecimalFormat());
+		getF().applyPattern("0.00E0");
 		
 		config = new Properties();
 		try {
@@ -50,7 +50,7 @@ public class ProjectUbernahme {
 			e.printStackTrace();
 		}		
 		
-		verboseLevel = Integer.parseInt(ProjectUbernahme.getConfigValue("verboseLevel"));
+		setVerboseLevel(Integer.parseInt(ProjectUbernahme.getConfigValue("verboseLevel")));
 		
 		ProjectUbernahme.log(Localizer.get("Welcome to Project Ubernahme"));
 		
@@ -72,7 +72,7 @@ public class ProjectUbernahme {
 		/* check if it is already in the queue */
 		boolean isInQueue = false;
 		for (LogMessage message : getLogMessages()) {
-			if (message.msg.equals(s)) {
+			if (message.getMsg().equals(s)) {
 				isInQueue = true;
 			}
 		}
@@ -93,5 +93,21 @@ public class ProjectUbernahme {
 
 	public static CopyOnWriteArrayList<LogMessage> getLogMessages() {
 		return logMessages;
+	}
+
+	public static void setF(DecimalFormat f) {
+		ProjectUbernahme.f = f;
+	}
+
+	public static DecimalFormat getF() {
+		return f;
+	}
+
+	public static void setVerboseLevel(int verboseLevel) {
+		ProjectUbernahme.verboseLevel = verboseLevel;
+	}
+
+	public static int getVerboseLevel() {
+		return verboseLevel;
 	}
 }

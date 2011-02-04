@@ -12,10 +12,10 @@ import projectubernahme.simulator.MainSimulator;
 
 public class LifeformSelectionMouseListener implements MouseListener {
 
-	Player player;
-	AffineTransform transform;
-	MainSimulator sim;
-	View2D view;
+	private Player player;
+	private AffineTransform transform;
+	private MainSimulator sim;
+	private View2D view;
 
 	public LifeformSelectionMouseListener (View2D view, MainSimulator sim, Player player, AffineTransform transform) {
 		this.view = view;

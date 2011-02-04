@@ -16,12 +16,12 @@ import projectubernahme.simulator.MainSimulator;
 
 public class Human extends Lifeform {
 	
-	static ArrayList<String> names;
+	private static ArrayList<String> names;
 	
 
 	private static ConvertedGraphics cg = new LifeformHumanGraphics();
 	
-	Point2D waypoint, lastWaypoint;
+	private Point2D waypoint, lastWaypoint;
 
 	public Human (MainSimulator sim) {
 		super(sim);
@@ -53,21 +53,21 @@ public class Human extends Lifeform {
 
 	public Human(MainSimulator sim, Point2D p) {
 		this(sim);
-		position = p;
+		setPosition(p);
 	}
 
 	@Override
 	public void act(int sleepTime) {
-		if (!inControlledMode) {
+		if (!isInControlledMode()) {
 			/* check whether there is somebody around that this lifeform does
 			 * not really trust
 			 */
 			boolean strangeGuyAround = false;
-			for (SuspicionCase sc : suspicionCases) {
-				if (sc.l.getPoint2D().distance(getPoint2D()) < 5*sc.strengh) {
+			for (SuspicionCase sc : getSuspicionCases()) {
+				if (sc.getL().getPoint2D().distance(getPoint2D()) < 5*sc.getStrengh()) {
 					/* run away */
-					viewAngle = Math.atan2(this.getPoint2D().getY()-sc.l.getPoint2D().getY(), this.getPoint2D().getX()-sc.l.getPoint2D().getX());
-					setVelocity(new Vector2D(0.8*Math.cos(viewAngle), 0.8*Math.sin(viewAngle)));
+					setViewAngle(Math.atan2(this.getPoint2D().getY()-sc.getL().getPoint2D().getY(), this.getPoint2D().getX()-sc.getL().getPoint2D().getX()));
+					setVelocity(new Vector2D(0.8*Math.cos(getViewAngle()), 0.8*Math.sin(getViewAngle())));
 					strangeGuyAround = true;
 				}
 			}
@@ -78,14 +78,14 @@ public class Human extends Lifeform {
 			}
 			
 			if (!strangeGuyAround) {
-				viewAngle = Math.atan2(-this.getPoint2D().getY()+waypoint.getY(), -this.getPoint2D().getX()+waypoint.getX());
-				setVelocity(new Vector2D(0.5*Math.cos(viewAngle), 0.5*Math.sin(viewAngle)));
+				setViewAngle(Math.atan2(-this.getPoint2D().getY()+waypoint.getY(), -this.getPoint2D().getX()+waypoint.getX()));
+				setVelocity(new Vector2D(0.5*Math.cos(getViewAngle()), 0.5*Math.sin(getViewAngle())));
 			}
 		}
 		
 		/* drop suspicion rates slowly */
-		for (SuspicionCase sc : suspicionCases) {
-			sc.strengh = Math.max(0.0, sc.strengh-sleepTime/1000.0*0.01);
+		for (SuspicionCase sc : getSuspicionCases()) {
+			sc.setStrengh(Math.max(0.0, sc.getStrengh()-sleepTime/1000.0*0.01));
 		}
 	}
 
@@ -95,12 +95,12 @@ public class Human extends Lifeform {
 		
 		int trials = 0;
 		do {
-			waypoint = sim.getEnv().generateNewWaypoint(getPoint2D());
+			waypoint = getSim().getEnv().generateNewWaypoint(getPoint2D());
 			trials++;
 		} while (lastLastWaypoint != null && trials <= 3 && waypoint.equals(lastLastWaypoint));
 		
-		viewAngle = Math.atan2(-this.getPoint2D().getY()+waypoint.getY(), -this.getPoint2D().getX()+waypoint.getX());
-		setVelocity(new Vector2D(0.8*Math.cos(viewAngle), 0.8*Math.sin(viewAngle)));
+		setViewAngle(Math.atan2(-this.getPoint2D().getY()+waypoint.getY(), -this.getPoint2D().getX()+waypoint.getX()));
+		setVelocity(new Vector2D(0.8*Math.cos(getViewAngle()), 0.8*Math.sin(getViewAngle())));
 	}
 
 	private boolean reachedWaypoint() {

@@ -21,12 +21,12 @@ public class Fly extends Lifeform {
 		setBiomass(0.001/17);
 		setIntelligence(0.1);
 		
-		position = new Point2D.Double(Math.random()-0.5, Math.random()-0.5);
+		setPosition(new Point2D.Double(Math.random()-0.5, Math.random()-0.5));
 	}
 
 	public Fly(Point2D randomPointOnMap, MainSimulator sim) {
 		this(sim);
-		position = randomPointOnMap;
+		setPosition(randomPointOnMap);
 	}
 
 	@Override

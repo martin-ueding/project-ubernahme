@@ -19,8 +19,8 @@ public class IngestionThread extends Thread {
 
 	public void run () {
 		/* set the lifeform to busy */
-		l.busy = true;
-		l.actionProgress = 0.0;
+		l.setBusy(true);
+		l.setActionProgress(0.0);
 
 		Enum<MessageTypes> ingestionMessageType;
 
@@ -37,7 +37,7 @@ public class IngestionThread extends Thread {
 			if (l.canIngest(prey)) {
 				double startBioMass = prey.getBiomass();
 
-				while (l.actionProgress < 1.0) {
+				while (l.getActionProgress() < 1.0) {
 
 					/* walk towards the victim */
 					if (l.distance(prey) > 0.1) {
@@ -45,7 +45,7 @@ public class IngestionThread extends Thread {
 						xdist = prey.getPoint2D().getX() - l.getPoint2D().getX();
 						ydist = prey.getPoint2D().getY() - l.getPoint2D().getY();
 
-						l.viewAngle = Math.atan2(ydist, xdist);
+						l.setViewAngle(Math.atan2(ydist, xdist));
 
 						double distSqrt = Math.hypot(xdist, ydist);
 						l.getVelocity().setTo(xdist/distSqrt, ydist/distSqrt);
@@ -66,7 +66,7 @@ public class IngestionThread extends Thread {
 							prey.setBiomass(prey.getBiomass() - diff);
 						}
 
-						l.actionProgress = (startBioMass-prey.getBiomass()) / startBioMass;
+						l.setActionProgress((startBioMass-prey.getBiomass()) / startBioMass);
 					}
 					sleep(50);
 				}
@@ -81,19 +81,19 @@ public class IngestionThread extends Thread {
 
 				/* remove lifeform from player's list */
 				if (prey.isControlled()) {
-					if (prey.controllingPlayer.getControlledLifeforms().contains(prey)) {
-						prey.controllingPlayer.getControlledLifeforms().remove(prey);
+					if (prey.getControllingPlayer().getControlledLifeforms().contains(prey)) {
+						prey.getControllingPlayer().getControlledLifeforms().remove(prey);
 					}
 
 
 					/* if the ingested lifeform was selected before, it will get unselected */
-					if (prey.controllingPlayer.getSelectedLifeform() == prey) {
-						prey.controllingPlayer.setSelectedLifeform(null);
+					if (prey.getControllingPlayer().getSelectedLifeform() == prey) {
+						prey.getControllingPlayer().setSelectedLifeform(null);
 					}
 				}
 			}
 
-			if ((ingestionMessageType == MessageTypes.INFO && ProjectUbernahme.verboseLevel >= 3) || ingestionMessageType != MessageTypes.INFO)
+			if ((ingestionMessageType == MessageTypes.INFO && ProjectUbernahme.getVerboseLevel() >= 3) || ingestionMessageType != MessageTypes.INFO)
 				ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} ingested {1}."), new Object[] {l.toString(), prey.toString()}), ingestionMessageType);
 
 		} catch (InterruptedException e) {
@@ -101,6 +101,6 @@ public class IngestionThread extends Thread {
 		}
 
 		/* set the lifeform back to normal */
-		l.busy = false;
+		l.setBusy(false);
 	}
 }

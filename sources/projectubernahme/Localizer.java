@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 
 /** tries to translate strings, returns the input if nothing could be found */
 public class Localizer {
-	static ResourceBundle bundle;
+	private static ResourceBundle bundle;
 
 	private static void init () {
 		try {

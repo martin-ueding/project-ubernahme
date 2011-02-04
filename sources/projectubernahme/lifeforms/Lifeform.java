@@ -22,15 +22,15 @@ import projectubernahme.simulator.MainSimulator;
 /** something with its own mind in the game, can interact with other lifeforms and the world */
 abstract public class Lifeform {	
 	/** the simulator this lifeform is connected to */
-	MainSimulator sim;
+	private MainSimulator sim;
 	
 
 	public Lifeform (MainSimulator sim) {
-		this.sim = sim;
+		this.setSim(sim);
 		name = new String();
 		id = next_id++;
 		setVelocity(new Vector2D(0.0, 0.0));
-		suspicionCases = new CopyOnWriteArrayList<SuspicionCase>();
+		setSuspicionCases(new CopyOnWriteArrayList<SuspicionCase>());
 	}
 	
 	/*
@@ -38,9 +38,9 @@ abstract public class Lifeform {
 	 */
 
 	/** this lets the lifeform act, this can be just sitting around or calling for support or attacking another lifeform */
-	abstract public void act(int sleepTime);
+	public abstract void act(int sleepTime);
 	
-	public CopyOnWriteArrayList<SuspicionCase> suspicionCases;
+	private CopyOnWriteArrayList<SuspicionCase> suspicionCases;
 	
 	/*
 	 * everything that has to do with movement
@@ -50,7 +50,7 @@ abstract public class Lifeform {
 	 * - distance
 	 */
 
-	Point2D position;
+	private Point2D position;
 
 	public Point2D getPoint2D () {
 		return position;
@@ -59,10 +59,7 @@ abstract public class Lifeform {
 	private Vector2D velocity;
 
 	/** angle of view */
-	public double viewAngle;
-
-	/** whether character is turning */
-	double dViewAngle;
+	private double viewAngle;
 
 	public double getViewAngle() {
 		return viewAngle;
@@ -73,10 +70,10 @@ abstract public class Lifeform {
 	}
 
 	/** movement state variable */
-	public short dvSign;
+	private short dvSign;
 
 	/** movement state variable */
-	short dViewAngleSign;
+	private short dViewAngleSign;
 
 	/** maximal velocity */
 	private static double vMax = 1.0;
@@ -84,7 +81,7 @@ abstract public class Lifeform {
 	/** lets the physics work on the lifeform and moves it by its velocities */
 	public void move(int sleepTime) {
 		/* calculate new velocity if this lifeform is controlled */
-		if (inControlledMode && !busy) {
+		if (isInControlledMode() && !isBusy()) {
 			if (dvSign == 0) {
 				getVelocity().zero();
 			}
@@ -100,11 +97,11 @@ abstract public class Lifeform {
 		neighborsListAge += t;
 		
 		if (isCanMove() || canFly) {
-			Point2D newPosition = getVelocity().multiply(t).add(position);
+			Point2D newPosition = getVelocity().multiply(t).add(getPoint2D());
 	
 			/* try to move, check for wall */
-			if (sim.getEnv().isFreeBetween(position, newPosition)) {
-				position = newPosition;
+			if (getSim().getEnv().isFreeBetween(getPoint2D(), newPosition)) {
+				setPosition(newPosition);
 			}
 			viewAngle += dViewAngleSign*t;
 		}
@@ -112,7 +109,7 @@ abstract public class Lifeform {
 
 	/** returns the distance to the other lifeform l, currently just the geometric mean of the axes, later it might include some path trough the world */
 	public double distance (Lifeform l) {
-		return position.distance(l.getPoint2D());
+		return getPoint2D().distance(l.getPoint2D());
 	}
 
 	/*
@@ -134,7 +131,7 @@ abstract public class Lifeform {
 	private double diameter = 0;
 	private double ingestionEff = 0.9;
 	
-	public void setIngestionEff(double newEff){
+	void setIngestionEff(double newEff){
 		this.ingestionEff = newEff;
 	}
 	
@@ -142,83 +139,83 @@ abstract public class Lifeform {
 		return ingestionEff;
 	}
 
-	public void setRangeOfSight(int range){
+	void setRangeOfSight(int range){
 		this.rangeOfSight = range;
 	}
 	
-	public int getRangeOfSight(){
+	int getRangeOfSight(){
 		return this.rangeOfSight;
 	}
 	
-	public boolean isCanSee() {
+	boolean isCanSee() {
 		return canSee;
 	}
 
-	public boolean isCanFly() {
+	boolean isCanFly() {
 		return canFly;
 	}
 
-	public void setCanMove(boolean canMove) {
+	void setCanMove(boolean canMove) {
 		this.canMove = canMove;
 	}
 
-	public boolean isCanMove() {
+	boolean isCanMove() {
 		return canMove;
 	}
 
-	public void setCanSeeIR(boolean canSeeIR) {
+	void setCanSeeIR(boolean canSeeIR) {
 		this.canSeeIR = canSeeIR;
 	}
 
-	public boolean isCanSeeIR() {
+	boolean isCanSeeIR() {
 		return canSeeIR;
 	}
 
-	public void setCanSeeXRay(boolean canSeeXRay) {
+	void setCanSeeXRay(boolean canSeeXRay) {
 		this.canSeeXRay = canSeeXRay;
 	}
 
-	public boolean isCanSeeXRay() {
+	boolean isCanSeeXRay() {
 		return canSeeXRay;
 	}
 
-	public void setCanHear(boolean canHear) {
+	void setCanHear(boolean canHear) {
 		this.canHear = canHear;
 	}
 
-	public boolean isCanHear() {
+	boolean isCanHear() {
 		return canHear;
 	}
 
-	public void setCanFeel(boolean canFeel) {
+	void setCanFeel(boolean canFeel) {
 		this.canFeel = canFeel;
 	}
 
-	public boolean isCanFeel() {
+	boolean isCanFeel() {
 		return canFeel;
 	}
 
-	public void setCanSmell(boolean canSmell) {
+	void setCanSmell(boolean canSmell) {
 		this.canSmell = canSmell;
 	}
 
-	public boolean isCanSmell() {
+	boolean isCanSmell() {
 		return canSmell;
 	}
 
-	public void setCanTaste(boolean canTaste) {
+	void setCanTaste(boolean canTaste) {
 		this.canTaste = canTaste;
 	}
 
-	public boolean isCanTaste() {
+	boolean isCanTaste() {
 		return canTaste;
 	}
 
-	public void setCanSee(boolean canSee) {
+	void setCanSee(boolean canSee) {
 		this.canSee = canSee;
 	}
 
-	public void setCanFly(boolean canFly) {
+	void setCanFly(boolean canFly) {
 		this.canFly = canFly;
 	}
 
@@ -228,7 +225,7 @@ abstract public class Lifeform {
 	}
 	
 	/** list of other lifeforms that this lifeform can see */
-	ArrayList<Lifeform> neighbors = new ArrayList<Lifeform>();
+	private ArrayList<Lifeform> neighbors = new ArrayList<Lifeform>();
 
 	/** In order to save power, the list with neighbors is only refreshed when it expires. This tracks the age of the list */
 	private double neighborsListAge = 0.0;
@@ -247,12 +244,12 @@ abstract public class Lifeform {
 	}
 
 	/** generates a list with all the lifeforms this one can see */
-	public void generateNeighborsList() {
+	private void generateNeighborsList() {
 		neighbors.clear();
 	
 		/** only traverse if the lifeform can see */
 		if (canSee) {
-			for (Lifeform l : sim.getLifeforms()) {
+			for (Lifeform l : getSim().getLifeforms()) {
 				if (canSee(l) && l != this) {
 					neighbors.add(l);
 				}
@@ -267,10 +264,10 @@ abstract public class Lifeform {
 	 */
 
 	/** whether this lifeform is carrying out some sort of action */
-	public boolean busy;
+	private boolean busy;
 
 	/** progress with that action, from 0.0 to 1.0 */
-	public double actionProgress;
+	private double actionProgress;
 
 	/** thread that handles the current action */
 	private Thread actionThread;
@@ -293,14 +290,14 @@ abstract public class Lifeform {
 
 	/** takes over control of the given lifeform, returns whether that was successful */
 	public boolean takeover(Lifeform lifeform) {
-		if (canTakeover(lifeform) && !busy) {
+		if (canTakeover(lifeform) && !isBusy()) {
 			return startTakeover(lifeform);
 		}
 		return false;
 	}
 
 	private boolean startTakeover(Lifeform lifeform) {
-		actionThread = new TakeoverThread(this, controllingPlayer, lifeform, sim);
+		actionThread = new TakeoverThread(this, getControllingPlayer(), lifeform, getSim());
 		actionThread.start();
 		return true;
 	}
@@ -317,13 +314,13 @@ abstract public class Lifeform {
 		if (whom == null)
 			return;
 
-		if (canIngest(whom) && !busy) {
+		if (canIngest(whom) && !isBusy()) {
 			startIngestion(whom);
 		}
 	}
 
 	private void startIngestion(Lifeform whom) {
-		actionThread = new IngestionThread(this, controllingPlayer, whom, sim);
+		actionThread = new IngestionThread(this, getControllingPlayer(), whom, getSim());
 		actionThread.start();		
 	}
 
@@ -360,7 +357,7 @@ abstract public class Lifeform {
 		case 'a':
 		case 'd': dViewAngleSign = 0; break;
 		case 'p': if (isControlled()) {
-			inControlledMode = !inControlledMode;
+			setInControlledMode(!isInControlledMode());
 			stopAction();
 			break;
 		}
@@ -372,17 +369,17 @@ abstract public class Lifeform {
 	 */
 	
 	/** the player who controls this lifeforms, if null, the computer controls it */
-	public Player controllingPlayer = null;
+	private Player controllingPlayer = null;
 	
-	public boolean inControlledMode = false;
+	private boolean inControlledMode = false;
 
 	public boolean isControlled() {
-		return controllingPlayer != null;
+		return getControllingPlayer() != null;
 	}
 
 	public void setControlled(Player p) {
-		this.controllingPlayer = p;
-		inControlledMode = true;
+		this.setControllingPlayer(p);
+		setInControlledMode(true);
 	}
 	
 	/*
@@ -396,17 +393,17 @@ abstract public class Lifeform {
 	 */
 
 	/** unique id */
-	int id;
+	private int id;
 
 	/** main id counter, determines the next given id */
-	protected static int next_id = 0;
+	private static int next_id = 0;
 
-	public int getID() {
+	int getID() {
 		return id;
 	}
 
 	/** given name of the object */
-	String name = new String();
+	private String name = new String();
 
 	public String getName() {
 		return name;
@@ -415,9 +412,6 @@ abstract public class Lifeform {
 	public void setName(String value) {
 		name = value;
 	}
-
-	/** whether this lifeform is still alive */
-	boolean alive = true;
 
 	/** the mass of biological stuff the lifeform ingested so far */
 	private double biomass = 0.0;
@@ -434,11 +428,11 @@ abstract public class Lifeform {
 	/** gives a generic description string of the object */
 	public String toString () {
 		if (name.equals("")) {
-			return getI18nClassName()+" \t"+ProjectUbernahme.f.format(getBiomass())+" kg";
+			return getI18nClassName()+" \t"+ProjectUbernahme.getF().format(getBiomass())+" kg";
 			
 		}
 		else {
-			return getName()+" \t("+getI18nClassName()+") \t"+ProjectUbernahme.f.format(getBiomass())+" kg";
+			return getName()+" \t("+getI18nClassName()+") \t"+ProjectUbernahme.getF().format(getBiomass())+" kg";
 		}
 	}
 
@@ -446,25 +440,25 @@ abstract public class Lifeform {
 		return diameter;
 	}
 
-	abstract public ConvertedGraphics getConvertedGraphics();
+	public abstract ConvertedGraphics getConvertedGraphics();
 
 	/** intelligence level, 1.0 would be a genius */
 	private double intelligence;
 	
-	public void setIntelligence(double intelligence) {
+	void setIntelligence(double intelligence) {
 		this.intelligence = intelligence;
 	}
 
-	public double getIntelligence() {
-		if (controllingPlayer != null) {
-			return intelligence*controllingPlayer.getIntFactor();
+	double getIntelligence() {
+		if (getControllingPlayer() != null) {
+			return intelligence*getControllingPlayer().getIntFactor();
 		}
 		else {
 			return intelligence;
 		}
 	}
 
-	public void setVelocity(Vector2D velocity) {
+	void setVelocity(Vector2D velocity) {
 		this.velocity = velocity;
 	}
 
@@ -482,7 +476,7 @@ abstract public class Lifeform {
 		/* the more intelligent the other lifeform is, the less points */
 		points += 10*(intelligence - l.intelligence);
 		
-		if (ProjectUbernahme.verboseLevel >= 5)
+		if (ProjectUbernahme.getVerboseLevel() >= 5)
 			ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} has {1} suspicion points against {2}."), new Object[] {toString(), points, l.toString()}), MessageTypes.INFO);
 		
 		return points > 1;
@@ -495,5 +489,57 @@ abstract public class Lifeform {
 		}
 	}
 
-	abstract public String getI18nClassName();
+	public abstract String getI18nClassName();
+
+	void setSuspicionCases(CopyOnWriteArrayList<SuspicionCase> suspicionCases) {
+		this.suspicionCases = suspicionCases;
+	}
+
+	public CopyOnWriteArrayList<SuspicionCase> getSuspicionCases() {
+		return suspicionCases;
+	}
+
+	public void setActionProgress(double actionProgress) {
+		this.actionProgress = actionProgress;
+	}
+
+	public double getActionProgress() {
+		return actionProgress;
+	}
+
+	public void setBusy(boolean busy) {
+		this.busy = busy;
+	}
+
+	public boolean isBusy() {
+		return busy;
+	}
+
+	void setControllingPlayer(Player controllingPlayer) {
+		this.controllingPlayer = controllingPlayer;
+	}
+
+	public Player getControllingPlayer() {
+		return controllingPlayer;
+	}
+
+	public void setInControlledMode(boolean inControlledMode) {
+		this.inControlledMode = inControlledMode;
+	}
+
+	public boolean isInControlledMode() {
+		return inControlledMode;
+	}
+
+	void setPosition(Point2D position) {
+		this.position = position;
+	}
+
+	void setSim(MainSimulator sim) {
+		this.sim = sim;
+	}
+
+	MainSimulator getSim() {
+		return sim;
+	}
 }

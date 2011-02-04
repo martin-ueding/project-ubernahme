@@ -9,7 +9,7 @@ import projectubernahme.ProjectUbernahme;
 import projectubernahme.simulator.MainSimulator;
 
 public class GamePauseKeyListener implements KeyListener {
-	MainSimulator sim;
+	private MainSimulator sim;
 	
 	public GamePauseKeyListener (MainSimulator sim) {
 		this.sim = sim;

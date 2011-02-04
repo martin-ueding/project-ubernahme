@@ -7,7 +7,7 @@ import projectubernahme.Player;
 
 public class LifeformControlKeyListener implements KeyListener {
 	
-	Player player;
+	private Player player;
 
 	public LifeformControlKeyListener(Player player) {
 		this.player = player;

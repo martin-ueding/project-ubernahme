@@ -9,9 +9,6 @@ import projectubernahme.simulator.MainSimulator;
 
 public class Interface2D {
 	
-	MainSimulator sim;
-	Player player;
-	
 	public Interface2D (MainSimulator sim, Player p) {		
 		JFrame graphicsPanel = new JFrame(Localizer.get("Project Ubernahme"));
 		graphicsPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -23,12 +23,12 @@ public class Zombie extends Lifeform {
 
 	public Zombie(MainSimulator sim, Point2D p) {
 		this(sim);
-		position = p;
+		setPosition(p);
 	}
 
 	@Override
 	public void act(int sleepTime) {
-		if (!inControlledMode) {
+		if (!isInControlledMode()) {
 			/* find the closest human to this zombie */
 			Lifeform closest = null;
 			double minDistance = Double.MAX_VALUE;
@@ -60,7 +60,7 @@ public class Zombie extends Lifeform {
 
 			/* if there is a victim ... */
 			if (closest != null) {
-				if (!busy) {
+				if (!isBusy()) {
 					ingest(closest);
 				}
 			}

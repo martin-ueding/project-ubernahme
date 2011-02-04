@@ -20,7 +20,7 @@ public class MainSimulator {
 
 	/** list of all lifeforms in the whole game */
 	private CopyOnWriteArrayList<Lifeform> lifeforms;
-	CopyOnWriteArrayList<Player> players;
+	private CopyOnWriteArrayList<Player> players;
 	
 	/** the environment **/
 	private TileEnvironment env;
@@ -83,12 +83,12 @@ public class MainSimulator {
 		for (Lifeform other : lifeforms) {
 			if (other.canSee(l) && other.willSuspect(l)) {
 				SuspicionCase sc = new SuspicionCase();
-				sc.l = l;
+				sc.setL(l);
 				// TODO adjust this strengh and let strengths add up, avoid duplicate entries
-				sc.strengh = 0.5;
-				other.suspicionCases.add(sc);
+				sc.setStrengh(0.5);
+				other.getSuspicionCases().add(sc);
 				
-				if (ProjectUbernahme.verboseLevel >= 4)
+				if (ProjectUbernahme.getVerboseLevel() >= 4)
 					ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} suspects {1} now."), new Object[] {other.toString(), l.toString()}),
 						l.isControlled() ? MessageTypes.WARNING : MessageTypes.INFO);
 			}
@@ -129,10 +129,10 @@ public class MainSimulator {
 	}
 
 	public CopyOnWriteArrayList<Integer> getCalcTimeList() {
-		return simulatorThread.calcTime;
+		return simulatorThread.getCalcTime();
 	}
 
 	public int getPeriod() {
-		return simulatorThread.sleepTime;
+		return simulatorThread.getSleepTime();
 	}
 }

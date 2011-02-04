@@ -1,18 +1,16 @@
 package projectubernahme.interface2D;
 
-import java.io.BufferedOutputStream;
 import java.util.Calendar;
 
 public class PowerClock {
-	BufferedOutputStream os;
-	boolean first = true;
-	long clockBegin;
+	private boolean first = true;
+	private long clockBegin;
 
-	public void start() {
+	void start() {
 		clockBegin = Calendar.getInstance().getTimeInMillis();
 	}
 
-	public void end(String task) {
+	void end(String task) {
 		if (first) {
 			System.out.print(task+",");
 		}
@@ -21,7 +19,7 @@ public class PowerClock {
 		}
 	}
 
-	public void done() {
+	void done() {
 		System.out.println();
 		first = false;
 	}

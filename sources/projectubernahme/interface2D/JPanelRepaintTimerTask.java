@@ -4,8 +4,8 @@ import java.util.TimerTask;
 
 public class JPanelRepaintTimerTask extends TimerTask {
 
-	View2D panel;
-	boolean lock = false;
+	private View2D panel;
+	private boolean lock = false;
 
 
 	public JPanelRepaintTimerTask(View2D p) {
@@ -18,11 +18,11 @@ public class JPanelRepaintTimerTask extends TimerTask {
 		if (!lock) {
 			panel.repaint();
 		}
-		panel.measureTime += 40/1000.0;
+		panel.setMeasureTime(panel.getMeasureTime() + (40/1000.0));
 	}
 
 
-	public void lock(boolean b) {
+	void lock(boolean b) {
 		lock = b;		
 	}
 
