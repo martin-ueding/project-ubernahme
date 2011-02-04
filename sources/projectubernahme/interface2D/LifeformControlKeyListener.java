@@ -18,6 +18,10 @@ public class LifeformControlKeyListener implements KeyListener {
 		
 		/* pass it on to the player */
 		player.handleKeyPressed(e);
+		
+		if (e.getKeyChar() == 'q') {
+			System.exit(0);
+		}
 	}
 
 	public void keyReleased(KeyEvent e) {
