@@ -35,14 +35,17 @@ public class Zombie extends Lifeform {
 
 			for(Lifeform n : getNeighbors()) {
 				if (n.getClass().getName().endsWith("Human")) {
-					double distance = distance(n);
-					if (distance < minDistance) {
-						minDistance = distance;
-						closest = n;
+					// do not eat lifeforms of the same player
+					if (getControllingPlayer() == null || n.getControllingPlayer() != getControllingPlayer()) {
+						double distance = distance(n);
+						if (distance < minDistance) {
+							minDistance = distance;
+							closest = n;
+						}
 					}
 				}
 			}
-			
+
 			/* if there is no human to ingest, eat another, smaller zombie
 			 * instead, that way, zombies do not start piling up on a spot but
 			 * become huge */
