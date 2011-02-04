@@ -17,7 +17,7 @@ public class Fly extends Lifeform {
 		setCanFly(true);
 		setCanSee(true);
 		setCanMove(true);
-		setRangeOfSight(300);
+		setRangeOfSight(3);
 		setBiomass(0.001/17);
 		setIntelligence(0.1);
 		
