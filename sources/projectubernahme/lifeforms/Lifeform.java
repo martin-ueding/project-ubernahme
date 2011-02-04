@@ -33,6 +33,11 @@ abstract public class Lifeform {
 		setSuspicionCases(new CopyOnWriteArrayList<SuspicionCase>());
 	}
 	
+	public Lifeform (MainSimulator sim, Point2D p) {
+		this(sim);
+		position = p;
+	}
+	
 	/*
 	 * the AI
 	 */

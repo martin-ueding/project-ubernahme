@@ -16,7 +16,7 @@ import projectubernahme.simulator.MainSimulator;
 
 public class Human extends Lifeform {
 	
-	private static ArrayList<String> names;
+	protected static ArrayList<String> names;
 	
 
 	private static ConvertedGraphics cg = new LifeformHumanGraphics();
@@ -25,16 +25,20 @@ public class Human extends Lifeform {
 
 	public Human (MainSimulator sim) {
 		super(sim);
-		if (names == null) {
-			loadNames();
-		}
-		setName(names.get((int)(Math.random()*names.size())));
+		giveAName();
 		setCanFly(false);
 		setCanSee(true);
 		setCanMove(true);
 		setRangeOfSight(10);
 		setBiomass(60.0 + Math.random()*60);
 		setIntelligence(0.3+0.3*Math.random());
+	}
+
+	private void giveAName() {
+		if (names == null) {
+			loadNames();
+		}
+		setName(names.get((int)(Math.random()*names.size())));
 	}
 
 	private static void loadNames() {
@@ -73,13 +77,8 @@ public class Human extends Lifeform {
 			}
 			
 			
-			if (reachedWaypoint()) {
-				generateNewWaypoint();
-			}
-			
 			if (!strangeGuyAround) {
-				setViewAngle(Math.atan2(-this.getPoint2D().getY()+waypoint.getY(), -this.getPoint2D().getX()+waypoint.getX()));
-				setVelocity(new Vector2D(0.5*Math.cos(getViewAngle()), 0.5*Math.sin(getViewAngle())));
+				headToWaypoint();
 			}
 		}
 		
@@ -87,6 +86,15 @@ public class Human extends Lifeform {
 		for (SuspicionCase sc : getSuspicionCases()) {
 			sc.setStrengh(Math.max(0.0, sc.getStrengh()-sleepTime/1000.0*0.01));
 		}
+	}
+
+	void headToWaypoint() {
+		if (reachedWaypoint()) {
+			generateNewWaypoint();
+		}
+		
+		setViewAngle(Math.atan2(-this.getPoint2D().getY()+waypoint.getY(), -this.getPoint2D().getX()+waypoint.getX()));
+		setVelocity(new Vector2D(0.5*Math.cos(getViewAngle()), 0.5*Math.sin(getViewAngle())));
 	}
 
 	private void generateNewWaypoint() {

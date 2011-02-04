@@ -9,6 +9,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -22,6 +23,7 @@ import projectubernahme.gfx.TileSidewalk;
 import projectubernahme.gfx.TileStreet;
 import projectubernahme.lifeforms.Human;
 import projectubernahme.lifeforms.Lifeform;
+import projectubernahme.lifeforms.Police;
 import projectubernahme.lifeforms.Tree;
 import projectubernahme.lifeforms.Zombie;
 import projectubernahme.simulator.MainSimulator;
@@ -115,7 +117,7 @@ public class TileEnvironment {
 		/* return false if path would lead out of the map */
 		if (x2 < 0 || y2 < 0 || x2 > tiles.length*tileWidthInReal || y2 > tiles[0].length*tileWidthInReal)
 			return false;
-		
+
 		return true;
 	}
 
@@ -131,22 +133,22 @@ public class TileEnvironment {
 		else {
 			double scaling = Double.parseDouble(ProjectUbernahme.getConfigValue("tileOverlapScaling"));
 			ConvertedGraphics cg;
-			
+
 			boolean[][] visible = new boolean[tiles.length][tiles[0].length];
 
 			double twiceScreenRadius = Math.hypot(width, height);
-			
+
 			Rectangle2D screen = new Rectangle2D.Double(0, 0, width, height);
-			
+
 
 			/* create a new background image and pull the graphics to draw on it */
 			bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g = (Graphics2D) bg.getGraphics();
-			
+
 			// fill it with a black background
 			g.setColor(Color.black);
 			g.fillRect(0, 0, width, height);
-			
+
 			/* iterate through the tiles ... */
 			for (int i = 0; i < tiles[0].length; i += 1) {
 				for (int j = 0; j < tiles.length; j += 1) {
@@ -159,7 +161,7 @@ public class TileEnvironment {
 
 					/* draw only the visible items onto the background */					
 					Point2D target = tileTransform.transform(origin, null);
-					
+
 					/* create a whole rectangle and transform it to the screen */
 					Rectangle2D tile = new Rectangle2D.Double(0, 0, tileWidthInReal, tileWidthInReal);
 					Shape tileResult = tileTransform.createTransformedShape(tile);
@@ -203,7 +205,7 @@ public class TileEnvironment {
 			previousTransform = (AffineTransform) transform.clone();
 			previousHeight = height;
 			previousWidth = width;
-			
+
 		}
 		return bg;
 	}
@@ -211,21 +213,56 @@ public class TileEnvironment {
 	/** iterate through the tiles and spawn some lifeforms where they belong */
 	public void initializeNPCs(CopyOnWriteArrayList<Lifeform> list, MainSimulator sim) {
 		int treeOffset = Integer.parseInt(ProjectUbernahme.getConfigValue("treeOffset"));
-		double zombieChance = 1.0/Integer.parseInt(ProjectUbernahme.getConfigValue("zombieChance"));
+		double zombieSpawnChance = 1.0/Integer.parseInt(ProjectUbernahme.getConfigValue("zombieSpawnChance"));
+		double policeSpawnChance = 1.0/Integer.parseInt(ProjectUbernahme.getConfigValue("policeSpawnChance"));
 		double humanSpawnChance = 1.0/Integer.parseInt(ProjectUbernahme.getConfigValue("humanSpawnChance"));
-		
+		double treeSpawnChance = 1.0/Integer.parseInt(ProjectUbernahme.getConfigValue("treeSpawnChance"));
+
 		for (int i = 0; i < tiles[0].length; i++) {
 			for (int j = 0; j < tiles.length; j++) {
-				if (Math.random() < humanSpawnChance) {
-					switch (tiles[j][i]) {
-					case 'S': list.add(Math.random() > zombieChance ? new Human(sim, new Point2D.Double((j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)) : new Zombie(sim, new Point2D.Double((j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal))); break;
-					case 'L':
+				Class<? extends Lifeform> toAdd = Lifeform.class;
+
+				switch (tiles[j][i]) {
+				case 'S':
+					if (Math.random() < humanSpawnChance) {
+						toAdd = Human.class;
+					}
+					if (Math.random() < zombieSpawnChance) {
+						toAdd = Zombie.class;
+					}
+					if (Math.random() < policeSpawnChance) {
+						toAdd = Police.class;
+					}
+					break;
+				case 'L':
+					if (Math.random() < treeSpawnChance) {
 						if (i >= treeOffset && j >= treeOffset && i+treeOffset < tiles[0].length && j+treeOffset < tiles.length) {
 							if (tiles[j-treeOffset][i] == 'L' && tiles[j+treeOffset][i] == 'L' && tiles[j][i-treeOffset] == 'L' && tiles[j][i+treeOffset] == 'L' && Math.random() > 0.9) {
-								list.add(new Tree(sim, new Point2D.Double((j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)));
+								toAdd = Tree.class;
 							}
 						}
-						break;
+					}
+					break;
+				}
+
+				//System.out.println(toAdd);
+
+				/* add one of the class to the list */
+				if (toAdd != Lifeform.class) {
+					try {
+						list.add(toAdd.getConstructor(new Class[] {MainSimulator.class, Point2D.class}).newInstance(new Object[] {sim, new Point2D.Double((j+0.5)*tileWidthInReal, (i+0.5)*tileWidthInReal)}));
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					} catch (SecurityException e) {
+						e.printStackTrace();
+					} catch (InstantiationException e) {
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						e.printStackTrace();
+					} catch (NoSuchMethodException e) {
+						e.printStackTrace();
 					}
 				}
 			}
@@ -239,7 +276,7 @@ public class TileEnvironment {
 		/* find the current tile */
 		int tileX = (int)(p.getX()/tileWidthInReal);
 		int tileY = (int)(p.getY()/tileWidthInReal);
-		
+
 		ArrayList<Point2D> possibleNewWaypoints = new ArrayList<Point2D>();
 
 		/* try to find the next intersection */
