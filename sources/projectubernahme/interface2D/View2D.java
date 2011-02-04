@@ -229,9 +229,6 @@ public class View2D extends JPanel {
 			/* only paint lifeforms that are controlled or are within the reach of some other lifeform
 			 * that way, nothing is spoiled */
 			if (player.canSee(l)) {
-				// TODO externalize these colors
-				g.setColor(l.isControlled() ? Color.GREEN : Color.BLUE);
-
 				double diameter = l.getDiameter();
 				double diameterView = diameter * Math.sqrt(transform.getDeterminant());			
 
