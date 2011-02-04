@@ -428,11 +428,13 @@ abstract public class Lifeform {
 	/** gives a generic description string of the object */
 	public String toString () {
 		if (name.equals("")) {
-			return getI18nClassName()+" \t"+ProjectUbernahme.format(getBiomass())+" kg";
+			return getI18nClassName()+(
+					getBiomass() != 0 ? " \t["+ProjectUbernahme.format(getBiomass())+" kg]" : "");
 			
 		}
 		else {
-			return getName()+" \t("+getI18nClassName()+") \t"+ProjectUbernahme.format(getBiomass())+" kg";
+			return getName()+" \t("+getI18nClassName()+")"+(
+					getBiomass() != 0 ? " \t["+ProjectUbernahme.format(getBiomass())+" kg]" : "");
 		}
 	}
 
