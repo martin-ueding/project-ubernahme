@@ -460,7 +460,7 @@ public class View2D extends JPanel {
 		g.setColor(colorInterfaceDescriptorText);
 		g.drawString(Localizer.get("Biomass"), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40);
 		g.setColor(colorInterfaceValueText);
-		g.drawString(ProjectUbernahme.getF().format(l.getBiomass())+" kg", getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200+10, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40+15);
+		g.drawString(ProjectUbernahme.format(l.getBiomass())+" kg", getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200+10, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40+15);
 		infoStringsColumn++;
 
 		if (l.getName().length() > 0) {

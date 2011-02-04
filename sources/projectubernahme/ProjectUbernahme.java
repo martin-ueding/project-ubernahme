@@ -39,8 +39,8 @@ public class ProjectUbernahme {
 
 	public static void main (String[] args) {
 		logMessages = new CopyOnWriteArrayList<LogMessage>();
-		setF(new DecimalFormat());
-		getF().applyPattern("0.00E0");
+		f = new DecimalFormat();
+		f.applyPattern("0.00E0");
 		
 		config = new Properties();
 		try {
@@ -95,19 +95,15 @@ public class ProjectUbernahme {
 		return logMessages;
 	}
 
-	public static void setF(DecimalFormat f) {
-		ProjectUbernahme.f = f;
-	}
-
-	public static DecimalFormat getF() {
-		return f;
-	}
-
 	public static void setVerboseLevel(int verboseLevel) {
 		ProjectUbernahme.verboseLevel = verboseLevel;
 	}
 
 	public static int getVerboseLevel() {
 		return verboseLevel;
+	}
+
+	public static String format(double d) {
+		return f.format(d);
 	}
 }

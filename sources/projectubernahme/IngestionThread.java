@@ -101,7 +101,7 @@ public class IngestionThread extends Thread {
 		
 
 		if ((ingestionMessageType == MessageTypes.INFO && ProjectUbernahme.getVerboseLevel() >= 3) || ingestionMessageType != MessageTypes.INFO)
-			ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} ingested {2} kg of {1}."), new Object[] {l.toString(), prey.getName(), ProjectUbernahme.getF().format(massTakenIn)}), ingestionMessageType);
+			ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} ingested {2} kg of {1}."), new Object[] {l.toString(), prey.getName(), ProjectUbernahme.format(massTakenIn)}), ingestionMessageType);
 
 		/* set the lifeform back to normal */
 		l.setBusy(false);
