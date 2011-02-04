@@ -31,9 +31,9 @@ public class IngestionThread extends Thread {
 		else
 			ingestionMessageType = MessageTypes.INFO;
 
+		double massTakenIn = 0.0;
 
 		try {
-
 			if (l.canIngest(prey)) {
 				double startBioMass = prey.getBiomass();
 
@@ -61,6 +61,7 @@ public class IngestionThread extends Thread {
 
 						if (l.canIngest(prey)) {
 							double diff = Math.min(prey.getBiomass(), Math.sqrt(l.getBiomass())/10);
+							massTakenIn += diff/l.getIngestionEff();
 
 							l.setBiomass(l.getBiomass() + diff/l.getIngestionEff());
 							prey.setBiomass(prey.getBiomass() - diff);
@@ -93,12 +94,14 @@ public class IngestionThread extends Thread {
 				}
 			}
 
-			if ((ingestionMessageType == MessageTypes.INFO && ProjectUbernahme.getVerboseLevel() >= 3) || ingestionMessageType != MessageTypes.INFO)
-				ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} ingested {1}."), new Object[] {l.toString(), prey.toString()}), ingestionMessageType);
 
 		} catch (InterruptedException e) {
 			/* if the action was interrupted, then it will just stop, the busy state is reset at the end of this method anyway */
 		}
+		
+
+		if ((ingestionMessageType == MessageTypes.INFO && ProjectUbernahme.getVerboseLevel() >= 3) || ingestionMessageType != MessageTypes.INFO)
+			ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} ingested {2} kg of {1}."), new Object[] {l.toString(), prey.getName(), ProjectUbernahme.getF().format(massTakenIn)}), ingestionMessageType);
 
 		/* set the lifeform back to normal */
 		l.setBusy(false);
