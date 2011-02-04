@@ -561,4 +561,11 @@ abstract public class Lifeform {
 	MainSimulator getSim() {
 		return sim;
 	}
+	
+	public void skillShockwave () {
+		double diff = getBiomass() / 5;
+		setBiomass(getBiomass()-diff);
+		
+		sim.skillShockwave(getPoint2D(), diff, this);
+	}
 }

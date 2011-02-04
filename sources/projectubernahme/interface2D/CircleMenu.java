@@ -77,6 +77,14 @@ public class CircleMenu implements MouseListener, MouseMotionListener {
 			item.p = player;
 			menuitems.add(item);
 		}
+		
+		if (l.getControllingPlayer() == player) {
+			item = new CircleMenuItemShockwave(this, l);
+			item.angle = 1.75*Math.PI;
+			item.text = Localizer.get("send shockwave");
+			item.p = player;
+			menuitems.add(item);
+		}
 
 		setDisplay(true);
 
@@ -281,6 +289,16 @@ class CircleMenuItemTakeover extends CircleMenuItem {
 	
 	ConvertedGraphics getConvertedGraphics() {
 		return new MenuTakeover();
+	}
+}
+
+class CircleMenuItemShockwave extends CircleMenuItem {
+	public CircleMenuItemShockwave(CircleMenu parent, Lifeform l) {
+		super(parent, l);
+	}
+
+	void action () {
+		p.getSelectedLifeform().skillShockwave();
 	}
 }
 

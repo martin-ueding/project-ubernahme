@@ -142,4 +142,17 @@ public class MainSimulator {
 		prey.setPosition(new Point2D.Double(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY));
 		
 	}
+
+	public void skillShockwave(Point2D point2D, double diff, Lifeform sender) {
+		for (Lifeform other : lifeforms) {
+			if (other != sender) {
+				double damage = diff*2 / sender.distance(other);
+				damage = Math.min(damage, other.getBiomass()/2);
+				other.setBiomass(other.getBiomass()-damage);
+				if (other.getBiomass() <= 0.0) {
+					remove(other);
+				}
+			}
+		}
+	}
 }
