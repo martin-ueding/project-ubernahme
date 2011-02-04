@@ -273,9 +273,16 @@ abstract public class Lifeform {
 	private Thread actionThread;
 
 	public boolean canTakeover(Lifeform prey) {
+		// do not let the prey takeover itself
 		if (prey == this) {
 			return false;
 		}
+		
+		// if the prey is already controlled by this player, do not take it again
+		if (prey.getControllingPlayer() == getControllingPlayer()) {
+			return false;
+		}
+		
 		double random1 = Math.random()/0.5 + 0.5;
 		double random2 = Math.random()/0.5 + 0.5;
 		double sizeFactor = prey.getBiomass()*random1 / this.biomass*random2;
