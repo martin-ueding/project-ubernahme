@@ -289,9 +289,7 @@ abstract public class Lifeform {
 			return false;
 		}
 
-		double random1 = Math.random()/0.5 + 0.5;
-		double random2 = Math.random()/0.5 + 0.5;
-		double sizeFactor = prey.getBiomass()*random1 / this.biomass*random2;
+		double sizeFactor = prey.getBiomass() / this.biomass;
 		double intelligenceFactor = prey.getIntelligence();
 		if (sizeFactor * intelligenceFactor < 5 && canSee(prey)) {
 			return true;
