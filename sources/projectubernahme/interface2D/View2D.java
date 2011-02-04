@@ -121,6 +121,9 @@ public class View2D extends JPanel {
 		
 		//clock = new PowerClock();
 	}
+	
+	static int powerMeterMeasurementsCount = Integer.parseInt(ProjectUbernahme.getConfigValue("powerMeterMeasurementsCount"));
+	static int powerMeterMeasurementsWidth = Integer.parseInt(ProjectUbernahme.getConfigValue("powerMeterMeasurementsWidth"));
 
 	protected void paintComponent (Graphics h) {
 		repaintTimer.lock(true);
@@ -154,14 +157,13 @@ public class View2D extends JPanel {
 		//clock.end(Localizer.get("draw circle menu"));
 
 		//clock.start();
-		drawPowerMeter(g, sim.getCalcTimeList(), sim.getPeriod(), getWidth()-100, 0);
-		drawPowerMeter(g, calcTime, repaintInterval, getWidth()-100, 110);
+		drawPowerMeter(g, sim.getCalcTimeList(), sim.getPeriod(), getWidth()-powerMeterMeasurementsCount*powerMeterMeasurementsWidth, 0);
+		drawPowerMeter(g, calcTime, repaintInterval, getWidth()-powerMeterMeasurementsCount*powerMeterMeasurementsWidth, 110);
 		//clock.end(Localizer.get("draw power meter"));
 		
 
 		/* limit the count of the history in the power meter */
-		// TODO put the 50 into a config file
-		if (calcTime.size() > 50) {
+		if (calcTime.size() > powerMeterMeasurementsCount) {
 			calcTime.remove(0);
 		}
 		
@@ -181,31 +183,30 @@ public class View2D extends JPanel {
 	private void drawPowerMeter(Graphics2D g, CopyOnWriteArrayList<Integer> list, int time, int x0, int y0) {
 		
 		g.setColor(Color.gray);
-		int barWidth = 2;
 		int maxValue = 100;
 		int k = 0;
 		g.setColor(new Color(0, 0, 0, 100));
-		g.fillRect(x0, y0, barWidth*list.size(), maxValue+1);
+		g.fillRect(x0, y0, powerMeterMeasurementsWidth*list.size(), maxValue+1);
 		for (Integer integer : list) {
 			int i = integer.intValue();
 			
 			if (i < time) {
 				g.setColor(Color.green);
-				g.fillRect(x0+k*barWidth, y0+maxValue-time, barWidth, time-i);
+				g.fillRect(x0+k*powerMeterMeasurementsWidth, y0+maxValue-time, powerMeterMeasurementsWidth, time-i);
 			}
 			else if (i <= maxValue) {
 				g.setColor(Color.yellow);
-				g.fillRect(x0+k*barWidth, y0+maxValue-i, barWidth, i-time);
+				g.fillRect(x0+k*powerMeterMeasurementsWidth, y0+maxValue-i, powerMeterMeasurementsWidth, i-time);
 			}
 			else {
 				g.setColor(Color.red);
-				g.fillRect(x0+k*barWidth, y0+maxValue-maxValue, barWidth, maxValue-time);
+				g.fillRect(x0+k*powerMeterMeasurementsWidth, y0+maxValue-maxValue, powerMeterMeasurementsWidth, maxValue-time);
 			}
 			k++;
 		}
 		
 		g.setColor(Color.WHITE);
-		g.drawLine(x0+0, y0+maxValue-time, x0+k*barWidth, y0+maxValue-time);
+		g.drawLine(x0+0, y0+maxValue-time, x0+k*powerMeterMeasurementsWidth, y0+maxValue-time);
 
 	}
 

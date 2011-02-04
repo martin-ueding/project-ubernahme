@@ -6,6 +6,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.JOptionPane;
 
 import projectubernahme.Localizer;
+import projectubernahme.ProjectUbernahme;
 import projectubernahme.lifeforms.Lifeform;
 
 /** moves all the lifeforms around fires off actions */
@@ -19,6 +20,8 @@ public class SimulatorThread extends Thread {
 	private boolean halt = false;
 
 	CopyOnWriteArrayList<Integer> calcTime;
+	
+	static int powerMeterMeasurementsCount = Integer.parseInt(ProjectUbernahme.getConfigValue("powerMeterMeasurementsCount"));
 
 	public SimulatorThread(MainSimulator mainSimulator) {
 		sim = mainSimulator;
@@ -38,8 +41,7 @@ public class SimulatorThread extends Thread {
 						l.act(sleepTime);
 					}
 				}
-				// TODO put the 50 into a config file
-				if (calcTime.size() > 50) {
+				if (calcTime.size() > powerMeterMeasurementsCount) {
 					calcTime.remove(0);
 				}
 				
