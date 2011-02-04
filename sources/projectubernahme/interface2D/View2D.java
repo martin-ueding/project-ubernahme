@@ -47,6 +47,26 @@ public class View2D extends JPanel {
 
 	CopyOnWriteArrayList<Integer> calcTime;
 
+	private Color colorFramesPerSecondText;
+
+	private Color colorInterfaceBackground;
+
+	private Color colorInterfaceDescriptorText;
+
+	private Color colorInterfaceValueText;
+
+	private Color colorInterfaceBiomassTotal;
+
+	private Color colorInterfaceBiomassPlayer;
+
+	private Color colorLifeformShadeControlled;
+
+	private Color colorLifeformShadeVisible;
+
+	private Color colorLifeformProgressPie;
+
+	private Color colorLifeformName;
+
 	public View2D (MainSimulator sim, Player player) {
 
 		calcTime = new CopyOnWriteArrayList<Integer>();
@@ -80,6 +100,18 @@ public class View2D extends JPanel {
 		colorInfo = new Color(Integer.decode(ProjectUbernahme.getConfigValue("colorInfo")));
 		colorDebug = new Color(Integer.decode(ProjectUbernahme.getConfigValue("colorDebug")));
 		colorSuccess = new Color(Integer.decode(ProjectUbernahme.getConfigValue("colorSuccess")));
+		
+
+		colorFramesPerSecondText = new Color((int)Long.decode(ProjectUbernahme.getConfigValue("colorFramesPerSecondText")).intValue(), true);
+		colorInterfaceBackground = new Color((int)Long.decode(ProjectUbernahme.getConfigValue("colorInterfaceBackground")).intValue(), true);
+		colorInterfaceDescriptorText = new Color((int)Long.decode(ProjectUbernahme.getConfigValue("colorInterfaceDescriptorText")).intValue(), true);
+		colorInterfaceValueText = new Color((int)Long.decode(ProjectUbernahme.getConfigValue("colorInterfaceValueText")).intValue(), true);
+		colorInterfaceBiomassTotal = new Color((int)Long.decode(ProjectUbernahme.getConfigValue("colorInterfaceBiomassTotal")).intValue(), true);
+		colorInterfaceBiomassPlayer = new Color((int)Long.decode(ProjectUbernahme.getConfigValue("colorInterfaceBiomassPlayer")).intValue(), true);
+		colorLifeformShadeControlled = new Color((int)Long.decode(ProjectUbernahme.getConfigValue("colorLifeformShadeControlled")).intValue(), true);
+		colorLifeformShadeVisible = new Color((int)Long.decode(ProjectUbernahme.getConfigValue("colorLifeformShadeVisible")).intValue(), true);
+		colorLifeformProgressPie = new Color((int)Long.decode(ProjectUbernahme.getConfigValue("colorLifeformProgressPie")).intValue(), true);
+		colorLifeformName = new Color((int)Long.decode(ProjectUbernahme.getConfigValue("colorLifeformName")).intValue(), true);
 		
 
 		
@@ -127,7 +159,7 @@ public class View2D extends JPanel {
 		//clock.end(Localizer.get("draw power meter"));
 		
 
-		// limit the count of the history in the power meter
+		/* limit the count of the history in the power meter */
 		// TODO put the 50 into a config file
 		if (calcTime.size() > 50) {
 			calcTime.remove(0);
@@ -228,22 +260,19 @@ public class View2D extends JPanel {
 
 					/* draw green shade if controlled */
 					if (l.isControlled()) {
-						// TODO externalize this color
-						g.setColor(new Color(100, 200, 100, 100));
+						g.setColor(colorLifeformShadeControlled);
 						g.fillOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
 					}
 
 					/* if the lifeform can be seen by the currently selected lifeform, draw a blue circle below it */
 					else if (player.getSelectedLifeform().canSee(l) && l != player.getSelectedLifeform()) {
-						// TODO externalize this color
-						g.setColor(new Color(100, 100, 200, 100));
+						g.setColor(colorLifeformShadeVisible);
 						g.fillOval((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView);
 					}
 
 					/* if there is some action in progress, draw a progress indicator pie */
 					if (l.busy) {
-						// TODO externalize this color
-						g.setColor(new Color(200, 100, 0, 200));
+						g.setColor(colorLifeformProgressPie);
 
 						if (l.actionProgress == 0.0) {
 							g.fillArc((int)(p.getX() - diameterView/2), (int)(p.getY() - diameterView/2), (int)diameterView, (int)diameterView, (int)Math.toDegrees(2*selectionRoationAngle), 20);
@@ -258,8 +287,7 @@ public class View2D extends JPanel {
 
 					/* draw the name if lifeform is big enough to be seen */
 					if (lifeformShapeResult.getBounds().height > 50 && !l.getName().equals("")) {
-						// TODO externalize this color
-						g.setColor(new Color(100, 100, 100, 200));
+						g.setColor(colorLifeformName);
 						g.drawString(l.getName(), (int)(p.getX()+diameterView/2), (int)(p.getY()+diameterView/2));
 					}
 
@@ -314,8 +342,7 @@ public class View2D extends JPanel {
 		if (ProjectUbernahme.getConfigValue("showFramesPerSecond").equals("true")) {
 			frames++;
 
-			// TODO externalize this color
-			g.setColor(Color.WHITE);
+			g.setColor(colorFramesPerSecondText);
 			g.drawString("FPS: "+Math.round(frames/measureTime), getWidth()-80, 20);
 
 			if (measureTime > 10) {
@@ -328,8 +355,7 @@ public class View2D extends JPanel {
 	private void drawInterface(final Graphics2D g) {
 		final int INTERFACE_HEIGHT = Integer.parseInt(ProjectUbernahme.getConfigValue("interfaceHeight"));
 		/* draw the background */
-		// TODO externalize this color
-		g.setColor(new Color(100, 100, 100, 230));
+		g.setColor(colorInterfaceBackground);
 		g.fillRect(0, getHeight()-INTERFACE_HEIGHT, getWidth(), INTERFACE_HEIGHT);
 
 		drawLogMessages(g);
@@ -427,28 +453,22 @@ public class View2D extends JPanel {
 
 		/* draw info strings */
 		int infoStringsColumn = 0;
-		// TODO externalize this color
-		g.setColor(new Color(210, 210, 210));
+		g.setColor(colorInterfaceDescriptorText);
 		g.drawString(Localizer.get("Class"), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40);
-		// TODO externalize this color
-		g.setColor(Color.WHITE);
+		g.setColor(colorInterfaceValueText);
 		g.drawString(l.getI18nClassName(), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200+10, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40+15);
 		infoStringsColumn++;
 
-		// TODO externalize this color
-		g.setColor(new Color(210, 210, 210));
+		g.setColor(colorInterfaceDescriptorText);
 		g.drawString(Localizer.get("Biomass"), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40);
-		// TODO externalize this color
-		g.setColor(Color.WHITE);
+		g.setColor(colorInterfaceValueText);
 		g.drawString(ProjectUbernahme.f.format(l.getBiomass())+" kg", getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200+10, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40+15);
 		infoStringsColumn++;
 
 		if (l.getName().length() > 0) {
-			// TODO externalize this color
-			g.setColor(new Color(210, 210, 210));
+			g.setColor(colorInterfaceDescriptorText);
 			g.drawString(Localizer.get("Name"), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40);
-			// TODO externalize this color
-			g.setColor(Color.WHITE);
+			g.setColor(colorInterfaceValueText);
 			g.drawString(l.getName(), getWidth()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2-200+10, getHeight()-SELECTED_SIZE-(INTERFACE_HEIGHT-SELECTED_SIZE)/2+infoStringsColumn*40+15);
 			infoStringsColumn++;
 		}
@@ -487,11 +507,10 @@ public class View2D extends JPanel {
 		double playerBiomass = player.getTotalBiomass();
 
 		final int SLIDER_HEIGHT = Integer.parseInt(ProjectUbernahme.getConfigValue("biomassRatioSliderHeight"));
-		// TODO externalize this color
-		g.setColor(Color.RED);
-		g.fillRect(0, getHeight()-INTERFACE_HEIGHT-SLIDER_HEIGHT, getWidth(), SLIDER_HEIGHT);
-		// TODO externalize this color
-		g.setColor(Color.GREEN);
-		g.fillRect(0, getHeight()-INTERFACE_HEIGHT-SLIDER_HEIGHT, (int)Math.round(getWidth()*(playerBiomass/worldBiomass)), SLIDER_HEIGHT);
+		int playerBiomassPixels = (int)Math.round(getWidth()*(playerBiomass/worldBiomass));
+		g.setColor(colorInterfaceBiomassTotal);
+		g.fillRect(playerBiomassPixels, getHeight()-INTERFACE_HEIGHT-SLIDER_HEIGHT, getWidth()-playerBiomassPixels, SLIDER_HEIGHT);
+		g.setColor(colorInterfaceBiomassPlayer);
+		g.fillRect(0, getHeight()-INTERFACE_HEIGHT-SLIDER_HEIGHT, playerBiomassPixels, SLIDER_HEIGHT);
 	}
 }
