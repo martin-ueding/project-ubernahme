@@ -21,6 +21,7 @@ import projectubernahme.gfx.TileDefault;
 import projectubernahme.gfx.TileLawn;
 import projectubernahme.gfx.TileSidewalk;
 import projectubernahme.gfx.TileStreet;
+import projectubernahme.gfx.TileWater;
 import projectubernahme.lifeforms.Human;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.lifeforms.Police;
@@ -102,6 +103,7 @@ public class TileEnvironment {
 	}
 
 	private void loadTile(char c) {
+		// TODO use the same instances over and over to save memory
 		switch (c) {
 		case 'S': cgs[c] = new TileSidewalk(); break;
 		case 'l':
@@ -109,6 +111,7 @@ public class TileEnvironment {
 		case 's': cgs[c] = new TileStreet(); break;
 		case 'C': cgs[c] = new TileCrosswalkHorizontal(); break;
 		case 'c': cgs[c] = new TileCrosswalkVertical(); break;
+		case 'w': cgs[c] = new TileWater(); break;
 		}
 
 	}
