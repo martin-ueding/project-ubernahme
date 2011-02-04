@@ -87,7 +87,7 @@ public class View2D extends JPanel {
 		repaintTimer = new JPanelRepaintTimerTask(this);
 		timer.schedule(repaintTimer, 1000, repaintInterval);
 		
-		clock = new PowerClock();
+		//clock = new PowerClock();
 	}
 
 	protected void paintComponent (Graphics h) {
@@ -101,30 +101,30 @@ public class View2D extends JPanel {
 		}
 
 		/* draw the map */
-		clock.start();
+		//clock.start();
 		g.drawImage(sim.getEnv().getBackground(getWidth(), getHeight(), transform), 0, 0, null);
-		clock.end(Localizer.get("draw map"));	
+		//clock.end(Localizer.get("draw map"));	
 
-		clock.start();
+		//clock.start();
 		drawLifeforms(g);
-		clock.end(Localizer.get("draw lifeforms"));
+		//clock.end(Localizer.get("draw lifeforms"));
 
-		clock.start();
+		//clock.start();
 		drawFramesPerSecond(g);
-		clock.end(Localizer.get("draw fps"));
+		//clock.end(Localizer.get("draw fps"));
 
-		clock.start();
+		//clock.start();
 		drawInterface(g);
-		clock.end(Localizer.get("draw interface"));
+		//clock.end(Localizer.get("draw interface"));
 
-		clock.start();
+		//clock.start();
 		drawCircleMenu(g);
-		clock.end(Localizer.get("draw circle menu"));
+		//clock.end(Localizer.get("draw circle menu"));
 
-		clock.start();
+		//clock.start();
 		drawPowerMeter(g, sim.getCalcTimeList(), sim.getPeriod(), getWidth()-100, 0);
 		drawPowerMeter(g, calcTime, repaintInterval, getWidth()-100, 110);
-		clock.end(Localizer.get("draw power meter"));
+		//clock.end(Localizer.get("draw power meter"));
 		
 
 		// limit the count of the history in the power meter
@@ -137,13 +137,13 @@ public class View2D extends JPanel {
 		calcTime.add(new Integer((int) (c.getTimeInMillis() - time)));
 		
 
-		clock.done();
+		//clock.done();
 		repaintTimer.lock(false);
 	}
 	
 
 	
-	PowerClock clock;
+	//PowerClock clock;
 	
 
 	private void drawPowerMeter(Graphics2D g, CopyOnWriteArrayList<Integer> list, int time, int x0, int y0) {
