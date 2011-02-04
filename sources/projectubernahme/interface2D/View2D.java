@@ -360,10 +360,10 @@ public class View2D extends JPanel {
 		drawBiomassSlider(g, INTERFACE_HEIGHT);
 		drawLifeformInfo(g, INTERFACE_HEIGHT);
 		final int WIDTH_FOR_SELECTED_LIFEFORMS_LIST = getWidth()-120-(INTERFACE_HEIGHT-120)/2-200;
-		drawSelectedLifeformsList(g, INTERFACE_HEIGHT, WIDTH_FOR_SELECTED_LIFEFORMS_LIST);
+		drawControlledLifeformsList(g, INTERFACE_HEIGHT, WIDTH_FOR_SELECTED_LIFEFORMS_LIST);
 	}
 
-	private void drawSelectedLifeformsList(final Graphics2D g, final int INTERFACE_HEIGHT, final int WIDTH) {
+	private void drawControlledLifeformsList(final Graphics2D g, final int INTERFACE_HEIGHT, final int WIDTH) {
 		int controlledLifeformsColumn = 0;
 		int controlledLifeformsLine = 0;
 		final int THUMB_WIDTH = 50;
