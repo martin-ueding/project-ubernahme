@@ -1,7 +1,5 @@
 package projectubernahme.interface2D;
 
-import java.util.Timer;
-
 import javax.swing.JFrame;
 
 import projectubernahme.Localizer;

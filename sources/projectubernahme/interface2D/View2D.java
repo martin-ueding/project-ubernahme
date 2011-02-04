@@ -86,6 +86,8 @@ public class View2D extends JPanel {
 		Timer timer = new Timer();
 		repaintTimer = new JPanelRepaintTimerTask(this);
 		timer.schedule(repaintTimer, 1000, repaintInterval);
+		
+		clock = new PowerClock();
 	}
 
 	protected void paintComponent (Graphics h) {
@@ -97,24 +99,44 @@ public class View2D extends JPanel {
 		if (ProjectUbernahme.getConfigValue("anti_alias").equals("true")) {
 			g.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 		}
+		
 
 
 		/* clear screen */
+		clock.start();
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
+		clock.end(Localizer.get("clear screen"));
 
 		/* draw the map */
+		clock.start();
 		g.drawImage(sim.getEnv().getBackground(getWidth(), getHeight(), transform), 0, 0, null);
+		clock.end(Localizer.get("draw map"));
 		
 
+		clock.start();
 		drawLifeforms(g);
+		clock.end(Localizer.get("draw lifeforms"));
+
+		clock.start();
 		drawFramesPerSecond(g);
+		clock.end(Localizer.get("draw fps"));
+
+		clock.start();
 		drawInterface(g);
+		clock.end(Localizer.get("draw interface"));
+
+		clock.start();
 		drawCircleMenu(g);
+		clock.end(Localizer.get("draw circle menu"));
+
+		clock.start();
 		drawPowerMeter(g, sim.getCalcTimeList(), sim.getPeriod(), getWidth()-100, 0);
 		drawPowerMeter(g, calcTime, repaintInterval, getWidth()-100, 110);
+		clock.end(Localizer.get("draw power meter"));
 		
 
+		// limit the count of the history in the power meter
 		// TODO put the 50 into a config file
 		if (calcTime.size() > 50) {
 			calcTime.remove(0);
@@ -124,8 +146,14 @@ public class View2D extends JPanel {
 		calcTime.add(new Integer((int) (c.getTimeInMillis() - time)));
 		
 
+		clock.done();
 		repaintTimer.lock(false);
 	}
+	
+
+	
+	PowerClock clock;
+	
 
 	private void drawPowerMeter(Graphics2D g, CopyOnWriteArrayList<Integer> list, int time, int x0, int y0) {
 		
