@@ -1,5 +1,6 @@
 package projectubernahme.environments;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
@@ -141,6 +142,10 @@ public class TileEnvironment {
 			/* create a new background image and pull the graphics to draw on it */
 			bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g = (Graphics2D) bg.getGraphics();
+			
+			// fill it with a black background
+			g.setColor(Color.black);
+			g.fillRect(0, 0, width, height);
 			
 			/* iterate through the tiles ... */
 			for (int i = 0; i < tiles[0].length; i += 1) {

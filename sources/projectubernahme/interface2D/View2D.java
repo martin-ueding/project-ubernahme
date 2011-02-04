@@ -99,20 +99,11 @@ public class View2D extends JPanel {
 		if (ProjectUbernahme.getConfigValue("anti_alias").equals("true")) {
 			g.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 		}
-		
-
-
-		/* clear screen */
-		clock.start();
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, getWidth(), getHeight());
-		clock.end(Localizer.get("clear screen"));
 
 		/* draw the map */
 		clock.start();
 		g.drawImage(sim.getEnv().getBackground(getWidth(), getHeight(), transform), 0, 0, null);
-		clock.end(Localizer.get("draw map"));
-		
+		clock.end(Localizer.get("draw map"));	
 
 		clock.start();
 		drawLifeforms(g);
