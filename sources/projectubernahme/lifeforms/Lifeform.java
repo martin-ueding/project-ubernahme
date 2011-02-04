@@ -2,6 +2,7 @@ package projectubernahme.lifeforms;
 
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
+import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -23,7 +24,7 @@ import projectubernahme.simulator.MainSimulator;
 abstract public class Lifeform {	
 	/** the simulator this lifeform is connected to */
 	private MainSimulator sim;
-	
+
 
 	public Lifeform (MainSimulator sim) {
 		this.setSim(sim);
@@ -32,21 +33,21 @@ abstract public class Lifeform {
 		setVelocity(new Vector2D(0.0, 0.0));
 		setSuspicionCases(new CopyOnWriteArrayList<SuspicionCase>());
 	}
-	
+
 	public Lifeform (MainSimulator sim, Point2D p) {
 		this(sim);
 		position = p;
 	}
-	
+
 	/*
 	 * the AI
 	 */
 
 	/** this lets the lifeform act, this can be just sitting around or calling for support or attacking another lifeform */
 	public abstract void act(int sleepTime);
-	
+
 	private CopyOnWriteArrayList<SuspicionCase> suspicionCases;
-	
+
 	/*
 	 * everything that has to do with movement
 	 * - position
@@ -60,7 +61,7 @@ abstract public class Lifeform {
 	public Point2D getPoint2D () {
 		return position;
 	}
-	
+
 	private Vector2D velocity;
 
 	/** angle of view */
@@ -94,16 +95,16 @@ abstract public class Lifeform {
 				setVelocity(new Vector2D(1.0*dvSign*Math.cos(viewAngle), 1.0*dvSign*Math.sin(viewAngle)));
 			}
 		}
-		
+
 		getVelocity().lowpassThis(vMax);
 		getVelocity().highpassThis(-vMax);
-	
+
 		double t = sleepTime/1000.0;
 		neighborsListAge += t;
-		
+
 		if (isCanMove() || canFly) {
 			Point2D newPosition = getVelocity().multiply(t).add(getPoint2D());
-	
+
 			/* try to move, check for wall */
 			if (getSim().getEnv().isFreeBetween(getPoint2D(), newPosition)) {
 				setPosition(newPosition);
@@ -122,7 +123,7 @@ abstract public class Lifeform {
 	 * - senses
 	 * - neighbors
 	 */
-	
+
 	private boolean canSee = false;
 	private boolean canSeeIR = false;
 	private boolean canSeeXRay = false;
@@ -135,11 +136,11 @@ abstract public class Lifeform {
 	private int rangeOfSight = 0;
 	private double diameter = 0;
 	private double ingestionEff = 0.9;
-	
+
 	void setIngestionEff(double newEff){
 		this.ingestionEff = newEff;
 	}
-	
+
 	public double getIngestionEff(){
 		return ingestionEff;
 	}
@@ -147,11 +148,11 @@ abstract public class Lifeform {
 	void setRangeOfSight(int range){
 		this.rangeOfSight = range;
 	}
-	
+
 	int getRangeOfSight(){
 		return this.rangeOfSight;
 	}
-	
+
 	boolean isCanSee() {
 		return canSee;
 	}
@@ -228,13 +229,13 @@ abstract public class Lifeform {
 	public boolean canSee (Lifeform l) {
 		return (isCanSee() && distance(l) < rangeOfSight+diameter);			
 	}
-	
+
 	/** list of other lifeforms that this lifeform can see */
 	private ArrayList<Lifeform> neighbors = new ArrayList<Lifeform>();
 
 	/** In order to save power, the list with neighbors is only refreshed when it expires. This tracks the age of the list */
 	private double neighborsListAge = 0.0;
-	
+
 	public ArrayList<Lifeform> getNeighbors() {
 		if (neighbors == null) {
 			neighbors = new ArrayList<Lifeform>();
@@ -251,7 +252,7 @@ abstract public class Lifeform {
 	/** generates a list with all the lifeforms this one can see */
 	private void generateNeighborsList() {
 		neighbors.clear();
-	
+
 		/** only traverse if the lifeform can see */
 		if (canSee) {
 			for (Lifeform l : getSim().getLifeforms()) {
@@ -282,12 +283,12 @@ abstract public class Lifeform {
 		if (prey == this) {
 			return false;
 		}
-		
+
 		// if the prey is already controlled by this player, do not take it again
 		if (prey.getControllingPlayer() == getControllingPlayer()) {
 			return false;
 		}
-		
+
 		double random1 = Math.random()/0.5 + 0.5;
 		double random2 = Math.random()/0.5 + 0.5;
 		double sizeFactor = prey.getBiomass()*random1 / this.biomass*random2;
@@ -343,7 +344,7 @@ abstract public class Lifeform {
 		}
 		busy = false;
 	}
-	
+
 	/*
 	 * everything with key handling
 	 * - key pressed
@@ -380,10 +381,10 @@ abstract public class Lifeform {
 	/*
 	 * everything with external control by a player
 	 */
-	
+
 	/** the player who controls this lifeforms, if null, the computer controls it */
 	private Player controllingPlayer = null;
-	
+
 	private boolean inControlledMode = false;
 
 	public boolean isControlled() {
@@ -391,10 +392,10 @@ abstract public class Lifeform {
 	}
 
 	public void setControlled(Player p) {
-		this.setControllingPlayer(p);
+		setControllingPlayer(p);
 		setInControlledMode(true);
 	}
-	
+
 	/*
 	 * everything with personal properties
 	 * - ID
@@ -443,7 +444,7 @@ abstract public class Lifeform {
 		if (name.equals("")) {
 			return getI18nClassName()+(
 					getBiomass() != 0 ? " ["+ProjectUbernahme.format(getBiomass())+" kg]" : "");
-			
+
 		}
 		else {
 			return getName()+" ("+getI18nClassName()+")"+(
@@ -459,7 +460,7 @@ abstract public class Lifeform {
 
 	/** intelligence level, 1.0 would be a genius */
 	private double intelligence;
-	
+
 	void setIntelligence(double intelligence) {
 		this.intelligence = intelligence;
 	}
@@ -488,19 +489,19 @@ abstract public class Lifeform {
 		}
 		// TODO tweak the score system
 		double points = 0.0;
-		
+
 		/* the smaller the other lifeform the less will it become looked at */
 		points += Math.log(l.getBiomass()/getBiomass());
-		
+
 		/* the more intelligent the other lifeform is, the less points */
 		points += 10*(intelligence - l.intelligence);
-		
+
 		if (ProjectUbernahme.getVerboseLevel() >= 5)
 			ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} has {1} suspicion points against {2}."), new Object[] {toString(), points, l.toString()}), MessageTypes.INFO);
-		
+
 		return points > 1;
 	}
-	
+
 	public void rename () {
 		String input = JOptionPane.showInputDialog(Localizer.get("new name")+":");
 		if (input != null) {
@@ -561,11 +562,43 @@ abstract public class Lifeform {
 	MainSimulator getSim() {
 		return sim;
 	}
-	
+
 	public void skillShockwave () {
 		double diff = getBiomass() / 5;
 		setBiomass(getBiomass()-diff);
-		
+
 		sim.skillShockwave(getPoint2D(), diff, this);
+	}
+
+	public void skillSplit () {
+		setBiomass(getBiomass() * 0.4);
+		sim.getLifeforms().add((Lifeform) this.clone());
+	}
+
+	public Lifeform clone() {
+		Lifeform c = null;
+		try {
+			c = this.getClass().getConstructor(new Class[] {MainSimulator.class, Point2D.class}).newInstance(new Object[] {sim, position});
+			c.setName(getName());
+			c.setBiomass(getBiomass());
+			if (isControlled()) {
+				c.setControlled(getControllingPlayer());
+				getControllingPlayer().addControlledLifeform(c);
+			}
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+
+		return c;
 	}
 }

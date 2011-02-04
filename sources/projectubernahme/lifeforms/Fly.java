@@ -24,7 +24,7 @@ public class Fly extends Lifeform {
 		setPosition(new Point2D.Double(Math.random()-0.5, Math.random()-0.5));
 	}
 
-	public Fly(Point2D randomPointOnMap, MainSimulator sim) {
+	public Fly(MainSimulator sim, Point2D randomPointOnMap) {
 		this(sim);
 		setPosition(randomPointOnMap);
 	}

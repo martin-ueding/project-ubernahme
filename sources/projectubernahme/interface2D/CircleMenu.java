@@ -85,6 +85,14 @@ public class CircleMenu implements MouseListener, MouseMotionListener {
 			item.p = player;
 			menuitems.add(item);
 		}
+		
+		if (l.getControllingPlayer() == player) {
+			item = new CircleMenuItemSplit(this, l);
+			item.angle = 1.5*Math.PI;
+			item.text = Localizer.get("split");
+			item.p = player;
+			menuitems.add(item);
+		}
 
 		setDisplay(true);
 
@@ -298,7 +306,17 @@ class CircleMenuItemShockwave extends CircleMenuItem {
 	}
 
 	void action () {
-		p.getSelectedLifeform().skillShockwave();
+		l.skillShockwave();
+	}
+}
+
+class CircleMenuItemSplit extends CircleMenuItem {
+	public CircleMenuItemSplit(CircleMenu parent, Lifeform l) {
+		super(parent, l);
+	}
+
+	void action () {
+		l.skillSplit();
 	}
 }
 
