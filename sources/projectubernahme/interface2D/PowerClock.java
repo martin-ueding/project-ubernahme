@@ -8,18 +8,16 @@ import java.util.Calendar;
 
 public class PowerClock {
 	BufferedOutputStream os;
+	boolean first = true;
 	long clockBegin;
 
 	public PowerClock() {
 		try {
 			os = new BufferedOutputStream(new FileOutputStream("power.csv"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
-	boolean first = true;
 
 	public void start() {
 		clockBegin = Calendar.getInstance().getTimeInMillis();
@@ -29,7 +27,6 @@ public class PowerClock {
 		try {
 			os.write((String.valueOf(Calendar.getInstance().getTimeInMillis()-clockBegin)+",").getBytes());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if (first) {
@@ -44,7 +41,6 @@ public class PowerClock {
 		try {
 			os.write("\n".getBytes());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println();
