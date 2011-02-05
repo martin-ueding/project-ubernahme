@@ -1,5 +1,6 @@
 # path to the main source, relative to the makefile
 p = projectubernahme
+version = 0.4
 
 sourceFiles = $(shell find . | egrep "\.java$$")
 classesFiles = $(shell find . | egrep "\.class$$")
@@ -41,3 +42,22 @@ $(p)/strings_tr.properties: ../localisation/tr.po
 .PHONY: linecount
 linecount:
 	@cat $(sourceFiles) $(propertiesFiles) $(textFiles) | wc
+
+tarball: projectubernahme-$(version).tar.gz
+
+projectName = projectubernahme-$(version)
+projectubernahme-$(version).tar.gz: $(sourceFiles) $(propertiesFiles) $(textFiles)
+	rm -rf $(projectName)
+	mkdir $(projectName)
+	bzr export $(projectName) .
+	tar -czf $(projectName).tar.gz $(projectName)
+	rm -rf $(projectName)
+
+debianPackagingFolder = ../packaging/debian/project-version
+deb-src:
+	rm -rf $(debianPackagingFolder)/projectubernahme/
+	mkdir $(debianPackagingFolder)/projectubernahme/
+	bzr export $(debianPackagingFolder)/projectubernahme/ ./projectubernahme
+	cp ./makefile $(debianPackagingFolder)/
+	cp ./manifest.txt $(debianPackagingFolder)/
+	@echo You can now edit the changelog with dch and then run debuild
