@@ -7,39 +7,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: projectubernahme\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2011-01-31 21:14+0100\n"
+"POT-Creation-Date: 2011-02-04 21:53+0100\n"
 "PO-Revision-Date: 2011-01-27 13:46+0000\n"
 "Last-Translator: Flonk <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-02-01 05:43+0000\n"
+"X-Launchpad-Export-Date: 2011-02-05 06:11+0000\n"
 "X-Generator: Launchpad (build 12177)\n"
 
-#: projectubernahme/simulator/SimulatorThread.java:39
-msgid "Game Over!"
-msgstr "Spiel vorbei!"
-
-#: projectubernahme/simulator/MainSimulator.java:91
+#: projectubernahme/IngestionThread.java:104
 #, java-format
-msgid "{0} suspects {1} now."
-msgstr "{0} verdächtigt jetzt {1}."
-
-#: projectubernahme/interface2D/GamePauseKeyListener.java:21
-msgid "Game paused/resumed"
-msgstr ""
-
-#: projectubernahme/interface2D/View2D.java:333
-msgid "Class"
-msgstr ""
-
-#: projectubernahme/interface2D/View2D.java:339
-msgid "Biomass"
-msgstr ""
-
-#: projectubernahme/interface2D/View2D.java:346
-msgid "Name"
+msgid "{0} ingested {2} kg of {1}."
 msgstr ""
 
 #: projectubernahme/interface2D/CircleMenu.java:53
@@ -62,23 +42,33 @@ msgstr ""
 msgid "disable auto AI"
 msgstr ""
 
-#: projectubernahme/interface2D/CircleMenu.java:174
+#: projectubernahme/interface2D/CircleMenu.java:179
 msgid "This menu item was clicked."
 msgstr ""
 
-#: projectubernahme/interface2D/Interface2D.java:18
+#: projectubernahme/interface2D/GamePauseKeyListener.java:21
+msgid "Game paused/resumed"
+msgstr ""
+
+#: projectubernahme/interface2D/Interface2D.java:13
 msgid "Project Ubernahme"
 msgstr "Project Übernahme"
 
-#: projectubernahme/Localizer.java:30
-#, java-format
-msgid "String “{0}” is missing in bundle “{1}”."
-msgstr "String „{0}“ fehlt in Paket „{1}“."
+#: projectubernahme/interface2D/View2D.java:455
+msgid "Class"
+msgstr ""
 
-#: projectubernahme/TakeoverThread.java:71
-#, java-format
-msgid "{0} took control over {1}."
-msgstr "{0} hat die Kontrolle über {1} übernommen."
+#: projectubernahme/interface2D/View2D.java:461
+msgid "Biomass"
+msgstr ""
+
+#: projectubernahme/interface2D/View2D.java:468
+msgid "Name"
+msgstr ""
+
+#: projectubernahme/lifeforms/Fly.java:44
+msgid "Fly"
+msgstr ""
 
 #: projectubernahme/lifeforms/Human.java:49
 msgid "ERROR"
@@ -92,26 +82,27 @@ msgstr "konnte die Vornamensliste nicht öffnen"
 msgid "Human"
 msgstr ""
 
-#: projectubernahme/lifeforms/Fly.java:44
-msgid "Fly"
-msgstr ""
+#: projectubernahme/lifeforms/Lifeform.java:482
+#, java-format
+msgid "{0} has {1} suspicion points against {2}."
+msgstr "{0} hat {1} Verdächtigungspunkte gegen {2}."
 
-#: projectubernahme/lifeforms/Zombie.java:77
-msgid "Zombie"
-msgstr ""
+#: projectubernahme/lifeforms/Lifeform.java:488
+msgid "new name"
+msgstr "neuer Name"
 
 #: projectubernahme/lifeforms/Tree.java:52
 msgid "Tree"
 msgstr ""
 
-#: projectubernahme/lifeforms/Lifeform.java:486
-#, java-format
-msgid "{0} has {1} suspicion points against {2}."
-msgstr "{0} hat {1} Verdächtigungspunkte gegen {2}."
+#: projectubernahme/lifeforms/Zombie.java:80
+msgid "Zombie"
+msgstr ""
 
-#: projectubernahme/lifeforms/Lifeform.java:492
-msgid "new name"
-msgstr "neuer Name"
+#: projectubernahme/Localizer.java:31
+#, java-format
+msgid "String “{0}” is missing in bundle “{1}”."
+msgstr "String „{0}“ fehlt in Paket „{1}“."
 
 #: projectubernahme/ProjectUbernahme.java:49
 msgid "could not open main config file"
@@ -121,7 +112,20 @@ msgstr "konnte die Hauptkonfigurationsdatei nicht öffnen"
 msgid "Welcome to Project Ubernahme"
 msgstr "Willkommen bei Projekt Übernahme"
 
-#: projectubernahme/IngestionThread.java:97
+#: projectubernahme/simulator/MainSimulator.java:92
 #, java-format
-msgid "{0} ingested {1}."
-msgstr "{0} hat {1} gegessen."
+msgid "{0} suspects {1} now."
+msgstr "{0} verdächtigt jetzt {1}."
+
+#: projectubernahme/simulator/SimulatorThread.java:57
+msgid "Game Over!"
+msgstr "Spiel vorbei!"
+
+#: projectubernahme/TakeoverThread.java:72
+#, java-format
+msgid "{0} took control over {1}."
+msgstr "{0} hat die Kontrolle über {1} übernommen."
+
+#, java-format
+#~ msgid "{0} ingested {1}."
+#~ msgstr "{0} hat {1} gegessen."
