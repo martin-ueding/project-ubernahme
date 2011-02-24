@@ -1,3 +1,5 @@
+// Copyright (c) 2011 Martin Ueding <dev@martin-ueding.de>
+
 package projectubernahme.simulator;
 
 import java.util.Calendar;

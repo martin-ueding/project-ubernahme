@@ -1,3 +1,5 @@
+# Copyright (c) 2011 Martin Ueding <dev@martin-ueding.de>
+
 # path to the main source, relative to the makefile
 p = projectubernahme
 version = 0.4

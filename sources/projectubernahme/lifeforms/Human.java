@@ -1,3 +1,5 @@
+// Copyright (c) 2011 Martin Ueding <dev@martin-ueding.de>
+
 package projectubernahme.lifeforms;
 
 import java.awt.geom.Point2D;
