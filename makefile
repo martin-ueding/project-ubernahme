@@ -11,7 +11,7 @@ textFiles = $(shell find . | egrep "\.txt$$")
 
 standard: projectubernahme.jar
 
-all: ../localisation/messages.pot $(p)/strings_de.properties $(p)/strings_tr.properties projectubernahme.jar linecount
+all: localisation/messages.pot $(p)/strings_de.properties $(p)/strings_tr.properties projectubernahme.jar linecount
 
 # puts the binaries into the jar
 projectubernahme.jar: $(p)/ProjectUbernahme.class $(sourceFiles)
@@ -19,27 +19,27 @@ projectubernahme.jar: $(p)/ProjectUbernahme.class $(sourceFiles)
 
 # compiles the game
 $(p)/ProjectUbernahme.class: $(sourceFiles)
-	javac $(p)/ProjectUbernahme.java $(p)/*/*.java
+	javac $(p)/ProjectUbernahme.java
 
 # generates javadoc for everything
 javadoc: $(sourceFiles)
-	javadoc $(p)/*.java -d ../documentation/javadoc -private -subpackages projectubernahme
+	javadoc $(p)/*.java -d documentation/javadoc -private -subpackages projectubernahme
 
 # deletes all the compiled or otherwise generated content
 .PHONY: clean
 clean:
-	rm -rf $(p)/*.class $(p)/*/*.class *.jar ../documentation/javadoc
+	rm -rf $(p)/*.class $(p)/*/*.class *.jar documentation/javadoc
 
 # generates the main .pot file
-../localisation/messages.pot: $(sourceFiles)
-	xgettext -kLocalizer.get -o ../localisation/messages.pot --from-code=UTF-8 $(sourceFiles)
+localisation/messages.pot: $(sourceFiles)
+	xgettext -kLocalizer.get -o localisation/messages.pot --from-code=UTF-8 $(sourceFiles)
 
 # converts the translated .po files to .properties files that Java can use then
-$(p)/strings_de.properties: ../localisation/de.po
-	msgcat --properties-output -o $(p)/strings_de.properties ../localisation/de.po
+$(p)/strings_de.properties: localisation/de.po
+	msgcat --properties-output -o $(p)/strings_de.properties localisation/de.po
 
-$(p)/strings_tr.properties: ../localisation/tr.po
-	msgcat --properties-output -o $(p)/strings_tr.properties ../localisation/tr.po
+$(p)/strings_tr.properties: localisation/tr.po
+	msgcat --properties-output -o $(p)/strings_tr.properties localisation/tr.po
 
 .PHONY: linecount
 linecount:
@@ -54,12 +54,3 @@ projectubernahme-$(version).tar.gz: $(sourceFiles) $(propertiesFiles) $(textFile
 	bzr export $(projectName) .
 	tar -czf $(projectName).tar.gz $(projectName)
 	rm -rf $(projectName)
-
-debianPackagingFolder = ../packaging/debian/project-version
-deb-src:
-	rm -rf $(debianPackagingFolder)/projectubernahme/
-	mkdir $(debianPackagingFolder)/projectubernahme/
-	bzr export $(debianPackagingFolder)/projectubernahme/ ./projectubernahme
-	cp ./makefile $(debianPackagingFolder)/
-	cp ./manifest.txt $(debianPackagingFolder)/
-	@echo You can now edit the changelog with dch and then run debuild
