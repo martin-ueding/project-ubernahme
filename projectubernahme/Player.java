@@ -17,8 +17,6 @@ public class Player {
 	private Lifeform selectedLifeform;
 	private Lifeform secondarySelectedLifeform;
 	private double upgradePoints = 0;
-	private double intelligenceFactor = 1;
-
 
 	/** initializes the list of controlledLifeforms, add a starting one */
 	public Player (MainSimulator sim) {
