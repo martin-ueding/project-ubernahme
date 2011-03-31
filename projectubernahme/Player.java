@@ -165,6 +165,8 @@ public class Player {
 		return lastCalculatedTotalBiomass;
 	}
 
+	double intelligenceFactor = 1.0;
+
 	public void setIntFactor(double intFactor) {
 		this.intelligenceFactor = intFactor;
 	}
