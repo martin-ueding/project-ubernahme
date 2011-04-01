@@ -1,3 +1,12 @@
+projectubernahme (0.5) maverick; urgency=low
+
+  * added policemen
+  * added skills
+  * new circle menu
+  - fullscreen mode
+
+ -- Martin Ueding <dev@martin-ueding.de>  Fri, 01 Apr 2011 18:18:36 +0200
+
 projectubernahme (0.4) maverick; urgency=low
 
   * central log system with colors
