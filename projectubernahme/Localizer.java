@@ -28,9 +28,9 @@ public class Localizer {
 			return bundle.getString(query);
 		}
 		else {
-			if (bundle != null && !query.equals("String “{0}” is missing in bundle “{1}”.")) {
+			if (bundle != null && !query.equals("String '{0}' is missing in bundle '{1}'.")) {
 				if (ProjectUbernahme.getConfigValue("displayDebugLogMessages").equals("true")) {
-					ProjectUbernahme.log(MessageFormat.format(Localizer.get("String “{0}” is missing in bundle “{1}”."), new Object[] {query, bundle.getLocale()}), MessageTypes.DEBUG);
+					ProjectUbernahme.log(MessageFormat.format(Localizer.get("String '{0}' is missing in bundle '{1}'."), new Object[] {query, bundle.getLocale()}), MessageTypes.DEBUG);
 				}
 			}
 			return query;
