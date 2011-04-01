@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Project Ubernahme
+GenericName=World Control Game
+Exec=pu-game
+Icon=pu-game
+Terminal=false
+Categories=Game;ActionGame;
