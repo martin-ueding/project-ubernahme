@@ -18,7 +18,7 @@ public class Zombie extends Lifeform {
 		setCanFly(false);
 		setCanSee(true);
 		setCanMove(true);
-		setBiomass(60.0 + Math.random()*60);
+		setBiomass(60.0 + Math.random() * 60);
 		setIntelligence(0.0);
 		setRangeOfSight(5);
 	}

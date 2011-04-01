@@ -16,32 +16,32 @@ import java.awt.geom.GeneralPath;
 
 /**
  * This class has been automatically generated using svg2java
- * 
+ *
  */
 public class MenuIngest extends ConvertedGraphics {
-	
+
 	private float origAlpha = 1.0f;
 
 	/**
 	 * Paints the transcoded SVG image on the specified graphics context. You
 	 * can install a custom transformation on the graphics context to scale the
 	 * image.
-	 * 
+	 *
 	 * @param g
 	 *            Graphics context.
 	 */
 	public void paint(Graphics2D g) {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        origAlpha = 1.0f;
-        Composite origComposite = g.getComposite();
-        if (origComposite instanceof AlphaComposite) {
-            AlphaComposite origAlphaComposite = 
-                (AlphaComposite)origComposite;
-            if (origAlphaComposite.getRule() == AlphaComposite.SRC_OVER) {
-                origAlpha = origAlphaComposite.getAlpha();
-            }
-        }
-        
+		origAlpha = 1.0f;
+		Composite origComposite = g.getComposite();
+		if (origComposite instanceof AlphaComposite) {
+			AlphaComposite origAlphaComposite =
+			    (AlphaComposite)origComposite;
+			if (origAlphaComposite.getRule() == AlphaComposite.SRC_OVER) {
+				origAlpha = origAlphaComposite.getAlpha();
+			}
+		}
+
 		// _0
 		AffineTransform trans_0 = g.getTransform();
 		paintRootGraphicsNode_0(g);
@@ -58,7 +58,7 @@ public class MenuIngest extends ConvertedGraphics {
 		shape0.curveTo(411.8667, 109.50502, 525.7143, 223.35262, 525.7143, 363.79074);
 		shape0.closePath();
 		g.setPaint(new Color(0, 0, 0, 255));
-		g.setStroke(new BasicStroke(1.0f,0,0,4.0f,null,0.0f));
+		g.setStroke(new BasicStroke(1.0f, 0, 0, 4.0f, null, 0.0f));
 		g.draw(shape0);
 	}
 
@@ -72,7 +72,7 @@ public class MenuIngest extends ConvertedGraphics {
 		g.setPaint(new Color(153, 153, 153, 255));
 		g.fill(shape1);
 		g.setPaint(new Color(0, 0, 0, 255));
-		g.setStroke(new BasicStroke(2.7f,0,0,4.0f,null,0.0f));
+		g.setStroke(new BasicStroke(2.7f, 0, 0, 4.0f, null, 0.0f));
 		g.draw(shape1);
 	}
 
@@ -87,7 +87,7 @@ public class MenuIngest extends ConvertedGraphics {
 		g.setPaint(new Color(230, 230, 230, 255));
 		g.fill(shape2);
 		g.setPaint(new Color(0, 0, 0, 255));
-		g.setStroke(new BasicStroke(2.9011173f,0,0,4.0f,null,0.0f));
+		g.setStroke(new BasicStroke(2.9011173f, 0, 0, 4.0f, null, 0.0f));
 		g.draw(shape2);
 	}
 
@@ -119,7 +119,7 @@ public class MenuIngest extends ConvertedGraphics {
 		g.setPaint(new Color(255, 255, 255, 255));
 		g.fill(shape3);
 		g.setPaint(new Color(0, 0, 0, 255));
-		g.setStroke(new BasicStroke(1.7701435f,0,0,4.0f,null,0.0f));
+		g.setStroke(new BasicStroke(1.7701435f, 0, 0, 4.0f, null, 0.0f));
 		g.draw(shape3);
 	}
 
@@ -199,39 +199,39 @@ public class MenuIngest extends ConvertedGraphics {
 
 
 
-    /**
-     * Returns the X of the bounding box of the original SVG image.
-     * @return The X of the bounding box of the original SVG image.
-     */
-    public int getOrigX() {
-        return 117;
-    }
+	/**
+	 * Returns the X of the bounding box of the original SVG image.
+	 * @return The X of the bounding box of the original SVG image.
+	 */
+	public int getOrigX() {
+		return 117;
+	}
 
-    /**
-     * Returns the Y of the bounding box of the original SVG image.
-     * @return The Y of the bounding box of the original SVG image.
-     */
-    public int getOrigY() {
-        return 195;
-    }
+	/**
+	 * Returns the Y of the bounding box of the original SVG image.
+	 * @return The Y of the bounding box of the original SVG image.
+	 */
+	public int getOrigY() {
+		return 195;
+	}
 
-    /**
-     * Returns the width of the bounding box of the original SVG image.
-     * @return The width of the bounding box of the original SVG image.
-     */
-    public int getOrigWidth() {
-        return 510;
-    }
+	/**
+	 * Returns the width of the bounding box of the original SVG image.
+	 * @return The width of the bounding box of the original SVG image.
+	 */
+	public int getOrigWidth() {
+		return 510;
+	}
 
-    /**
-     * Returns the height of the bounding box of the original SVG image.
-     * @return The height of the bounding box of the original SVG image.
-     */
-    public int getOrigHeight() {
-        return 510;
-    }
-    
-    
+	/**
+	 * Returns the height of the bounding box of the original SVG image.
+	 * @return The height of the bounding box of the original SVG image.
+	 */
+	public int getOrigHeight() {
+		return 510;
+	}
+
+
 	/**
 	 * The current width of this resizable icon.
 	 */
@@ -246,15 +246,15 @@ public class MenuIngest extends ConvertedGraphics {
 	 * Creates a new transcoded SVG image.
 	 */
 	public MenuIngest() {
-        this.width = getOrigWidth();
-        this.height = getOrigHeight();
+		this.width = getOrigWidth();
+		this.height = getOrigHeight();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see javax.swing.Icon#getIconHeight()
 	 */
-    @Override
+	@Override
 	public int getIconHeight() {
 		return height;
 	}
@@ -263,7 +263,7 @@ public class MenuIngest extends ConvertedGraphics {
 	 * (non-Javadoc)
 	 * @see javax.swing.Icon#getIconWidth()
 	 */
-    @Override
+	@Override
 	public int getIconWidth() {
 		return width;
 	}
@@ -277,7 +277,7 @@ public class MenuIngest extends ConvertedGraphics {
 		this.height = newDimension.height;
 	}
 
-	
+
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		Graphics2D g2d = (Graphics2D) g.create();
 		g2d.translate(x, y);

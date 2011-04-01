@@ -36,7 +36,7 @@ public class CircleMenu implements MouseListener, MouseMotionListener {
 	private double anglePart = 0.0;
 
 	private LinkedList<CircleMenuItem> menuitems;
-	private Thread thread; 
+	private Thread thread;
 
 	public CircleMenu (View2D view, Lifeform l, Player player) {
 		this.view = view;
@@ -51,14 +51,14 @@ public class CircleMenu implements MouseListener, MouseMotionListener {
 		CircleMenuItem item;
 
 		item = new CircleMenuItemRename(this, l);
-		item.angle = 0.0*Math.PI;
+		item.angle = 0.0 * Math.PI;
 		item.text = Localizer.get("rename");
 		item.p = player;
 		menuitems.add(item);
 
 		if (player.getSelectedLifeform().canIngest(l)) {
 			item = new CircleMenuItemIngest(this, l);
-			item.angle = 0.75*Math.PI;
+			item.angle = 0.75 * Math.PI;
 			item.text = Localizer.get("ingest");
 			item.p = player;
 			menuitems.add(item);
@@ -66,7 +66,7 @@ public class CircleMenu implements MouseListener, MouseMotionListener {
 
 		if (player.getSelectedLifeform().canTakeover(l)) {
 			item = new CircleMenuItemTakeover(this, l);
-			item.angle = 1.0*Math.PI;
+			item.angle = 1.0 * Math.PI;
 			item.text = Localizer.get("take over");
 			item.p = player;
 			menuitems.add(item);
@@ -74,23 +74,23 @@ public class CircleMenu implements MouseListener, MouseMotionListener {
 
 		if (l.getControllingPlayer() == player) {
 			item = new CircleMenuItemPassive(this, l);
-			item.angle = 0.25*Math.PI;
+			item.angle = 0.25 * Math.PI;
 			item.text = l.isInControlledMode() ? Localizer.get("enable auto AI") : Localizer.get("disable auto AI");
 			item.p = player;
 			menuitems.add(item);
 		}
-		
+
 		if (l.getControllingPlayer() == player) {
 			item = new CircleMenuItemShockwave(this, l);
-			item.angle = 1.75*Math.PI;
+			item.angle = 1.75 * Math.PI;
 			item.text = Localizer.get("send shockwave");
 			item.p = player;
 			menuitems.add(item);
 		}
-		
+
 		if (l.getControllingPlayer() == player) {
 			item = new CircleMenuItemSplit(this, l);
-			item.angle = 1.5*Math.PI;
+			item.angle = 1.5 * Math.PI;
 			item.text = Localizer.get("split");
 			item.p = player;
 			menuitems.add(item);
@@ -203,9 +203,9 @@ class CircleMenuItem {
 
 	private boolean isMouseIn(Point arg0) {
 		return (center != null && Math.hypot(
-				(center.getX() + Math.cos(angle)*parent.getRadiusPart()*CircleMenu.MAX_RADIUS) - arg0.getX(),
-				(center.getY() + Math.sin(angle)*parent.getRadiusPart()*CircleMenu.MAX_RADIUS) - arg0.getY()
-		) < CircleMenu.DIAMETER/2);
+		            (center.getX() + Math.cos(angle) * parent.getRadiusPart() * CircleMenu.MAX_RADIUS) - arg0.getX(),
+		            (center.getY() + Math.sin(angle) * parent.getRadiusPart() * CircleMenu.MAX_RADIUS) - arg0.getY()
+		        ) < CircleMenu.DIAMETER / 2);
 	}
 
 	public void draw(Graphics2D g, Point2D center) {
@@ -216,7 +216,7 @@ class CircleMenuItem {
 		else {
 			g.setColor(new Color(50, 50, 50, 200));
 		}
-		g.fillOval((int)(center.getX() + Math.cos(parent.getAnglePart()*angle)*parent.getRadiusPart()*CircleMenu.MAX_RADIUS -CircleMenu.DIAMETER*parent.getRadiusPart()/2), (int)(center.getY() + Math.sin(parent.getAnglePart()*angle)*parent.getRadiusPart()*CircleMenu.MAX_RADIUS -CircleMenu.DIAMETER*parent.getRadiusPart()/2), (int)(CircleMenu.DIAMETER*parent.getRadiusPart()), (int)(CircleMenu.DIAMETER*parent.getRadiusPart()));
+		g.fillOval((int)(center.getX() + Math.cos(parent.getAnglePart() * angle) * parent.getRadiusPart() * CircleMenu.MAX_RADIUS - CircleMenu.DIAMETER * parent.getRadiusPart() / 2), (int)(center.getY() + Math.sin(parent.getAnglePart() * angle) * parent.getRadiusPart() * CircleMenu.MAX_RADIUS - CircleMenu.DIAMETER * parent.getRadiusPart() / 2), (int)(CircleMenu.DIAMETER * parent.getRadiusPart()), (int)(CircleMenu.DIAMETER * parent.getRadiusPart()));
 
 		/* if the radius is complete, draw string (or later image) */
 		if (parent.getRadiusPart() == 1.0) {
@@ -228,19 +228,19 @@ class CircleMenuItem {
 				picTransform.setToIdentity();
 
 
-				picTransform.translate(center.getX() + Math.cos(parent.getAnglePart()*angle)*parent.getRadiusPart()*CircleMenu.MAX_RADIUS -CircleMenu.DIAMETER*parent.getRadiusPart()/2, center.getY() + Math.sin(parent.getAnglePart()*angle)*parent.getRadiusPart()*CircleMenu.MAX_RADIUS -CircleMenu.DIAMETER*parent.getRadiusPart()/2);
-				picTransform.scale((double)CircleMenu.DIAMETER/longerEdge, (double)CircleMenu.DIAMETER/longerEdge);
+				picTransform.translate(center.getX() + Math.cos(parent.getAnglePart() * angle) * parent.getRadiusPart() * CircleMenu.MAX_RADIUS - CircleMenu.DIAMETER * parent.getRadiusPart() / 2, center.getY() + Math.sin(parent.getAnglePart() * angle) * parent.getRadiusPart() * CircleMenu.MAX_RADIUS - CircleMenu.DIAMETER * parent.getRadiusPart() / 2);
+				picTransform.scale((double)CircleMenu.DIAMETER / longerEdge, (double)CircleMenu.DIAMETER / longerEdge);
 
 				picTransform.translate(-cg.getOrigX(), -cg.getOrigY());
 
 				/* translate a rectangular shape into the middle of the square */
 				if (cg.getOrigWidth() == longerEdge) {
 					/* pic is wider than high */
-					picTransform.translate(0, (cg.getOrigWidth()-cg.getOrigHeight()) / 2);
+					picTransform.translate(0, (cg.getOrigWidth() - cg.getOrigHeight()) / 2);
 				}
 				else {
 					/* pic is higher than wide */
-					picTransform.translate((cg.getOrigHeight()-cg.getOrigWidth()) / 2, 0);
+					picTransform.translate((cg.getOrigHeight() - cg.getOrigWidth()) / 2, 0);
 				}
 
 
@@ -250,7 +250,7 @@ class CircleMenuItem {
 			}
 			else {
 				g.setColor(Color.ORANGE);
-				g.drawString(text, (int)(center.getX() + Math.cos(parent.getAnglePart()*angle)*parent.getRadiusPart()*CircleMenu.MAX_RADIUS -CircleMenu.DIAMETER/2) +CircleMenu.DIAMETER/20, (int)(center.getY() + Math.sin(parent.getAnglePart()*angle)*parent.getRadiusPart()*CircleMenu.MAX_RADIUS)+CircleMenu.DIAMETER/20);
+				g.drawString(text, (int)(center.getX() + Math.cos(parent.getAnglePart() * angle) * parent.getRadiusPart() * CircleMenu.MAX_RADIUS - CircleMenu.DIAMETER / 2) + CircleMenu.DIAMETER / 20, (int)(center.getY() + Math.sin(parent.getAnglePart() * angle) * parent.getRadiusPart() * CircleMenu.MAX_RADIUS) + CircleMenu.DIAMETER / 20);
 			}
 		}
 	}
@@ -268,7 +268,7 @@ class CircleMenuItemRename extends CircleMenuItem {
 	void action () {
 		l.rename();
 	}
-	
+
 	ConvertedGraphics getConvertedGraphics() {
 		return new MenuRename();
 	}
@@ -282,7 +282,7 @@ class CircleMenuItemIngest extends CircleMenuItem {
 	void action () {
 		p.getSelectedLifeform().ingest(l);
 	}
-	
+
 	ConvertedGraphics getConvertedGraphics() {
 		return new MenuIngest();
 	}
@@ -296,7 +296,7 @@ class CircleMenuItemTakeover extends CircleMenuItem {
 	void action () {
 		p.getSelectedLifeform().takeover(l);
 	}
-	
+
 	ConvertedGraphics getConvertedGraphics() {
 		return new MenuTakeover();
 	}
@@ -330,7 +330,7 @@ class CircleMenuItemPassive extends CircleMenuItem {
 	void action () {
 		l.setInControlledMode(!l.isInControlledMode());
 	}
-	
+
 	ConvertedGraphics getConvertedGraphics() {
 		return l.isInControlledMode() ? new MenuAiRed() : new MenuAiGreen();
 	}
@@ -354,7 +354,8 @@ class CircleMenuUnfoldThread extends Thread {
 				parent.setAnglePart(Math.min(parent.getAnglePart() + .35, 1.0));
 				sleep(50);
 			}
-		} catch (InterruptedException e) {
+		}
+		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
@@ -378,7 +379,8 @@ class CircleMenuFoldThread extends Thread {
 				parent.setRadiusPart(Math.max(parent.getRadiusPart() - .35, 0));
 				sleep(50);
 			}
-		} catch (InterruptedException e) {
+		}
+		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 

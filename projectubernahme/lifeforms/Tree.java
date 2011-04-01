@@ -12,7 +12,7 @@ import projectubernahme.simulator.MainSimulator;
 
 public class Tree extends Lifeform {
 	private static ConvertedGraphics cg = new LifeformTreeGraphics();
-	
+
 	private double growthFactor = 0.01;
 
 	public Tree (MainSimulator sim) {
@@ -20,11 +20,11 @@ public class Tree extends Lifeform {
 		setCanFly(false);
 		setCanSee(false);
 		setCanMove(false);
-		setBiomass(500+Math.random()*500);
+		setBiomass(500 + Math.random() * 500);
 
-		setPosition(new Point2D.Double(Math.random()-0.5, Math.random()-0.5));
-		
-		setViewAngle(2*Math.PI*Math.random());
+		setPosition(new Point2D.Double(Math.random() - 0.5, Math.random() - 0.5));
+
+		setViewAngle(2 * Math.PI * Math.random());
 		setIntelligence(0.1);
 	}
 
@@ -35,8 +35,8 @@ public class Tree extends Lifeform {
 
 	@Override
 	public void act(int sleepTime) {
-		double t = sleepTime/1000.0;
-		setBiomass(Math.min(getBiomass() + getBiomass()*(Math.exp(growthFactor*t)-1), Integer.parseInt(ProjectUbernahme.getConfigValue("maxTreeMass"))));
+		double t = sleepTime / 1000.0;
+		setBiomass(Math.min(getBiomass() + getBiomass() * (Math.exp(growthFactor * t) - 1), Integer.parseInt(ProjectUbernahme.getConfigValue("maxTreeMass"))));
 	}
 
 	@Override

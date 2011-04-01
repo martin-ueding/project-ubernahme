@@ -3,7 +3,7 @@
 package projectubernahme;
 
 public class LogMessage {
-	
+
 	private String msg;
 	private Enum<MessageTypes> type;
 

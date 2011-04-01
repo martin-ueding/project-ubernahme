@@ -20,12 +20,12 @@ public class JPanelRepaintTimerTask extends TimerTask {
 		if (!lock) {
 			panel.repaint();
 		}
-		panel.setMeasureTime(panel.getMeasureTime() + (40/1000.0));
+		panel.setMeasureTime(panel.getMeasureTime() + (40 / 1000.0));
 	}
 
 
 	void lock(boolean b) {
-		lock = b;		
+		lock = b;
 	}
 
 }

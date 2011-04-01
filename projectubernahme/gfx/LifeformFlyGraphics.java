@@ -19,7 +19,7 @@ import java.awt.geom.Point2D;
 
 /**
  * This class has been automatically generated using svg2java
- * 
+ *
  */
 public class LifeformFlyGraphics extends ConvertedGraphics {
 
@@ -29,7 +29,7 @@ public class LifeformFlyGraphics extends ConvertedGraphics {
 	 * Paints the transcoded SVG image on the specified graphics context. You
 	 * can install a custom transformation on the graphics context to scale the
 	 * image.
-	 * 
+	 *
 	 * @param g
 	 *            Graphics context.
 	 */
@@ -39,8 +39,8 @@ public class LifeformFlyGraphics extends ConvertedGraphics {
 		origAlpha = 1.0f;
 		Composite origComposite = g.getComposite();
 		if (origComposite instanceof AlphaComposite) {
-			AlphaComposite origAlphaComposite = 
-				(AlphaComposite)origComposite;
+			AlphaComposite origAlphaComposite =
+			    (AlphaComposite)origComposite;
 			if (origAlphaComposite.getRule() == AlphaComposite.SRC_OVER) {
 				origAlpha = origAlphaComposite.getAlpha();
 			}
@@ -70,7 +70,7 @@ public class LifeformFlyGraphics extends ConvertedGraphics {
 		shape0.curveTo(340.3627, 561.07574, 337.004, 550.1506, 337.0277, 549.72955);
 		shape0.curveTo(337.05142, 549.30853, 341.25006, 532.46246, 346.35803, 512.2938);
 		shape0.closePath();
-		g.setPaint(new LinearGradientPaint(new Point2D.Double(472.4134216308594, 395.8390197753906), new Point2D.Double(474.6663513183594, 438.5174255371094), new float[] {0.0f,1.0f}, new Color[] {new Color(0, 0, 0, 255),new Color(0, 0, 0, 0)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(0.0f, 1.0f, -1.0f, 0.0f, 775.19091796875f, 83.86608123779297f)));
+		g.setPaint(new LinearGradientPaint(new Point2D.Double(472.4134216308594, 395.8390197753906), new Point2D.Double(474.6663513183594, 438.5174255371094), new float[] {0.0f, 1.0f}, new Color[] {new Color(0, 0, 0, 255), new Color(0, 0, 0, 0)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(0.0f, 1.0f, -1.0f, 0.0f, 775.19091796875f, 83.86608123779297f)));
 		g.fill(shape0);
 	}
 
@@ -94,7 +94,7 @@ public class LifeformFlyGraphics extends ConvertedGraphics {
 		shape1.lineTo(332.03, 301.61874);
 		shape1.lineTo(332.03, 301.61874);
 		shape1.closePath();
-		g.setPaint(new LinearGradientPaint(new Point2D.Double(216.98646545410156, 397.8622131347656), new Point2D.Double(203.5243377685547, 446.5006103515625), new float[] {0.0f,1.0f}, new Color[] {new Color(0, 0, 0, 255),new Color(0, 0, 0, 0)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(0.0f, 1.0f, -1.0f, 0.0f, 772.1561279296875f, 99.54576110839844f)));
+		g.setPaint(new LinearGradientPaint(new Point2D.Double(216.98646545410156, 397.8622131347656), new Point2D.Double(203.5243377685547, 446.5006103515625), new float[] {0.0f, 1.0f}, new Color[] {new Color(0, 0, 0, 255), new Color(0, 0, 0, 0)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(0.0f, 1.0f, -1.0f, 0.0f, 772.1561279296875f, 99.54576110839844f)));
 		g.fill(shape1);
 	}
 
@@ -361,7 +361,7 @@ public class LifeformFlyGraphics extends ConvertedGraphics {
 		g.setPaint(new Color(102, 102, 102, 255));
 		g.fill(shape2);
 		g.setPaint(new Color(0, 0, 0, 255));
-		g.setStroke(new BasicStroke(1.0f,0,0,4.0f,null,0.0f));
+		g.setStroke(new BasicStroke(1.0f, 0, 0, 4.0f, null, 0.0f));
 		g.draw(shape2);
 	}
 

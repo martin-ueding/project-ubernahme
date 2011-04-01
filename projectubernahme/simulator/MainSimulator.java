@@ -24,19 +24,19 @@ public class MainSimulator {
 	/** list of all lifeforms in the whole game */
 	private CopyOnWriteArrayList<Lifeform> lifeforms;
 	private CopyOnWriteArrayList<Player> players;
-	
+
 	/** the environment **/
 	private TileEnvironment env;
-	
+
 	public MainSimulator () {
 		lifeforms = new CopyOnWriteArrayList<Lifeform>();
 		players = new CopyOnWriteArrayList<Player>();
-		
+
 		// TODO add selector for multiple maps here
 		env = new TileEnvironment("squarecity");
-		
+
 		env.initializeNPCs(lifeforms, this);
-		
+
 		simulatorThread = new SimulatorThread(this);
 		simulatorThread.start();
 	}
@@ -90,10 +90,10 @@ public class MainSimulator {
 				// TODO adjust this strengh and let strengths add up, avoid duplicate entries
 				sc.setStrengh(0.5);
 				other.getSuspicionCases().add(sc);
-				
+
 				if (ProjectUbernahme.getVerboseLevel() >= 4)
 					ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} suspects {1} now."), new Object[] {other.toString(), l.toString()}),
-						l.isControlled() ? MessageTypes.WARNING : MessageTypes.INFO);
+					                     l.isControlled() ? MessageTypes.WARNING : MessageTypes.INFO);
 			}
 		}
 	}
@@ -112,7 +112,7 @@ public class MainSimulator {
 		}
 		return lastCalculatedTotalBiomass;
 	}
-	
+
 	private KeyListener gamePauseKeyListener;
 	public KeyListener getGamePauseKeyListener () {
 		if (gamePauseKeyListener == null) {
@@ -128,7 +128,7 @@ public class MainSimulator {
 		else {
 			simulatorThread.run();
 		}
-		
+
 	}
 
 	public CopyOnWriteArrayList<Integer> getCalcTimeList() {
@@ -142,15 +142,15 @@ public class MainSimulator {
 	public void remove(Lifeform prey) {
 		lifeforms.remove(prey);
 		prey.setPosition(new Point2D.Double(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY));
-		
+
 	}
 
 	public void skillShockwave(Point2D point2D, double diff, Lifeform sender) {
 		for (Lifeform other : lifeforms) {
 			if (other != sender) {
-				double damage = diff*2 / sender.distance(other);
-				damage = Math.min(damage, other.getBiomass()/2);
-				other.setBiomass(other.getBiomass()-damage);
+				double damage = diff * 2 / sender.distance(other);
+				damage = Math.min(damage, other.getBiomass() / 2);
+				other.setBiomass(other.getBiomass() - damage);
 				if (other.getBiomass() <= 0.0) {
 					remove(other);
 				}

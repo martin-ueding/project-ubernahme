@@ -28,12 +28,15 @@ public class TakeoverThread extends Thread {
 
 		Enum<MessageTypes> takeoverMessageType;
 
-		if (!l.isControlled() && prey.isControlled())
+		if (!l.isControlled() && prey.isControlled()) {
 			takeoverMessageType = MessageTypes.WARNING;
-		else if (l.isControlled() && !prey.isControlled())
+		}
+		else if (l.isControlled() && !prey.isControlled()) {
 			takeoverMessageType = MessageTypes.SUCCESS;
-		else
+		}
+		else {
 			takeoverMessageType = MessageTypes.INFO;
+		}
 
 
 		try {
@@ -49,7 +52,7 @@ public class TakeoverThread extends Thread {
 						l.setViewAngle(Math.atan2(ydist, xdist));
 
 						double distSqrt = Math.hypot(xdist, ydist);
-						l.getVelocity().setTo(xdist/distSqrt, ydist/distSqrt);
+						l.getVelocity().setTo(xdist / distSqrt, ydist / distSqrt);
 					}
 					else {
 						/* stop when reached the prey */
@@ -60,21 +63,22 @@ public class TakeoverThread extends Thread {
 
 						/* burn time until it is ready */
 						l
-								.setActionProgress(l.getActionProgress() + 0.05);
+						.setActionProgress(l.getActionProgress() + 0.05);
 					}
-					
+
 					sleep(50);
 				}
-				
+
 				/* take over the lifeform */
-				prey.setControlled(player);				
+				prey.setControlled(player);
 				player.addControlledLifeform(prey);
 				prey.stopAction();
 
 				if ((takeoverMessageType == MessageTypes.INFO && ProjectUbernahme.getVerboseLevel() >= 3) || takeoverMessageType != MessageTypes.INFO)
 					ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} took control over {1}."), new Object[] {l.toString(), prey.toString()}), takeoverMessageType);
 			}
-		} catch (InterruptedException e) {
+		}
+		catch (InterruptedException e) {
 			/* if the action was interrupted, then it will just stop, the busy state is reset at the end of this method anyway */
 		}
 

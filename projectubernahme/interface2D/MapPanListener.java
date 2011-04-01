@@ -17,7 +17,7 @@ public class MapPanListener implements MouseWheelListener, MouseMotionListener, 
 	private int startx, starty;
 	private int wheel = 0;
 	private double angle = 0.0;
-	
+
 	/** tracks the current pressed mouse button for the panning and rotation movements */
 	private int pressedMouseButton;
 
@@ -28,11 +28,11 @@ public class MapPanListener implements MouseWheelListener, MouseMotionListener, 
 
 	public MapPanListener(View2D view2D) {
 		this.view = view2D;
-		
+
 		view.addMouseListener(this);
 		view.addMouseMotionListener(this);
 		view.addMouseWheelListener(this);
-		
+
 		wheel = (int) (Math.log(Math.sqrt(view.getTransform().getDeterminant()) / 100.0) * 15);
 	}
 
@@ -47,14 +47,15 @@ public class MapPanListener implements MouseWheelListener, MouseMotionListener, 
 				Point2D mouseInverse = inverse.transform(currentMousePos, null);
 				view.getTransform().translate(mouseInverse.getX(), mouseInverse.getY());
 
-				view.getTransform().scale(1.0/view.getViewScaling(), 1.0/view.getViewScaling());
+				view.getTransform().scale(1.0 / view.getViewScaling(), 1.0 / view.getViewScaling());
 
-				view.setViewScaling((int)(Math.exp(wheel/15.0)*100));
+				view.setViewScaling((int)(Math.exp(wheel / 15.0) * 100));
 
 				view.getTransform().scale(view.getViewScaling(), view.getViewScaling());
 
 				view.getTransform().translate(-mouseInverse.getX(), -mouseInverse.getY());
-			} catch (NoninvertibleTransformException e1) {
+			}
+			catch (NoninvertibleTransformException e1) {
 				e1.printStackTrace();
 			}
 		}
@@ -64,20 +65,20 @@ public class MapPanListener implements MouseWheelListener, MouseMotionListener, 
 	}
 
 	/** handles dragging events that lead to panning or rotation */
-	public void mouseDragged(MouseEvent e) {		
+	public void mouseDragged(MouseEvent e) {
 		if (pressedMouseButton == MouseEvent.BUTTON1) {
 			view.getTransform().rotate(-angle);
-			view.getTransform().translate((e.getX()-x) / view.getTransform().getScaleX(), (e.getY()-y) / view.getTransform().getScaleY());
+			view.getTransform().translate((e.getX() - x) / view.getTransform().getScaleX(), (e.getY() - y) / view.getTransform().getScaleY());
 			view.getTransform().rotate(angle);
 		}
 		else if (pressedMouseButton == MouseEvent.BUTTON2 || pressedMouseButton == MouseEvent.BUTTON3) {
 			double oldAngle = roundedAngle;
-			angle += (e.getY()-y)/100.0;
-			
-			double factor = 1.0/Math.PI/2*8;
-			
+			angle += (e.getY() - y) / 100.0;
+
+			double factor = 1.0 / Math.PI / 2 * 8;
+
 			if (pressedMouseButton == MouseEvent.BUTTON3) {
-				roundedAngle = Math.round(angle*factor)/factor;
+				roundedAngle = Math.round(angle * factor) / factor;
 			}
 			else {
 				roundedAngle = angle;
@@ -87,7 +88,8 @@ public class MapPanListener implements MouseWheelListener, MouseMotionListener, 
 			try {
 				mouse = view.getTransform().inverseTransform(new Point2D.Double(startx, starty), null);
 				view.getTransform().rotate(roundedAngle - oldAngle, mouse.getX(), mouse.getY());
-			} catch (NoninvertibleTransformException e1) {
+			}
+			catch (NoninvertibleTransformException e1) {
 				e1.printStackTrace();
 			}
 

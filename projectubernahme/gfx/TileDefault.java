@@ -23,22 +23,22 @@ public class TileDefault extends ConvertedGraphics {
 	 * Paints the transcoded SVG image on the specified graphics context. You
 	 * can install a custom transformation on the graphics context to scale the
 	 * image.
-	 * 
+	 *
 	 * @param g
 	 *            Graphics context.
 	 */
 	public void paint(Graphics2D g) {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        origAlpha = 1.0f;
-        Composite origComposite = g.getComposite();
-        if (origComposite instanceof AlphaComposite) {
-            AlphaComposite origAlphaComposite = 
-                (AlphaComposite)origComposite;
-            if (origAlphaComposite.getRule() == AlphaComposite.SRC_OVER) {
-                origAlpha = origAlphaComposite.getAlpha();
-            }
-        }
-        
+		origAlpha = 1.0f;
+		Composite origComposite = g.getComposite();
+		if (origComposite instanceof AlphaComposite) {
+			AlphaComposite origAlphaComposite =
+			    (AlphaComposite)origComposite;
+			if (origAlphaComposite.getRule() == AlphaComposite.SRC_OVER) {
+				origAlpha = origAlphaComposite.getAlpha();
+			}
+		}
+
 		// _0
 		AffineTransform trans_0 = g.getTransform();
 		paintRootGraphicsNode_0(g);
@@ -51,7 +51,7 @@ public class TileDefault extends ConvertedGraphics {
 		g.setPaint(new Color(255, 230, 213, 255));
 		g.fill(shape0);
 		g.setPaint(new Color(0, 0, 0, 255));
-		g.setStroke(new BasicStroke(1.0f,0,0,4.0f,null,0.0f));
+		g.setStroke(new BasicStroke(1.0f, 0, 0, 4.0f, null, 0.0f));
 		g.draw(shape0);
 	}
 
@@ -121,39 +121,39 @@ public class TileDefault extends ConvertedGraphics {
 
 
 
-    /**
-     * Returns the X of the bounding box of the original SVG image.
-     * @return The X of the bounding box of the original SVG image.
-     */
-    public int getOrigX() {
-        return 186;
-    }
+	/**
+	 * Returns the X of the bounding box of the original SVG image.
+	 * @return The X of the bounding box of the original SVG image.
+	 */
+	public int getOrigX() {
+		return 186;
+	}
 
-    /**
-     * Returns the Y of the bounding box of the original SVG image.
-     * @return The Y of the bounding box of the original SVG image.
-     */
-    public int getOrigY() {
-        return 255;
-    }
+	/**
+	 * Returns the Y of the bounding box of the original SVG image.
+	 * @return The Y of the bounding box of the original SVG image.
+	 */
+	public int getOrigY() {
+		return 255;
+	}
 
-    /**
-     * Returns the width of the bounding box of the original SVG image.
-     * @return The width of the bounding box of the original SVG image.
-     */
-    public int getOrigWidth() {
-        return 264;
-    }
+	/**
+	 * Returns the width of the bounding box of the original SVG image.
+	 * @return The width of the bounding box of the original SVG image.
+	 */
+	public int getOrigWidth() {
+		return 264;
+	}
 
-    /**
-     * Returns the height of the bounding box of the original SVG image.
-     * @return The height of the bounding box of the original SVG image.
-     */
-    public int getOrigHeight() {
-        return 264;
-    }
-    
-    
+	/**
+	 * Returns the height of the bounding box of the original SVG image.
+	 * @return The height of the bounding box of the original SVG image.
+	 */
+	public int getOrigHeight() {
+		return 264;
+	}
+
+
 	/**
 	 * The current width of this resizable icon.
 	 */
@@ -168,15 +168,15 @@ public class TileDefault extends ConvertedGraphics {
 	 * Creates a new transcoded SVG image.
 	 */
 	public TileDefault() {
-        this.width = getOrigWidth();
-        this.height = getOrigHeight();
+		this.width = getOrigWidth();
+		this.height = getOrigHeight();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see javax.swing.Icon#getIconHeight()
 	 */
-    @Override
+	@Override
 	public int getIconHeight() {
 		return height;
 	}
@@ -185,7 +185,7 @@ public class TileDefault extends ConvertedGraphics {
 	 * (non-Javadoc)
 	 * @see javax.swing.Icon#getIconWidth()
 	 */
-    @Override
+	@Override
 	public int getIconWidth() {
 		return width;
 	}

@@ -14,10 +14,10 @@ public class PowerClock {
 
 	void end(String task) {
 		if (first) {
-			System.out.print(task+",");
+			System.out.print(task + ",");
 		}
 		else {
-			System.out.print((Calendar.getInstance().getTimeInMillis()-clockBegin)+",");
+			System.out.print((Calendar.getInstance().getTimeInMillis() - clockBegin) + ",");
 		}
 	}
 

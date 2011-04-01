@@ -37,7 +37,7 @@ public class LifeformSelectionMouseListener implements MouseListener {
 
 			/* find the lifeform that is under the cursor */
 			for (Lifeform l : player.getControlledLifeforms()) {
-				if (selected == null && l.getPoint2D().distance(p) <= l.getDiameter()/2) {
+				if (selected == null && l.getPoint2D().distance(p) <= l.getDiameter() / 2) {
 					selected = l;
 					primary = true;
 				}
@@ -46,7 +46,7 @@ public class LifeformSelectionMouseListener implements MouseListener {
 			/* if the lifeform is not within the controlled ones, search the whole premises */
 			if (selected == null) {
 				for (Lifeform l : sim.getLifeforms()) {
-					if (selected == null && l.getPoint2D().distance(p) <= l.getDiameter()/2) {
+					if (selected == null && l.getPoint2D().distance(p) <= l.getDiameter() / 2) {
 						selected = l;
 					}
 				}
@@ -67,7 +67,8 @@ public class LifeformSelectionMouseListener implements MouseListener {
 				}
 			}
 
-		} catch (NoninvertibleTransformException e1) {
+		}
+		catch (NoninvertibleTransformException e1) {
 			e1.printStackTrace();
 		}
 	}

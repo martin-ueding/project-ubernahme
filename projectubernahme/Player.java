@@ -46,13 +46,14 @@ public class Player {
 				ingest(selectedLifeform, secondarySelectedLifeform);
 				secondarySelectedLifeform = null;
 			}
-			
+
 		}
-		else if (e.getKeyChar() == 'u'){
+		else if (e.getKeyChar() == 'u') {
 			upgradeIntelligence();
 		}
-		else if (getSelectedLifeform() != null)
+		else if (getSelectedLifeform() != null) {
 			getSelectedLifeform().handleKeyPressed(e);
+		}
 	}
 
 	private void upgradeIntelligence() {
@@ -63,8 +64,9 @@ public class Player {
 	}
 
 	public void handleKeyReleased(KeyEvent e) {
-		if (getSelectedLifeform() != null)
+		if (getSelectedLifeform() != null) {
 			getSelectedLifeform().handleKeyReleased(e);
+		}
 	}
 
 	public void setControlledLifeforms(CopyOnWriteArrayList<Lifeform> copyOnWriteArrayList) {
@@ -119,7 +121,7 @@ public class Player {
 	public void ingest(int who, int whom) {
 		Lifeform a = controlledLifeforms.get(who);
 		Lifeform b = controlledLifeforms.get(who).getNeighbors().get(whom);
-		
+
 		if (a != null && b != null) {
 			ingest(a, b);
 		}
@@ -145,12 +147,12 @@ public class Player {
 	public void addControlledLifeform(Lifeform prey) {
 		controlledLifeforms.add(prey);
 	}
-	
+
 	private CircleMenu circlemenu;
 	public void setMenu(CircleMenu circleMenu) {
-		this.setCirclemenu(circleMenu);		
+		this.setCirclemenu(circleMenu);
 	}
-	
+
 	private double lastCalculatedTotalBiomass;
 	private long lastCalculatedTotalBiomassTime;
 	public double getTotalBiomass() {

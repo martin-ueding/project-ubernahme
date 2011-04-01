@@ -12,7 +12,7 @@ import projectubernahme.simulator.MainSimulator;
 
 public class GamePauseKeyListener implements KeyListener {
 	private MainSimulator sim;
-	
+
 	public GamePauseKeyListener (MainSimulator sim) {
 		this.sim = sim;
 	}

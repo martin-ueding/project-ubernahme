@@ -26,12 +26,15 @@ public class IngestionThread extends Thread {
 
 		Enum<MessageTypes> ingestionMessageType;
 
-		if (!l.isControlled() && prey.isControlled())
+		if (!l.isControlled() && prey.isControlled()) {
 			ingestionMessageType = MessageTypes.WARNING;
-		else if (l.isControlled() && !prey.isControlled())
+		}
+		else if (l.isControlled() && !prey.isControlled()) {
 			ingestionMessageType = MessageTypes.SUCCESS;
-		else
+		}
+		else {
 			ingestionMessageType = MessageTypes.INFO;
+		}
 
 		double massTakenIn = 0.0;
 
@@ -50,33 +53,33 @@ public class IngestionThread extends Thread {
 						l.setViewAngle(Math.atan2(ydist, xdist));
 
 						double distSqrt = Math.hypot(xdist, ydist);
-						l.getVelocity().setTo(xdist/distSqrt, ydist/distSqrt);
+						l.getVelocity().setTo(xdist / distSqrt, ydist / distSqrt);
 					}
 					else {
 						l.getVelocity().zero();
 					}
-					
+
 					if (l.distance(prey) <= 0.5) {
 						/* stop when reached the prey */
-						
+
 						sim.alertEverybody(l);
 
 						if (l.canIngest(prey)) {
-							double diff = Math.min(prey.getBiomass(), Math.sqrt(l.getBiomass())/10);
-							massTakenIn += diff/l.getIngestionEff();
+							double diff = Math.min(prey.getBiomass(), Math.sqrt(l.getBiomass()) / 10);
+							massTakenIn += diff / l.getIngestionEff();
 
-							l.setBiomass(l.getBiomass() + diff/l.getIngestionEff());
+							l.setBiomass(l.getBiomass() + diff / l.getIngestionEff());
 							prey.setBiomass(prey.getBiomass() - diff);
 						}
 
-						l.setActionProgress((startBioMass-prey.getBiomass()) / startBioMass);
+						l.setActionProgress((startBioMass - prey.getBiomass()) / startBioMass);
 					}
 					sleep(50);
 				}
 
 				/* add the prey's name to the lifeform's */
 				if (!l.getName().equals("") && !prey.getName().equals("") && l.getName().concat(prey.getName()).length() <= 25) {
-					l.setName(l.getName()+"-"+prey.getName());
+					l.setName(l.getName() + "-" + prey.getName());
 				}
 
 				/* remove lifeform from simulator */
@@ -97,10 +100,11 @@ public class IngestionThread extends Thread {
 			}
 
 
-		} catch (InterruptedException e) {
+		}
+		catch (InterruptedException e) {
 			/* if the action was interrupted, then it will just stop, the busy state is reset at the end of this method anyway */
 		}
-		
+
 
 		if ((ingestionMessageType == MessageTypes.INFO && ProjectUbernahme.getVerboseLevel() >= 3) || ingestionMessageType != MessageTypes.INFO)
 			ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} ingested {2} kg of {1}."), new Object[] {l.toString(), prey.toString(), ProjectUbernahme.format(massTakenIn)}), ingestionMessageType);

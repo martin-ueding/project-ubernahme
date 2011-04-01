@@ -23,7 +23,7 @@ public class TileCrosswalkVertical extends ConvertedGraphics {
 	 * Paints the transcoded SVG image on the specified graphics context. You
 	 * can install a custom transformation on the graphics context to scale the
 	 * image.
-	 * 
+	 *
 	 * @param g
 	 *            Graphics context.
 	 */
@@ -32,8 +32,8 @@ public class TileCrosswalkVertical extends ConvertedGraphics {
 		origAlpha = 1.0f;
 		Composite origComposite = g.getComposite();
 		if (origComposite instanceof AlphaComposite) {
-			AlphaComposite origAlphaComposite = 
-				(AlphaComposite)origComposite;
+			AlphaComposite origAlphaComposite =
+			    (AlphaComposite)origComposite;
 			if (origAlphaComposite.getRule() == AlphaComposite.SRC_OVER) {
 				origAlpha = origAlphaComposite.getAlpha();
 			}

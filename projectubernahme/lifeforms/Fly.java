@@ -11,7 +11,7 @@ import projectubernahme.simulator.MainSimulator;
 
 /** lifeform, a simple fly which can look around and fly a little */
 public class Fly extends Lifeform {
-	
+
 	private static ConvertedGraphics cg = new LifeformFlyGraphics();
 
 	public Fly (MainSimulator sim) {
@@ -20,10 +20,10 @@ public class Fly extends Lifeform {
 		setCanSee(true);
 		setCanMove(true);
 		setRangeOfSight(300);
-		setBiomass(0.001/17);
+		setBiomass(0.001 / 17);
 		setIntelligence(0.1);
-		
-		setPosition(new Point2D.Double(Math.random()-0.5, Math.random()-0.5));
+
+		setPosition(new Point2D.Double(Math.random() - 0.5, Math.random() - 0.5));
 	}
 
 	public Fly(MainSimulator sim, Point2D randomPointOnMap) {
@@ -33,7 +33,7 @@ public class Fly extends Lifeform {
 
 	@Override
 	public void act(int sleepTime) {
-		
+
 	}
 
 	@Override

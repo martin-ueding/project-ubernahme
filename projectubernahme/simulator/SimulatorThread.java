@@ -18,24 +18,24 @@ public class SimulatorThread extends Thread {
 	private int cycle = 0;
 
 	private final int sleepTime = 30;
-	
+
 	private boolean halt = false;
 
 	private CopyOnWriteArrayList<Integer> calcTime;
-	
+
 	private static int powerMeterMeasurementsCount = Integer.parseInt(ProjectUbernahme.getConfigValue("powerMeterMeasurementsCount"));
 
 	public SimulatorThread(MainSimulator mainSimulator) {
 		sim = mainSimulator;
 		setCalcTime(new CopyOnWriteArrayList<Integer>());
 	}
-	
+
 	public void run() {
 		try {
 			while (!halt && sim.isGameUp() || cycle < 100) {
 				Calendar c = Calendar.getInstance();
 				long time = c.getTimeInMillis();
-				
+
 				if (cycle > 10) {
 					/* let the other lifeforms interact */
 					for (Lifeform l : sim.getLifeforms()) {
@@ -46,10 +46,10 @@ public class SimulatorThread extends Thread {
 				if (getCalcTime().size() > powerMeterMeasurementsCount) {
 					getCalcTime().remove(0);
 				}
-				
+
 				c = Calendar.getInstance();
 				getCalcTime().add(new Integer((int) (c.getTimeInMillis() - time)));
-				
+
 				Thread.sleep(getSleepTime());
 
 				cycle++;
@@ -60,11 +60,12 @@ public class SimulatorThread extends Thread {
 				System.exit(0);
 			}
 
-		} catch (InterruptedException e) {
+		}
+		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	void halt () {
 		halt = true;
 	}

@@ -14,8 +14,9 @@ public class Localizer {
 	private static void init () {
 		try {
 			bundle = ResourceBundle.getBundle("projectubernahme/strings");
-		} catch (MissingResourceException e) {
-			System.out.println("No Bundle for "+Locale.getDefault().getLanguage());
+		}
+		catch (MissingResourceException e) {
+			System.out.println("No Bundle for " + Locale.getDefault().getLanguage());
 		}
 	}
 
@@ -23,7 +24,7 @@ public class Localizer {
 		if (bundle == null) {
 			init();
 		}
-		
+
 		if (bundle != null && bundle.containsKey(query)) {
 			return bundle.getString(query);
 		}

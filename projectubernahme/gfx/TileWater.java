@@ -15,32 +15,32 @@ import java.awt.geom.Rectangle2D;
 
 /**
  * This class has been automatically generated using svg2java
- * 
+ *
  */
 public class TileWater extends ConvertedGraphics {
-	
+
 	private float origAlpha = 1.0f;
 
 	/**
 	 * Paints the transcoded SVG image on the specified graphics context. You
 	 * can install a custom transformation on the graphics context to scale the
 	 * image.
-	 * 
+	 *
 	 * @param g
 	 *            Graphics context.
 	 */
 	public void paint(Graphics2D g) {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        origAlpha = 1.0f;
-        Composite origComposite = g.getComposite();
-        if (origComposite instanceof AlphaComposite) {
-            AlphaComposite origAlphaComposite = 
-                (AlphaComposite)origComposite;
-            if (origAlphaComposite.getRule() == AlphaComposite.SRC_OVER) {
-                origAlpha = origAlphaComposite.getAlpha();
-            }
-        }
-        
+		origAlpha = 1.0f;
+		Composite origComposite = g.getComposite();
+		if (origComposite instanceof AlphaComposite) {
+			AlphaComposite origAlphaComposite =
+			    (AlphaComposite)origComposite;
+			if (origAlphaComposite.getRule() == AlphaComposite.SRC_OVER) {
+				origAlpha = origAlphaComposite.getAlpha();
+			}
+		}
+
 		// _0
 		AffineTransform trans_0 = g.getTransform();
 		paintRootGraphicsNode_0(g);
@@ -81,39 +81,39 @@ public class TileWater extends ConvertedGraphics {
 
 
 
-    /**
-     * Returns the X of the bounding box of the original SVG image.
-     * @return The X of the bounding box of the original SVG image.
-     */
-    public int getOrigX() {
-        return 158;
-    }
+	/**
+	 * Returns the X of the bounding box of the original SVG image.
+	 * @return The X of the bounding box of the original SVG image.
+	 */
+	public int getOrigX() {
+		return 158;
+	}
 
-    /**
-     * Returns the Y of the bounding box of the original SVG image.
-     * @return The Y of the bounding box of the original SVG image.
-     */
-    public int getOrigY() {
-        return 316;
-    }
+	/**
+	 * Returns the Y of the bounding box of the original SVG image.
+	 * @return The Y of the bounding box of the original SVG image.
+	 */
+	public int getOrigY() {
+		return 316;
+	}
 
-    /**
-     * Returns the width of the bounding box of the original SVG image.
-     * @return The width of the bounding box of the original SVG image.
-     */
-    public int getOrigWidth() {
-        return 155;
-    }
+	/**
+	 * Returns the width of the bounding box of the original SVG image.
+	 * @return The width of the bounding box of the original SVG image.
+	 */
+	public int getOrigWidth() {
+		return 155;
+	}
 
-    /**
-     * Returns the height of the bounding box of the original SVG image.
-     * @return The height of the bounding box of the original SVG image.
-     */
-    public int getOrigHeight() {
-        return 155;
-    }
-    
-    
+	/**
+	 * Returns the height of the bounding box of the original SVG image.
+	 * @return The height of the bounding box of the original SVG image.
+	 */
+	public int getOrigHeight() {
+		return 155;
+	}
+
+
 	/**
 	 * The current width of this resizable icon.
 	 */
@@ -128,15 +128,15 @@ public class TileWater extends ConvertedGraphics {
 	 * Creates a new transcoded SVG image.
 	 */
 	public TileWater() {
-        this.width = getOrigWidth();
-        this.height = getOrigHeight();
+		this.width = getOrigWidth();
+		this.height = getOrigHeight();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see javax.swing.Icon#getIconHeight()
 	 */
-    @Override
+	@Override
 	public int getIconHeight() {
 		return height;
 	}
@@ -145,7 +145,7 @@ public class TileWater extends ConvertedGraphics {
 	 * (non-Javadoc)
 	 * @see javax.swing.Icon#getIconWidth()
 	 */
-    @Override
+	@Override
 	public int getIconWidth() {
 		return width;
 	}

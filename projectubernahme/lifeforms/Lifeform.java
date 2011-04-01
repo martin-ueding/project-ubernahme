@@ -23,7 +23,7 @@ import projectubernahme.simulator.MainSimulator;
 
 
 /** something with its own mind in the game, can interact with other lifeforms and the world */
-abstract public class Lifeform {	
+abstract public class Lifeform {
 	/** the simulator this lifeform is connected to */
 	private MainSimulator sim;
 
@@ -94,14 +94,14 @@ abstract public class Lifeform {
 				getVelocity().zero();
 			}
 			else {
-				setVelocity(new Vector2D(1.0*dvSign*Math.cos(viewAngle), 1.0*dvSign*Math.sin(viewAngle)));
+				setVelocity(new Vector2D(1.0 * dvSign * Math.cos(viewAngle), 1.0 * dvSign * Math.sin(viewAngle)));
 			}
 		}
 
 		getVelocity().lowpassThis(vMax);
 		getVelocity().highpassThis(-vMax);
 
-		double t = sleepTime/1000.0;
+		double t = sleepTime / 1000.0;
 		neighborsListAge += t;
 
 		if (isCanMove() || canFly) {
@@ -111,7 +111,7 @@ abstract public class Lifeform {
 			if (getSim().getEnv().isFreeBetween(getPoint2D(), newPosition)) {
 				setPosition(newPosition);
 			}
-			viewAngle += dViewAngleSign*t;
+			viewAngle += dViewAngleSign * t;
 		}
 	}
 
@@ -139,19 +139,19 @@ abstract public class Lifeform {
 	private double diameter = 0;
 	private double ingestionEff = 0.9;
 
-	void setIngestionEff(double newEff){
+	void setIngestionEff(double newEff) {
 		this.ingestionEff = newEff;
 	}
 
-	public double getIngestionEff(){
+	public double getIngestionEff() {
 		return ingestionEff;
 	}
 
-	void setRangeOfSight(int range){
+	void setRangeOfSight(int range) {
 		this.rangeOfSight = range;
 	}
 
-	int getRangeOfSight(){
+	int getRangeOfSight() {
 		return this.rangeOfSight;
 	}
 
@@ -229,7 +229,7 @@ abstract public class Lifeform {
 
 	/** decides whether this lifeform can see some other lifeform l */
 	public boolean canSee (Lifeform l) {
-		return (isCanSee() && distance(l) < rangeOfSight+diameter);			
+		return (isCanSee() && distance(l) < rangeOfSight + diameter);
 	}
 
 	/** list of other lifeforms that this lifeform can see */
@@ -324,8 +324,9 @@ abstract public class Lifeform {
 
 	/** ingests the given lifeform */
 	public void ingest(Lifeform whom) {
-		if (whom == null)
+		if (whom == null) {
 			return;
+		}
 
 		if (canIngest(whom) && !isBusy()) {
 			startIngestion(whom);
@@ -334,7 +335,7 @@ abstract public class Lifeform {
 
 	private void startIngestion(Lifeform whom) {
 		actionThread = new IngestionThread(this, getControllingPlayer(), whom, getSim());
-		actionThread.start();		
+		actionThread.start();
 	}
 
 	/** stop whatever that lifeform is doing right now */
@@ -354,10 +355,18 @@ abstract public class Lifeform {
 	/** lets the lifeform handle a key press */
 	public void handleKeyPressed (KeyEvent e) {
 		switch (e.getKeyChar()) {
-		case 'w': dvSign = 1; break;
-		case 's': dvSign = -1; break;
-		case 'a': dViewAngleSign = -3; break;
-		case 'd': dViewAngleSign = 3; break;
+			case 'w':
+				dvSign = 1;
+				break;
+			case 's':
+				dvSign = -1;
+				break;
+			case 'a':
+				dViewAngleSign = -3;
+				break;
+			case 'd':
+				dViewAngleSign = 3;
+				break;
 		}
 
 		stopAction();
@@ -366,15 +375,20 @@ abstract public class Lifeform {
 	/** lets the lifeform handle a key release */
 	public void handleKeyReleased (KeyEvent e) {
 		switch (e.getKeyChar()) {
-		case 'w':
-		case 's': dvSign = 0; break;
-		case 'a':
-		case 'd': dViewAngleSign = 0; break;
-		case 'p': if (isControlled()) {
-			setInControlledMode(!isInControlledMode());
-			stopAction();
-			break;
-		}
+			case 'w':
+			case 's':
+				dvSign = 0;
+				break;
+			case 'a':
+			case 'd':
+				dViewAngleSign = 0;
+				break;
+			case 'p':
+				if (isControlled()) {
+					setInControlledMode(!isInControlledMode());
+					stopAction();
+					break;
+				}
 		}
 	}
 
@@ -436,19 +450,19 @@ abstract public class Lifeform {
 
 	public void setBiomass(double biomass) {
 		this.biomass = biomass;
-		this.diameter = Math.pow(biomass/1000, 1.0/3.0);
+		this.diameter = Math.pow(biomass / 1000, 1.0 / 3.0);
 	}
 
 	/** gives a generic description string of the object */
 	public String toString () {
 		if (name.equals("")) {
-			return getI18nClassName()+(
-					getBiomass() != 0 ? " ["+ProjectUbernahme.format(getBiomass())+" kg]" : "");
+			return getI18nClassName() + (
+			           getBiomass() != 0 ? " [" + ProjectUbernahme.format(getBiomass()) + " kg]" : "");
 
 		}
 		else {
-			return getName()+" ("+getI18nClassName()+")"+(
-					getBiomass() != 0 ? " ["+ProjectUbernahme.format(getBiomass())+" kg]" : "");
+			return getName() + " (" + getI18nClassName() + ")" + (
+			           getBiomass() != 0 ? " [" + ProjectUbernahme.format(getBiomass()) + " kg]" : "");
 		}
 	}
 
@@ -467,7 +481,7 @@ abstract public class Lifeform {
 
 	double getIntelligence() {
 		if (getControllingPlayer() != null) {
-			return intelligence*getControllingPlayer().getIntFactor();
+			return intelligence * getControllingPlayer().getIntFactor();
 		}
 		else {
 			return intelligence;
@@ -491,10 +505,10 @@ abstract public class Lifeform {
 		double points = 0.0;
 
 		/* the smaller the other lifeform the less will it become looked at */
-		points += Math.log(l.getBiomass()/getBiomass());
+		points += Math.log(l.getBiomass() / getBiomass());
 
 		/* the more intelligent the other lifeform is, the less points */
-		points += 10*(intelligence - l.intelligence);
+		points += 10 * (intelligence - l.intelligence);
 
 		if (ProjectUbernahme.getVerboseLevel() >= 5)
 			ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} has {1} suspicion points against {2}."), new Object[] {toString(), points, l.toString()}), MessageTypes.INFO);
@@ -503,7 +517,7 @@ abstract public class Lifeform {
 	}
 
 	public void rename () {
-		String input = JOptionPane.showInputDialog(Localizer.get("new name")+":");
+		String input = JOptionPane.showInputDialog(Localizer.get("new name") + ":");
 		if (input != null) {
 			setName(input);
 		}
@@ -565,7 +579,7 @@ abstract public class Lifeform {
 
 	public void skillShockwave () {
 		double diff = getBiomass() / 5;
-		setBiomass(getBiomass()-diff);
+		setBiomass(getBiomass() - diff);
 
 		sim.skillShockwave(getPoint2D(), diff, this);
 	}
@@ -585,17 +599,23 @@ abstract public class Lifeform {
 				c.setControlled(getControllingPlayer());
 				getControllingPlayer().addControlledLifeform(c);
 			}
-		} catch (IllegalArgumentException e) {
+		}
+		catch (IllegalArgumentException e) {
 			e.printStackTrace();
-		} catch (SecurityException e) {
+		}
+		catch (SecurityException e) {
 			e.printStackTrace();
-		} catch (InstantiationException e) {
+		}
+		catch (InstantiationException e) {
 			e.printStackTrace();
-		} catch (IllegalAccessException e) {
+		}
+		catch (IllegalAccessException e) {
 			e.printStackTrace();
-		} catch (InvocationTargetException e) {
+		}
+		catch (InvocationTargetException e) {
 			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
+		}
+		catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		}
 
