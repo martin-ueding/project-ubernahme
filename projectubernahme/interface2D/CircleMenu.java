@@ -14,7 +14,6 @@ import java.util.LinkedList;
 
 import projectubernahme.Localizer;
 import projectubernahme.MessageTypes;
-import projectubernahme.Player;
 import projectubernahme.ProjectUbernahme;
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.gfx.MenuAiGreen;
@@ -23,6 +22,7 @@ import projectubernahme.gfx.MenuIngest;
 import projectubernahme.gfx.MenuRename;
 import projectubernahme.gfx.MenuTakeover;
 import projectubernahme.lifeforms.Lifeform;
+import projectubernahme.player.Player;
 
 public class CircleMenu implements MouseListener, MouseMotionListener {
 	private View2D view;

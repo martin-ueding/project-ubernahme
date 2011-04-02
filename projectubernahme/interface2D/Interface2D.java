@@ -8,8 +8,8 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 import projectubernahme.Localizer;
-import projectubernahme.Player;
 import projectubernahme.ProjectUbernahme;
+import projectubernahme.player.Player;
 import projectubernahme.simulator.MainSimulator;
 
 public class Interface2D {

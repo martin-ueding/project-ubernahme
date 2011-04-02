@@ -8,8 +8,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
 
-import projectubernahme.Player;
 import projectubernahme.lifeforms.Lifeform;
+import projectubernahme.player.Player;
 import projectubernahme.simulator.MainSimulator;
 
 public class LifeformSelectionMouseListener implements MouseListener {

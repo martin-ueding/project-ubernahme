@@ -11,14 +11,14 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JOptionPane;
 
-import projectubernahme.IngestionThread;
 import projectubernahme.Localizer;
 import projectubernahme.MessageTypes;
-import projectubernahme.Player;
 import projectubernahme.ProjectUbernahme;
-import projectubernahme.TakeoverThread;
 import projectubernahme.Vector2D;
 import projectubernahme.gfx.ConvertedGraphics;
+import projectubernahme.player.IngestionThread;
+import projectubernahme.player.Player;
+import projectubernahme.player.TakeoverThread;
 import projectubernahme.simulator.MainSimulator;
 
 

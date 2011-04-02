@@ -1,9 +1,12 @@
 // Copyright (c) 2011 Martin Ueding <dev@martin-ueding.de>
 
-package projectubernahme;
+package projectubernahme.player;
 
 import java.text.MessageFormat;
 
+import projectubernahme.Localizer;
+import projectubernahme.MessageTypes;
+import projectubernahme.ProjectUbernahme;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.simulator.MainSimulator;
 

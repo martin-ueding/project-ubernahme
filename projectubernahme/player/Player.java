@@ -1,10 +1,11 @@
 // Copyright (c) 2011 Martin Ueding <dev@martin-ueding.de>
 
-package projectubernahme;
+package projectubernahme.player;
 import java.awt.event.KeyEvent;
 import java.util.Calendar;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import projectubernahme.ProjectUbernahme;
 import projectubernahme.interface2D.CircleMenu;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.simulator.MainSimulator;

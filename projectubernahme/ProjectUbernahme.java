@@ -8,6 +8,7 @@ import java.util.Properties;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import projectubernahme.interface2D.Interface2D;
+import projectubernahme.player.Player;
 import projectubernahme.simulator.MainSimulator;
 
 /*

@@ -5,7 +5,7 @@ package projectubernahme.interface2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import projectubernahme.Player;
+import projectubernahme.player.Player;
 
 public class LifeformControlKeyListener implements KeyListener {
 

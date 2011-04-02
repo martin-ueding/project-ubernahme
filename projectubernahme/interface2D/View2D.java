@@ -19,10 +19,10 @@ import javax.swing.JPanel;
 import projectubernahme.Localizer;
 import projectubernahme.LogMessage;
 import projectubernahme.MessageTypes;
-import projectubernahme.Player;
 import projectubernahme.ProjectUbernahme;
 import projectubernahme.gfx.ConvertedGraphics;
 import projectubernahme.lifeforms.Lifeform;
+import projectubernahme.player.Player;
 import projectubernahme.simulator.MainSimulator;
 
 @SuppressWarnings("serial")

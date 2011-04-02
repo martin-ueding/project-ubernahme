@@ -10,13 +10,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import projectubernahme.Localizer;
 import projectubernahme.MessageTypes;
-import projectubernahme.Player;
 import projectubernahme.ProjectUbernahme;
 import projectubernahme.environments.TileEnvironment;
 import projectubernahme.interface2D.GamePauseKeyListener;
 import projectubernahme.lifeforms.Fly;
 import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.lifeforms.SuspicionCase;
+import projectubernahme.player.Player;
 
 /** simulates all the lifeforms and the map, has a thread that moves everything around */
 public class MainSimulator {

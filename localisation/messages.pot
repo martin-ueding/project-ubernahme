@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-01 19:47+0200\n"
+"POT-Creation-Date: 2011-04-02 21:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,51 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: projectubernahme/lifeforms/Zombie.java:82
-msgid "Zombie"
+#: projectubernahme/simulator/SimulatorThread.java:59
+msgid "Game Over!"
 msgstr ""
 
-#: projectubernahme/lifeforms/Fly.java:46
-msgid "Fly"
-msgstr ""
-
-#: projectubernahme/lifeforms/Lifeform.java:514
+#: projectubernahme/simulator/MainSimulator.java:95
 #, java-format
-msgid "{0} has {1} suspicion points against {2}."
-msgstr ""
-
-#: projectubernahme/lifeforms/Lifeform.java:520
-msgid "new name"
-msgstr ""
-
-#: projectubernahme/lifeforms/Tree.java:54
-msgid "Tree"
-msgstr ""
-
-#: projectubernahme/lifeforms/Human.java:57
-msgid "ERROR"
-msgstr ""
-
-#: projectubernahme/lifeforms/Human.java:57
-msgid "could not open file with list of first names"
-msgstr ""
-
-#: projectubernahme/lifeforms/Human.java:130
-msgid "Human"
-msgstr ""
-
-#: projectubernahme/Localizer.java:34
-msgid "String '{0}' is missing in bundle '{1}'."
-msgstr ""
-
-#: projectubernahme/IngestionThread.java:110
-#, java-format
-msgid "{0} ingested {2} kg of {1}."
-msgstr ""
-
-#: projectubernahme/TakeoverThread.java:78
-#, java-format
-msgid "{0} took control over {1}."
+msgid "{0} suspects {1} now."
 msgstr ""
 
 #: projectubernahme/interface2D/GamePauseKeyListener.java:23
@@ -78,10 +40,6 @@ msgstr ""
 
 #: projectubernahme/interface2D/View2D.java:470
 msgid "Name"
-msgstr ""
-
-#: projectubernahme/interface2D/Interface2D.java:18
-msgid "Project Ubernahme"
 msgstr ""
 
 #: projectubernahme/interface2D/CircleMenu.java:55
@@ -116,19 +74,61 @@ msgstr ""
 msgid "This menu item was clicked."
 msgstr ""
 
-#: projectubernahme/simulator/SimulatorThread.java:59
-msgid "Game Over!"
+#: projectubernahme/interface2D/Interface2D.java:18
+msgid "Project Ubernahme"
 msgstr ""
 
-#: projectubernahme/simulator/MainSimulator.java:95
+#: projectubernahme/Localizer.java:34
+msgid "String '{0}' is missing in bundle '{1}'."
+msgstr ""
+
+#: projectubernahme/player/TakeoverThread.java:81
 #, java-format
-msgid "{0} suspects {1} now."
+msgid "{0} took control over {1}."
 msgstr ""
 
-#: projectubernahme/ProjectUbernahme.java:52
+#: projectubernahme/player/IngestionThread.java:113
+#, java-format
+msgid "{0} ingested {2} kg of {1}."
+msgstr ""
+
+#: projectubernahme/lifeforms/Human.java:57
+msgid "ERROR"
+msgstr ""
+
+#: projectubernahme/lifeforms/Human.java:57
+msgid "could not open file with list of first names"
+msgstr ""
+
+#: projectubernahme/lifeforms/Human.java:130
+msgid "Human"
+msgstr ""
+
+#: projectubernahme/lifeforms/Fly.java:46
+msgid "Fly"
+msgstr ""
+
+#: projectubernahme/lifeforms/Zombie.java:82
+msgid "Zombie"
+msgstr ""
+
+#: projectubernahme/lifeforms/Tree.java:54
+msgid "Tree"
+msgstr ""
+
+#: projectubernahme/lifeforms/Lifeform.java:514
+#, java-format
+msgid "{0} has {1} suspicion points against {2}."
+msgstr ""
+
+#: projectubernahme/lifeforms/Lifeform.java:520
+msgid "new name"
+msgstr ""
+
+#: projectubernahme/ProjectUbernahme.java:53
 msgid "could not open main config file"
 msgstr ""
 
-#: projectubernahme/ProjectUbernahme.java:58
+#: projectubernahme/ProjectUbernahme.java:59
 msgid "Welcome to Project Ubernahme"
 msgstr ""
