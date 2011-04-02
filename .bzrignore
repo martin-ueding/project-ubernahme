@@ -1,3 +1,5 @@
 *.class
 *.jar
 javadoc
+.classpath
+.project
