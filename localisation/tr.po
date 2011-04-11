@@ -8,18 +8,18 @@ msgstr ""
 "Project-Id-Version: projectubernahme\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2011-04-01 19:47+0200\n"
-"PO-Revision-Date: 2011-01-21 07:00+0000\n"
+"PO-Revision-Date: 2011-04-10 21:45+0000\n"
 "Last-Translator: kodadiirem <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-04-02 06:45+0000\n"
-"X-Generator: Launchpad (build 12559)\n"
+"X-Launchpad-Export-Date: 2011-04-11 05:41+0000\n"
+"X-Generator: Launchpad (build 12735)\n"
 
 #: projectubernahme/lifeforms/Zombie.java:82
 msgid "Zombie"
-msgstr ""
+msgstr "Zombi"
 
 #: projectubernahme/lifeforms/Fly.java:46
 msgid "Fly"
@@ -36,7 +36,7 @@ msgstr "yeni oyun"
 
 #: projectubernahme/lifeforms/Tree.java:54
 msgid "Tree"
-msgstr ""
+msgstr "Ağaç"
 
 #: projectubernahme/lifeforms/Human.java:57
 msgid "ERROR"
@@ -48,7 +48,7 @@ msgstr "ilk isimlerin listesi ile dosya açılamıyor"
 
 #: projectubernahme/lifeforms/Human.java:130
 msgid "Human"
-msgstr ""
+msgstr "İnsan"
 
 #: projectubernahme/Localizer.java:34
 msgid "String '{0}' is missing in bundle '{1}'."
@@ -70,7 +70,7 @@ msgstr ""
 
 #: projectubernahme/interface2D/View2D.java:457
 msgid "Class"
-msgstr ""
+msgstr "Sınıf"
 
 #: projectubernahme/interface2D/View2D.java:463
 msgid "Biomass"
@@ -78,7 +78,7 @@ msgstr ""
 
 #: projectubernahme/interface2D/View2D.java:470
 msgid "Name"
-msgstr ""
+msgstr "İsim"
 
 #: projectubernahme/interface2D/Interface2D.java:18
 msgid "Project Ubernahme"
@@ -86,7 +86,7 @@ msgstr "Ubernahme Projesi"
 
 #: projectubernahme/interface2D/CircleMenu.java:55
 msgid "rename"
-msgstr ""
+msgstr "yeniden adlandır"
 
 #: projectubernahme/interface2D/CircleMenu.java:62
 msgid "ingest"
@@ -110,11 +110,11 @@ msgstr ""
 
 #: projectubernahme/interface2D/CircleMenu.java:94
 msgid "split"
-msgstr ""
+msgstr "böl"
 
 #: projectubernahme/interface2D/CircleMenu.java:197
 msgid "This menu item was clicked."
-msgstr ""
+msgstr "Bu menü öğesi tıklandı."
 
 #: projectubernahme/simulator/SimulatorThread.java:59
 msgid "Game Over!"
