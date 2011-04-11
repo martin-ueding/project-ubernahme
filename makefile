@@ -11,7 +11,7 @@ textFiles = $(shell find . | egrep "\.txt$$")
 
 standard: projectubernahme.jar
 
-all: localisation/messages.pot $(p)/strings_de.properties $(p)/strings_tr.properties projectubernahme.jar linecount
+all: localisation/projectubernahme.pot $(p)/strings_de.properties $(p)/strings_tr.properties projectubernahme.jar linecount
 
 # puts the binaries into the jar
 projectubernahme.jar: $(p)/ProjectUbernahme.class $(sourceFiles)
@@ -31,8 +31,8 @@ clean:
 	rm -rf $(p)/*.class $(p)/*/*.class *.jar documentation/javadoc
 
 # generates the main .pot file
-localisation/messages.pot: $(sourceFiles)
-	xgettext -kLocalizer.get -o localisation/messages.pot --from-code=UTF-8 $(sourceFiles)
+localisation/projectubernahme.pot: $(sourceFiles)
+	xgettext -kLocalizer.get -o localisation/projectubernahme.pot --from-code=UTF-8 $(sourceFiles)
 
 # converts the translated .po files to .properties files that Java can use then
 $(p)/strings_de.properties: localisation/de.po
