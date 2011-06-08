@@ -18,7 +18,8 @@ import projectubernahme.lifeforms.Lifeform;
 import projectubernahme.lifeforms.SuspicionCase;
 import projectubernahme.player.Player;
 
-/** simulates all the lifeforms and the map, has a thread that moves everything around */
+/** simulates all the lifeforms and the map, has a thread that moves everything
+ * around */
 public class MainSimulator {
 
 	/** list of all lifeforms in the whole game */
@@ -45,7 +46,8 @@ public class MainSimulator {
 		return lifeforms;
 	}
 
-	/** generates a lifeform and return is. The player then can add it to its list of controlled lifeforms */
+	/** generates a lifeform and return is. The player then can add it to its
+	 * list of controlled lifeforms */
 	public Lifeform giveLifeform(Player p) {
 		Lifeform l = new Fly(this, env.getRandomPointOnMap());
 		getLifeforms().add(l);
@@ -53,7 +55,8 @@ public class MainSimulator {
 		return l;
 	}
 
-	/** adds a player to the simulator so that the simulator can keep track of it */
+	/** adds a player to the simulator so that the simulator can keep track of
+	 * it */
 	public void addPlayer(Player player) {
 		players.add(player);
 	}
@@ -87,13 +90,17 @@ public class MainSimulator {
 			if (other.canSee(l) && other.willSuspect(l)) {
 				SuspicionCase sc = new SuspicionCase();
 				sc.setL(l);
-				// TODO adjust this strengh and let strengths add up, avoid duplicate entries
+				// TODO adjust this strengh and let strengths add up, avoid
+				// duplicate entries
 				sc.setStrengh(0.5);
 				other.getSuspicionCases().add(sc);
 
 				if (ProjectUbernahme.getVerboseLevel() >= 4)
-					ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} suspects {1} now."), new Object[] {other.toString(), l.toString()}),
-					                     l.isControlled() ? MessageTypes.WARNING : MessageTypes.INFO);
+					ProjectUbernahme.log(MessageFormat.format(
+						Localizer.get("{0} suspects {1} now."),
+						new Object[] {other.toString(), l.toString()}),
+							l.isControlled() ? MessageTypes.WARNING :
+							MessageTypes.INFO);
 			}
 		}
 	}
@@ -103,7 +110,9 @@ public class MainSimulator {
 	private SimulatorThread simulatorThread;
 	public double getTotalBiomass() {
 		Calendar cal = Calendar.getInstance();
-		if (lastCalculatedTotalBiomassTime + Long.parseLong(ProjectUbernahme.getConfigValue("TotalBiomassCalcInterval")) < cal.getTimeInMillis()) {
+		if (lastCalculatedTotalBiomassTime + Long.parseLong(
+					ProjectUbernahme.getConfigValue("TotalBiomassCalcInterval")
+					) < cal.getTimeInMillis()) {
 			lastCalculatedTotalBiomassTime = cal.getTimeInMillis();
 			lastCalculatedTotalBiomass = 0.0;
 			for (Lifeform l : lifeforms) {
@@ -141,7 +150,8 @@ public class MainSimulator {
 
 	public void remove(Lifeform prey) {
 		lifeforms.remove(prey);
-		prey.setPosition(new Point2D.Double(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY));
+		prey.setPosition(new Point2D.Double(Double.POSITIVE_INFINITY,
+					Double.POSITIVE_INFINITY));
 
 	}
 

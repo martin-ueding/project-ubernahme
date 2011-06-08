@@ -19,7 +19,8 @@ public class LifeformSelectionMouseListener implements MouseListener {
 	private MainSimulator sim;
 	private View2D view;
 
-	public LifeformSelectionMouseListener (View2D view, MainSimulator sim, Player player, AffineTransform transform) {
+	public LifeformSelectionMouseListener (View2D view, MainSimulator sim,
+			Player player, AffineTransform transform) {
 		this.view = view;
 		this.sim = sim;
 		this.player = player;
@@ -37,16 +38,19 @@ public class LifeformSelectionMouseListener implements MouseListener {
 
 			/* find the lifeform that is under the cursor */
 			for (Lifeform l : player.getControlledLifeforms()) {
-				if (selected == null && l.getPoint2D().distance(p) <= l.getDiameter() / 2) {
+				if (selected == null && l.getPoint2D().distance(p) <=
+						l.getDiameter() / 2) {
 					selected = l;
 					primary = true;
 				}
 			}
 
-			/* if the lifeform is not within the controlled ones, search the whole premises */
+			/* if the lifeform is not within the controlled ones, search the
+			 * whole premises */
 			if (selected == null) {
 				for (Lifeform l : sim.getLifeforms()) {
-					if (selected == null && l.getPoint2D().distance(p) <= l.getDiameter() / 2) {
+					if (selected == null && l.getPoint2D().distance(p) <=
+							l.getDiameter() / 2) {
 						selected = l;
 					}
 				}
@@ -59,7 +63,8 @@ public class LifeformSelectionMouseListener implements MouseListener {
 					if (e.getButton() == MouseEvent.BUTTON1 && primary) {
 						player.setSelectedLifeform(selected);
 					}
-					/* secondary click will select the lifeform and open the interaction menu */
+					/* secondary click will select the lifeform and open the
+					 * interaction menu */
 					else if (e.getButton() == MouseEvent.BUTTON3) {
 						player.setSecondarySelectedLifeform(selected);
 						player.setMenu(new CircleMenu(view, selected, player));

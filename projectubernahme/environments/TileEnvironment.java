@@ -32,7 +32,9 @@ import projectubernahme.lifeforms.Zombie;
 import projectubernahme.simulator.MainSimulator;
 
 /** an environment made up from tiles
-  The tile environment is parsed from a text file filled with characters in a rectangular way. Every character stands for something on the map, these keys can be found in the guide file in the same folder this class is in. */
+  * The tile environment is parsed from a text file filled with characters in a
+  * rectangular way. Every character stands for something on the map, these
+  * keys can be found in the guide file in the same folder this class is in. */
 public class TileEnvironment {
 
 	private ConvertedGraphics[] cgs;
@@ -49,7 +51,8 @@ public class TileEnvironment {
 	private Point2D origin = new Point2D.Double(0.0, 0.0);
 
 	/** a copy of the previous transform to compare to the new one
-	  This saves a new rendering if the transform stayed all the same, making the game more fluent when not zooming or panning around. */
+	  * This saves a new rendering if the transform stayed all the same, making
+	  * the game more fluent when not zooming or panning around. */
 	private AffineTransform previousTransform;
 	private int previousWidth, previousHeight;
 
@@ -61,7 +64,9 @@ public class TileEnvironment {
 		ClassLoader cl = getClass().getClassLoader();
 
 		try {
-			InputStream fis = cl.getResourceAsStream("projectubernahme/environments/tilemap_" + mapname + ".txt");
+			InputStream fis = cl.getResourceAsStream(
+					"projectubernahme/environments/tilemap_" + mapname +
+					".txt");
 
 			byte[] text = new byte[fis.available()];
 
@@ -132,9 +137,11 @@ public class TileEnvironment {
 
 	}
 
-	public boolean isFreeBetween(double x1, double y1, double z1, double x2, double y2, double z2) {
+	public boolean isFreeBetween(double x1, double y1, double z1, double x2,
+			double y2, double z2) {
 		/* return false if path would lead out of the map */
-		if (x2 < 0 || y2 < 0 || x2 > tiles.length * tileWidthInReal || y2 > tiles[0].length * tileWidthInReal) {
+		if (x2 < 0 || y2 < 0 || x2 > tiles.length * tileWidthInReal || y2 >
+				tiles[0].length * tileWidthInReal) {
 			return false;
 		}
 
@@ -146,12 +153,15 @@ public class TileEnvironment {
 	}
 
 	/** returns the background and renders it new, if needed */
-	public BufferedImage getBackground (int width, int height, AffineTransform transform) {
+	public BufferedImage getBackground (int width, int height, AffineTransform
+			transform) {
 		/* do not repaint if the transform has not changed at all */
-		if (transform.equals(previousTransform) && previousHeight == height && previousWidth == width) {
+		if (transform.equals(previousTransform) && previousHeight == height &&
+				previousWidth == width) {
 		}
 		else {
-			double scaling = Double.parseDouble(ProjectUbernahme.getConfigValue("tileOverlapScaling"));
+			double scaling = Double.parseDouble(
+					ProjectUbernahme.getConfigValue("tileOverlapScaling"));
 			ConvertedGraphics cg;
 
 			boolean[][] visible = new boolean[tiles.length][tiles[0].length];
@@ -161,7 +171,8 @@ public class TileEnvironment {
 			Rectangle2D screen = new Rectangle2D.Double(0, 0, width, height);
 
 
-			/* create a new background image and pull the graphics to draw on it */
+			/* create a new background image and pull the graphics to draw on
+			 * it */
 			bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g = (Graphics2D) bg.getGraphics();
 
@@ -174,20 +185,26 @@ public class TileEnvironment {
 				for (int j = 0; j < tiles.length; j += 1) {
 					/* create a new transform for each of the tiles */
 					AffineTransform tileTransform = new AffineTransform();
-					tileTransform.translate(j * tileWidthInReal, i * tileWidthInReal);
+					tileTransform.translate(j * tileWidthInReal, i *
+							tileWidthInReal);
 
-					/* also add the (physical) player's transform to generate the picture that he wants to have */
+					/* also add the (physical) player's transform to generate
+					 * the picture that he wants to have */
 					tileTransform.preConcatenate(transform);
 
 					/* draw only the visible items onto the background */
 					Point2D target = tileTransform.transform(origin, null);
 
 					/* create a whole rectangle and transform it to the screen */
-					Rectangle2D tile = new Rectangle2D.Double(0, 0, tileWidthInReal, tileWidthInReal);
-					Shape tileResult = tileTransform.createTransformedShape(tile);
+					Rectangle2D tile = new Rectangle2D.Double(0, 0,
+							tileWidthInReal, tileWidthInReal);
+					Shape tileResult = tileTransform.createTransformedShape(
+							tile);
 
-					/* something is visible if it either is within the screen or the tile intersects with the screen */
-					visible[j][i] = target.distance(width / 2, height / 2) < twiceScreenRadius || tileResult.intersects(screen);
+					/* something is visible if it either is within the screen
+					 * or the tile intersects with the screen */
+					visible[j][i] = target.distance(width / 2, height / 2) <
+						twiceScreenRadius || tileResult.intersects(screen);
 				}
 			}
 
@@ -196,10 +213,13 @@ public class TileEnvironment {
 				for (int j = 0; j < tiles.length; j += 1) {
 					/* create a new transform for each of the tiles */
 					AffineTransform tileTransform = new AffineTransform();
-					tileTransform.translate(j * tileWidthInReal, i * tileWidthInReal);
-					//tileTransform.scale(1.0/tileWidth*tileWidthInReal, 1.0/tileWidth*tileWidthInReal);
+					tileTransform.translate(j * tileWidthInReal,
+							i * tileWidthInReal);
+					//tileTransform.scale(1.0/tileWidth*tileWidthInReal,
+					//1.0/tileWidth*tileWidthInReal);
 
-					/* also add the (physical) player's transform to generate the picture that he wants to have */
+					/* also add the (physical) player's transform to generate
+					 * the picture that he wants to have */
 					tileTransform.preConcatenate(transform);
 
 					/* draw only the visible items onto the background */
@@ -213,7 +233,9 @@ public class TileEnvironment {
 						}
 
 						/* figure out which tile image is the right one */
-						tileTransform.scale(tileWidthInReal / cg.getOrigWidth() * scaling, tileWidthInReal / cg.getOrigWidth() * scaling);
+						tileTransform.scale(tileWidthInReal / cg.getOrigWidth()
+								* scaling, tileWidthInReal / cg.getOrigWidth()
+								* scaling);
 						tileTransform.translate(-cg.getOrigX(), -cg.getOrigY());
 
 						g.setTransform(tileTransform);
@@ -221,7 +243,8 @@ public class TileEnvironment {
 					}
 				}
 			}
-			/* clone the current player's transform to compare it in the next iteration of this method */
+			/* clone the current player's transform to compare it in the next
+			 * iteration of this method */
 			previousTransform = (AffineTransform) transform.clone();
 			previousHeight = height;
 			previousWidth = width;
@@ -231,12 +254,18 @@ public class TileEnvironment {
 	}
 
 	/** iterate through the tiles and spawn some lifeforms where they belong */
-	public void initializeNPCs(CopyOnWriteArrayList<Lifeform> list, MainSimulator sim) {
-		int treeOffset = Integer.parseInt(ProjectUbernahme.getConfigValue("treeOffset"));
-		double zombieSpawnChance = 1.0 / Integer.parseInt(ProjectUbernahme.getConfigValue("zombieSpawnChance"));
-		double policeSpawnChance = 1.0 / Integer.parseInt(ProjectUbernahme.getConfigValue("policeSpawnChance"));
-		double humanSpawnChance = 1.0 / Integer.parseInt(ProjectUbernahme.getConfigValue("humanSpawnChance"));
-		double treeSpawnChance = 1.0 / Integer.parseInt(ProjectUbernahme.getConfigValue("treeSpawnChance"));
+	public void initializeNPCs(CopyOnWriteArrayList<Lifeform> list,
+			MainSimulator sim) {
+		int treeOffset =
+			Integer.parseInt(ProjectUbernahme.getConfigValue("treeOffset"));
+		double zombieSpawnChance = 1.0 /
+			Integer.parseInt(ProjectUbernahme.getConfigValue("zombieSpawnChance"));
+		double policeSpawnChance = 1.0 /
+			Integer.parseInt(ProjectUbernahme.getConfigValue("policeSpawnChance"));
+		double humanSpawnChance = 1.0 /
+			Integer.parseInt(ProjectUbernahme.getConfigValue("humanSpawnChance"));
+		double treeSpawnChance = 1.0 /
+			Integer.parseInt(ProjectUbernahme.getConfigValue("treeSpawnChance"));
 
 		for (int i = 0; i < tiles[0].length; i++) {
 			for (int j = 0; j < tiles.length; j++) {
@@ -256,8 +285,14 @@ public class TileEnvironment {
 						break;
 					case 'L':
 						if (Math.random() < treeSpawnChance) {
-							if (i >= treeOffset && j >= treeOffset && i + treeOffset < tiles[0].length && j + treeOffset < tiles.length) {
-								if (tiles[j-treeOffset][i] == 'L' && tiles[j+treeOffset][i] == 'L' && tiles[j][i-treeOffset] == 'L' && tiles[j][i+treeOffset] == 'L' && Math.random() > 0.9) {
+							if (i >= treeOffset && j >= treeOffset && i +
+									treeOffset < tiles[0].length && j +
+									treeOffset < tiles.length) {
+								if (tiles[j-treeOffset][i] == 'L' &&
+										tiles[j+treeOffset][i] == 'L' &&
+										tiles[j][i-treeOffset] == 'L' &&
+										tiles[j][i+treeOffset] == 'L' &&
+										Math.random() > 0.9) {
 									toAdd = Tree.class;
 								}
 							}
@@ -270,7 +305,12 @@ public class TileEnvironment {
 				/* add one of the class to the list */
 				if (toAdd != Lifeform.class) {
 					try {
-						list.add(toAdd.getConstructor(new Class[] {MainSimulator.class, Point2D.class}).newInstance(new Object[] {sim, new Point2D.Double((j + 0.5) * tileWidthInReal, (i + 0.5) * tileWidthInReal)}));
+						list.add(toAdd.getConstructor(new Class[]
+									{MainSimulator.class,
+									Point2D.class}).newInstance(new Object[]
+										{sim, new Point2D.Double((j + 0.5) *
+											tileWidthInReal, (i + 0.5) *
+											tileWidthInReal)}));
 					}
 					catch (IllegalArgumentException e) {
 						e.printStackTrace();
@@ -296,7 +336,9 @@ public class TileEnvironment {
 	}
 
 	public Point2D getRandomPointOnMap() {
-		return new Point2D.Double(Math.random() * tiles.length * tileWidthInReal, Math.random() * tiles[0].length * tileWidthInReal);
+		return new Point2D.Double(Math.random() * tiles.length *
+				tileWidthInReal, Math.random() * tiles[0].length *
+				tileWidthInReal);
 	}
 	public Point2D generateNewWaypoint(Point2D p) {
 		/* find the current tile */
@@ -307,43 +349,57 @@ public class TileEnvironment {
 
 		/* try to find the next intersection */
 		int offset = 1;
-		while ((tileX - offset) >= 0 && canWalkOn(tiles[tileX-offset][tileY]) && !isOnIntersection(tileX - (offset), tileY)) {
+		while ((tileX - offset) >= 0 && canWalkOn(tiles[tileX-offset][tileY])
+				&& !isOnIntersection(tileX - (offset), tileY)) {
 			offset++;
 		}
 		offset--;
 
 		if (offset > 0) {
-			possibleNewWaypoints.add(new Point2D.Double((tileX - (offset + 1) + 0.5) * tileWidthInReal, (tileY + 0.5) * tileWidthInReal));
+			possibleNewWaypoints.add(new Point2D.Double((tileX - (offset + 1) +
+							0.5) * tileWidthInReal, (tileY + 0.5) *
+						tileWidthInReal));
 		}
 
 		offset = 1;
-		while ((tileY - offset) >= 0 && canWalkOn(tiles[tileX][tileY-offset]) && !isOnIntersection(tileX, tileY - (offset))) {
+		while ((tileY - offset) >= 0 && canWalkOn(tiles[tileX][tileY-offset])
+				&& !isOnIntersection(tileX, tileY - (offset))) {
 			offset++;
 		}
 		offset--;
 
 		if (offset > 0) {
-			possibleNewWaypoints.add(new Point2D.Double((tileX + 0.5) * tileWidthInReal, (tileY - (offset + 1) + 0.5) * tileWidthInReal));
+			possibleNewWaypoints.add(new Point2D.Double((tileX + 0.5) *
+						tileWidthInReal, (tileY - (offset + 1) + 0.5) *
+						tileWidthInReal));
 		}
 
 		offset = 1;
-		while ((tileY + offset) < tiles[0].length && canWalkOn(tiles[tileX][tileY+offset]) && !isOnIntersection(tileX, tileY + (offset))) {
+		while ((tileY + offset) < tiles[0].length &&
+				canWalkOn(tiles[tileX][tileY+offset]) &&
+				!isOnIntersection(tileX, tileY + (offset))) {
 			offset++;
 		}
 		offset--;
 
 		if (offset > 0) {
-			possibleNewWaypoints.add(new Point2D.Double((tileX + 0.5) * tileWidthInReal, (tileY + (offset + 1) + 0.5) * tileWidthInReal));
+			possibleNewWaypoints.add(new Point2D.Double((tileX + 0.5) *
+						tileWidthInReal, (tileY + (offset + 1) + 0.5) *
+						tileWidthInReal));
 		}
 
 		offset = 1;
-		while ((tileX + offset) < tiles.length && canWalkOn(tiles[tileX+offset][tileY]) && !isOnIntersection(tileX + (offset), tileY)) {
+		while ((tileX + offset) < tiles.length &&
+				canWalkOn(tiles[tileX+offset][tileY]) &&
+				!isOnIntersection(tileX + (offset), tileY)) {
 			offset++;
 		}
 		offset--;
 
 		if (offset > 0) {
-			possibleNewWaypoints.add(new Point2D.Double((tileX + (offset + 1) + 0.5) * tileWidthInReal, (tileY + 0.5) * tileWidthInReal));
+			possibleNewWaypoints.add(new Point2D.Double((tileX + (offset + 1) +
+							0.5) * tileWidthInReal, (tileY + 0.5) *
+						tileWidthInReal));
 		}
 
 		int index = (int) (Math.random() * (possibleNewWaypoints.size()));
@@ -402,11 +458,13 @@ public class TileEnvironment {
 			}
 		}
 
-		return (possibleNeighbors > 2 || (top && !bottom) || (left && !right) || (!top && bottom) || (!left && right));
+		return (possibleNeighbors > 2 || (top && !bottom) || (left && !right)
+				|| (!top && bottom) || (!left && right));
 	}
 
 	public boolean isFreeBetween(Point2D position, Point2D newPosition) {
-		return isFreeBetween(position.getX(), position.getY(), 0.0, newPosition.getX(), newPosition.getY(), 0.0);
+		return isFreeBetween(position.getX(), position.getY(), 0.0,
+				newPosition.getX(), newPosition.getY(), 0.0);
 	}
 }
 

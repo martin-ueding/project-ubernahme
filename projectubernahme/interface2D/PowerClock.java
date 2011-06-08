@@ -17,7 +17,8 @@ public class PowerClock {
 			System.out.print(task + ",");
 		}
 		else {
-			System.out.print((Calendar.getInstance().getTimeInMillis() - clockBegin) + ",");
+			System.out.print((Calendar.getInstance().getTimeInMillis() -
+						clockBegin) + ",");
 		}
 	}
 

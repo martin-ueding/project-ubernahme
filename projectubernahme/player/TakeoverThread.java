@@ -17,7 +17,8 @@ public class TakeoverThread extends Thread {
 	private Player player;
 	private MainSimulator sim;
 
-	public TakeoverThread(Lifeform lifeform, Player controllingPlayer, Lifeform lifeform2, MainSimulator sim) {
+	public TakeoverThread(Lifeform lifeform, Player controllingPlayer, Lifeform
+			lifeform2, MainSimulator sim) {
 		l = lifeform;
 		player = controllingPlayer;
 		prey = lifeform2;
@@ -49,13 +50,16 @@ public class TakeoverThread extends Thread {
 					/* walk towards the victim */
 					if (l.distance(prey) > 0.1) {
 						double xdist, ydist;
-						xdist = prey.getPoint2D().getX() - l.getPoint2D().getX();
-						ydist = prey.getPoint2D().getY() - l.getPoint2D().getY();
+						xdist = prey.getPoint2D().getX() -
+							l.getPoint2D().getX();
+						ydist = prey.getPoint2D().getY() -
+							l.getPoint2D().getY();
 
 						l.setViewAngle(Math.atan2(ydist, xdist));
 
 						double distSqrt = Math.hypot(xdist, ydist);
-						l.getVelocity().setTo(xdist / distSqrt, ydist / distSqrt);
+						l.getVelocity().setTo(xdist / distSqrt, ydist /
+								distSqrt);
 					}
 					else {
 						/* stop when reached the prey */
@@ -77,17 +81,22 @@ public class TakeoverThread extends Thread {
 				player.addControlledLifeform(prey);
 				prey.stopAction();
 
-				if ((takeoverMessageType == MessageTypes.INFO && ProjectUbernahme.getVerboseLevel() >= 3) || takeoverMessageType != MessageTypes.INFO)
-					ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} took control over {1}."), new Object[] {l.toString(), prey.toString()}), takeoverMessageType);
+				if ((takeoverMessageType == MessageTypes.INFO &&
+							ProjectUbernahme.getVerboseLevel() >= 3) ||
+						takeoverMessageType != MessageTypes.INFO)
+					ProjectUbernahme.log(MessageFormat.format(Localizer.get(
+									"{0} took control over {1}."), new Object[]
+								{l.toString(), prey.toString()}),
+							takeoverMessageType);
 			}
 		}
 		catch (InterruptedException e) {
-			/* if the action was interrupted, then it will just stop, the busy state is reset at the end of this method anyway */
+			/* if the action was interrupted, then it will just stop, the busy
+			 * state is reset at the end of this method anyway */
 		}
 
 		/* set the lifeform back to normal */
 		l.setBusy(false);
 	}
-
-
 }
+

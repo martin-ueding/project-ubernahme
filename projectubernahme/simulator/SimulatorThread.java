@@ -23,7 +23,8 @@ public class SimulatorThread extends Thread {
 
 	private CopyOnWriteArrayList<Integer> calcTime;
 
-	private static int powerMeterMeasurementsCount = Integer.parseInt(ProjectUbernahme.getConfigValue("powerMeterMeasurementsCount"));
+	private static int powerMeterMeasurementsCount = Integer.parseInt(
+			ProjectUbernahme.getConfigValue("powerMeterMeasurementsCount"));
 
 	public SimulatorThread(MainSimulator mainSimulator) {
 		sim = mainSimulator;
@@ -48,7 +49,8 @@ public class SimulatorThread extends Thread {
 				}
 
 				c = Calendar.getInstance();
-				getCalcTime().add(new Integer((int) (c.getTimeInMillis() - time)));
+				getCalcTime().add(new Integer((int) (c.getTimeInMillis() -
+								time)));
 
 				Thread.sleep(getSleepTime());
 
@@ -56,7 +58,8 @@ public class SimulatorThread extends Thread {
 			}
 
 			if (!sim.isGameUp()) {
-				JOptionPane.showMessageDialog(null, Localizer.get("Game Over!"));
+				JOptionPane.showMessageDialog(null,
+						Localizer.get("Game Over!"));
 				System.exit(0);
 			}
 

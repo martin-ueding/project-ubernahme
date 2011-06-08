@@ -23,8 +23,10 @@ public class Interface2D {
 
 		graphicsPanel.addKeyListener(new LifeformControlKeyListener(p));
 
-		GraphicsDevice myDevice = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-		if (myDevice.isFullScreenSupported() && ProjectUbernahme.getConfigValue("fullscreen").equals("true")) {
+		GraphicsDevice myDevice = java.awt.GraphicsEnvironment.
+			getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		if (myDevice.isFullScreenSupported() && ProjectUbernahme.
+				getConfigValue("fullscreen").equals("true")) {
 			graphicsPanel.setUndecorated(true);
 			graphicsPanel.setSize(Toolkit.getDefaultToolkit().getScreenSize());
 			myDevice.setFullScreenWindow(graphicsPanel);
@@ -34,7 +36,11 @@ public class Interface2D {
 			graphicsPanel.setVisible(true);
 		}
 		else {
-			graphicsPanel.setSize(Integer.parseInt(ProjectUbernahme.getConfigValue("initialWindowWidth")), Integer.parseInt(ProjectUbernahme.getConfigValue("initialWindowHeight")));
+			graphicsPanel.setSize(Integer.parseInt(
+						ProjectUbernahme.getConfigValue("initialWindowWidth")),
+					Integer.parseInt(
+						ProjectUbernahme.getConfigValue("initialWindowHeight"))
+					);
 			graphicsPanel.setVisible(true);
 		}
 

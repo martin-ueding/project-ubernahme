@@ -70,7 +70,8 @@ public class Player {
 		}
 	}
 
-	public void setControlledLifeforms(CopyOnWriteArrayList<Lifeform> copyOnWriteArrayList) {
+	public void setControlledLifeforms(CopyOnWriteArrayList<Lifeform>
+			copyOnWriteArrayList) {
 		this.controlledLifeforms = copyOnWriteArrayList;
 	}
 
@@ -86,7 +87,8 @@ public class Player {
 	}
 
 	public Lifeform getSelectedLifeform() {
-		if (selectedLifeform == null && controlledLifeforms != null && !controlledLifeforms.isEmpty()) {
+		if (selectedLifeform == null && controlledLifeforms != null &&
+				!controlledLifeforms.isEmpty()) {
 			selectedLifeform = controlledLifeforms.get(0);
 		}
 		return selectedLifeform;
@@ -96,7 +98,8 @@ public class Player {
 		return secondarySelectedLifeform;
 	}
 
-	public void setSecondarySelectedLifeform(Lifeform secondarySelectedLifeform) {
+	public void setSecondarySelectedLifeform(Lifeform
+			secondarySelectedLifeform) {
 		if (secondarySelectedLifeform == selectedLifeform) {
 			this.secondarySelectedLifeform = null;
 		}
@@ -158,7 +161,10 @@ public class Player {
 	private long lastCalculatedTotalBiomassTime;
 	public double getTotalBiomass() {
 		Calendar cal = Calendar.getInstance();
-		if (lastCalculatedTotalBiomassTime + Long.parseLong(ProjectUbernahme.getConfigValue("TotalBiomassCalcInterval")) < cal.getTimeInMillis()) {
+		if (lastCalculatedTotalBiomassTime +
+				Long.parseLong(ProjectUbernahme.getConfigValue(
+						"TotalBiomassCalcInterval"))
+				< cal.getTimeInMillis()) {
 			lastCalculatedTotalBiomassTime = cal.getTimeInMillis();
 			lastCalculatedTotalBiomass = 0.0;
 			for (Lifeform l : controlledLifeforms) {
