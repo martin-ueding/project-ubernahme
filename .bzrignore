@@ -3,3 +3,4 @@
 javadoc
 .classpath
 .project
+documentation/usermanual/*/*.html
