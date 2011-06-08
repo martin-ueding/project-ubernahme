@@ -32,12 +32,13 @@ public class MenuAiGreen extends ConvertedGraphics {
 	 *            Graphics context.
 	 */
 	public void paint(Graphics2D g) {
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
 		origAlpha = 1.0f;
 		Composite origComposite = g.getComposite();
 		if (origComposite instanceof AlphaComposite) {
 			AlphaComposite origAlphaComposite =
-			    (AlphaComposite)origComposite;
+				(AlphaComposite)origComposite;
 			if (origAlphaComposite.getRule() == AlphaComposite.SRC_OVER) {
 				origAlpha = origAlphaComposite.getAlpha();
 			}
@@ -53,10 +54,14 @@ public class MenuAiGreen extends ConvertedGraphics {
 	private void paintShapeNode_0_0_0_0(Graphics2D g) {
 		GeneralPath shape0 = new GeneralPath();
 		shape0.moveTo(525.7143, 363.79074);
-		shape0.curveTo(525.7143, 504.22888, 411.8667, 618.0765, 271.4286, 618.0765);
-		shape0.curveTo(130.99045, 618.0765, 17.142853, 504.22888, 17.142853, 363.79074);
-		shape0.curveTo(17.142853, 223.35262, 130.99045, 109.50502, 271.42856, 109.50502);
-		shape0.curveTo(411.8667, 109.50502, 525.7143, 223.35262, 525.7143, 363.79074);
+		shape0.curveTo(525.7143, 504.22888, 411.8667, 618.0765, 271.4286,
+				618.0765);
+		shape0.curveTo(130.99045, 618.0765, 17.142853, 504.22888, 17.142853,
+				363.79074);
+		shape0.curveTo(17.142853, 223.35262, 130.99045, 109.50502, 271.42856,
+				109.50502);
+		shape0.curveTo(411.8667, 109.50502, 525.7143, 223.35262, 525.7143,
+				363.79074);
 		shape0.closePath();
 		g.setPaint(new Color(0, 0, 0, 255));
 		g.setStroke(new BasicStroke(1.0f, 0, 0, 4.0f, null, 0.0f));
@@ -65,7 +70,8 @@ public class MenuAiGreen extends ConvertedGraphics {
 
 	private void paintShapeNode_0_0_0_1(Graphics2D g) {
 		g.setPaint(new Color(90, 160, 44, 255));
-		Rectangle2D.Double shape1 = new Rectangle2D.Double(220.29368591308594, 298.3701477050781, 302.2697448730469, 302.2697448730469);
+		Rectangle2D.Double shape1 = new Rectangle2D.Double(220.29368591308594,
+				298.3701477050781, 302.2697448730469, 302.2697448730469);
 		g.fill(shape1);
 	}
 
@@ -928,7 +934,8 @@ public class MenuAiGreen extends ConvertedGraphics {
 	private void paintCompositeGraphicsNode_0_0_0(Graphics2D g) {
 		// _0_0_0_0
 		AffineTransform trans_0_0_0_0 = g.getTransform();
-		g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 100.0f, 85.71428680419922f));
+		g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 100.0f,
+					85.71428680419922f));
 		paintShapeNode_0_0_0_0(g);
 		g.setTransform(trans_0_0_0_0);
 		// _0_0_0_1
@@ -938,27 +945,32 @@ public class MenuAiGreen extends ConvertedGraphics {
 		g.setTransform(trans_0_0_0_1);
 		// _0_0_0_2
 		AffineTransform trans_0_0_0_2 = g.getTransform();
-		g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.010475910268723965f, 0.04018013924360275f));
+		g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f,
+					0.010475910268723965f, 0.04018013924360275f));
 		paintCompositeGraphicsNode_0_0_0_2(g);
 		g.setTransform(trans_0_0_0_2);
 		// _0_0_0_3
 		AffineTransform trans_0_0_0_3 = g.getTransform();
-		g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 345.60882568359375f, 0.04018013924360275f));
+		g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f,
+					345.60882568359375f, 0.04018013924360275f));
 		paintCompositeGraphicsNode_0_0_0_3(g);
 		g.setTransform(trans_0_0_0_3);
 		// _0_0_0_4
 		AffineTransform trans_0_0_0_4 = g.getTransform();
-		g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.010475910268723965f, 0.04018013924360275f));
+		g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f,
+					0.010475910268723965f, 0.04018013924360275f));
 		paintCompositeGraphicsNode_0_0_0_4(g);
 		g.setTransform(trans_0_0_0_4);
 		// _0_0_0_5
 		AffineTransform trans_0_0_0_5 = g.getTransform();
-		g.transform(new AffineTransform(0.0f, 1.0f, -1.0f, 0.0f, 820.8933715820312f, 78.0869369506836f));
+		g.transform(new AffineTransform(0.0f, 1.0f, -1.0f, 0.0f,
+					820.8933715820312f, 78.0869369506836f));
 		paintCompositeGraphicsNode_0_0_0_5(g);
 		g.setTransform(trans_0_0_0_5);
 		// _0_0_0_6
 		AffineTransform trans_0_0_0_6 = g.getTransform();
-		g.transform(new AffineTransform(0.0f, 1.0f, -1.0f, 0.0f, 820.8933715820312f, 423.685302734375f));
+		g.transform(new AffineTransform(0.0f, 1.0f, -1.0f, 0.0f,
+					820.8933715820312f, 423.685302734375f));
 		paintCompositeGraphicsNode_0_0_0_6(g);
 		g.setTransform(trans_0_0_0_6);
 	}

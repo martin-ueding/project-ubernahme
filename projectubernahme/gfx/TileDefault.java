@@ -28,12 +28,13 @@ public class TileDefault extends ConvertedGraphics {
 	 *            Graphics context.
 	 */
 	public void paint(Graphics2D g) {
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
 		origAlpha = 1.0f;
 		Composite origComposite = g.getComposite();
 		if (origComposite instanceof AlphaComposite) {
 			AlphaComposite origAlphaComposite =
-			    (AlphaComposite)origComposite;
+				(AlphaComposite)origComposite;
 			if (origAlphaComposite.getRule() == AlphaComposite.SRC_OVER) {
 				origAlpha = origAlphaComposite.getAlpha();
 			}
@@ -47,7 +48,8 @@ public class TileDefault extends ConvertedGraphics {
 	}
 
 	private void paintShapeNode_0_0_0_0(Graphics2D g) {
-		Rectangle2D.Double shape0 = new Rectangle2D.Double(185.7142791748047, 255.21932983398438, 262.8571472167969, 262.8571472167969);
+		Rectangle2D.Double shape0 = new Rectangle2D.Double(185.7142791748047,
+				255.21932983398438, 262.8571472167969, 262.8571472167969);
 		g.setPaint(new Color(255, 230, 213, 255));
 		g.fill(shape0);
 		g.setPaint(new Color(0, 0, 0, 255));
@@ -97,7 +99,9 @@ public class TileDefault extends ConvertedGraphics {
 		g.setTransform(trans_0_0_0_0);
 		// _0_0_0_1
 		AffineTransform trans_0_0_0_1 = g.getTransform();
-		g.transform(new AffineTransform(0.7102301120758057f, -0.7039696574211121f, 0.7039696574211121f, 0.7102301120758057f, 0.0f, 0.0f));
+		g.transform(new AffineTransform(0.7102301120758057f,
+					-0.7039696574211121f, 0.7039696574211121f,
+					0.7102301120758057f, 0.0f, 0.0f));
 		paintTextNode_0_0_0_1(g);
 		g.setTransform(trans_0_0_0_1);
 	}

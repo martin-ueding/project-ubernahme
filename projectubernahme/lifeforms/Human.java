@@ -44,7 +44,8 @@ public class Human extends Lifeform {
 	}
 
 	private static void loadNames() {
-		InputStream is = ClassLoader.getSystemResourceAsStream("projectubernahme/lifeforms/first_names.txt");
+		InputStream is = ClassLoader.getSystemResourceAsStream(
+				"projectubernahme/lifeforms/first_names.txt");
 		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 		names = new ArrayList<String>();
 		String input;
@@ -54,7 +55,8 @@ public class Human extends Lifeform {
 			}
 		}
 		catch (IOException e) {
-			ProjectUbernahme.log(Localizer.get("ERROR") + ": " + Localizer.get("could not open file with list of first names"));
+			ProjectUbernahme.log(Localizer.get("ERROR") + ": " + Localizer.get(
+						"could not open file with list of first names"));
 			e.printStackTrace();
 		}
 	}
@@ -72,10 +74,15 @@ public class Human extends Lifeform {
 			 */
 			boolean strangeGuyAround = false;
 			for (SuspicionCase sc : getSuspicionCases()) {
-				if (sc.getL().getPoint2D().distance(getPoint2D()) < 5 * sc.getStrengh()) {
+				if (sc.getL().getPoint2D().distance(getPoint2D()) < 5 *
+						sc.getStrengh()) {
 					/* run away */
-					setViewAngle(Math.atan2(this.getPoint2D().getY() - sc.getL().getPoint2D().getY(), this.getPoint2D().getX() - sc.getL().getPoint2D().getX()));
-					setVelocity(new Vector2D(0.8 * Math.cos(getViewAngle()), 0.8 * Math.sin(getViewAngle())));
+					setViewAngle(Math.atan2(this.getPoint2D().getY() -
+								sc.getL().getPoint2D().getY(),
+								this.getPoint2D().getX() -
+								sc.getL().getPoint2D().getX()));
+					setVelocity(new Vector2D(0.8 * Math.cos(getViewAngle()),
+								0.8 * Math.sin(getViewAngle())));
 					strangeGuyAround = true;
 				}
 			}
@@ -88,7 +95,8 @@ public class Human extends Lifeform {
 
 		/* drop suspicion rates slowly */
 		for (SuspicionCase sc : getSuspicionCases()) {
-			sc.setStrengh(Math.max(0.0, sc.getStrengh() - sleepTime / 1000.0 * 0.01));
+			sc.setStrengh(Math.max(0.0, sc.getStrengh() - sleepTime / 1000.0 *
+						0.01));
 		}
 	}
 
@@ -97,8 +105,10 @@ public class Human extends Lifeform {
 			generateNewWaypoint();
 		}
 
-		setViewAngle(Math.atan2(-this.getPoint2D().getY() + waypoint.getY(), -this.getPoint2D().getX() + waypoint.getX()));
-		setVelocity(new Vector2D(0.5 * Math.cos(getViewAngle()), 0.5 * Math.sin(getViewAngle())));
+		setViewAngle(Math.atan2(-this.getPoint2D().getY() + waypoint.getY(),
+					-this.getPoint2D().getX() + waypoint.getX()));
+		setVelocity(new Vector2D(0.5 * Math.cos(getViewAngle()), 0.5 *
+					Math.sin(getViewAngle())));
 	}
 
 	private void generateNewWaypoint() {
@@ -110,10 +120,13 @@ public class Human extends Lifeform {
 			waypoint = getSim().getEnv().generateNewWaypoint(getPoint2D());
 			trials++;
 		}
-		while (lastLastWaypoint != null && trials <= 3 && waypoint.equals(lastLastWaypoint));
+		while (lastLastWaypoint != null && trials <= 3 &&
+				waypoint.equals(lastLastWaypoint));
 
-		setViewAngle(Math.atan2(-this.getPoint2D().getY() + waypoint.getY(), -this.getPoint2D().getX() + waypoint.getX()));
-		setVelocity(new Vector2D(0.8 * Math.cos(getViewAngle()), 0.8 * Math.sin(getViewAngle())));
+		setViewAngle(Math.atan2(-this.getPoint2D().getY() + waypoint.getY(),
+					-this.getPoint2D().getX() + waypoint.getX()));
+		setVelocity(new Vector2D(0.8 * Math.cos(getViewAngle()), 0.8 *
+					Math.sin(getViewAngle())));
 	}
 
 	private boolean reachedWaypoint() {

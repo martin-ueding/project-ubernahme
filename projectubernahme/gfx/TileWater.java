@@ -30,12 +30,13 @@ public class TileWater extends ConvertedGraphics {
 	 *            Graphics context.
 	 */
 	public void paint(Graphics2D g) {
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
 		origAlpha = 1.0f;
 		Composite origComposite = g.getComposite();
 		if (origComposite instanceof AlphaComposite) {
 			AlphaComposite origAlphaComposite =
-			    (AlphaComposite)origComposite;
+				(AlphaComposite)origComposite;
 			if (origAlphaComposite.getRule() == AlphaComposite.SRC_OVER) {
 				origAlpha = origAlphaComposite.getAlpha();
 			}
@@ -49,7 +50,8 @@ public class TileWater extends ConvertedGraphics {
 	}
 
 	private void paintShapeNode_0_0_0_0(Graphics2D g) {
-		Rectangle2D.Double shape0 = new Rectangle2D.Double(157.14285278320312, 315.2193298339844, 154.2857208251953, 154.2857208251953);
+		Rectangle2D.Double shape0 = new Rectangle2D.Double(157.14285278320312,
+				315.2193298339844, 154.2857208251953, 154.2857208251953);
 		g.setPaint(new Color(0, 0, 255, 255));
 		g.fill(shape0);
 	}
@@ -161,7 +163,8 @@ public class TileWater extends ConvertedGraphics {
 
 	/*
 	 * (non-Javadoc)
-	 * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics, int, int)
+	 * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics,
+	 * int, int)
 	 */
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		Graphics2D g2d = (Graphics2D) g.create();

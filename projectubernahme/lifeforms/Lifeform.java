@@ -22,7 +22,8 @@ import projectubernahme.player.TakeoverThread;
 import projectubernahme.simulator.MainSimulator;
 
 
-/** something with its own mind in the game, can interact with other lifeforms and the world */
+/** something with its own mind in the game, can interact with other lifeforms
+ * and the world */
 abstract public class Lifeform {
 	/** the simulator this lifeform is connected to */
 	private MainSimulator sim;
@@ -45,7 +46,8 @@ abstract public class Lifeform {
 	 * the AI
 	 */
 
-	/** this lets the lifeform act, this can be just sitting around or calling for support or attacking another lifeform */
+	/** this lets the lifeform act, this can be just sitting around or calling
+	 * for support or attacking another lifeform */
 	public abstract void act(int sleepTime);
 
 	private CopyOnWriteArrayList<SuspicionCase> suspicionCases;
@@ -94,7 +96,8 @@ abstract public class Lifeform {
 				getVelocity().zero();
 			}
 			else {
-				setVelocity(new Vector2D(1.0 * dvSign * Math.cos(viewAngle), 1.0 * dvSign * Math.sin(viewAngle)));
+				setVelocity(new Vector2D(1.0 * dvSign * Math.cos(viewAngle),
+							1.0 * dvSign * Math.sin(viewAngle)));
 			}
 		}
 
@@ -115,7 +118,9 @@ abstract public class Lifeform {
 		}
 	}
 
-	/** returns the distance to the other lifeform l, currently just the geometric mean of the axes, later it might include some path trough the world */
+	/** returns the distance to the other lifeform l, currently just the
+	 * geometric mean of the axes, later it might include some path trough the
+	 * world */
 	public double distance (Lifeform l) {
 		return getPoint2D().distance(l.getPoint2D());
 	}
@@ -235,7 +240,8 @@ abstract public class Lifeform {
 	/** list of other lifeforms that this lifeform can see */
 	private ArrayList<Lifeform> neighbors = new ArrayList<Lifeform>();
 
-	/** In order to save power, the list with neighbors is only refreshed when it expires. This tracks the age of the list */
+	/** In order to save power, the list with neighbors is only refreshed when
+	 * it expires. This tracks the age of the list */
 	private double neighborsListAge = 0.0;
 
 	public ArrayList<Lifeform> getNeighbors() {
@@ -286,7 +292,8 @@ abstract public class Lifeform {
 			return false;
 		}
 
-		// if the prey is already controlled by this player, do not take it again
+		// if the prey is already controlled by this player, do not take it
+		// again
 		if (prey.getControllingPlayer() == getControllingPlayer()) {
 			return false;
 		}
@@ -301,7 +308,8 @@ abstract public class Lifeform {
 		}
 	}
 
-	/** takes over control of the given lifeform, returns whether that was successful */
+	/** takes over control of the given lifeform, returns whether that was
+	 * successful */
 	public boolean takeover(Lifeform lifeform) {
 		if (canTakeover(lifeform) && !isBusy()) {
 			return startTakeover(lifeform);
@@ -310,7 +318,8 @@ abstract public class Lifeform {
 	}
 
 	private boolean startTakeover(Lifeform lifeform) {
-		actionThread = new TakeoverThread(this, getControllingPlayer(), lifeform, getSim());
+		actionThread = new TakeoverThread(this, getControllingPlayer(),
+				lifeform, getSim());
 		actionThread.start();
 		return true;
 	}
@@ -334,7 +343,8 @@ abstract public class Lifeform {
 	}
 
 	private void startIngestion(Lifeform whom) {
-		actionThread = new IngestionThread(this, getControllingPlayer(), whom, getSim());
+		actionThread = new IngestionThread(this, getControllingPlayer(), whom,
+				getSim());
 		actionThread.start();
 	}
 
@@ -396,7 +406,8 @@ abstract public class Lifeform {
 	 * everything with external control by a player
 	 */
 
-	/** the player who controls this lifeforms, if null, the computer controls it */
+	/** the player who controls this lifeforms, if null, the computer controls
+	 * it */
 	private Player controllingPlayer = null;
 
 	private boolean inControlledMode = false;
@@ -457,12 +468,14 @@ abstract public class Lifeform {
 	public String toString () {
 		if (name.equals("")) {
 			return getI18nClassName() + (
-			           getBiomass() != 0 ? " [" + ProjectUbernahme.format(getBiomass()) + " kg]" : "");
+					   getBiomass() != 0 ? " [" +
+					   ProjectUbernahme.format(getBiomass()) + " kg]" : "");
 
 		}
 		else {
 			return getName() + " (" + getI18nClassName() + ")" + (
-			           getBiomass() != 0 ? " [" + ProjectUbernahme.format(getBiomass()) + " kg]" : "");
+					   getBiomass() != 0 ? " [" +
+					   ProjectUbernahme.format(getBiomass()) + " kg]" : "");
 		}
 	}
 
@@ -511,13 +524,17 @@ abstract public class Lifeform {
 		points += 10 * (intelligence - l.intelligence);
 
 		if (ProjectUbernahme.getVerboseLevel() >= 5)
-			ProjectUbernahme.log(MessageFormat.format(Localizer.get("{0} has {1} suspicion points against {2}."), new Object[] {toString(), points, l.toString()}), MessageTypes.INFO);
+			ProjectUbernahme.log(MessageFormat.format(Localizer.get(
+							"{0} has {1} suspicion points against {2}."), new
+						Object[] {toString(), points, l.toString()}),
+					MessageTypes.INFO);
 
 		return points > 1;
 	}
 
 	public void rename () {
-		String input = JOptionPane.showInputDialog(Localizer.get("new name") + ":");
+		String input = JOptionPane.showInputDialog(Localizer.get("new name") +
+				":");
 		if (input != null) {
 			setName(input);
 		}
@@ -525,7 +542,8 @@ abstract public class Lifeform {
 
 	public abstract String getI18nClassName();
 
-	void setSuspicionCases(CopyOnWriteArrayList<SuspicionCase> suspicionCases) {
+	void setSuspicionCases(CopyOnWriteArrayList<SuspicionCase> suspicionCases)
+	{
 		this.suspicionCases = suspicionCases;
 	}
 
@@ -592,7 +610,9 @@ abstract public class Lifeform {
 	public Lifeform clone() {
 		Lifeform c = null;
 		try {
-			c = this.getClass().getConstructor(new Class[] {MainSimulator.class, Point2D.class}).newInstance(new Object[] {sim, position});
+			c = this.getClass().getConstructor(new Class[]
+					{MainSimulator.class, Point2D.class}).newInstance(new
+						Object[] {sim, position});
 			c.setName(getName());
 			c.setBiomass(getBiomass());
 			if (isControlled()) {

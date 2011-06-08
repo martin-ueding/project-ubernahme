@@ -26,12 +26,13 @@ public class TileLawn extends ConvertedGraphics {
 	 *            Graphics context.
 	 */
 	public void paint(Graphics2D g) {
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
 		origAlpha = 1.0f;
 		Composite origComposite = g.getComposite();
 		if (origComposite instanceof AlphaComposite) {
 			AlphaComposite origAlphaComposite =
-			    (AlphaComposite)origComposite;
+				(AlphaComposite)origComposite;
 			if (origAlphaComposite.getRule() == AlphaComposite.SRC_OVER) {
 				origAlpha = origAlphaComposite.getAlpha();
 			}
@@ -45,7 +46,8 @@ public class TileLawn extends ConvertedGraphics {
 	}
 
 	private void paintShapeNode_0_0_0_0(Graphics2D g) {
-		Rectangle2D.Double shape0 = new Rectangle2D.Double(176.11679077148438, 270.6311950683594, 285.71429443359375, 285.71429443359375);
+		Rectangle2D.Double shape0 = new Rectangle2D.Double(176.11679077148438,
+				270.6311950683594, 285.71429443359375, 285.71429443359375);
 		g.setPaint(new Color(34, 85, 0, 255));
 		g.fill(shape0);
 	}

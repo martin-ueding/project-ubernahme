@@ -195,7 +195,8 @@ public class TileEnvironment {
 					/* draw only the visible items onto the background */
 					Point2D target = tileTransform.transform(origin, null);
 
-					/* create a whole rectangle and transform it to the screen */
+					/* create a whole rectangle and transform it to the screen
+					 * */
 					Rectangle2D tile = new Rectangle2D.Double(0, 0,
 							tileWidthInReal, tileWidthInReal);
 					Shape tileResult = tileTransform.createTransformedShape(
@@ -223,7 +224,9 @@ public class TileEnvironment {
 					tileTransform.preConcatenate(transform);
 
 					/* draw only the visible items onto the background */
-					if (visible[j][i] || (i + 1 < tiles[0].length && j + 1 < tiles.length && (visible[j+1][i] || visible[j][i+1] || visible[j+1][i+1]))) {
+					if (visible[j][i] || (i + 1 < tiles[0].length && j + 1 <
+								tiles.length && (visible[j+1][i] ||
+									visible[j][i+1] || visible[j+1][i+1]))) {
 
 						if (cgs[tiles[j][i]] != null) {
 							cg = cgs[tiles[j][i]];
@@ -236,7 +239,8 @@ public class TileEnvironment {
 						tileTransform.scale(tileWidthInReal / cg.getOrigWidth()
 								* scaling, tileWidthInReal / cg.getOrigWidth()
 								* scaling);
-						tileTransform.translate(-cg.getOrigX(), -cg.getOrigY());
+						tileTransform.translate(-cg.getOrigX(),
+								-cg.getOrigY());
 
 						g.setTransform(tileTransform);
 						cg.paint(g);
@@ -259,13 +263,17 @@ public class TileEnvironment {
 		int treeOffset =
 			Integer.parseInt(ProjectUbernahme.getConfigValue("treeOffset"));
 		double zombieSpawnChance = 1.0 /
-			Integer.parseInt(ProjectUbernahme.getConfigValue("zombieSpawnChance"));
+			Integer.parseInt(ProjectUbernahme.getConfigValue(
+						"zombieSpawnChance"));
 		double policeSpawnChance = 1.0 /
-			Integer.parseInt(ProjectUbernahme.getConfigValue("policeSpawnChance"));
+			Integer.parseInt(ProjectUbernahme.getConfigValue(
+						"policeSpawnChance"));
 		double humanSpawnChance = 1.0 /
-			Integer.parseInt(ProjectUbernahme.getConfigValue("humanSpawnChance"));
+			Integer.parseInt(ProjectUbernahme.getConfigValue(
+						"humanSpawnChance"));
 		double treeSpawnChance = 1.0 /
-			Integer.parseInt(ProjectUbernahme.getConfigValue("treeSpawnChance"));
+			Integer.parseInt(ProjectUbernahme.getConfigValue(
+						"treeSpawnChance"));
 
 		for (int i = 0; i < tiles[0].length; i++) {
 			for (int j = 0; j < tiles.length; j++) {

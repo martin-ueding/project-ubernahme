@@ -31,12 +31,13 @@ public class MenuTakeover extends ConvertedGraphics {
 	 *            Graphics context.
 	 */
 	public void paint(Graphics2D g) {
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
 		origAlpha = 1.0f;
 		Composite origComposite = g.getComposite();
 		if (origComposite instanceof AlphaComposite) {
 			AlphaComposite origAlphaComposite =
-			    (AlphaComposite)origComposite;
+				(AlphaComposite)origComposite;
 			if (origAlphaComposite.getRule() == AlphaComposite.SRC_OVER) {
 				origAlpha = origAlphaComposite.getAlpha();
 			}
@@ -52,10 +53,14 @@ public class MenuTakeover extends ConvertedGraphics {
 	private void paintShapeNode_0_0_0_0(Graphics2D g) {
 		GeneralPath shape0 = new GeneralPath();
 		shape0.moveTo(525.7143, 363.79074);
-		shape0.curveTo(525.7143, 504.22888, 411.8667, 618.0765, 271.4286, 618.0765);
-		shape0.curveTo(130.99045, 618.0765, 17.142853, 504.22888, 17.142853, 363.79074);
-		shape0.curveTo(17.142853, 223.35262, 130.99045, 109.50502, 271.42856, 109.50502);
-		shape0.curveTo(411.8667, 109.50502, 525.7143, 223.35262, 525.7143, 363.79074);
+		shape0.curveTo(525.7143, 504.22888, 411.8667, 618.0765, 271.4286,
+				618.0765);
+		shape0.curveTo(130.99045, 618.0765, 17.142853, 504.22888, 17.142853,
+				363.79074);
+		shape0.curveTo(17.142853, 223.35262, 130.99045, 109.50502, 271.42856,
+				109.50502);
+		shape0.curveTo(411.8667, 109.50502, 525.7143, 223.35262, 525.7143,
+				363.79074);
 		shape0.closePath();
 		g.setPaint(new Color(0, 0, 0, 255));
 		g.setStroke(new BasicStroke(1.0f, 0, 0, 4.0f, null, 0.0f));
@@ -65,9 +70,12 @@ public class MenuTakeover extends ConvertedGraphics {
 	private void paintShapeNode_0_0_0_1(Graphics2D g) {
 		GeneralPath shape1 = new GeneralPath();
 		shape1.moveTo(187.41275, 601.7208);
-		shape1.curveTo(187.41275, 601.7208, 195.7242, 482.15768, 241.14369, 457.7835);
-		shape1.curveTo(274.80014, 439.72192, 319.76263, 432.21555, 379.3881, 454.83856);
-		shape1.curveTo(430.48108, 474.2242, 435.351, 601.7208, 435.351, 601.7208);
+		shape1.curveTo(187.41275, 601.7208, 195.7242, 482.15768, 241.14369,
+				457.7835);
+		shape1.curveTo(274.80014, 439.72192, 319.76263, 432.21555, 379.3881,
+				454.83856);
+		shape1.curveTo(430.48108, 474.2242, 435.351, 601.7208, 435.351,
+				601.7208);
 		shape1.closePath();
 		g.setPaint(new Color(153, 153, 153, 255));
 		g.fill(shape1);
@@ -79,12 +87,18 @@ public class MenuTakeover extends ConvertedGraphics {
 	private void paintShapeNode_0_0_0_2(Graphics2D g) {
 		GeneralPath shape2 = new GeneralPath();
 		shape2.moveTo(399.70792, 436.01044);
-		shape2.curveTo(399.7141, 455.94662, 392.23126, 474.3722, 380.07956, 484.34283);
-		shape2.curveTo(367.92786, 494.31348, 352.9546, 494.31348, 340.8029, 484.34283);
-		shape2.curveTo(328.65118, 474.3722, 321.16833, 455.94662, 321.17453, 436.01044);
-		shape2.curveTo(321.16833, 416.07425, 328.65118, 397.64868, 340.8029, 387.67804);
-		shape2.curveTo(352.9546, 377.7074, 367.92786, 377.7074, 380.07956, 387.67804);
-		shape2.curveTo(392.23126, 397.64868, 399.7141, 416.07425, 399.70792, 436.01044);
+		shape2.curveTo(399.7141, 455.94662, 392.23126, 474.3722, 380.07956,
+				484.34283);
+		shape2.curveTo(367.92786, 494.31348, 352.9546, 494.31348, 340.8029,
+				484.34283);
+		shape2.curveTo(328.65118, 474.3722, 321.16833, 455.94662, 321.17453,
+				436.01044);
+		shape2.curveTo(321.16833, 416.07425, 328.65118, 397.64868, 340.8029,
+				387.67804);
+		shape2.curveTo(352.9546, 377.7074, 367.92786, 377.7074, 380.07956,
+				387.67804);
+		shape2.curveTo(392.23126, 397.64868, 399.7141, 416.07425, 399.70792,
+				436.01044);
 		shape2.closePath();
 		g.setPaint(new Color(230, 230, 230, 255));
 		g.fill(shape2);
@@ -96,9 +110,12 @@ public class MenuTakeover extends ConvertedGraphics {
 	private void paintShapeNode_0_0_0_3_0(Graphics2D g) {
 		GeneralPath shape3 = new GeneralPath();
 		shape3.moveTo(518.3011, 422.6875);
-		shape3.curveTo(521.6942, 339.08295, 489.794, 286.61047, 450.1875, 265.65625);
-		shape3.curveTo(437.81046, 259.10806, 424.7277, 255.71152, 411.90625, 255.40625);
-		shape3.curveTo(383.6991, 254.73466, 356.77316, 269.06458, 341.40625, 297.9375);
+		shape3.curveTo(521.6942, 339.08295, 489.794, 286.61047, 450.1875,
+				265.65625);
+		shape3.curveTo(437.81046, 259.10806, 424.7277, 255.71152, 411.90625,
+				255.40625);
+		shape3.curveTo(383.6991, 254.73466, 356.77316, 269.06458, 341.40625,
+				297.9375);
 		g.setPaint(new Color(255, 255, 255, 255));
 		g.setStroke(new BasicStroke(12.2f, 0, 0, 4.0f, null, 0.0f));
 		g.draw(shape3);
@@ -131,9 +148,12 @@ public class MenuTakeover extends ConvertedGraphics {
 	private void paintShapeNode_0_0_0_4(Graphics2D g) {
 		GeneralPath shape5 = new GeneralPath();
 		shape5.moveTo(435.43384, 433.68497);
-		shape5.curveTo(461.24966, 433.34274, 486.17892, 435.0453, 506.33032, 447.767);
-		shape5.curveTo(506.33032, 447.767, 489.1576, 475.00146, 468.54886, 455.74554);
-		shape5.curveTo(449.21533, 437.68112, 435.53546, 433.6396, 435.43384, 433.68494);
+		shape5.curveTo(461.24966, 433.34274, 486.17892, 435.0453, 506.33032,
+				447.767);
+		shape5.curveTo(506.33032, 447.767, 489.1576, 475.00146, 468.54886,
+				455.74554);
+		shape5.curveTo(449.21533, 437.68112, 435.53546, 433.6396, 435.43384,
+				433.68494);
 		shape5.closePath();
 		g.fill(shape5);
 	}
@@ -141,9 +161,12 @@ public class MenuTakeover extends ConvertedGraphics {
 	private void paintShapeNode_0_0_0_5(Graphics2D g) {
 		GeneralPath shape6 = new GeneralPath();
 		shape6.moveTo(592.3303, 433.68497);
-		shape6.curveTo(566.51447, 433.34274, 541.5852, 435.0453, 521.43384, 447.767);
-		shape6.curveTo(521.43384, 447.767, 538.60657, 475.00146, 559.2153, 455.74554);
-		shape6.curveTo(578.5488, 437.68112, 592.2287, 433.6396, 592.33026, 433.68494);
+		shape6.curveTo(566.51447, 433.34274, 541.5852, 435.0453, 521.43384,
+				447.767);
+		shape6.curveTo(521.43384, 447.767, 538.60657, 475.00146, 559.2153,
+				455.74554);
+		shape6.curveTo(578.5488, 437.68112, 592.2287, 433.6396, 592.33026,
+				433.68494);
 		shape6.closePath();
 		g.fill(shape6);
 	}
@@ -151,7 +174,8 @@ public class MenuTakeover extends ConvertedGraphics {
 	private void paintCompositeGraphicsNode_0_0_0(Graphics2D g) {
 		// _0_0_0_0
 		AffineTransform trans_0_0_0_0 = g.getTransform();
-		g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 100.0f, 85.71428680419922f));
+		g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 100.0f,
+					85.71428680419922f));
 		paintShapeNode_0_0_0_0(g);
 		g.setTransform(trans_0_0_0_0);
 		// _0_0_0_1
@@ -161,7 +185,9 @@ public class MenuTakeover extends ConvertedGraphics {
 		g.setTransform(trans_0_0_0_1);
 		// _0_0_0_2
 		AffineTransform trans_0_0_0_2 = g.getTransform();
-		g.transform(new AffineTransform(1.1832237243652344f, 0.0f, 0.0f, 1.301390290260315f, -112.27828216552734f, -166.61273193359375f));
+		g.transform(new AffineTransform(1.1832237243652344f, 0.0f, 0.0f,
+					1.301390290260315f, -112.27828216552734f,
+					-166.61273193359375f));
 		paintShapeNode_0_0_0_2(g);
 		g.setTransform(trans_0_0_0_2);
 		// _0_0_0_3

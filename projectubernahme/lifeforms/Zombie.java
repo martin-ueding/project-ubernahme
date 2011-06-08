@@ -38,7 +38,9 @@ public class Zombie extends Lifeform {
 			for (Lifeform n : getNeighbors()) {
 				if (n.getClass().getName().endsWith("Human")) {
 					// do not eat lifeforms of the same player
-					if (getControllingPlayer() == null || n.getControllingPlayer() != getControllingPlayer()) {
+					if (getControllingPlayer() == null ||
+							n.getControllingPlayer() != getControllingPlayer())
+					{
 						double distance = distance(n);
 						if (distance < minDistance) {
 							minDistance = distance;
@@ -55,7 +57,8 @@ public class Zombie extends Lifeform {
 				for(Lifeform n : getNeighbors()) {
 					if (n.getClass().getName().endsWith("Zombie")) {
 						double distance = distance(n);
-						if (distance < minDistance && n.getBiomass() < getBiomass()) {
+						if (distance < minDistance && n.getBiomass() <
+								getBiomass()) {
 							minDistance = distance;
 							closest = n;
 						}
