@@ -2,7 +2,7 @@
 
 # path to the main source, relative to the makefile
 p = projectubernahme
-version = 0.4
+version = 0.4.1
 
 sourceFiles = $(shell find . | egrep "\.java$$")
 classesFiles = $(shell find . | egrep "\.class$$")
