@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: projectubernahme\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2011-04-02 21:44+0200\n"
-"PO-Revision-Date: 2011-04-10 21:45+0000\n"
-"Last-Translator: kodadiirem <Unknown>\n"
+"PO-Revision-Date: 2011-09-02 09:35+0000\n"
+"Last-Translator: Hamit Selahattin Naiboğlu <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-05-11 05:42+0000\n"
-"X-Generator: Launchpad (build 12959)\n"
+"X-Launchpad-Export-Date: 2011-09-03 06:12+0000\n"
+"X-Generator: Launchpad (build 13830)\n"
 
 #: projectubernahme/simulator/SimulatorThread.java:59
 msgid "Game Over!"
@@ -28,7 +28,7 @@ msgstr ""
 
 #: projectubernahme/interface2D/GamePauseKeyListener.java:23
 msgid "Game paused/resumed"
-msgstr ""
+msgstr "Oyun durdur/devam"
 
 #: projectubernahme/interface2D/View2D.java:457
 msgid "Class"
@@ -36,7 +36,7 @@ msgstr "Sınıf"
 
 #: projectubernahme/interface2D/View2D.java:463
 msgid "Biomass"
-msgstr ""
+msgstr "Biokütle"
 
 #: projectubernahme/interface2D/View2D.java:470
 msgid "Name"
@@ -48,23 +48,23 @@ msgstr "yeniden adlandır"
 
 #: projectubernahme/interface2D/CircleMenu.java:62
 msgid "ingest"
-msgstr ""
+msgstr "ye"
 
 #: projectubernahme/interface2D/CircleMenu.java:70
 msgid "take over"
-msgstr ""
+msgstr "kontrölü ele al"
 
 #: projectubernahme/interface2D/CircleMenu.java:78
 msgid "enable auto AI"
-msgstr ""
+msgstr "Otomatik YZ'ı aç"
 
 #: projectubernahme/interface2D/CircleMenu.java:78
 msgid "disable auto AI"
-msgstr ""
+msgstr "Otomatik YZ'ı kapat"
 
 #: projectubernahme/interface2D/CircleMenu.java:86
 msgid "send shockwave"
-msgstr ""
+msgstr "şok dalgası gönder"
 
 #: projectubernahme/interface2D/CircleMenu.java:94
 msgid "split"
@@ -85,7 +85,7 @@ msgstr ""
 #: projectubernahme/player/TakeoverThread.java:81
 #, java-format
 msgid "{0} took control over {1}."
-msgstr ""
+msgstr "{0}, {1} üzerindeki kontrolü ele geçirdi."
 
 #: projectubernahme/player/IngestionThread.java:113
 #, java-format
@@ -106,7 +106,7 @@ msgstr "İnsan"
 
 #: projectubernahme/lifeforms/Fly.java:46
 msgid "Fly"
-msgstr ""
+msgstr "Uç"
 
 #: projectubernahme/lifeforms/Zombie.java:82
 msgid "Zombie"
