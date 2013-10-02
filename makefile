@@ -1,4 +1,4 @@
-# Copyright (c) 2011 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2011, 2013 Martin Ueding <dev@martin-ueding.de>
 
 # path to the main source, relative to the makefile
 p = projectubernahme
@@ -22,13 +22,14 @@ $(p)/ProjectUbernahme.class: $(sourceFiles)
 	javac $(p)/ProjectUbernahme.java
 
 # generates javadoc for everything
-documentation/javadoc: $(sourceFiles)
+html: $(sourceFiles)
 	javadoc $(p)/*.java -d $@ -private -subpackages projectubernahme
 
 # deletes all the compiled or otherwise generated content
 .PHONY: clean
 clean:
 	rm -rf $(p)/*.class $(p)/*/*.class *.jar documentation/javadoc
+	$(RM) -r html
 
 # generates the main .pot file
 localisation/projectubernahme.pot: $(sourceFiles)
